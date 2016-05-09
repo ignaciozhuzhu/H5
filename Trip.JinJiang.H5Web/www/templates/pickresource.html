@@ -24,42 +24,66 @@
         .border5 {
             border: solid 5px #f2f4f7;
         }
-    html, body {
-margin:0;
-padding:0;
-}
-.container {
-height:100%;
-width: 100%;
-border: 1px solid green;
-position:fixed;
-}
+
+        div .scroll {
+            height: 100%;
+        }
+
+        .bottombutton {
+            font-weight: bold;
+            height: 50px;
+            background-color: #3399ff;
+            line-height: 50px;
+            text-align: center;
+            color: white;
+            width: 100%;
+        }
+
+        .textbold {
+            font-weight: bold;
+        }
+
+        .textgray {
+            color: gray;
+        }
+
+        .textp10 {
+            padding: 10px;
+        }
+
+        .textp7 {
+            padding: 7px 10px;
+        }
+
+        .fonts13 {
+            font-size: 13px;
+        }
     </style>
 </head>
 
 <body>
-    <ion-view view-title="日期选择">
+    <ion-view view-title="选择资源">
         <ion-content>
-            <div style="height:100%">
-                <div><锦SHOW> 法国蔚蓝海岸普罗旺斯梦幻城堡12日</锦SHOW></div>
-                <div>出发城市:杭州</div>
+            <div class="fonts13">
+                <div class="textp10">
+                <div class="textbold"><锦SHOW>法国蔚蓝海岸普罗旺斯梦幻城堡12日</div>
+                <div class="textgray">出发城市:杭州</div>
+                </div>
                 <div class="backdarkblue"></div>
                 <div class="border5"></div>
-                <div>单人房差</div>
+                <div class="textbold textp10">单人房差</div>
                 <div class="border5"></div>
-                <div>儿童占床</div>
+                <div class="textbold textp10">儿童占床/加床</div>
                 <div class="border5"></div>
-                <div>取消险</div>
+                <div class="textbold textp7">取消险</div>
                 <div class="border1a"></div>
-                <div>意外险</div>
+                <div class="textbold textp7">意外险</div>
                 <div class="border1"></div>
                 <div class="border5"></div>
-                <div>使用优惠</div>
+                <div class="textbold textp7">使用优惠</div>
                 <div class="border1"></div>
-                <div style="position:relative;bottom:0px">费用总额</div>
-            </div>
-            <div class="container">
-                <div class="a2">div2</div>
+                <div class="textbold textp7" style="position:absolute;bottom:60px">费用总额</div>
+                <div class="bottombutton" style="position:absolute;bottom:0px">下一步,填写订单</div>
             </div>
         </ion-content>
     </ion-view>

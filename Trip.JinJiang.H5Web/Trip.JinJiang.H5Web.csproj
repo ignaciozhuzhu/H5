@@ -1186,6 +1186,8 @@
     <Content Include="modules\plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="modules\plugins\input-mask\phone-codes\phone-codes.json" />
     <Content Include="modules\README.md" />
+    <Content Include="www\templates\aa.html" />
+    <Content Include="www\templates\pickresource.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
