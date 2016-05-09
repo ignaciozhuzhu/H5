@@ -31,12 +31,12 @@ namespace Trip.JinJiang.H5
         {
             var data = "{\"cluster\":1}";
             data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
-            var data2 = "{\"bgUrl\":\"\",\"callPart\":\"TRAVEL\",\"orderNo\":\"1000160323000023\",\"payMethod\":\"MONEY\",\"payType\":\"ONLINE\",\"productTitle\":\"旅游测试title\",\"payAmount\":\"10\"}";
+            //   var data2 = "{\"bgUrl\":\"\",\"callPart\":\"TRAVEL\",\"orderNo\":\"1000160323000023\",\"payMethod\":\"MONEY\",\"payType\":\"ONLINE\",\"productTitle\":\"旅游测试title\",\"payAmount\":\"10\"}";
 
-            var data3="{\"endBookingDate\":\"2016-03-22\",\"mcMemberCode\":\"\",\"orderCode\":\"\",\"orderStatus\":\"\",\"pagination\":{\"endRow\":10,\"page\":2,\"records\":0,\"rows\":10,\"search\":false,\"startRow\":1,\"total\":1},\"payStatus\":\"PAY_WAITING\",\"startBookingDate\":\"2016-03-21\"}";
-           // var response = HttpUtil.Post(data, URL0, contentType: "application/json");
-            var response = HttpUtil.Post(data2, urlprepay, contentType: "application/json");
-            var response3 = HttpUtil.Post(data3, urlsearchorder, contentType: "application/json");
+            //   var data3="{\"endBookingDate\":\"2016-03-22\",\"mcMemberCode\":\"\",\"orderCode\":\"\",\"orderStatus\":\"\",\"pagination\":{\"endRow\":10,\"page\":2,\"records\":0,\"rows\":10,\"search\":false,\"startRow\":1,\"total\":1},\"payStatus\":\"PAY_WAITING\",\"startBookingDate\":\"2016-03-21\"}";
+            // var response = HttpUtil.Post(data, URL0, contentType: "application/json");
+            var response = HttpUtil.Post(data, URL0, contentType: "application/json");
+            //   var response3 = HttpUtil.Post(data3, urlsearchorder, contentType: "application/json");
 
             response = maps.mapAgencies(response);
 
@@ -52,7 +52,7 @@ namespace Trip.JinJiang.H5
 
         public static string Getlinecategoriecrm(string category)
         {
-            string str= "select lineId,lineCategory from dbo.linecategory where lineCategory='" + category + "'";
+            string str = "select lineId,lineCategory from dbo.linecategory where lineCategory='" + category + "'";
             DataSet ds = Common.fillds(str);
             string json = Common.DataTable2Array(ds.Tables[0]);
             json = "{\"rows\":" + json.Replace("'", "\"") + "}";
@@ -73,7 +73,7 @@ namespace Trip.JinJiang.H5
 
             //   response = "[{\"ViewId\":14,\"Name\":\"view 1\",\"IsValid\":true,\"Seq\":\"1\",\"ChangeType\":0}]";
             //  response = "[{\"lineId\": 10109,\"lineName\":\"5天4晚跟团游,YT哈尔滨/亚布力激情滑雪/中国雪乡双飞五日尊享游\",\"name\": \"5天4晚跟团游\"}]";
-            
+
             response = maps.mapAgencies(response);
 
             if (response != null)
@@ -110,9 +110,9 @@ namespace Trip.JinJiang.H5
             var response = HttpUtil.Post(data, URL0, contentType: "application/json");
             response = maps.mapAgencies(response);
 
-            var data2 = "{\"bgUrl\":\"www.baidu.com\",\"callPart\":\"TRAVEL\",\"orderNo\":\"1000160323000023\",\"payMethod\":\"MONEY\",\"payType\":\"ONLINE\",\"productTitle\":\"旅游测试title\",\"payAmount\":\"10\",\"payChannel\":\"ALIPAY\"}";
+            //  var data2 = "{\"bgUrl\":\"www.baidu.com\",\"callPart\":\"TRAVEL\",\"orderNo\":\"1000160323000023\",\"payMethod\":\"MONEY\",\"payType\":\"ONLINE\",\"productTitle\":\"旅游测试title\",\"payAmount\":\"10\",\"payChannel\":\"ALIPAY\"}";
 
-            response = HttpUtil.Post(data2, urlprepay, contentType: "application/json");
+            //  response = HttpUtil.Post(data2, urlprepay, contentType: "application/json");
 
             if (response != null)
             {
@@ -146,7 +146,7 @@ namespace Trip.JinJiang.H5
         }
 
 
-       
+
 
 
 

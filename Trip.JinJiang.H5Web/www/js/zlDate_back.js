@@ -1,10 +1,9 @@
-﻿
-var obj = { date: new Date(), year: -1, month: -1, priceArr: [] };
+﻿var obj = { date: new Date(), year: -1, month: -1, priceArr: [] };
 var htmlObj = { header: "", left: "", right: "" };
 var elemId = null;
 function getAbsoluteLeft(objectId) {
-   var o = document.getElementById(objectId)
-   var oLeft = o.offsetLeft;
+    var o = document.getElementById(objectId)
+    var oLeft = o.offsetLeft;
     while (o.offsetParent != null) {
         oParent = o.offsetParent
         oLeft += oParent.offsetLeft
@@ -14,8 +13,8 @@ function getAbsoluteLeft(objectId) {
 }
 //获取控件上绝对位置
 function getAbsoluteTop(objectId) {
-   var o = document.getElementById(objectId);
-   var oTop = o.offsetTop + o.offsetHeight + 10;
+    var o = document.getElementById(objectId);
+    var oTop = o.offsetTop + o.offsetHeight + 10;
     while (o.offsetParent != null) {
         oParent = o.offsetParent
         oTop += oParent.offsetTop
@@ -24,10 +23,6 @@ function getAbsoluteTop(objectId) {
     return oTop
 }
 //获取控件宽度
-function getElementWidth(objectId) {
-    x = document.getElementById(objectId);
-    return x.clientHeight;
-}
 var pickerEvent = {
     Init: function (elemid) {
         if (obj.year == -1) {
@@ -42,19 +37,19 @@ var pickerEvent = {
         }
         var html = '<div id="calendar_choose" class="calendar" style="display: block; position: absolute;">'
         html += htmlObj.header;
-        html += '<div class="basefix" id="bigCalendar" style="display: block;padding-left:0">';
+        html += '<div class="basefix" id="bigCalendar" style="display: block;">';
         html += htmlObj.left;
         html += htmlObj.right;
         html += '<div style="clear: both;"></div>';
         html += "</div></div>";
-        elemId=elemid;
-        var elemObj = document.getElementById(elemid);       
+        elemId = elemid;
+        var elemObj = document.getElementById(elemid);
         $(document.body).append(html);
         document.getElementById("picker_last").onclick = pickerEvent.getLast;
         document.getElementById("picker_next").onclick = pickerEvent.getNext;
-		document.getElementById("picker_today").onclick = pickerEvent.getToday;
-        document.getElementById("calendar_choose").style.left = getAbsoluteLeft(elemid)+"px";
-        document.getElementById("calendar_choose").style.top  = getAbsoluteTop(elemid)+"px";
+        document.getElementById("picker_today").onclick = pickerEvent.getToday;
+        //  document.getElementById("calendar_choose").style.left = getAbsoluteLeft(elemid)+"px";
+        //   document.getElementById("calendar_choose").style.top  = getAbsoluteTop(elemid)+"px";
         document.getElementById("calendar_choose").style.zIndex = 1000;
         var tds = document.getElementById("calendar_tab").getElementsByTagName("td");
         for (var i = 0; i < tds.length; i++) {
@@ -64,7 +59,7 @@ var pickerEvent = {
                 };
             }
         }
-        // return html;
+        //return html;
         //return elemObj;
     },
     getLast: function () {
@@ -75,14 +70,15 @@ var pickerEvent = {
         dateUtil.getNexDate();
         pickerEvent.Init(elemId);
     },
-	getToday:function(){
-		dateUtil.getCurrent();
-		pickerEvent.Init(elemId);
-	},
+    getToday: function () {
+        dateUtil.getCurrent();
+        pickerEvent.Init(elemId);
+    },
     setPriceArr: function (arr) {
         obj.priceArr = arr;
     },
     remove: function () {
+        //  alert('5')
         var p = document.getElementById("calendar_choose");
         if (p != null) {
             document.body.removeChild(p);
@@ -98,14 +94,14 @@ var pickerEvent = {
         }
     }
 }
-console.log("\u767e\u5ea6\u641c\u7d22\u3010\u7d20\u6750\u5bb6\u56ed\u3011\u4e0b\u8f7d\u66f4\u591aJS\u7279\u6548\u4ee3\u7801");
+
 var pickerHtml = {
     getHead: function () {
-        var head = '<ul class="calendar_num basefix"><li class="bold">六</li><li>五</li><li>四</li><li>三</li><li>二</li><li>一</li><li class="bold">日</li><li class="picker_today bold" id="picker_today">回到今天</li></ul>';
+        var head = '<ul class="calendar_num basefix"><li class="bold">六</li><li>五</li><li>四</li><li>三</li><li>二</li><li>一</li><li class="bold">日</li><li class="picker_today bold" id="picker_today">今</li></ul>';
         htmlObj.header = head;
     },
     getLeft: function () {
-        var left = '<div class="calendar_left pkg_double_month"><p class="date_text">' + obj.year + '年<br>' + obj.month + '月</p><a href="javascript:void()" title="上一月" id="picker_last" class="pkg_circle_top">上一月</a><a href="javascript:void()" title="下一月" id="picker_next" class="pkg_circle_bottom ">下一月</a></div>';
+        var left = '<div class="calendar_left pkg_double_month"><p class="date_text">' + obj.year.toString().substring(2, 4) + '年<br>' + obj.month + '月</p><a href="javascript:void()" title="上一月" id="picker_last" class="pkg_circle_top">上一月</a><a href="javascript:void()" title="下一月" id="picker_next" class="pkg_circle_bottom ">下一月</a></div>';
         htmlObj.left = left;
     },
     getRight: function () {
@@ -126,16 +122,16 @@ var pickerHtml = {
                     priceStr = "<dfn>¥</dfn>" + price;
                     classStyle = "class='on'";
                 }
-				if (price != -1&&obj.year==new Date().getFullYear()&&obj.month==new Date().getMonth()+1&&i-c==new Date().getDate()) {
+                if (price != -1 && obj.year == new Date().getFullYear() && obj.month == new Date().getMonth() + 1 && i - c == new Date().getDate()) {
                     classStyle = "class='on today'";
                 }
-				//判断今天
-				if(obj.year==new Date().getFullYear()&&obj.month==new Date().getMonth()+1&&i-c==new Date().getDate()){
-					html += '<td  ' + classStyle + ' date="' + obj.year + "-" + obj.month + "-" + (i - c) + '" price="' + price + '"><a><span class="date basefix">今天</span><span class="team basefix" style="display: none;">&nbsp;</span><span class="calendar_price01">' + priceStr + '</span></a></td>';
-				}
-				else{
-                	html += '<td  ' + classStyle + ' date="' + obj.year + "-" + obj.month + "-" + (i - c) + '" price="' + price + '"><a><span class="date basefix">' + (i - c) + '</span><span class="team basefix" style="display: none;">&nbsp;</span><span class="calendar_price01">' + priceStr + '</span></a></td>';
-				}
+                //判断今天
+                if (obj.year == new Date().getFullYear() && obj.month == new Date().getMonth() + 1 && i - c == new Date().getDate()) {
+                    html += '<td  ' + classStyle + ' date="' + obj.year + "-" + obj.month + "-" + (i - c) + '" price="' + price + '"><a><span class="date basefix">今</span><span class="team basefix" style="display: none;">&nbsp;</span><span class="calendar_price01">' + priceStr + '</span></a></td>';
+                }
+                else {
+                    html += '<td  ' + classStyle + ' date="' + obj.year + "-" + obj.month + "-" + (i - c) + '" price="' + price + '"><a><span class="date basefix">' + (i - c) + '</span><span class="team basefix" style="display: none;">&nbsp;</span><span class="calendar_price01">' + priceStr + '</span></a></td>';
+                }
                 if (index == 6) {
 
                     html += '</tr>';
@@ -172,7 +168,7 @@ var dateUtil = {
         var dt = obj.date;
         obj.year = dt.getFullYear();
         obj.month = dt.getMonth() + 1;
-		obj.day = dt.getDate();
+        obj.day = dt.getDate();
     },
     getLastDate: function () {
         if (obj.year == -1) {
@@ -212,13 +208,11 @@ var dateUtil = {
 var commonUtil = {
     getPrice: function (day) {
         var dt = obj.year + "-";
-        if (obj.month < 10)
-        {
-            dt += "0"+obj.month;
+        if (obj.month < 10) {
+            dt += "0" + obj.month;
         }
-        else
-        {
-            dt+=obj.month;
+        else {
+            dt += obj.month;
         }
         if (day < 10) {
             dt += "-0" + day;
@@ -226,7 +220,7 @@ var commonUtil = {
         else {
             dt += "-" + day;
         }
-        
+
         for (var i = 0; i < obj.priceArr.length; i++) {
             if (obj.priceArr[i].Date == dt) {
                 return obj.priceArr[i].Price.split('.')[0];
@@ -236,17 +230,33 @@ var commonUtil = {
     },
     chooseClick: function (sender) {
         var date = sender.getAttribute("date");
-        var price = sender.getAttribute("price");
-        var el = document.getElementById(elemId);
-        if (el != null) {
-            el.value = date;
-			alert("日期是："+date);
-			alert("价格是：￥"+price);
-            pickerEvent.remove();
-        }
+        var datearry = new Array();
+        datearry[0] = date.substring(0, date.indexOf('-'));
+        datearry[1] = date.substring(date.indexOf('-') + 1, date.lastIndexOf('-'));
+        datearry[2] = date.substring(date.lastIndexOf('-') + 1, date.length);
+        $('#pickdate').empty();
+        $('#pickdate').append(datearry[0] + "年" + datearry[1] + "月" + datearry[2] + "日");
+        var weekdayArray = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
+
+        //解决部分不兼容不带0日期格式
+        if (datearry[1] < 10)
+            datearry[1] = '0' + datearry[1];
+        if (datearry[2] < 10)
+            datearry[2] = '0' + datearry[2];
+        date = datearry[0] + '-' + datearry[1] + '-' + datearry[2];
+        $('#pickweekday').empty();
+        $('#pickweekday').append(weekdayArray[(new Date(date).getDay())]);
+
+        // var price = sender.getAttribute("price");
+        //  var el = document.getElementById(elemId);
+        //if (el != null) {
+        //    el.value = date;
+        //	alert("日期是："+date);
+        //	alert("价格是：￥"+price);
+        //    pickerEvent.remove();
+        //}
     }
 }
-
 $(document).bind("click", function (event) {
     var e = event || window.event;
     var elem = e.srcElement || e.target;
@@ -256,5 +266,5 @@ $(document).bind("click", function (event) {
         }
         elem = elem.parentNode;
     }
-  //  pickerEvent.remove();
+    //    pickerEvent.remove();
 });

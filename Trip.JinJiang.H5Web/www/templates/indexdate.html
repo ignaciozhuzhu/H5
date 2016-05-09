@@ -2,10 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>仿携程网带价格的jQuery日期选择控件 - 素材家园(www.sucaijiayuan.com)</title>
-    <link href="../css/datepicker.css" rel="stylesheet" />
-    <script src="../js/jquery-1.8.3.min.js"></script>
-    <script src="../js/zlDate.js"></script>
+    <title>日期选择</title>
     <style type="text/css">
         * {
             margin: 0;
@@ -23,30 +20,90 @@
             cursor: pointer;
             text-align: center;
         }
-    </style>
-    <script>
-        function AjaxTime() {
-         //    $.get("../css/date.php", function (data) {
-            //debugger
-            data = '[{"Date":"2014-10-10","Price":"158"},{"Date":"2014-10-11","Price":"158"},{"Date":"2014-10-12","Price":"158"},{"Date":"2014-10-13","Price":"158"},{"Date":"2014-10-14","Price":"158"},{"Date":"2014-10-15","Price":"158"},{"Date":"2014-10-16","Price":"158"},{"Date":"2014-10-17","Price":"158"},{"Date":"2014-11-15","Price":"158"},{"Date":"2014-12-15","Price":"158"},{"Date":"2015-01-15","Price":"158"},{"Date":"2015-01-15","Price":"158"},{"Date":"2015-02-15","Price":"158"},{"Date":"2015-03-15","Price":"59"},{"Date":"2015-04-15","Price":"59"},{"Date":"2015-05-15","Price":"59"},{"Date":"2015-06-15","Price":"59"},{"Date":"2015-07-15","Price":"59"},{"Date":"2015-08-15","Price":"59"},{"Date":"2015-09-15","Price":"59"},{"Date":"2015-10-15","Price":"59"},{"Date":"2015-11-15","Price":"59"},{"Date":"2016-05-05","Price":"59"}]'
-           // debugger
-                pickerEvent.setPriceArr(eval("(" + data + ")"));
-                pickerEvent.Init("calendar");
-   //         });
-        }
-        // AjaxTime();
 
-        //function aaa() {
-        //    AjaxTime();
-        //}
-        //aaa();
-      
-    </script>
+        .div {
+            height: 45px;
+            line-height: 45px;
+            overflow: hidden;
+        }
+
+        .spinner {
+            margin: 10px 0;
+        }
+
+        .textleft {
+            font-weight: bold;
+            padding: 10px;
+        }
+        .textleft510 {
+            font-weight: bold;
+            padding: 5px 10px 5px 10px;
+        }
+
+        .textgray {
+            font-weight: bold;
+            color: #c3c3c3;
+        }
+
+        .yellownum {
+            color: #ff7f16;
+        }
+
+        .textgraysmall {
+            color: #c3c3c3;
+            font-size: 13px;
+        }
+
+        .clearpb {
+            padding-bottom: 0px;
+        }
+
+        .bottombutton {
+            font-weight: bold;
+            height: 50px;
+            background-color: #3399ff;
+            line-height: 50px;
+            text-align: center;
+            color:white;
+        }
+    </style>
+    <link rel="stylesheet" href="css/jquery.spinner.css" />
+    <link href="css/datepicker.css" rel="stylesheet" />
+
 </head>
 
 <body>
-    <center>
-        <input type="text" id="calendar" name="calendar" placeholder="点击选择时间" onclick="AjaxTime()" />
-    </center>
+    <ion-view view-title="日期选择">
+        <ion-content>
+            <div style="padding-top:220px; border:solid 1px #dfdfe1"></div>
+            <div style="background-color:#f3f3f3;border:solid 5px #f2f4f7"></div>
+            <div class="textleft">已选日期 ：<span id="pickdate"></span><span class="textgray" id="pickweekday" style="padding-left:10px"></span></div>
+            <div style="border:solid 1px #dfdfe1"></div>
+            <div class="textleft clearpb" style="">请选择出行人数</div>
+
+            <div style="width:100%;height:55px" class="">
+                <div style="float:left;" class="div textleft510">成人</div>
+                <div style="float:left;" class="textleft510">
+                    <div style="padding: 3px;">¥11000/人</div><div class="textgray" style="padding: 2px;">当日仅剩<span class="yellownum">6</span>席</div>
+                </div>
+                <div style="float:right;padding-top:5px" class="div"><input type="text" class="spinner" /></div>
+            </div>
+            <div style="width:100%;height:55px">
+                <div style="float:left;" class="div textleft510">儿童</div>
+                <div style="float:left;" class="textleft510">
+                    <div style="padding: 3px;">¥6000/人</div><div class="textgray" style="padding: 2px;">当日仅剩<span class="yellownum">3</span>席</div>
+                </div>
+                <div style="float:right;padding-top:5px" class="div"><input type="text" class="spinner" /></div>
+            </div>
+
+            <div class="textleft510 textgraysmall">
+                ·&nbsp 成人+儿童最多支持9人
+            </div>
+            <div class="textleft textgraysmall">
+                ·&nbsp 12周岁以下儿童不占床,如需占床,请在预定下一步中选择儿童占床可选项
+            </div>
+            <div class="bottombutton">下一步:选择资源</div>
+        </ion-content>
+    </ion-view>
 </body>
 </html>

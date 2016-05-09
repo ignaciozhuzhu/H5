@@ -128,25 +128,25 @@
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinespromotion";
     $http.get(nghttp).success(function (response) {
 
-        //for (var i = 0; i < 8; i++) {
-        //    if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0].indexOf('http') < 0)
-        //        response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
-        //}
-        //var arrayLineP = new Array(0);
-        //arrayLineP.push(response.lines[0]);
-        //arrayLineP.push(response.lines[1]);
-        //arrayLineP.push(response.lines[2]);
-        //arrayLineP.push(response.lines[3]);
+        for (var i = 0; i < 8; i++) {
+            if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0].indexOf('http') < 0)
+                response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
+        }
+        var arrayLineP = new Array(0);
+        arrayLineP.push(response.lines[0]);
+        arrayLineP.push(response.lines[1]);
+        arrayLineP.push(response.lines[2]);
+        arrayLineP.push(response.lines[3]);
 
-        //var arrayLineN = new Array(0);
-        //arrayLineN.push(response.lines[4]);
-        //arrayLineN.push(response.lines[5]);
-        //arrayLineN.push(response.lines[6]);
-        //arrayLineN.push(response.lines[7]);
+        var arrayLineN = new Array(0);
+        arrayLineN.push(response.lines[4]);
+        arrayLineN.push(response.lines[5]);
+        arrayLineN.push(response.lines[6]);
+        arrayLineN.push(response.lines[7]);
 
-        //$scope.linelistsP = arrayLineP;
-        //$scope.linelistsN = arrayLineN;
-        //$scope.agencies = response.agencies;
+        $scope.linelistsP = arrayLineP;
+        $scope.linelistsN = arrayLineN;
+        $scope.agencies = response.agencies;
 
     });
 
@@ -264,16 +264,27 @@
 })
 
 
+//线路列表控制器
+.controller('indexdateCtrl', function ($scope, $http) {
+    $scope.$on("$ionicView.loaded", function () {
+        AjaxTime();
+        $('.spinner').spinner({});
+    });
+})
+
+
 .controller('PlaylistCtrl', function ($scope, $stateParams) {
 });
 
 //***************************以下公用方法***************************
 
 
-
-function getlinecategoriecrm() {
-
+function AjaxTime() {
+    data = '[{"Date":"2014-10-10","Price":"158"},{"Date":"2014-10-11","Price":"158"},{"Date":"2014-10-12","Price":"158"},{"Date":"2014-10-13","Price":"158"},{"Date":"2014-10-14","Price":"158"},{"Date":"2014-10-15","Price":"158"},{"Date":"2014-10-16","Price":"158"},{"Date":"2014-10-17","Price":"158"},{"Date":"2014-11-15","Price":"158"},{"Date":"2014-12-15","Price":"158"},{"Date":"2015-01-15","Price":"158"},{"Date":"2015-01-15","Price":"158"},{"Date":"2015-02-15","Price":"158"},{"Date":"2015-03-15","Price":"59"},{"Date":"2015-04-15","Price":"59"},{"Date":"2015-05-15","Price":"59"},{"Date":"2015-06-15","Price":"59"},{"Date":"2015-07-15","Price":"59"},{"Date":"2015-08-15","Price":"59"},{"Date":"2015-09-15","Price":"59"},{"Date":"2015-10-15","Price":"59"},{"Date":"2015-11-15","Price":"59"},{"Date":"2016-05-05","Price":"59"},{"Date":"2016-05-08","Price":"1259"}]'
+    pickerEvent.setPriceArr(eval("(" + data + ")"));
+    pickerEvent.Init("calendar");
 }
+
 
 var dayslength;
 var counting = 0;

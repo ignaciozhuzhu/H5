@@ -71,6 +71,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
               }
           }
       })
+     .state('app.indexdate', {
+         url: '/indexdate',
+         views: {
+             'menuContent': {
+                 templateUrl: 'templates/indexdate.html',
+                 controller: 'indexdateCtrl'
+             }
+         }
+     })
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/index');///app/playlists
 });
