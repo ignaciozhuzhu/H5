@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trip.JinJiang.H5Web", "Trip.JinJiang.H5Web\Trip.JinJiang.H5Web.csproj", "{66F028A1-64DC-4BC2-A242-8B9E47EDCD97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trip.JinJiang.H5", "Trip.JinJiang.H5\Trip.JinJiang.H5.csproj", "{67A7D53B-E5B2-4F83-B76F-D446BAFD060E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66F028A1-64DC-4BC2-A242-8B9E47EDCD97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66F028A1-64DC-4BC2-A242-8B9E47EDCD97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66F028A1-64DC-4BC2-A242-8B9E47EDCD97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66F028A1-64DC-4BC2-A242-8B9E47EDCD97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67A7D53B-E5B2-4F83-B76F-D446BAFD060E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67A7D53B-E5B2-4F83-B76F-D446BAFD060E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67A7D53B-E5B2-4F83-B76F-D446BAFD060E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67A7D53B-E5B2-4F83-B76F-D446BAFD060E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

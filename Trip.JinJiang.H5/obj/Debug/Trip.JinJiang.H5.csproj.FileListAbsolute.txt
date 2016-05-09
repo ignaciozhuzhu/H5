@@ -1,0 +1,51 @@
+c:\users\yangcc\documents\visual studio 2015\Projects\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Trip.JinJiang.H5.dll
+c:\users\yangcc\documents\visual studio 2015\Projects\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Trip.JinJiang.H5.pdb
+c:\users\yangcc\documents\visual studio 2015\Projects\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\trip.Core.dll
+c:\users\yangcc\documents\visual studio 2015\Projects\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Lucene.Net.dll
+c:\users\yangcc\documents\visual studio 2015\Projects\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Lucene.China.dll
+c:\users\yangcc\documents\visual studio 2015\Projects\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Newtonsoft.Json.dll
+c:\users\yangcc\documents\visual studio 2015\Projects\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\trip.Core.pdb
+c:\users\yangcc\documents\visual studio 2015\Projects\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\trip.Core.xml
+c:\users\yangcc\documents\visual studio 2015\Projects\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Newtonsoft.Json.xml
+c:\users\yangcc\documents\visual studio 2015\Projects\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.dll
+c:\users\yangcc\documents\visual studio 2015\Projects\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.pdb
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.csprojResolveAssemblyReference.cache
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Trip.JinJiang.H5.dll
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Trip.JinJiang.H5.pdb
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\mscorlib.dll
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\System.Net.Http.dll
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Lucene.Net.dll
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Lucene.China.dll
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\System.Net.Http.xml
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\trip.Core.pdb
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\trip.Core.xml
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\zh-Hans\mscorlib.resources.dll
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\zh-Hans\System.Net.Http.resources.dll
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\normidna.nlp
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\normnfc.nlp
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\normnfd.nlp
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\normnfkc.nlp
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\normnfkd.nlp
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.csprojResolveAssemblyReference.cache
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.dll
+C:\Users\ci\Downloads\【批量下载】URL0cluster1等\代码\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.pdb
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Trip.JinJiang.H5.dll
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Trip.JinJiang.H5.pdb
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Lucene.Net.dll
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Lucene.China.dll
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Newtonsoft.Json.dll
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\trip.Core.pdb
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\trip.Core.xml
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Newtonsoft.Json.xml
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.csprojResolveAssemblyReference.cache
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.dll
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.pdb
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Trip.JinJiang.H5.dll
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Trip.JinJiang.H5.pdb
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Newtonsoft.Json.dll
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Newtonsoft.Json.xml
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.dll
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.pdb
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.csprojResolveAssemblyReference.cache

@@ -1,0 +1,160 @@
+<style>
+    .padding5px {
+        padding: 5px;
+    }
+
+    .height_1px {
+        height: 1px;
+        background-color: #ddd;
+    }
+
+    .height_5px {
+        height: 5px;
+        background-color: #f3f3f3;
+    }
+
+    .circle {
+        margin: 9px;
+        width: 3px;
+        height: 3px;
+        background: #6ad0eb;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        float: left;
+    }
+
+    .thirdCenter {
+        float: left;
+        width: 33%;
+        text-align: center;
+    }
+
+    .smalltitle {
+        font-weight: bold;
+        padding: 3px;
+        font-size: 14px;
+    }
+
+    .smallsmtitle {
+        margin: 3px 0 3px 0;
+        padding: 3px;
+        font-size: 14px;
+    }
+
+    .smallcontent {
+        color: #A2A2A2;
+        font-size: 12px;
+    }
+
+    .smallcontent2 {
+        color: #888888;
+        font-size: 13px;
+    }
+
+    .smallcontent3 {
+        color: #888888;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .contentblue {
+        color: #3399ff;
+    }
+
+    .lineblue {
+        background-color: #3399ff;
+    }
+</style>
+<ion-view view-title="路线详细">
+    <ion-content>
+        <div style="background-image:url(https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1078813219,450692895&fm=116&gp=0.jpg);height:150px;background-repeat:no-repeat;background-size: 100% ;">
+            <div><img style="height:30px;float:right" src="img/收藏后.png" /></div>
+            <div style="color:white;font-size:15px;padding:120px 10px 0px 10px"><span style="float:left;">跟团游</span><span style="float:right;">团号:SJTAMA160262-003S</span></div>
+        </div>
+        <div>
+            <div class="padding5px">
+                <div class="smalltitle">
+                    {{linedetails.name}}
+                </div>
+                <div style="padding:5px">
+                    {{linedetails.title}}
+                </div>
+                <div>
+                    <span style="font-size:15px;color:goldenrod;padding-left:5px">¥{{price}}</span><span class="smallcontent" style="padding-left:7px;">起</span>
+                </div>
+            </div>
+            <div class="height_1px"></div>
+            <div class="height_5px"></div>
+            <div id="groupsheight" class="padding5px">
+                <div style="float:left;width:8%"><img src="img/出团日期.png" style="width:19px;padding-left:3px" onclick="moredays()"/></div>
+                <div id="groupsinheight" class="smallcontent2" style="float:left;width:23%" onclick="moredays()">出团日期</div>
+                <div style="float:right;width:3.8%"><img src="img/更多.png" style="width:15px" onclick="moredays()"></div>
+                <div class="smallcontent2" style="float:left;width:16.3%" ng-repeat="playlist in group1">
+                    {{playlist.departDate}}
+                </div>
+                <div class="smallcontent2 daysgroup2" style="float:left;width:16.3%;display:none" ng-repeat="playlist in group2">
+                    {{playlist.departDate}}
+                </div>
+            </div>
+            <div style="height:1px;background-color:#ddd"></div>
+            <div class="padding5px">
+                <div class="smalltitle">优惠详情:</div>
+                <div class="circle"></div><div class="smallcontent2" style="padding-left:5px;padding:3px">提前20天立减200</div>
+                <div style="padding-bottom:5px"><div class="circle"></div><div class="smallcontent2" style="padding-left:5px;padding:3px">提前30天立减300</div></div>
+            </div>
+            <div class="height_1px"></div>
+            <div class="height_5px"></div>
+            <div class="padding5px" style="height:28px">
+                <div id="titlefeature" class="thirdCenter smallcontent2" onclick="featureCl()">
+                    行程特色
+                </div>
+                <div id="titleline" class="thirdCenter smallcontent2" onclick="lineCl()">
+                    路线行程
+                </div>
+                <div id="titleexpense" class="thirdCenter smallcontent2" onclick="expenseCl()">
+                    费用详情
+                </div>
+
+            </div>
+            <div class="height_1px thirdCenter"></div>
+            <div class="height_1px thirdCenter"></div>
+            <div class="height_1px thirdCenter"></div>
+
+            <div class="padding5px" id="idfeature">
+                <div class="smalltitle">行程特色:</div>
+                <div class="smallcontent3" ng-bind-html="featureContent" compile-template></div>
+            </div>
+
+            <div class="padding5px" id="idline">
+                <div class="smalltitle">路线行程:</div>
+
+                <div style="height:67px" ng-repeat="x in journeys">
+                    <div style="float:left">
+                        <div><img src="img/路线行程.png" style="width:19px;height:19px; line-height: 25px;padding:3px;margin-top:3px" /></div>
+                        <div style="height:19px"><img src="img/路线行程2.png" style="width:19px;margin-top:-7px" /></div><div style="height:19px"><img src="img/路线行程2.png" style="width:19px;margin-top:-7px" /></div>
+                    </div>
+                    <div>
+                        <div class="smalltitle">第{{x.dayNumber}}天:{{x.departurePlace}}-{{x.destination}}</div>
+                        <div>项目:{{x.subject}}</div>
+                        <div>节目:{{x.journeyDetail[0].programName}}</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="padding5px" id="idexpense">
+                <div class="smalltitle ">费用详情:</div>
+
+                <div class="smallsmtitle"><img style="height:13px" src="img/行程特色.png" /> 价格包含:</div>
+                <div class="smallcontent3" ng-bind-html="priceIncludeContent" compile-template></div>
+
+                <div class="smallsmtitle"><img style="height:13px" src="img/行程特色.png" />价格不包含:</div>
+                <div class="smallcontent3" ng-bind-html="priceExclusiveContent" compile-template></div>
+
+            </div>
+
+        </div>
+    </ion-content>
+</ion-view>
+
