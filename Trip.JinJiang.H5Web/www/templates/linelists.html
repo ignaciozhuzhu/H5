@@ -4,13 +4,13 @@
     <div class="bar bar-subheader bar-stable" style="height:40px">
 
         <div class="button-bar">
-            <select style="padding-left: 10%;padding-right: 5%;max-width: 33%;border-right:0.5px solid #A2A2A2;font-size:14px" class="button button-clear" ng-model="orderByPrice">
+            <select style="padding-left: 10%;padding-right: 5%;max-width: 33%;font-size:14px" class="button button-clear" ng-model="orderByPrice">
                 <option value="">价格</option>
                 <option value="originalPrice">从低到高</option>
                 <option value="-originalPrice">从高到低</option>
             </select>
 
-            <select style="padding-left: 8%;padding-right: 5%;max-width: 33%;border-right:0.5px solid #A2A2A2;font-size:14px" class="button button-clear" ng-model="fAgencies" ng-options="a.name as a.name for a in agencies">
+            <select style="padding-left: 8%;padding-right: 5%;max-width: 33%;border-right:0.8px solid #A2A2A2;font-size:14px;border-image: url('img/logo4.png') 100 60 1;" class="button button-clear" ng-model="fAgencies" ng-options="a.name as a.name for a in agencies">
                 <option value="">旅行社</option>
             </select>
             <select style="padding-left: 10%;padding-right: 5%;max-width: 33%;font-size:14px" class="button button-clear" ng-model="orderByDay">

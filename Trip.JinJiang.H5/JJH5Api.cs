@@ -22,7 +22,8 @@ namespace Trip.JinJiang.H5
         private const string URL0 = "http://travelsearchservice.jinjiang.uat/travelsearchservice/travel/search/searchTravel";   //线路列表接口
         private const string URL5 = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/line/queryCMSLineInfo";     //CMS线路详情接口
         private const string URL6 = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/line/queryLinesForCMS";     //CMS线路列表接口
-
+        private const string urlprepay = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/payment/prepay";
+        private const string urlsearchorder = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/queryOrderList";
         /// <summary>
         /// 查询路线
         /// </summary>
@@ -30,9 +31,12 @@ namespace Trip.JinJiang.H5
         {
             var data = "{\"cluster\":1}";
             data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
-            // data = "{\"lineCategory\":\"GROUPTRIP\"}";
+            var data2 = "{\"bgUrl\":\"\",\"callPart\":\"TRAVEL\",\"orderNo\":\"1000160323000023\",\"payMethod\":\"MONEY\",\"payType\":\"ONLINE\",\"productTitle\":\"旅游测试title\",\"payAmount\":\"10\"}";
 
-            var response = HttpUtil.Post(data, URL0, contentType: "application/json");
+            var data3="{\"endBookingDate\":\"2016-03-22\",\"mcMemberCode\":\"\",\"orderCode\":\"\",\"orderStatus\":\"\",\"pagination\":{\"endRow\":10,\"page\":2,\"records\":0,\"rows\":10,\"search\":false,\"startRow\":1,\"total\":1},\"payStatus\":\"PAY_WAITING\",\"startBookingDate\":\"2016-03-21\"}";
+           // var response = HttpUtil.Post(data, URL0, contentType: "application/json");
+            var response = HttpUtil.Post(data2, urlprepay, contentType: "application/json");
+            var response3 = HttpUtil.Post(data3, urlsearchorder, contentType: "application/json");
 
             response = maps.mapAgencies(response);
 
@@ -105,6 +109,10 @@ namespace Trip.JinJiang.H5
             data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
             var response = HttpUtil.Post(data, URL0, contentType: "application/json");
             response = maps.mapAgencies(response);
+
+            var data2 = "{\"bgUrl\":\"www.baidu.com\",\"callPart\":\"TRAVEL\",\"orderNo\":\"1000160323000023\",\"payMethod\":\"MONEY\",\"payType\":\"ONLINE\",\"productTitle\":\"旅游测试title\",\"payAmount\":\"10\",\"payChannel\":\"ALIPAY\"}";
+
+            response = HttpUtil.Post(data2, urlprepay, contentType: "application/json");
 
             if (response != null)
             {
