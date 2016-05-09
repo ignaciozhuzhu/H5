@@ -264,12 +264,17 @@
 })
 
 
-//线路列表控制器
+//日期选择控制器
 .controller('indexdateCtrl', function ($scope, $http) {
     $scope.$on("$ionicView.loaded", function () {
         AjaxTime();
         $('.spinner').spinner({});
     });
+})
+
+//选择资源控制器
+.controller('pickresourceCtrl', function ($scope, $http) {
+    
 })
 
 

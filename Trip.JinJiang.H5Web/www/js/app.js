@@ -80,6 +80,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
              }
          }
      })
+     .state('app.pickresource', {
+         url: '/pickresource',
+         views: {
+             'menuContent': {
+                 templateUrl: 'templates/pickresource.html',
+                 controller: 'pickresourceCtrl'
+             }
+         }
+     })
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/index');///app/playlists
 });
