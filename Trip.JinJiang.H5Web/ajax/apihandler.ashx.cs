@@ -101,6 +101,21 @@ namespace Trip.JinJiang.H5Web.ajax
             }
         }
 
+        /// <summary>
+        /// 创建订单
+        /// </summary>
+        public void createorder()
+        {
+            try
+            {
+             //   int lineid = Convert.ToInt32(HttpContext.Current.Request["lineid"]);
+                HttpContext.Current.Response.Write(JJH5Api.CreateOrder());
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
         public bool IsReusable
         {
             get

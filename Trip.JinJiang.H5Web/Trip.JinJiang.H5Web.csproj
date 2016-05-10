@@ -1026,6 +1026,9 @@
     </Content>
     <Content Include="ajax\apihandler.ashx" />
     <Content Include="www\css\datepicker.css" />
+    <Content Include="www\css\datepicker_back.css" />
+    <Content Include="www\css\jquery.spinner2.css" />
+    <Content Include="www\css\jquery.spinner.css" />
     <Content Include="www\css\royalslider.css" />
     <Content Include="www\css\rs-minimal-white.css" />
     <Content Include="www\images\1.jpg" />
@@ -1033,6 +1036,7 @@
     <Content Include="www\images\3.jpg" />
     <Content Include="www\images\4.jpg" />
     <Content Include="www\images\5.jpg" />
+    <Content Include="www\images\backtop.gif" />
     <Content Include="www\images\bg_calendar.png" />
     <Content Include="www\images\bodyBg.jpg" />
     <Content Include="www\images\bodyBg2.jpg" />
@@ -1042,11 +1046,14 @@
     <Content Include="www\images\img2.jpg" />
     <Content Include="www\images\img3.jpg" />
     <Content Include="www\images\img4.jpg" />
+    <Content Include="www\images\spinner.png" />
+    <Content Include="www\images\spinner2.png" />
     <Content Include="www\img\logo.png" />
     <Content Include="www\img\个人中心图标.png" />
     <Content Include="www\img\主题游.png" />
     <Content Include="www\img\定位图标2.png" />
     <Content Include="www\img\定制游.png" />
+    <Content Include="www\img\小黄星.png" />
     <Content Include="www\img\收藏前.png" />
     <Content Include="www\img\收藏后.png" />
     <Content Include="www\img\放大镜2.png" />
@@ -1186,15 +1193,15 @@
     <Content Include="modules\plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="modules\plugins\input-mask\phone-codes\phone-codes.json" />
     <Content Include="modules\README.md" />
-    <Content Include="www\templates\aa.html" />
-    <Content Include="www\templates\pickresource.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="www\js\jquery.spinner.js" />
     <Content Include="www\js\zlDate.js" />
+    <Content Include="www\js\zlDate_back.js" />
     <Content Include="www\lib\ionic\fonts\ionicons.eot" />
     <Content Include="www\lib\ionic\fonts\ionicons.ttf" />
     <Content Include="www\lib\ionic\fonts\ionicons.woff" />
@@ -1267,7 +1274,10 @@
     <Content Include="www\lib\ionic\js\ionic.bundle.min.js" />
     <Content Include="www\lib\ionic\js\ionic.js" />
     <Content Include="www\lib\ionic\js\ionic.min.js" />
+    <Content Include="www\templates\down.html" />
     <Content Include="www\templates\extend.html" />
+    <Content Include="www\templates\fillorder.html" />
+    <Content Include="www\templates\pickresource.html" />
     <Content Include="www\templates\indexdate.html" />
     <Content Include="www\templates\linedetail.html" />
     <Content Include="www\templates\menu.html" />

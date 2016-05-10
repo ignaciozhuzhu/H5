@@ -57,6 +57,7 @@
     var searchParam = request("search");
     var nghttp = "../../ajax/apihandler.ashx?fn=getlines";
     $http.get(nghttp).success(function (response) {
+        debugger
         var arrayLinemm = new Array(0);
         for (var i = 0; i < response.lines.length; i++) {
             if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0].indexOf('http') < 0)
@@ -274,7 +275,68 @@
 
 //选择资源控制器
 .controller('pickresourceCtrl', function ($scope, $http) {
-    
+    $('.spinner').spinner({});
+    var amount = 22000;
+    var secureamount = 0;
+    $('#amount').empty().append(amount);
+    $('#secureamount').empty().append('0');
+
+    $("#checkcancel").click(function () {
+        if (this.checked == false) {
+            amount -= 50;
+            secureamount -= 50;
+        }
+        else {
+            amount += 50;
+            secureamount += 50;
+        }
+        $('#amount').empty().append(amount);
+        $('#secureamount').empty().append(secureamount);
+    });
+    $("#checkaccident").click(function () {
+        if (this.checked == false){
+            amount -= 80;
+            secureamount -= 80;
+        }
+        else{
+            amount += 80;
+            secureamount += 80;
+        }
+        $('#amount').empty().append(amount);
+        $('#secureamount').empty().append(secureamount);
+    });
+    roomdiffp1 = 0;
+    roomdiffp2 = 0;
+    $("#sp1").click(function () {
+        roomdiffp1 = this.children[0].children[1].value;
+        subamount();
+    });
+    $("#sp2").click(function () {
+        roomdiffp2 = this.children[0].children[1].value;
+        subamount();
+    });
+    $("#sp1").change(function () {
+        roomdiffp1 = this.children[0].children[1].value;
+        subamount();
+    });
+    $("#sp2").change(function () {
+        roomdiffp2 = this.children[0].children[1].value;
+        subamount();
+    });
+    function subamount() {
+        roomdiff = 4800 * roomdiffp1 + 100 * roomdiffp2;
+        $('#amount').empty().append(amount + roomdiff);
+    }
+
+
+})
+
+//填写订单控制器
+.controller('fillorderCtrl', function ($scope, $http) {
+    var nghttp = "../../ajax/apihandler.ashx?fn=createorder";
+    //$http.get(nghttp).success(function (response) {
+    //    debugger
+    //});
 })
 
 
@@ -283,9 +345,18 @@
 
 //***************************以下公用方法***************************
 
+function costdetail() {
+    $(".black_overlay").css('display', 'block');
+    $("#costdetail").css('display', 'block');
+}
+
+function costdetailnone() {
+    $(".black_overlay").css('display', 'none');
+    $("#costdetail").css('display', 'none');
+}
 
 function AjaxTime() {
-    data = '[{"Date":"2014-10-10","Price":"158"},{"Date":"2014-10-11","Price":"158"},{"Date":"2014-10-12","Price":"158"},{"Date":"2014-10-13","Price":"158"},{"Date":"2014-10-14","Price":"158"},{"Date":"2014-10-15","Price":"158"},{"Date":"2014-10-16","Price":"158"},{"Date":"2014-10-17","Price":"158"},{"Date":"2014-11-15","Price":"158"},{"Date":"2014-12-15","Price":"158"},{"Date":"2015-01-15","Price":"158"},{"Date":"2015-01-15","Price":"158"},{"Date":"2015-02-15","Price":"158"},{"Date":"2015-03-15","Price":"59"},{"Date":"2015-04-15","Price":"59"},{"Date":"2015-05-15","Price":"59"},{"Date":"2015-06-15","Price":"59"},{"Date":"2015-07-15","Price":"59"},{"Date":"2015-08-15","Price":"59"},{"Date":"2015-09-15","Price":"59"},{"Date":"2015-10-15","Price":"59"},{"Date":"2015-11-15","Price":"59"},{"Date":"2016-05-05","Price":"59"},{"Date":"2016-05-08","Price":"1259"}]'
+    data = '[{"Date":"2016-05-05","Price":"59"},{"Date":"2016-05-08","Price":"1259"},{"Date":"2016-08-15","Price":"59"},{"Date":"2015-09-15","Price":"59"},{"Date":"2016-10-15","Price":"59"},{"Date":"2016-11-15","Price":"59"}]'
     pickerEvent.setPriceArr(eval("(" + data + ")"));
     pickerEvent.Init("calendar");
 }

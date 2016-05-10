@@ -11,7 +11,7 @@ namespace Trip.JinJiang.H5
 {
     class Common
     {
-
+        static string conn = System.Configuration.ConfigurationSettings.AppSettings["conn"];
         /// <summary>
         /// 为combox提供数据格式
         /// </summary>
@@ -45,7 +45,7 @@ namespace Trip.JinJiang.H5
 
         public static DataSet fillds(string str)
         {
-            string constr = "Data Source=119.37.192.106,14330;Initial Catalog=devtrip;User ID=trip;Password=Travel@2016";
+            string constr = conn;
             SqlConnection con = new SqlConnection(constr);
             con.Open();
             SqlCommand lo_cmd = new SqlCommand();
