@@ -83,15 +83,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
          }
      })
        //选择资源---------------------------------------------
-     //.state('app.pickresource', {
-     //    url: '/pickresource',
-     //    views: {
-     //        'menuContent': {
-     //            templateUrl: 'templates/pickresource.html',
-     //            controller: 'pickresourceCtrl'
-     //        }
-     //    }
-     //})
       .state('app.pickresource2', {
           url: '/pickresource/:groupid/:pnum',
           views: {
@@ -108,6 +99,26 @@ angular.module('starter', ['ionic', 'starter.controllers'])
              'menuContent': {
                  templateUrl: 'templates/fillorder.html',
                  controller: 'fillorderCtrl'
+             }
+         }
+     })
+       //支付方式---------------------------------------------
+     .state('app.payway', {
+         url: '/payway',
+         views: {
+             'menuContent': {
+                 templateUrl: 'templates/payway.html',
+                 controller: 'paywayCtrl'
+             }
+         }
+     })
+       //取消订单---------------------------------------------
+     .state('app.cancelorder', {
+         url: '/cancelorder',
+         views: {
+             'menuContent': {
+                 templateUrl: 'templates/cancelorder.html',
+                 controller: 'cancelorderCtrl'
              }
          }
      })

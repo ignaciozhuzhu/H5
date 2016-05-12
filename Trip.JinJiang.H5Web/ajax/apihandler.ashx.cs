@@ -132,6 +132,21 @@ namespace Trip.JinJiang.H5Web.ajax
             }
         }
 
+        /// <summary>
+        /// 取消订单
+        /// </summary>
+        public void cancelorder()
+        {
+            string orderCode= HttpContext.Current.Request["ordercode"];
+            try
+            {
+                HttpContext.Current.Response.Write(JJH5Api.cancelOrder(orderCode));
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
         public bool IsReusable
         {
             get

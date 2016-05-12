@@ -417,6 +417,10 @@
     var url3 = url2.substring(0, url2.lastIndexOf('/'));
     var groupid = url3.substring(url3.lastIndexOf('/') + 1, url3.length);
     var priceid;
+    var Discount;
+    $scope.amount = amount;
+    $scope.pnum = pnum;
+
 
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
     $http.get(nghttp).success(function (response) {
@@ -424,7 +428,17 @@
             if (response.prices[j].offerType == '基本价')
                 priceid = response.prices[j].id;
         }
+        Discount = response.onlineDiscount;
+
+        //出现的出行人行数.
+        var arrayGuests = new Array(0);
+        for (var i = 0; i < pnum;i++){
+            arrayGuests.push(i);
+        }
+        $scope.guests = arrayGuests;
     })
+
+
 
     var Connect = {
         name: '',
@@ -447,49 +461,41 @@
         guestsarr.push(p);
         p = new CGuest('ADULT', 'guest2');
         guestsarr.push(p);
-        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"},{\"category\":\"" + guestsarr[1].category + "\",\"name\":\"" + guestsarr[1].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":0,\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
+
+        var discountAmount = Math.floor(amount * (1 - Discount)) * pnum;
+        //2人
+        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"},{\"category\":\"" + guestsarr[1].category + "\",\"name\":\"" + guestsarr[1].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
+        //1人
+        //json = "{\"adultNum\":1,\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":1,\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount + "}],\"scorePay\":false}";
 
         $.ajax({
             url: "../../ajax/apihandler.ashx?fn=createorder&json=" + json + "",
             type: "post",
             success: function (text) {
                 var d = eval("(" + text + ")");
-
             }
         });
     }
 
+})
 
-    //var connect = {
-    //    name: 1
-    //};
-    //$scope.connect = connect;
-    //$scope.ok = function () {
-    //    alert($scope.connect.name);
-    //}
-    //  }
-    // contactname=
-    function createorder() {
-        //debugger
-        //alert(name)
-        //json = "";
+//支付方式控制器
+.controller('paywayCtrl', function ($scope, $http) {
+    //var nghttp = "../../ajax/apihandler.ashx?fn=getlines";
+    //$http.get(nghttp).success(function (response) {
+    //debugger
 
-        //$.ajax({
-        //    url: "../../ajax/apihandler.ashx?fn=createorder&json=" + json + "",
-        //    type: "post",
-        //    success: function (text) {
-        //        var d = eval("(" + text + ")");
-        //        $('#numpera').empty().append(' ' + d.leftNum + ' ');
-        //        nextpickhref = '#/app/pickresource/' + groupid;
+    //});
+})
 
-        //        $("#sp01").css('display', 'block');
-        //        $("#sp02").css('display', 'block');
-        //    }
-        //});
-    }
+//取消订单控制器
+.controller('cancelorderCtrl', function ($scope, $http) {
+    var ordercode = "1000160512000007";
+    var nghttp = "../../ajax/apihandler.ashx?fn=cancelorder&ordercode=" + ordercode + "";
+    $http.get(nghttp).success(function (response) {
+   // debugger
 
-
-
+    });
 })
 
 

@@ -88,17 +88,6 @@
                 width: 20%;
             }
 
-        input[type="checkbox"] {
-            -webkit-appearance: none;
-            background: #fff url(img/checkboxg.png);
-            height: 22px;
-            vertical-align: middle;
-            width: 22px;
-        }
-
-            input[type="checkbox"]:checked {
-                background-position: -48px 0;
-            }
 
         .titleheader div div {
             padding-left: 10px;
@@ -132,7 +121,7 @@
                     <div class="textp10" style="padding-left: 0;">
                         <div class="textgray textbold">线路名称：<span class="textblack textbold">法国蔚蓝海岸普罗旺斯梦幻城堡12日</span></div>
                         <div class="textgray textbold">出游团期：<span class="textblack textbold">2016-05-18 周三</span></div>
-                        <div class="textgray textbold">费用总额：<span class="textyellow">¥ 22000</span></div>
+                        <div class="textgray textbold">费用总额：<span class="textyellow">¥ {{amount}}</span></div>
                     </div>
                 </div>
                 <div class="border1"></div>
@@ -183,30 +172,24 @@
                 </div>
                 <div class="border1"></div>
                 <div class="border5"></div>
-                <div class="textbold textp10"><div class="darkbluehead"></div><div>出行人<span class="padl10 textyellow">2成人</span></div></div>
+                <div class="textbold textp10"><div class="darkbluehead"></div><div>出行人<span class="padl10 textyellow">{{pnum}}成人</span></div></div>
                 <div class="border1"></div>
-                <div class="tableinput">
-                    <div class="textbold textp10 wid100 height40">
-                        <div>
-                            成人
-                        </div>
-                        <div>
-                            <input class="sinborderinput" placeholder="姓名" />
+
+                <div class="guests" ng-repeat="x in guests">
+                    <div class="tableinput">
+                        <div class="textbold textp10 wid100 height40">
+                            <div>
+                                成人
+                            </div>
+                            <div>
+                                <input class="sinborderinput" placeholder="姓名" />
+                            </div>
                         </div>
                     </div>
+                    <div class="border1"></div>
                 </div>
-                <div class="border1"></div>
-                <div class="tableinput">
-                    <div class="textbold textp10 wid100 height40">
-                        <div>
-                            成人
-                        </div>
-                        <div>
-                            <input class="sinborderinput" placeholder="姓名" />
-                        </div>
-                    </div>
-                </div>
-                <div class="border1"></div>
+
+
                 <div class="border5"></div>
                 <div class="textbold textp10">邮寄发票<input class="fright" type="checkbox" /></div>
                 <div class="border1"></div>

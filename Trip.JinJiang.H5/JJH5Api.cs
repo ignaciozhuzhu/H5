@@ -21,10 +21,11 @@ namespace Trip.JinJiang.H5
         private const string URL0 = "http://travelsearchservice.jinjiang.uat/travelsearchservice/travel/search/searchTravel";   //线路列表接口
         private const string URL5 = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/line/queryCMSLineInfo";     //CMS线路详情接口
         private const string URL6 = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/line/queryLinesForCMS";     //CMS线路列表接口
-        private const string urlprepay = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/payment/prepay";
-        private const string urlsearchorder = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/queryOrderList";
-        private const string urlcreateorder = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/create"; //创建订单接口
-        private const string urlinventory = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/group/queryRealTimeRefresh/"; //查询库存 ,实时价格
+        private const string urlprepay = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/payment/prepay";   //预支付接口
+        private const string urlsearchorder = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/queryOrderList";    //订单查询接口
+        private const string urlcreateorder = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/create";    //创建订单接口
+        private const string urlinventory = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/group/queryRealTimeRefresh/";   //查询库存 ,实时价格接口
+        private const string urlcancelorder = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/cancel";    //取消订单接口
         /// <summary>
         /// 查询路线
         /// </summary>
@@ -34,10 +35,10 @@ namespace Trip.JinJiang.H5
             data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
             //   var data2 = "{\"bgUrl\":\"\",\"callPart\":\"TRAVEL\",\"orderNo\":\"1000160323000023\",\"payMethod\":\"MONEY\",\"payType\":\"ONLINE\",\"productTitle\":\"旅游测试title\",\"payAmount\":\"10\"}";
 
-            //   var data3="{\"endBookingDate\":\"2016-03-22\",\"mcMemberCode\":\"\",\"orderCode\":\"\",\"orderStatus\":\"\",\"pagination\":{\"endRow\":10,\"page\":2,\"records\":0,\"rows\":10,\"search\":false,\"startRow\":1,\"total\":1},\"payStatus\":\"PAY_WAITING\",\"startBookingDate\":\"2016-03-21\"}";
+            var data3 = "{\"endBookingDate\":\"2016-05-14\",\"mcMemberCode\":\"1231234\",\"orderCode\":\"\",\"orderStatus\":\"\",\"pagination\":{\"endRow\":10,\"page\":2,\"records\":0,\"rows\":10,\"search\":false,\"startRow\":1,\"total\":1},\"payStatus\":\"PAY_WAITING\",\"startBookingDate\":\"2016-05-10\"}";
             // var response = HttpUtil.Post(data, URL0, contentType: "application/json");
             var response = HttpUtil.Post(data, URL0, contentType: "application/json");
-            //   var response3 = HttpUtil.Post(data3, urlsearchorder, contentType: "application/json");
+            var response3 = HttpUtil.Post(data3, urlsearchorder, contentType: "application/json");
 
             response = maps.mapAgencies(response);
 
@@ -99,8 +100,8 @@ namespace Trip.JinJiang.H5
             data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
             var response = HttpUtil.Post(data, URL0, contentType: "application/json");
             response = maps.mapAgencies(response);
-
-            //  var data2 = "{\"bgUrl\":\"www.baidu.com\",\"callPart\":\"TRAVEL\",\"orderNo\":\"1000160323000023\",\"payMethod\":\"MONEY\",\"payType\":\"ONLINE\",\"productTitle\":\"旅游测试title\",\"payAmount\":\"10\",\"payChannel\":\"ALIPAY\"}";
+           // string tourl = "https://openauth.alipay.com/oauth2/appToAppAuth.htm?app_id=APPID&redirect_uri=ENCODED_URL";
+           //   var data2 = "{\"bgUrl\":\""+ tourl + "\",\"callPart\":\"TRAVEL\",\"orderNo\":\"1000160323000023\",\"payMethod\":\"MONEY\",\"payType\":\"ONLINE\",\"productTitle\":\"旅游测试title\",\"payAmount\":\"10\",\"payChannel\":\"ALIPAY\"}";
 
             //  response = HttpUtil.Post(data2, urlprepay, contentType: "application/json");
 
@@ -168,6 +169,25 @@ namespace Trip.JinJiang.H5
                 return null;
             }
         }
+
+        /// <summary>
+        /// 取消订单
+        /// </summary>
+        public static string cancelOrder(string orderCode)
+        {
+            string data = "{\"mcMemberCode\":\"1231234\",\"orderNo\":\""+ orderCode + "\",\"reson\":\"名额不足\"}";
+            var response = HttpUtil.Post(data, urlcancelorder, contentType: "application/json");
+            if (response != null)
+            {
+                return response;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        
 
 
     }
