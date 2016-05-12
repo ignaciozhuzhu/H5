@@ -108,8 +108,24 @@ namespace Trip.JinJiang.H5Web.ajax
         {
             try
             {
-             //   int lineid = Convert.ToInt32(HttpContext.Current.Request["lineid"]);
-                HttpContext.Current.Response.Write(JJH5Api.CreateOrder());
+                string json = HttpContext.Current.Request["json"];
+                HttpContext.Current.Response.Write(JJH5Api.CreateOrder(json));
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
+
+        /// <summary>
+        /// 查询库存 ,实时价格
+        /// </summary>
+        public void queryrealtimerefresh()
+        {
+            try
+            {
+                int groupid = Convert.ToInt32(HttpContext.Current.Request["groupid"]);
+                HttpContext.Current.Response.Write(JJH5Api.queryRealTimeRefresh(groupid));
             }
             catch (Exception e)
             {

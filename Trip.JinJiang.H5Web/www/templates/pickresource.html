@@ -3,17 +3,16 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>选择资源</title>
-    <link rel="stylesheet" href="css/jquery.spinner2.css" />
     <style>
-        .border1 {
+        .pickresource .border1 {
             border: solid 1px #dfdfe1;
         }
 
-        .border1a {
+        .pickresource .border1a {
             border: solid 1px #f2f4f7;
         }
 
-        .backdarkblue {
+        .pickresource .backdarkblue {
             font-weight: bold;
             height: 55px;
             background-color: #7791a8;
@@ -21,11 +20,11 @@
             color: white;
         }
 
-        .border5 {
+        .pickresource .border5 {
             border: solid 5px #f2f4f7;
         }
 
-        .bottombutton {
+        .pickresource .bottombutton {
             font-weight: bold;
             height: 50px;
             background-color: #ff7200;
@@ -35,30 +34,31 @@
             width: 100%;
         }
 
-        .textbold {
+        .pickresource .textbold {
             font-weight: bold;
         }
 
-        .textgray {
+        .pickresource .textgray {
             color: gray;
         }
 
-        .textp10 {
+        .pickresource .textp10 {
             padding: 10px;
         }
 
-        .textp7 {
+        .pickresource .textp7 {
             padding: 7px 10px;
         }
 
-        .fonts13 {
+        .pickresource .fonts13 {
             font-size: 13px;
         }
-        .fonts12 {
+
+        .pickresource .fonts12 {
             font-size: 12px;
         }
 
-        .black_overlay {
+        .pickresource .black_overlay {
             display: none;
             position: absolute;
             left: 0%;
@@ -83,6 +83,9 @@
                 background-position: -48px 0;
             }
     </style>
+    <link rel="stylesheet" href="css/jquery.spinner.css?2" />
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -90,12 +93,12 @@
     </ion-view>
     <ion-view view-title="选择资源">
         <ion-content>
-            <div class="black_overlay"></div>
-            <div class="fonts13">
-                <div id="aa">
+            <div class="pickresource">
+                <div class="black_overlay"></div>
+                <div class="fonts13">
                     <div class="textp10">
-                        <div class="textbold"><锦SHOW>法国蔚蓝海岸普罗旺斯梦幻城堡12日</锦SHOW></div>
-                        <div class="textgray">出发城市:杭州</div>
+                        <div class="textbold">{{lineTitle}}.</div>
+                        <div class="textgray">出发城市:{{departurePlace}}</div>
                     </div>
                     <div class="backdarkblue">
                         <div style="float:left;width:50%;">
@@ -103,14 +106,14 @@
                                 团期
                             </div>
                             <div style="padding:2px 4px 4px 4px">
-                                2016-05-18
+                                {{date}}
                             </div>
                         </div>
                         <div style="padding:4px 4px 2px 4px">
                             成人
                         </div>
                         <div style="padding:2px 4px 4px 4px">
-                            ¥ 11000 × 2
+                            ¥ {{minprice}} × {{pnum}}
                         </div>
                     </div>
                     <div class="border5"></div>
@@ -147,19 +150,20 @@
                     <div class="textbold textp7" style="height:35px">
                         <div style="float:left">使用优惠</div>
                         <div style="float:left;padding:3px 0 0 10px"><img src="img/立减.png" style="width:26px;" /></div>
-                        <div style="float:right;padding-left:5px;color:gray">请选择</div>
+
+                        <div style="float:right;padding-left:5px;color:gray">请选择<img src="img/更多2.png" style="width: 7px;margin-left: 5px;" /></div>
                     </div>
 
                     <div class="border1"></div>
                     <div style="height:10px"></div>
-                    <div id="costdetail" style="display:none"  onclick="costdetailnone(this)">
+                    <div id="costdetail" style="display:none" onclick="costdetailnone(this)">
                         <div class="textbold textp7" style="height:35px">
                             <div style="float:left">出团费用</div>
-                            <div style="float:right;padding-left:5px;color:#ff7200">¥22000</div>
+                            <div style="float:right;padding-left:5px;color:#ff7200">¥<span id="amountct"></span></div>
                         </div>
                         <div class="textp7 textgray fonts12" style="height:35px">
-                            <div style="float:left">成人×2</div>
-                            <div style="float:right;padding-left:5px">¥11000×2</div>
+                            <div style="float:left">成人×{{pnum}}</div>
+                            <div style="float:right;padding-left:5px">¥{{minprice}}×2</div>
                         </div>
                         <div class="border1"></div>
                         <div class="textp7 textgray fonts12" style="height:35px">
@@ -167,16 +171,16 @@
                             <div style="float:right;padding-left:5px;color:#ff7200">+ ¥<span id="secureamount"></span></div>
                         </div>
                     </div>
-                </div>
 
-                <div class="textbold textp7" style="height:35px">
-                    <div style="float:left">
-                        费用总额
+                    <div class="textbold textp7" style="height:35px">
+                        <div style="float:left">
+                            费用总额
+                        </div>
+                        <div style="float:right"><a href="javascript:void(0)" onclick="costdetail(this)">费用明细</a></div>
+                        <div style="float:right;padding-right:10px;color:#ff7200">¥<span id="amount"></span></div>
                     </div>
-                    <div style="float:right"><a href="javascript:void(0)" onclick="costdetail(this)">费用明细</a></div>
-                    <div style="float:right;padding-right:10px;color:#ff7200">¥<span id="amount"></span></div>
+                    <a id="nextfill" href=""><div class="bottombutton">下一步，填写订单</div></a>
                 </div>
-                <div class="bottombutton" style="">下一步，填写订单</div>
             </div>
         </ion-content>
     </ion-view>

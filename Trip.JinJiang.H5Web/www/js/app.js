@@ -74,7 +74,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
        //以下订单流程-----------------------------------------
        //选择日期---------------------------------------------
      .state('app.indexdate', {
-         url: '/indexdate',
+         url: '/indexdate/:lineid',
          views: {
              'menuContent': {
                  templateUrl: 'templates/indexdate.html',
@@ -83,18 +83,27 @@ angular.module('starter', ['ionic', 'starter.controllers'])
          }
      })
        //选择资源---------------------------------------------
-     .state('app.pickresource', {
-         url: '/pickresource',
-         views: {
-             'menuContent': {
-                 templateUrl: 'templates/pickresource.html',
-                 controller: 'pickresourceCtrl'
-             }
-         }
-     })
+     //.state('app.pickresource', {
+     //    url: '/pickresource',
+     //    views: {
+     //        'menuContent': {
+     //            templateUrl: 'templates/pickresource.html',
+     //            controller: 'pickresourceCtrl'
+     //        }
+     //    }
+     //})
+      .state('app.pickresource2', {
+          url: '/pickresource/:groupid/:pnum',
+          views: {
+              'menuContent': {
+                  templateUrl: 'templates/pickresource.html',
+                  controller: 'pickresourceCtrl2'
+              }
+          }
+      })
        //填写订单---------------------------------------------
      .state('app.fillorder', {
-         url: '/fillorder',
+         url: '/fillorder/:groupid/:pnum/:amount',
          views: {
              'menuContent': {
                  templateUrl: 'templates/fillorder.html',

@@ -1026,11 +1026,10 @@
     </Content>
     <Content Include="ajax\apihandler.ashx" />
     <Content Include="www\css\datepicker.css" />
-    <Content Include="www\css\datepicker_back.css" />
-    <Content Include="www\css\jquery.spinner2.css" />
     <Content Include="www\css\jquery.spinner.css" />
     <Content Include="www\css\royalslider.css" />
     <Content Include="www\css\rs-minimal-white.css" />
+    <Content Include="www\css\style.css" />
     <Content Include="www\images\1.jpg" />
     <Content Include="www\images\2.jpg" />
     <Content Include="www\images\3.jpg" />
@@ -1048,6 +1047,9 @@
     <Content Include="www\images\img4.jpg" />
     <Content Include="www\images\spinner.png" />
     <Content Include="www\images\spinner2.png" />
+    <Content Include="www\img\checkbox.png" />
+    <Content Include="www\img\checkboxg.png" />
+    <Content Include="www\img\info.png" />
     <Content Include="www\img\logo.png" />
     <Content Include="www\img\个人中心图标.png" />
     <Content Include="www\img\主题游.png" />
@@ -1058,6 +1060,7 @@
     <Content Include="www\img\收藏后.png" />
     <Content Include="www\img\放大镜2.png" />
     <Content Include="www\img\更多.png" />
+    <Content Include="www\img\立减.png" />
     <Content Include="www\img\自由行.png" />
     <Content Include="www\img\行程特色.png" />
     <Content Include="www\img\跟团游.png" />
@@ -1201,7 +1204,6 @@
     </None>
     <Content Include="www\js\jquery.spinner.js" />
     <Content Include="www\js\zlDate.js" />
-    <Content Include="www\js\zlDate_back.js" />
     <Content Include="www\lib\ionic\fonts\ionicons.eot" />
     <Content Include="www\lib\ionic\fonts\ionicons.ttf" />
     <Content Include="www\lib\ionic\fonts\ionicons.woff" />

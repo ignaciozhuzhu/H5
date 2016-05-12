@@ -57,7 +57,6 @@
     var searchParam = request("search");
     var nghttp = "../../ajax/apihandler.ashx?fn=getlines";
     $http.get(nghttp).success(function (response) {
-        debugger
         var arrayLinemm = new Array(0);
         for (var i = 0; i < response.lines.length; i++) {
             if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0].indexOf('http') < 0)
@@ -190,12 +189,13 @@
 .controller('lineDetailCtrl', function ($scope, $http, $sce) {
     var url = location.href;
     var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
+    $('#ordernow').attr('href', '#/app/indexdate/' + lineid);
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
     $http.get(nghttp).success(function (response) {
 
         //团框初始高度
         $("#groupsheight").height(16);
-        $("#groupsinheight").height(8);
+        $("#groupsinheight").height(16);
 
         //行程
         if (response.line === null) {
@@ -217,7 +217,13 @@
         //取团日期
         response.line.groups = response.line.groups.sort(sortbydepartDate);
         for (var i = 0; i < response.line.groups.length; i++) {
-            response.line.groups[i].departDate = FormatDate(response.line.groups[i].departDate);
+            for (var i = 0; i < response.line.groups.length; i++) {
+                if (i != response.line.groups.length - 1) {
+                    response.line.groups[i].departDate = FormatDate(response.line.groups[i].departDate) + ',';
+                }
+                else
+                    response.line.groups[i].departDate = FormatDate(response.line.groups[i].departDate);
+            }
         }
 
         //小于4天先取出4天
@@ -259,7 +265,6 @@
         $('.thirdCenter:eq(3)').addClass("lineblue");
     });
     $scope.$on("$ionicView.loaded", function () {
-        //自动加载播放滚动图片
     });
 
 })
@@ -268,75 +273,223 @@
 //日期选择控制器
 .controller('indexdateCtrl', function ($scope, $http) {
     $scope.$on("$ionicView.loaded", function () {
-        AjaxTime();
         $('.spinner').spinner({});
+        var url = location.href;
+        var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
+        var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
+        $http.get(nghttp).success(function (response) {
+            intoCalendarTime();
+            adn = 0;
+            crn = 0;
+            $("#sp01").click(function () {
+                adn = this.children[0].children[1].value;
+                if (adn == 0) {
+                    $('#nextpick').removeAttr('href');
+                    $('.indexdate .bottombutton').css('background-color', 'gray');
+                }
+                else {
+                    $('#nextpick').attr('href', nextpickhref + '/' + adn);
+                    $('.indexdate .bottombutton').css('background-color', '#3399ff');
+                }
+            });
+            $("#sp02").click(function () {
+                crn = this.children[0].children[1].value;
+                $('#nextpick').attr('href', nextpickhref + '/' + crn);
+                $('#nextpick').attr("disabled", false);
+                $('.indexdate .bottombutton').css('background-color', '#3399ff');
+            });
+
+            function intoCalendarTime() {
+                data = "[";
+                for (var i = 0; i < response.line.groups.length; i++) {
+                    var date1 = FormatDateYear(response.line.groups[i].departDate);
+                    var groupid = response.line.groups[i].id;
+                    for (var j = 0; j < response.line.groups[i].prices.length; j++) {
+                        if (response.line.groups[i].prices[j].offerType == '基本价')
+                            minprice = response.line.groups[i].prices[j].salePrice;
+                    }
+                    var price1 = "¥" + minprice;
+                    data += '{"Date":"' + date1 + '","Price":"' + price1 + '","groupid":"' + groupid + '"},';
+                }
+                data += "]";
+                pickerEvent.setPriceArr(eval("(" + data + ")"));
+                pickerEvent.Init("calendar");
+            }
+        })
     });
 })
 
-//选择资源控制器
-.controller('pickresourceCtrl', function ($scope, $http) {
+//选择资源控制器2
+.controller('pickresourceCtrl2', function ($scope, $http) {
+    var url = location.href;
+    var pnum = url.substring(url.lastIndexOf('/') + 1, url.length);
+    var url2 = url.substring(0, url.lastIndexOf('/'));
+    var groupid = url2.substring(url2.lastIndexOf('/') + 1, url2.length);
+    $scope.pnum = pnum;
     $('.spinner').spinner({});
-    var amount = 22000;
+    var amount = 0;
     var secureamount = 0;
-    $('#amount').empty().append(amount);
     $('#secureamount').empty().append('0');
 
-    $("#checkcancel").click(function () {
-        if (this.checked == false) {
-            amount -= 50;
-            secureamount -= 50;
+    var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
+    $http.get(nghttp).success(function (response) {
+        // debugger
+        for (var j = 0; j < response.prices.length; j++) {
+            if (response.prices[j].offerType == '基本价')
+                minprice = response.prices[j].salePrice;
         }
-        else {
-            amount += 50;
-            secureamount += 50;
+        $('#amount').empty().append(minprice * pnum);
+        $('#amountct').empty().append(minprice * pnum);
+        $scope.minprice = minprice;
+
+        $scope.date = FormatDateYear(response.departDate);
+        $scope.departurePlace = response.departurePlace;
+        $scope.lineTitle = response.lineTitle;
+
+        var cancelprice = 50;
+        var accidentprice = 80;
+        samount1 = 0;
+        samount2 = 0;
+        $("#checkcancel").click(function () {
+            if (this.checked == false) {
+                samount1 = 0;
+                secureamount -= cancelprice;
+            }
+            else {
+                samount1 = cancelprice;
+                secureamount += cancelprice;
+            }
+            subamount();
+            $('#secureamount').empty().append(secureamount);
+        });
+        $("#checkaccident").click(function () {
+            if (this.checked == false) {
+                samount2 = 0;
+                secureamount -= accidentprice;
+            }
+            else {
+                samount2 = accidentprice;
+                secureamount += accidentprice;
+            }
+            subamount();
+            $('#secureamount').empty().append(secureamount);
+        });
+
+        roomdiff = 0;
+        roomdiffp1 = 0;
+        roomdiffp2 = 0;
+        $("#sp1").click(function () {
+            roomdiffp1 = this.children[0].children[1].value;
+            subamount();
+        });
+        $("#sp2").click(function () {
+            roomdiffp2 = this.children[0].children[1].value;
+            subamount();
+        });
+        $("#sp1").change(function () {
+            roomdiffp1 = this.children[0].children[1].value;
+            subamount();
+        });
+        $("#sp2").change(function () {
+            roomdiffp2 = this.children[0].children[1].value;
+            subamount();
+        });
+        function subamount() {
+            roomdiff = 4800 * roomdiffp1 + 100 * roomdiffp2 + samount1 * pnum + samount2 * pnum;
+            amountall = minprice * pnum + roomdiff;
+            $('#amount').empty().append(amountall);
+            $('#amountct').empty().append(minprice * pnum);
+            $('#nextfill').attr('href', '#/app/fillorder/' + groupid + '/' + pnum + '/' + amountall);
         }
-        $('#amount').empty().append(amount);
-        $('#secureamount').empty().append(secureamount);
-    });
-    $("#checkaccident").click(function () {
-        if (this.checked == false){
-            amount -= 80;
-            secureamount -= 80;
-        }
-        else{
-            amount += 80;
-            secureamount += 80;
-        }
-        $('#amount').empty().append(amount);
-        $('#secureamount').empty().append(secureamount);
-    });
-    roomdiffp1 = 0;
-    roomdiffp2 = 0;
-    $("#sp1").click(function () {
-        roomdiffp1 = this.children[0].children[1].value;
-        subamount();
-    });
-    $("#sp2").click(function () {
-        roomdiffp2 = this.children[0].children[1].value;
-        subamount();
-    });
-    $("#sp1").change(function () {
-        roomdiffp1 = this.children[0].children[1].value;
-        subamount();
-    });
-    $("#sp2").change(function () {
-        roomdiffp2 = this.children[0].children[1].value;
-        subamount();
-    });
-    function subamount() {
-        roomdiff = 4800 * roomdiffp1 + 100 * roomdiffp2;
-        $('#amount').empty().append(amount + roomdiff);
-    }
+        $('#nextfill').attr('href', '#/app/fillorder/' + groupid + '/' + pnum + '/' + minprice * pnum);
+
+    })
 
 
 })
 
 //填写订单控制器
 .controller('fillorderCtrl', function ($scope, $http) {
-    var nghttp = "../../ajax/apihandler.ashx?fn=createorder";
-    //$http.get(nghttp).success(function (response) {
-    //    debugger
-    //});
+    var url = location.href;
+    var amount = url.substring(url.lastIndexOf('/') + 1, url.length);
+    var url2 = url.substring(0, url.lastIndexOf('/'));
+    var pnum = url2.substring(url2.lastIndexOf('/') + 1, url2.length);
+    var url3 = url2.substring(0, url2.lastIndexOf('/'));
+    var groupid = url3.substring(url3.lastIndexOf('/') + 1, url3.length);
+    var priceid;
+
+    var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
+    $http.get(nghttp).success(function (response) {
+        for (var j = 0; j < response.prices.length; j++) {
+            if (response.prices[j].offerType == '基本价')
+                priceid = response.prices[j].id;
+        }
+    })
+
+    var Connect = {
+        name: '',
+        mobile: '',
+        email: ''
+    };
+    var guestsarr = new Array(0);
+    $scope.Connect = Connect;
+    $scope.createorder = function () {
+        var ConnectName = $scope.Connect.name;
+        var ConnectMobile = $scope.Connect.mobile;
+        var ConnectEmail = $scope.Connect.email;
+
+        function CGuest(category, name) {
+            this.category = category;
+            this.name = name;
+        }
+        var p = new CGuest();
+        p = new CGuest('ADULT', 'guest1');
+        guestsarr.push(p);
+        p = new CGuest('ADULT', 'guest2');
+        guestsarr.push(p);
+        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"},{\"category\":\"" + guestsarr[1].category + "\",\"name\":\"" + guestsarr[1].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":0,\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
+
+        $.ajax({
+            url: "../../ajax/apihandler.ashx?fn=createorder&json=" + json + "",
+            type: "post",
+            success: function (text) {
+                var d = eval("(" + text + ")");
+
+            }
+        });
+    }
+
+
+    //var connect = {
+    //    name: 1
+    //};
+    //$scope.connect = connect;
+    //$scope.ok = function () {
+    //    alert($scope.connect.name);
+    //}
+    //  }
+    // contactname=
+    function createorder() {
+        //debugger
+        //alert(name)
+        //json = "";
+
+        //$.ajax({
+        //    url: "../../ajax/apihandler.ashx?fn=createorder&json=" + json + "",
+        //    type: "post",
+        //    success: function (text) {
+        //        var d = eval("(" + text + ")");
+        //        $('#numpera').empty().append(' ' + d.leftNum + ' ');
+        //        nextpickhref = '#/app/pickresource/' + groupid;
+
+        //        $("#sp01").css('display', 'block');
+        //        $("#sp02").css('display', 'block');
+        //    }
+        //});
+    }
+
+
+
 })
 
 
@@ -344,6 +497,7 @@
 });
 
 //***************************以下公用方法***************************
+
 
 function costdetail() {
     $(".black_overlay").css('display', 'block');
@@ -355,28 +509,21 @@ function costdetailnone() {
     $("#costdetail").css('display', 'none');
 }
 
-function AjaxTime() {
-    data = '[{"Date":"2016-05-05","Price":"59"},{"Date":"2016-05-08","Price":"1259"},{"Date":"2016-08-15","Price":"59"},{"Date":"2015-09-15","Price":"59"},{"Date":"2016-10-15","Price":"59"},{"Date":"2016-11-15","Price":"59"}]'
-    pickerEvent.setPriceArr(eval("(" + data + ")"));
-    pickerEvent.Init("calendar");
-}
-
-
 var dayslength;
 var counting = 0;
 //更多团日期
 function moredays() {
     counting++;
     if (counting % 2 == 1) {
-        var moha = dayslength / 6;
-        $("#groupsheight").height(40 + 18 * moha);
-        $("#groupsinheight").height(30 + 18 * moha);
+        var moha = dayslength / 4;
+        $("#groupsheight").height(5 + 20 * moha);
+        $("#groupsinheight").height(5 + 20 * moha);
         $(".daysgroup2").slideToggle();
 
     }
     else {
         $("#groupsheight").height(16);
-        $("#groupsinheight").height(8);
+        $("#groupsinheight").height(16);
         $(".daysgroup2").slideToggle();
     }
 }
@@ -443,7 +590,6 @@ function getPro2() {
     getIPs(function (ip) {
         var remoteip;
         if (ip.indexOf('192.168') < 0) {
-            debugger
             remoteip = ip;
             var province = '';
             var city = '';
@@ -494,6 +640,7 @@ function FormatDate(strTime) {
     var date = new Date(strTime);
     var month;
     var day;
+    var year;
     if (date.getMonth() + 1 < 10)
         month = '0' + (date.getMonth() + 1);
     else
@@ -503,6 +650,22 @@ function FormatDate(strTime) {
     else
         day = date.getDate();
     return month + "-" + day;
+}
+function FormatDateYear(strTime) {
+    var date = new Date(strTime);
+    var month;
+    var day;
+    var year;
+    year = date.getFullYear();
+    if (date.getMonth() + 1 < 10)
+        month = '0' + (date.getMonth() + 1);
+    else
+        month = date.getMonth() + 1;
+    if (date.getDate() < 10)
+        day = '0' + date.getDate();
+    else
+        day = date.getDate();
+    return year + '-' + month + "-" + day;
 }
 
 function sortbydepartDate(a, b) {

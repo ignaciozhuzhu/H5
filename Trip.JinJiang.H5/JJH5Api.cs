@@ -24,6 +24,7 @@ namespace Trip.JinJiang.H5
         private const string urlprepay = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/payment/prepay";
         private const string urlsearchorder = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/queryOrderList";
         private const string urlcreateorder = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/create"; //创建订单接口
+        private const string urlinventory = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/group/queryRealTimeRefresh/"; //查询库存 ,实时价格
         /// <summary>
         /// 查询路线
         /// </summary>
@@ -137,9 +138,27 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 创建订单
         /// </summary>
-        public static string CreateOrder() {
-            var data = "{\"adultNum\":1,\"amount\":16500,\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"18688880009\",\"name\":\"leesa\"},\"couponAmount\":0,\"groupId\":12266,\"guests\":[{\"category\":\"ADULT\",\"name\":\"guest1\"}],\"mcMemberCode\":\"123123\",\"cardNo\":\"123123\",\"onLinePay\":true,\"receivables\":[{\"copies\":1,\"discountAmount\":0,\"priceId\":15240,\"singlePrice\":16500}],\"scorePay\":false}";
-            var response = HttpUtil.Post(data, urlcreateorder, contentType: "application/json");
+        public static string CreateOrder(string json) {
+            //var data = "{\"adultNum\":1,\"amount\":16500,\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"18688880009\",\"name\":\"leesa\"},\"couponAmount\":0,\"groupId\":12266,\"guests\":[{\"category\":\"ADULT\",\"name\":\"guest1\"}],\"mcMemberCode\":\"123123\",\"cardNo\":\"123123\",\"onLinePay\":true,\"receivables\":[{\"copies\":1,\"discountAmount\":0,\"priceId\":15240,\"singlePrice\":16500}],\"scorePay\":false}";
+            var response = HttpUtil.Post(json, urlcreateorder, contentType: "application/json");
+            if (response != null)
+            {
+                return response;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 查询库存 ,实时价格
+        /// </summary>
+        public static string queryRealTimeRefresh(int groupid)
+        {
+            string url = urlinventory;    //某线路详情
+            url += groupid;
+            var response = HttpUtil.Get(url);
             if (response != null)
             {
                 return response;
