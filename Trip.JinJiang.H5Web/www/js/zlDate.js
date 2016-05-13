@@ -134,7 +134,6 @@ var pickerHtml = {
                     html += '<td  ' + classStyle + ' date="' + obj.year + "-" + obj.month + "-" + (i - c) + '" price="' + price + '"><a><span class="date basefix">今</span><span class="team basefix" style="display: none;">&nbsp;</span><span class="calendar_price01">' + priceStr + '</span></a></td>';
                 }
                 else {
-                    // debugger
                     html += '<td  ' + classStyle + ' date="' + obj.year + "-" + obj.month + "-" + (i - c) + '" price="' + price + '" groupid="' + groupid + '"><a><span class="date basefix">' + (i - c) + '</span><span class="team basefix" style="display: none;">&nbsp;</span><span class="calendar_price01">' + priceStr + '</span></a></td>';
                 }
                 if (index == 6) {
@@ -275,29 +274,44 @@ var commonUtil = {
         $('#pricepera').empty().append(price + '/人');
         var groupid = sender.getAttribute("groupid");
         //该团已过期,所以为了测试有数据,先取一个可以下订单的团
-        groupid = 12266;
+        //  groupid = 12266;
         $('#groupid').empty().append(groupid);
 
         $.ajax({
             url: "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "",
             type: "post",
             success: function (text) {
+                
                 var d = eval("(" + text + ")");
-                $('#numpera').empty().append(' ' + d.leftNum + ' ');
+                var leftNum = d.leftNum == null ? 0 : d.leftNum;
+                $('.numpera').empty().append(' ' + leftNum + ' ');
                 nextpickhref = '#/app/pickresource/' + groupid;
-
-                $("#sp01").css('display', 'block');
-                $("#sp02").css('display', 'block');
+                if (leftNum > 0) {
+                    $('#nextpick').attr('href', nextpickhref + '/1/0');
+                    $('.indexdate .bottombutton').css('background-color', '#3399ff');
+                    $("#sp01").css('display', 'block');
+                    $("#sp02").css('display', 'block');
+                    var cprice;
+                    for (var j = 0; j < d.prices.length; j++) {
+                        if (d.prices[j].offerType == '儿童价')
+                            cprice = d.prices[j].salePrice;
+                        else cprice = 0;
+                    }
+                    if (cprice > 0)
+                        $('#priceperc').empty().append(cprice + '/人');
+                    else {
+                        $('#divmchild').css('display', 'none');
+                    }
+                }
+                else {
+                    $('#nextpick').attr('href', '');
+                    $('.indexdate .bottombutton').css('background-color', 'gray');
+                    $("#sp01").css('display', 'none');
+                    $("#sp02").css('display', 'none');
+                }
             }
         });
 
-        //  var el = document.getElementById(elemId);
-        //if (el != null) {
-        //    el.value = date;
-        //	alert("日期是："+date);
-        //	alert("价格是：￥"+price);
-        //    pickerEvent.remove();
-        //}
     }
 }
 $(document).bind("click", function (event) {

@@ -2,9 +2,9 @@
  * 
  */
 ;(function ($) {
-    $.fn.spinner = function (opts) {
+    $.fn.spinner2 = function (opts) {
       return this.each(function () {
-      var defaults = {value:0, min:0}
+      var defaults = {value:1, min:1}
       var options = $.extend(defaults, opts)
       var keyCodes = {up:38, down:40}
       var container = $('<div></div>')

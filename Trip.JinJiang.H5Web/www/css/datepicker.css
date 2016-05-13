@@ -26,7 +26,7 @@
 .calendar a{color: #0065bb;text-decoration: none;outline: none;}
 .calendar .calendar_right a{display: block;width: 40px;height: 30px;color: black;padding:4px 4px 0;text-align:center}
 .calendar .calendar_right .on .date{color: #333;}
-.calendar .calendar_right .on a:hover{position: absolute;border: 1px solid #febe32;margin: -1px 0 0 -1px;background-color: #fffbee;}
+.calendar .calendar_right .on a:hover{position: absolute;border: 1px solid #febe32;margin: -1px 0 0 -1px;background-color: #fffbee;height:38px}
 .calendar .calendar_right .date{display: block;}
 .calendar .calendar_right .today{margin: -1px 0 0 -1px;background-color: #fffbee;}
 .calendar .calendar_right .on .team{color: #339900;}

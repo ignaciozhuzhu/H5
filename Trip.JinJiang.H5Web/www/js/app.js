@@ -84,7 +84,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
      })
        //选择资源---------------------------------------------
       .state('app.pickresource2', {
-          url: '/pickresource/:groupid/:pnum',
+          url: '/pickresource/:groupid/:pnum/:cnum',
           views: {
               'menuContent': {
                   templateUrl: 'templates/pickresource.html',
@@ -94,7 +94,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       })
        //填写订单---------------------------------------------
      .state('app.fillorder', {
-         url: '/fillorder/:groupid/:pnum/:amount',
+         url: '/fillorder/:groupid/:pnum/:cnum/:amount',
          views: {
              'menuContent': {
                  templateUrl: 'templates/fillorder.html',

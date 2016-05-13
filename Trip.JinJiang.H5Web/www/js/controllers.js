@@ -113,7 +113,7 @@
 
 
 //主页控制器
-.controller('indexCtrl', function ($scope, $http) {
+.controller('indexCtrl', function ($scope, $http, $ionicScrollDelegate) {
 
     //实现自带搜索按钮跳转并失去焦点关闭键盘.
     $(function () {
@@ -125,9 +125,14 @@
         });
     });
 
+    $scope.getScrollPosition = function () {
+        var scrolltop = $ionicScrollDelegate.$getByHandle('indexDelegate').getScrollPosition().top;
+        $('#teledown').css('top', scrolltop + document.documentElement.childNodes[2].scrollHeight - 170);
+    }
+
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinespromotion";
     $http.get(nghttp).success(function (response) {
-
+        debugger
         for (var i = 0; i < 8; i++) {
             if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0].indexOf('http') < 0)
                 response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
@@ -255,10 +260,11 @@
 
         //取价格
         $scope.price = response.minPrice;
+        //产品经理推荐
+        $scope.recommend = response.line.recommend;
 
-
-        $('#idfeature').show();
-        $('#idline').hide();
+        $('#idline').show();
+        $('#idfeature').hide();
         $('#idexpense').hide();
 
         $('.thirdCenter:eq(0)').addClass("contentblue");
@@ -274,29 +280,21 @@
 .controller('indexdateCtrl', function ($scope, $http) {
     $scope.$on("$ionicView.loaded", function () {
         $('.spinner').spinner({});
+        $('.spinner2').spinner2({});
         var url = location.href;
         var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
         var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
         $http.get(nghttp).success(function (response) {
             intoCalendarTime();
-            adn = 0;
+            adn = 1;
             crn = 0;
             $("#sp01").click(function () {
                 adn = this.children[0].children[1].value;
-                if (adn == 0) {
-                    $('#nextpick').removeAttr('href');
-                    $('.indexdate .bottombutton').css('background-color', 'gray');
-                }
-                else {
-                    $('#nextpick').attr('href', nextpickhref + '/' + adn);
-                    $('.indexdate .bottombutton').css('background-color', '#3399ff');
-                }
+                $('#nextpick').attr('href', nextpickhref + '/' + adn + '/' + crn);
             });
             $("#sp02").click(function () {
                 crn = this.children[0].children[1].value;
-                $('#nextpick').attr('href', nextpickhref + '/' + crn);
-                $('#nextpick').attr("disabled", false);
-                $('.indexdate .bottombutton').css('background-color', '#3399ff');
+                $('#nextpick').attr('href', nextpickhref + '/' + adn + '/' + crn);
             });
 
             function intoCalendarTime() {
@@ -321,10 +319,10 @@
 
 //选择资源控制器2
 .controller('pickresourceCtrl2', function ($scope, $http) {
-    var url = location.href;
-    var pnum = url.substring(url.lastIndexOf('/') + 1, url.length);
-    var url2 = url.substring(0, url.lastIndexOf('/'));
-    var groupid = url2.substring(url2.lastIndexOf('/') + 1, url2.length);
+    var cnum = getpbyurl(1);
+    var pnum = getpbyurl(2);
+    var groupid = getpbyurl(3);
+
     $scope.pnum = pnum;
     $('.spinner').spinner({});
     var amount = 0;
@@ -333,19 +331,38 @@
 
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
     $http.get(nghttp).success(function (response) {
-        // debugger
+        var cprice;
+        var dprice;
         for (var j = 0; j < response.prices.length; j++) {
             if (response.prices[j].offerType == '基本价')
                 minprice = response.prices[j].salePrice;
+            if (response.prices[j].offerType == '儿童价')
+                cprice = response.prices[j].salePrice;
+            if (response.prices[j].offerType == '单房差')
+                dprice = response.prices[j].salePrice;
         }
-        $('#amount').empty().append(minprice * pnum);
-        $('#amountct').empty().append(minprice * pnum);
         $scope.minprice = minprice;
+        if (cprice > 0) {
+            $scope.cprice = cprice;
+            $('#divchild').css('display', 'block');
+        }
+        else {
+            cprice = 0
+            $('#divchild').css('display', 'none');
+        }
+
+        if (dprice > 0) {
+            $scope.dprice = dprice;
+            $('#divdiff').css('display', 'block');
+        }
+        else {
+            dprice = 0
+            $('#divdiff').css('display', 'none');
+        }
 
         $scope.date = FormatDateYear(response.departDate);
         $scope.departurePlace = response.departurePlace;
         $scope.lineTitle = response.lineTitle;
-
         var cancelprice = 50;
         var accidentprice = 80;
         samount1 = 0;
@@ -395,35 +412,33 @@
             subamount();
         });
         function subamount() {
-            roomdiff = 4800 * roomdiffp1 + 100 * roomdiffp2 + samount1 * pnum + samount2 * pnum;
+            roomdiff = dprice * roomdiffp1 + cprice * roomdiffp2 + samount1 * pnum + samount2 * pnum;
             amountall = minprice * pnum + roomdiff;
             $('#amount').empty().append(amountall);
             $('#amountct').empty().append(minprice * pnum);
-            $('#nextfill').attr('href', '#/app/fillorder/' + groupid + '/' + pnum + '/' + amountall);
+            $('#nextfill').attr('href', '#/app/fillorder/' + groupid + '/' + pnum + '/' + cnum + '/' + amountall);
         }
-        $('#nextfill').attr('href', '#/app/fillorder/' + groupid + '/' + pnum + '/' + minprice * pnum);
-
+        subamount();
     })
-
 
 })
 
 //填写订单控制器
 .controller('fillorderCtrl', function ($scope, $http) {
-    var url = location.href;
-    var amount = url.substring(url.lastIndexOf('/') + 1, url.length);
-    var url2 = url.substring(0, url.lastIndexOf('/'));
-    var pnum = url2.substring(url2.lastIndexOf('/') + 1, url2.length);
-    var url3 = url2.substring(0, url2.lastIndexOf('/'));
-    var groupid = url3.substring(url3.lastIndexOf('/') + 1, url3.length);
+    var amount = getpbyurl(1);
+    var cnum = getpbyurl(2);
+    var pnum = getpbyurl(3);
+    var groupid = getpbyurl(4);
+
     var priceid;
     var Discount;
     $scope.amount = amount;
     $scope.pnum = pnum;
 
-
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
     $http.get(nghttp).success(function (response) {
+        $scope.lineTitle = response.lineTitle;
+        $scope.date = FormatDateYear(response.departDate);
         for (var j = 0; j < response.prices.length; j++) {
             if (response.prices[j].offerType == '基本价')
                 priceid = response.prices[j].id;
@@ -432,7 +447,7 @@
 
         //出现的出行人行数.
         var arrayGuests = new Array(0);
-        for (var i = 0; i < pnum;i++){
+        for (var i = 0; i < pnum; i++) {
             arrayGuests.push(i);
         }
         $scope.guests = arrayGuests;
@@ -493,11 +508,10 @@
     var ordercode = "1000160512000007";
     var nghttp = "../../ajax/apihandler.ashx?fn=cancelorder&ordercode=" + ordercode + "";
     $http.get(nghttp).success(function (response) {
-   // debugger
+        // debugger
 
     });
 })
-
 
 .controller('PlaylistCtrl', function ($scope, $stateParams) {
 });
@@ -618,17 +632,17 @@ function addclassblue(q, i) {
     $('.thirdCenter:eq(' + i + ')').addClass("lineblue");
 }
 
-function featureCl() {
-    $('#idfeature').show();
-    $('#idline').hide();
+function lineCl() {
+    $('#idfeature').hide();
+    $('#idline').show();
     $('#idexpense').hide();
     removeclassblue();
     addclassblue(0, 3);
 }
 
-function lineCl() {
-    $('#idfeature').hide();
-    $('#idline').show();
+function featureCl() {
+    $('#idfeature').show();
+    $('#idline').hide();
     $('#idexpense').hide();
     removeclassblue();
     addclassblue(1, 4);
@@ -753,4 +767,28 @@ function getIPs(callback) {
     }, function () { });
 }
 
-
+//获取链接参数
+function getpbyurl(typei) {
+    function subs(href) {
+        return href.substring(0, href.lastIndexOf('/'));
+    }
+    var localhref = location.href;
+    var geturl = localhref;
+    switch (typei) {
+        case 1:
+            break;
+        case 2:
+            geturl = subs(geturl);
+            break;
+        case 3:
+            geturl = subs(subs(geturl));
+            break;
+        case 4:
+            geturl = subs(subs(subs(geturl)));
+            break;
+        case 5:
+            geturl = subs(subs(subs(subs(geturl))));
+            break;
+    }
+    return geturl.substring(geturl.lastIndexOf('/') + 1, geturl.length);
+}

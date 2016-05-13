@@ -51,6 +51,24 @@
     <Compile Include="Common.cs" />
     <Compile Include="JJH5Api.cs" />
     <Compile Include="maps.cs" />
+    <Compile Include="Model\linelists\linelists.Agency2.cs" />
+    <Compile Include="Model\linelists\linelists.Brand2.cs" />
+    <Compile Include="Model\linelists\linelists.City.cs" />
+    <Compile Include="Model\linelists\linelists.ClusterType2.cs" />
+    <Compile Include="Model\linelists\linelists.cs" />
+    <Compile Include="Model\linelists\linelists.Day.cs" />
+    <Compile Include="Model\linelists\linelists.DepartureMonth2.cs" />
+    <Compile Include="Model\linelists\linelists.EsGroup2.cs" />
+    <Compile Include="Model\linelists\linelists.Line.cs" />
+    <Compile Include="Model\linelists\linelists.LineCategory2.cs" />
+    <Compile Include="Model\linelists\linelists.Page2.cs" />
+    <Compile Include="Model\linelists\linelists.PriceScope2.cs" />
+    <Compile Include="Model\linelists\linelists.PriceScopeAndLine2.cs" />
+    <Compile Include="Model\linelists\linelists.Promotion.cs" />
+    <Compile Include="Model\linelists\linelists.Spot2.cs" />
+    <Compile Include="Model\linelists\linelists.Tag.cs" />
+    <Compile Include="Model\SampleResponse3.cs" />
+    <Compile Include="Model\SampleResponse3.Price.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

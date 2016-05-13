@@ -1026,10 +1026,16 @@
     </Content>
     <Content Include="ajax\apihandler.ashx" />
     <Content Include="www\css\datepicker.css" />
+    <Content Include="www\css\jquery.spinner2.css" />
+    <Content Include="www\css\mfb2.css" />
     <Content Include="www\css\jquery.spinner.css" />
+    <Content Include="www\css\mfb.css" />
     <Content Include="www\css\royalslider.css" />
     <Content Include="www\css\rs-minimal-white.css" />
     <Content Include="www\css\style.css" />
+    <Content Include="www\demos\down.html" />
+    <Content Include="www\demos\extend.html" />
+    <Content Include="www\demos\localdb.html" />
     <Content Include="www\images\1.jpg" />
     <Content Include="www\images\2.jpg" />
     <Content Include="www\images\3.jpg" />
@@ -1052,6 +1058,8 @@
     <Content Include="www\img\checkboxg.png" />
     <Content Include="www\img\info.png" />
     <Content Include="www\img\logo.png" />
+    <Content Include="www\img\tele2.png" />
+    <Content Include="www\img\tele3.png" />
     <Content Include="www\img\个人中心图标.png" />
     <Content Include="www\img\主题游.png" />
     <Content Include="www\img\信用卡支付.png" />
@@ -1067,6 +1075,8 @@
     <Content Include="www\img\放大镜2.png" />
     <Content Include="www\img\更多.png" />
     <Content Include="www\img\更多2.png" />
+    <Content Include="www\img\tele.png" />
+    <Content Include="www\img\电话.png" />
     <Content Include="www\img\立减.png" />
     <Content Include="www\img\自由行.png" />
     <Content Include="www\img\行程特色.png" />
@@ -1075,6 +1085,8 @@
     <Content Include="www\img\路线行程2.png" />
     <Content Include="www\img\轮船游.png" />
     <Content Include="www\img\锯齿划线.png" />
+    <Content Include="www\js\angular-1.4.6.min.js" />
+    <Content Include="www\js\demo-module.js" />
     <Content Include="www\js\jquery-1.8.3.min.js" />
     <Content Include="www\js\jquery.royalslider.min.js" />
     <Content Include="modules\.jshintrc" />
@@ -1204,6 +1216,7 @@
     <Content Include="modules\plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="modules\plugins\input-mask\phone-codes\phone-codes.json" />
     <Content Include="modules\README.md" />
+    <Content Include="www\js\jquery.spinner2.js" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1211,6 +1224,8 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="www\js\jquery.spinner.js" />
+    <Content Include="www\js\mfb-directive.js" />
+    <Content Include="www\js\modernizr.touch.js" />
     <Content Include="www\js\zlDate.js" />
     <Content Include="www\lib\ionic\fonts\ionicons.eot" />
     <Content Include="www\lib\ionic\fonts\ionicons.ttf" />
@@ -1284,8 +1299,10 @@
     <Content Include="www\lib\ionic\js\ionic.bundle.min.js" />
     <Content Include="www\lib\ionic\js\ionic.js" />
     <Content Include="www\lib\ionic\js\ionic.min.js" />
+    <Content Include="www\templates\aa.html" />
     <Content Include="www\templates\cancelorder.html" />
     <Content Include="www\templates\fillorder.html" />
+    <Content Include="www\demos\teledown.html" />
     <Content Include="www\templates\payway.html" />
     <Content Include="www\templates\pickresource.html" />
     <Content Include="www\templates\indexdate.html" />
