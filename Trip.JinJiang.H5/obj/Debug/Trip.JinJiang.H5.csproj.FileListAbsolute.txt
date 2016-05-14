@@ -49,3 +49,6 @@ C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.
 C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.dll
 C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.pdb
 C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5\obj\Debug\Trip.JinJiang.H5.csprojResolveAssemblyReference.cache
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\LW.Common.dll
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\Aspose.Cells.dll
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5\bin\Debug\LW.Common.pdb

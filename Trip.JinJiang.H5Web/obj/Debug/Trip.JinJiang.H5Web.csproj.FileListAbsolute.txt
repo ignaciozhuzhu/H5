@@ -156,8 +156,6 @@ C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.
 C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\bin\Trip.JinJiang.H5.dll
 C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\bin\trip.Core.dll
-C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\bin\Lucene.Net.dll
-C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\bin\Lucene.China.dll
 C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\bin\Newtonsoft.Json.dll
 C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\bin\Trip.JinJiang.H5.pdb
 C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\bin\Microsoft.AI.DependencyCollector.xml
@@ -170,3 +168,6 @@ C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.
 C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\obj\Debug\Trip.JinJiang.H5Web.csprojResolveAssemblyReference.cache
 C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\obj\Debug\Trip.JinJiang.H5Web.dll
 C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\obj\Debug\Trip.JinJiang.H5Web.pdb
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\bin\LW.Common.dll
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\bin\Aspose.Cells.dll
+C:\Users\YangCC\Documents\Visual Studio 2015\Projects\git\H5_fabu\Trip.JinJiang.H5Web\Trip.JinJiang.H5Web\bin\LW.Common.pdb

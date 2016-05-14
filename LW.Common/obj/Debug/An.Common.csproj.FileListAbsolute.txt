@@ -1,0 +1,7 @@
+E:\hr\An\Lib\An.Common.dll
+E:\hr\An\Lib\An.Common.pdb
+E:\hr\An\An\bin\An.Common.dll
+E:\hr\An\An\bin\An.Common.pdb
+E:\hr\An\An.Common\obj\Debug\An.Common.dll
+E:\hr\An\An.Common\obj\Debug\An.Common.pdb
+E:\hr\An\An.Common\obj\Debug\An.Common.csprojResolveAssemblyReference.cache
