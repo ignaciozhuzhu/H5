@@ -2401,7 +2401,6 @@
     <Content Include="script\MiniUI\miniui\themes\olive2003\images\window\header.gif" />
     <Content Include="script\MiniUI\miniui\themes\olive2003\skin.css" />
     <Content Include="script\sha1.js" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2460,6 +2459,13 @@
     <Content Include="script\bootstrap\plugins\grumble.js-master\build\optipng-licence" />
     <Content Include="script\bootstrap\plugins\grumble.js-master\build\yui-compressor-licence" />
     <Content Include="script\bootstrap\plugins\grumble.js-master\README.md" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="script\MiniUI\miniui\themes\gray\images\layout\" />
