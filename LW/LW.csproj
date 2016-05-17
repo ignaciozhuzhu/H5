@@ -58,6 +58,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Maticsoft.DBUtility.dll" />
     <Content Include="Properties\PublishProfiles\bendi.pubxml.user" />
     <Content Include="Properties\PublishProfiles\sss.pubxml.user" />
     <Content Include="script\base.js" />

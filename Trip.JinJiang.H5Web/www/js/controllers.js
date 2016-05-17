@@ -132,7 +132,6 @@
 
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinespromotion";
     $http.get(nghttp).success(function (response) {
-        debugger
         for (var i = 0; i < 8; i++) {
             if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0].indexOf('http') < 0)
                 response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
@@ -476,10 +475,23 @@
         guestsarr.push(p);
         p = new CGuest('ADULT', 'guest2');
         guestsarr.push(p);
+        p = new CGuest('ADULT', 'guest3');
+        guestsarr.push(p);
+        p = new CGuest('ADULT', 'guest4');
+        guestsarr.push(p);
+
+        var gueststring = "";
+        for (var i = 0; i < pnum;i++){
+            gueststring += "{\"category\":\"" + guestsarr[i].category + "\",\"name\":\"" + guestsarr[i].name + "\"},";
+        }
+        gueststring = gueststring.substring(0, gueststring.length - 1);
 
         var discountAmount = Math.floor(amount * (1 - Discount)) * pnum;
+        //动态成人数.
+        //debugger
+        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
         //2人
-        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"},{\"category\":\"" + guestsarr[1].category + "\",\"name\":\"" + guestsarr[1].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
+       // json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"},{\"category\":\"" + guestsarr[1].category + "\",\"name\":\"" + guestsarr[1].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
         //1人
         //json = "{\"adultNum\":1,\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":1,\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount + "}],\"scorePay\":false}";
 
@@ -488,6 +500,7 @@
             type: "post",
             success: function (text) {
                 var d = eval("(" + text + ")");
+                window.location.href = "#/app/payway/";
             }
         });
     }

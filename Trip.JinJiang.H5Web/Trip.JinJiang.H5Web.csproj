@@ -1292,7 +1292,6 @@
     <Content Include="www\lib\ionic\js\ionic.bundle.min.js" />
     <Content Include="www\lib\ionic\js\ionic.js" />
     <Content Include="www\lib\ionic\js\ionic.min.js" />
-    <Content Include="www\templates\aa.html" />
     <Content Include="www\templates\cancelorder.html" />
     <Content Include="www\templates\fillorder.html" />
     <Content Include="www\demos\teledown.html" />

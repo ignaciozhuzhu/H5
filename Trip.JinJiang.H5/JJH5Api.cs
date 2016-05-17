@@ -12,6 +12,8 @@ using Newtonsoft.Json.Linq;
 
 using LW.Common.DB;
 using LW.Common.Json;
+using Trip.JinJiang.H5.DAL;
+using System.Collections;
 
 namespace Trip.JinJiang.H5
 {
@@ -98,15 +100,15 @@ namespace Trip.JinJiang.H5
         /// </summary>
         public static string FindPromotion()
         {
-            string str = "select * from dbo.linecategory";
-            DataSet ds = Common.fillds(str);
+          //  string str = "select * from dbo.linecategory";
+         //   DataSet ds = Common.fillds(str);
 
             var data = "{\"isPromotion\":1}";
             data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":80,\"rows\":80,\"search\":false,\"startRow\":1,\"total\":80}}";
             var response = HttpUtil.Post(data, URL0, contentType: "application/json");
             response = maps.mapAgencies(response);
-            // string tourl = "https://openauth.alipay.com/oauth2/appToAppAuth.htm?app_id=APPID&redirect_uri=ENCODED_URL";
-            //   var data2 = "{\"bgUrl\":\""+ tourl + "\",\"callPart\":\"TRAVEL\",\"orderNo\":\"1000160323000023\",\"payMethod\":\"MONEY\",\"payType\":\"ONLINE\",\"productTitle\":\"旅游测试title\",\"payAmount\":\"10\",\"payChannel\":\"ALIPAY\"}";
+            string tourl = "http://192.168.2.81:81/hbp/hotels/order/afterPayProcess";
+            var data2 = "{\"bgUrl\":\"" + tourl + "\",\"callPart\":\"TRAVEL\",\"orderNo\":\"1000160323000023\",\"payMethod\":\"MONEY\",\"payType\":\"ONLINE\",\"productTitle\":\"旅游测试title\",\"payAmount\":\"10\",\"payChannel\":\"ALIPAY\"}";
 
             //  response = HttpUtil.Post(data2, urlprepay, contentType: "application/json");
 
@@ -190,7 +192,7 @@ namespace Trip.JinJiang.H5
 
             var result3 = JsonConvert.DeserializeObject<LineListModel>(json3);
 
-            string a = "insert into ";
+            //  string a = "insert into tbl_lineLists(lineId,lineName)";
 
             return null;
 
@@ -211,7 +213,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 
         /// </summary>
-        public static string cancelOrder(string userid)
+        public static string cancelOrder3(string userid)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select count(*) from LineCategory ");
@@ -237,6 +239,57 @@ namespace Trip.JinJiang.H5
             //}
         }
 
+
+        //(1)line[0]的线路库esGroup先全存好.
+        public static string cancelOrder5(string json)
+        {
+            var data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
+            var response = HttpUtil.Post(data, URL0, contentType: "application/json");
+            var result3 = JsonConvert.DeserializeObject<LineListModel>(response);
+            var len = result3.lines[0].esGroup.Length;
+            esGroupsFac esGroupsFac = new esGroupsFac();
+            EsGroup table = new EsGroup();
+            for (var i = 0; i < len; i++)
+            {
+                table = result3.lines[0].esGroup[i];
+                esGroupsFac.Add(table);
+            }
+            return "";
+        }
+
+        //(2)line[0]的线路库tags先全存好.
+        //public static string cancelOrder(string json)
+        //{
+        //    var data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
+        //    var response = HttpUtil.Post(data, URL0, contentType: "application/json");
+        //    var result3 = JsonConvert.DeserializeObject<LineListModel>(response);
+        //    var len = result3.lines[0].tags.Length;
+        //    tagsFac tagsFac = new tagsFac();
+        //    Tag table = new Tag();
+        //    for (var i = 0; i < len; i++)
+        //    {
+        //        table = result3.lines[0].tags[i];
+        //        tagsFac.Add(table);
+        //    }
+        //    return "";
+        //}
+
+        //(3)line[0]的线路库line全存好.
+        public static string cancelOrder(string json)
+        {
+            var data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
+            var response = HttpUtil.Post(data, URL0, contentType: "application/json");
+            var result3 = JsonConvert.DeserializeObject<LineListModel>(response);
+            //var len = result3.lines[0].tags.Length;
+            lineListsFac lineListsFac = new lineListsFac();
+            Line table = new Line();
+          //  for (var i = 0; i < 1; i++)
+          //  {
+                table = result3.lines[1];
+                lineListsFac.Add(table);
+         //   }
+            return "";
+        }
 
     }
 }

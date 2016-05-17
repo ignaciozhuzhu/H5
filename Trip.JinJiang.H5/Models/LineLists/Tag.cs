@@ -11,6 +11,7 @@ namespace Trip.JinJiang.H5
     public class Tag
     {
         public object id { get; set; }
+        public int lineId { get; set; }
         public object tagType { get; set; }
         public string name { get; set; }
         public object tagSource { get; set; }
