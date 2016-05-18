@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LW.Common">
-      <HintPath>..\LW\bin\LW.Common.dll</HintPath>
-    </Reference>
     <Reference Include="Maticsoft.DBUtility">
       <HintPath>..\LW\bin\Maticsoft.DBUtility.dll</HintPath>
     </Reference>
@@ -54,12 +51,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConvertJson.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="DAL\lineCategoryFac.cs" />
     <Compile Include="DAL\lineListsFac.cs" />
     <Compile Include="DAL\tagsFac.cs" />
     <Compile Include="DAL\esGroupsFac.cs" />
     <Compile Include="JJH5Api.cs" />
     <Compile Include="maps.cs" />
+    <Compile Include="Models\lineCategoryMod.cs" />
     <Compile Include="Models\LineLists\Agency.cs" />
     <Compile Include="Models\LineLists\Brand.cs" />
     <Compile Include="Models\LineLists\City.cs" />

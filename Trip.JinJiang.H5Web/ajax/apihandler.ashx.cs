@@ -147,6 +147,31 @@ namespace Trip.JinJiang.H5Web.ajax
             }
         }
 
+        /// <summary>
+        /// 后台线路库
+        /// </summary>
+        public void getlinesad()
+        {
+            HttpContext.Current.Response.Write(JJH5Api.getlinesAd());
+        }
+        /// <summary>
+        /// 更新线路类型
+        /// </summary>
+        public void updatelinesad()
+        {
+            string lineCategory = HttpContext.Current.Request["lineCategory"];
+            int lineid = Convert.ToInt32(HttpContext.Current.Request["lineid"]);
+            HttpContext.Current.Response.Write(JJH5Api.updatelinesAd(lineCategory, lineid));
+        }
+
+        /// <summary>
+        /// 获取线路类型
+        /// </summary>
+        public void getlinecategorys()
+        {
+            HttpContext.Current.Response.Write(JJH5Api.getlinecategorys());
+        }
+
         public bool IsReusable
         {
             get

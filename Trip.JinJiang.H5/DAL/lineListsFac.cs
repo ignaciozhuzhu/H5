@@ -3,7 +3,7 @@ using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using Maticsoft.DBUtility;//Please add references
-using LW.Common.DB;
+//using LW.Common.DB;
 namespace Trip.JinJiang.H5.DAL
 {
     /// <summary>
@@ -21,7 +21,7 @@ namespace Trip.JinJiang.H5.DAL
         /// </summary>
         public int GetMaxId()
         {
-            return DbHelperSQL.GetMaxID("lineId", "lineListsFac");
+            return DbHelperSQL.GetMaxID("lineId", "tbl_lineLists");
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Trip.JinJiang.H5.DAL
         public bool Exists(int lineId)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select count(1) from lineListsFac");
+            strSql.Append("select count(1) from tbl_lineLists");
             strSql.Append(" where lineId=@lineId ");
             SqlParameter[] parameters = {
                     new SqlParameter("@lineId", SqlDbType.Int,4)            };
@@ -86,107 +86,29 @@ namespace Trip.JinJiang.H5.DAL
             parameters[4].Value = model.destinationInfo;
             parameters[5].Value = model.spotInfo;
             parameters[6].Value = model.lineSubjectInfo;
-            parameters[7].Value = model.destination;
-            parameters[8].Value = model.spot;
-            parameters[9].Value = model.lineSubject;
+            parameters[7].Value = arr2string(model.destination);
+            parameters[8].Value = arr2string(model.spot);
+            parameters[9].Value = arr2string(model.lineSubject);
             parameters[10].Value = model.manualRecommend;
             parameters[11].Value = model.imageNo;
             parameters[12].Value = model.brand;
             parameters[13].Value = model.agency;
             parameters[14].Value = model.days;
             parameters[15].Value = model.isPromotion;
-            parameters[16].Value = model.departureMonth;
-            parameters[17].Value = model.priceScope;
+            parameters[16].Value = arri2string(model.departureMonth);
+            parameters[17].Value = arri2string(model.priceScope);
             parameters[18].Value = model.point;
-            parameters[19].Value = model.imageUrls;
+            parameters[19].Value = arr2string(model.imageUrls);
             parameters[20].Value = model.lineCategory;
             parameters[21].Value = model.minPrice;
             parameters[22].Value = model.productCode;
-            parameters[23].Value = model.priceScopeAndLine;
+            parameters[23].Value = arr2string(model.priceScopeAndLine);
             parameters[24].Value = model.lineDistrict;
             parameters[25].Value = model.originalPrice;
             parameters[26].Value = model.priceExplain;
             parameters[27].Value = model.recommend;
 
-            //StringBuilder strSql = new StringBuilder();
-            //strSql.Append("insert into tbl_lineLists(");
-            //strSql.Append("lineId,lineName,name,title,destinationInfo,spotInfo,lineSubjectInfo,destination,spot)");
-            //strSql.Append(" values (");
-            //strSql.Append("@lineId,@lineName,@name,@title,@destinationInfo,@spotInfo,@lineSubjectInfo,@destination,@spot)");
-            //SqlParameter[] parameters = {
-            //        new SqlParameter("@lineId", SqlDbType.Int,4),
-            //        new SqlParameter("@lineName", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@name", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@title", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@destinationInfo", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@spotInfo", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@lineSubjectInfo", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@destination", SqlDbType.NVarChar,-1),
-            //        new SqlParameter("@spot", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@lineSubject", SqlDbType.NVarChar,-1),
-            //        new SqlParameter("@manualRecommend", SqlDbType.Int,4),
-            //        new SqlParameter("@imageNo", SqlDbType.Int,4),
-            //        new SqlParameter("@brand", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@agency", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@days", SqlDbType.Int,4),
-            //        new SqlParameter("@isPromotion", SqlDbType.Int,4),
-            //        new SqlParameter("@departureMonth", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@priceScope", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@point", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@imageUrls", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@lineCategory", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@minPrice", SqlDbType.Decimal,9),
-            //        new SqlParameter("@productCode", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@priceScopeAndLine", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@lineDistrict", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@originalPrice", SqlDbType.Decimal,9),
-            //        new SqlParameter("@priceExplain", SqlDbType.NVarChar,100),
-            //        new SqlParameter("@recommend", SqlDbType.NVarChar,100)};
-            //parameters[0].Value = model.lineId;
-            //parameters[1].Value = model.lineName;
-            //parameters[2].Value = model.name;
-            //parameters[3].Value = model.title;
-            //parameters[4].Value = model.destinationInfo;
-            //parameters[5].Value = model.spotInfo;
-            //parameters[6].Value = model.lineSubjectInfo;
-            //parameters[7].Value = model.destination;
-            //parameters[8].Value = model.spot;
-            //parameters[9].Value = model.lineSubject;
-            //parameters[10].Value = model.manualRecommend;
-            //parameters[11].Value = model.imageNo;
-            //parameters[12].Value = model.brand;
-            //parameters[13].Value = model.agency;
-            //parameters[14].Value = model.days;
-            //parameters[15].Value = model.isPromotion;
-            //parameters[16].Value = model.departureMonth;
-            //parameters[17].Value = model.priceScope;
-            //parameters[18].Value = model.point;
-            //parameters[19].Value = model.imageUrls;
-            //parameters[20].Value = model.lineCategory;
-            //parameters[21].Value = model.minPrice;
-            //parameters[22].Value = model.productCode;
-            //parameters[23].Value = model.priceScopeAndLine;
-            //parameters[24].Value = model.lineDistrict;
-            //parameters[25].Value = model.originalPrice;
-            //parameters[26].Value = model.priceExplain;
-            //parameters[27].Value = model.recommend;
-
-            //parameters[7].Value = "";
-            //parameters[8].Value = "";
-            //parameters[9].Value = "";
-            //parameters[16].Value = "";
-            //parameters[17].Value = "";
-            //parameters[19].Value = "";
-            //parameters[20].Value = "";
-            //parameters[21].Value = 0;
-            //parameters[22].Value = "";
-            //parameters[23].Value = "";
-            //parameters[24].Value = "";
-            //parameters[25].Value = 0;
-            //parameters[26].Value = "";
-            //parameters[27].Value = "";
-
-            int rows = DataSource.ExecuteSql(strSql.ToString(), parameters, conn);
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
             {
                 return true;
@@ -196,13 +118,31 @@ namespace Trip.JinJiang.H5.DAL
                 return false;
             }
         }
+        private static string arr2string(string[] arr)
+        {
+            string str = "";
+            for (var i = 0; i < arr.Length; i++)
+            {
+                str += arr[i] + "|";
+            }
+            return str;
+        }
+        private static string arri2string(int[] arr)
+        {
+            string str = "";
+            for (var i = 0; i < arr.Length; i++)
+            {
+                str += arr[i] + "|";
+            }
+            return str;
+        }
         /// <summary>
         /// 更新一条数据
         /// </summary>
         public bool Update(Trip.JinJiang.H5.Line model)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("update lineListsFac set ");
+            strSql.Append("update tbl_lineLists set ");
             strSql.Append("lineName=@lineName,");
             strSql.Append("name=@name,");
             strSql.Append("title=@title,");
@@ -301,13 +241,39 @@ namespace Trip.JinJiang.H5.DAL
         }
 
         /// <summary>
+        /// 仅更新一条数据的线路类型
+        /// </summary>
+        public bool UpdatelineCategory(Trip.JinJiang.H5.Line model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update tbl_lineLists set ");
+            strSql.Append("lineCategory=@lineCategory");
+            strSql.Append(" where lineId=@lineId ");
+            SqlParameter[] parameters = {
+                    new SqlParameter("@lineCategory", SqlDbType.NVarChar,100),
+                    new SqlParameter("@lineId", SqlDbType.Int,4)};
+            parameters[0].Value = model.lineCategory;
+            parameters[1].Value = model.lineId;
+
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 删除一条数据
         /// </summary>
         public bool Delete(int lineId)
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("delete from lineListsFac ");
+            strSql.Append("delete from tbl_lineLists ");
             strSql.Append(" where lineId=@lineId ");
             SqlParameter[] parameters = {
                     new SqlParameter("@lineId", SqlDbType.Int,4)            };
@@ -329,7 +295,7 @@ namespace Trip.JinJiang.H5.DAL
         public bool DeleteList(string lineIdlist)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("delete from lineListsFac ");
+            strSql.Append("delete from tbl_lineLists ");
             strSql.Append(" where lineId in (" + lineIdlist + ")  ");
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString());
             if (rows > 0)
@@ -350,7 +316,7 @@ namespace Trip.JinJiang.H5.DAL
         //{
 
         //    StringBuilder strSql = new StringBuilder();
-        //    strSql.Append("select  top 1 lineId,lineName,name,title,destinationInfo,spotInfo,lineSubjectInfo,destination,spot,lineSubject,manualRecommend,imageNo,brand,agency,days,isPromotion,departureMonth,priceScope,point,imageUrls,lineCategory,minPrice,productCode,priceScopeAndLine,lineDistrict,originalPrice,priceExplain,recommend from lineListsFac ");
+        //    strSql.Append("select  top 1 lineId,lineName,name,title,destinationInfo,spotInfo,lineSubjectInfo,destination,spot,lineSubject,manualRecommend,imageNo,brand,agency,days,isPromotion,departureMonth,priceScope,point,imageUrls,lineCategory,minPrice,productCode,priceScopeAndLine,lineDistrict,originalPrice,priceExplain,recommend from tbl_lineLists ");
         //    strSql.Append(" where lineId=@lineId ");
         //    SqlParameter[] parameters = {
         //            new SqlParameter("@lineId", SqlDbType.Int,4)            };
@@ -499,8 +465,8 @@ namespace Trip.JinJiang.H5.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select lineId,lineName,name,title,destinationInfo,spotInfo,lineSubjectInfo,destination,spot,lineSubject,manualRecommend,imageNo,brand,agency,days,isPromotion,departureMonth,priceScope,point,imageUrls,lineCategory,minPrice,productCode,priceScopeAndLine,lineDistrict,originalPrice,priceExplain,recommend ");
-            strSql.Append(" FROM lineListsFac ");
+            strSql.Append("select lineId,lineName,name,title,destinationInfo,spotInfo,lineSubjectInfo,destination,spot,lineSubject,manualRecommend,imageNo,brand,agency,days,isPromotion,departureMonth,priceScope,point,imageUrls,b.categoryName as lineCategory,minPrice,productCode,priceScopeAndLine,lineDistrict,originalPrice,priceExplain,recommend ");
+            strSql.Append(" FROM tbl_lineLists a left join tbl_lineCategory b on a.lineCategory=b.lineCategory");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -520,7 +486,7 @@ namespace Trip.JinJiang.H5.DAL
                 strSql.Append(" top " + Top.ToString());
             }
             strSql.Append(" lineId,lineName,name,title,destinationInfo,spotInfo,lineSubjectInfo,destination,spot,lineSubject,manualRecommend,imageNo,brand,agency,days,isPromotion,departureMonth,priceScope,point,imageUrls,lineCategory,minPrice,productCode,priceScopeAndLine,lineDistrict,originalPrice,priceExplain,recommend ");
-            strSql.Append(" FROM lineListsFac ");
+            strSql.Append(" FROM tbl_lineLists ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -535,7 +501,7 @@ namespace Trip.JinJiang.H5.DAL
         public int GetRecordCount(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select count(1) FROM lineListsFac ");
+            strSql.Append("select count(1) FROM tbl_lineLists ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
@@ -566,7 +532,7 @@ namespace Trip.JinJiang.H5.DAL
             {
                 strSql.Append("order by T.lineId desc");
             }
-            strSql.Append(")AS Row, T.*  from lineListsFac T ");
+            strSql.Append(")AS Row, T.*  from tbl_lineLists T ");
             if (!string.IsNullOrEmpty(strWhere.Trim()))
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -591,7 +557,7 @@ namespace Trip.JinJiang.H5.DAL
 					new SqlParameter("@OrderType", SqlDbType.Bit),
 					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
 					};
-			parameters[0].Value = "lineListsFac";
+			parameters[0].Value = "tbl_lineLists";
 			parameters[1].Value = "lineId";
 			parameters[2].Value = PageSize;
 			parameters[3].Value = PageIndex;

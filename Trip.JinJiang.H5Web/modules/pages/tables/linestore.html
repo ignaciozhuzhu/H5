@@ -6,6 +6,7 @@
     <title>AdminLTE 2 | Data Tables</title>
     <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
     <script src="../../angular/js/ng-pagination.min.js"></script>
+    <script src="../../angular/js/angular-route.js"></script>
     <link href="../../angular/css/ng-pagination.min.css" rel="stylesheet" />
     <!--<style type="text/css">
         body {
@@ -21,9 +22,9 @@
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
     <!-- DataTables -->
     <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap.css">
     <!-- Theme style -->
@@ -483,7 +484,7 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" ng-app="lhxApp"  ng-controller="userCtrl">
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
@@ -507,27 +508,27 @@
                         <option value="FREETRIP">自由行</option>
                         <option value="GROUPTRIP">跟团游</option>
                         <option value="SHIP">游轮</option>
-                        <option value="MANTRIP">男游</option>
-                        <option value="WOMANTRIP">女游</option>
+                        <option value="OUT">出境游</option>
+                        <option value="ONSALE">特价游</option>
                     </select>
                     <input type="text" name="txt" id="txt" style="display:none">
                     <input type="button" name="btn" value="btn" id="btn" style="display:none">
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn btn-success">保存</a>
+                    <a href="#" class="btn btn-success" ng-click="reloadRoute()">保存</a>
                     <a href="#" class="btn" data-dismiss="modal">关闭</a>
                 </div>
             </div>
 
             <!-- <p><a data-toggle="modal" href="#example" class="btn btn-primary btn-large motaiclick">选起来</a></p>-->
             <!-- Main content -->
-            <section class="content">
+            <section class="content" >
                 <div class="row">
                     <div class="col-xs-12">
 
                         <div class="box">
                             <!-- /.box-header -->
-                            <div class="box-body" ng-app="lhxApp" ng-controller="userCtrl">
+                            <div class="box-body" >
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -802,51 +803,55 @@
             });
         });
 
-        var app = angular.module('lhxApp', ['ng-pagination']);
-        app.controller('userCtrl', function ($scope, $http) {
+        var app = angular.module('lhxApp', [ 'ng-pagination']);
+        var selectid;
+        app.controller('userCtrl', function ($scope, $http, $window) {
             $scope.pageCount = 100;
             percount = 10;
-
             $scope.toggle = function ($event) {
                 $("#example").attr("class", "modal fade in");
-
-                //$.ajax({
-                //    url: "../../../ajax/apihandler.ashx?fn=getlines",
-                //    type: "post",
-                //    data: { lineid: $event.currentTarget.parentElement.nextSibling.parentElement.cells[0].innerText },
-                //    success: function (text) {
-                //        var d = eval("(" + text + ")");
-                //        if (d.success) {
-                //            alert("启用成功！");
-                //            doSearch(1, 1);
-                //        }
-                //        else {
-                //            alert(d.data[0].info);
-                //        }
-                //    }
-                //});
+                selectid = $event.path[2].cells[0].innerText;
             };
-
-            var nghttp = "../../../ajax/apihandler.ashx?fn=getlines";
+            var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesad";
             $http.get(nghttp).success(function (response) {
                 responseCache = response;
                 var arrayLine = new Array(0);
                 for (var i = 0; i < percount; i++) {
-                    arrayLine.push(responseCache.lines[i]);
+                    arrayLine.push(responseCache.ds[i]);
                 }
                 $scope.lines = arrayLine;
             });
-
             $scope.onPageChange = function () {
                 var arrayLine = new Array(0);
-                var pagec = responseCache.lines.length - (percount * ($scope.currentPage - 1)) >= percount ? percount * $scope.currentPage : responseCache.lines.length;
+                var pagec = responseCache.ds.length - (percount * ($scope.currentPage - 1)) >= percount ? percount * $scope.currentPage : responseCache.ds.length;
                 for (var i = percount * ($scope.currentPage - 1) ; i < pagec; i++) {
-                    arrayLine.push(responseCache.lines[i]);
+                    arrayLine.push(responseCache.ds[i]);
                 }
                 $scope.lines = arrayLine;
             };
+            $scope.reloadRoute = function () {
+                $.ajax({
+                    url: "../../../ajax/apihandler.ashx?fn=updatelinesad",
+                    type: "post",
+                    data: { lineCategory: $('#sel')[0].value, lineid: selectid },
+                    success: function (text) {
+                        $window.location.reload();
+                    }
+                });
+
+            }
 
         });
+
+        function getlinecategorys() {
+            $.ajax({
+                url: "../../../ajax/apihandler.ashx?fn=getlinecategorys",
+                type: "post",
+                success: function (text) {
+                    var d = eval("(" + text + ")");
+                }
+            });
+        }
 
     </script>
 

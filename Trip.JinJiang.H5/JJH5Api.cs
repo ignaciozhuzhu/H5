@@ -9,9 +9,8 @@ using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using System.Text;
 using Newtonsoft.Json.Linq;
-
-using LW.Common.DB;
-using LW.Common.Json;
+using Maticsoft.DBUtility;
+//using LW.Common.Json;
 using Trip.JinJiang.H5.DAL;
 using System.Collections;
 
@@ -22,7 +21,7 @@ namespace Trip.JinJiang.H5
     /// </summary>
     public class JJH5Api
     {
-        static string conn = System.Configuration.ConfigurationSettings.AppSettings["conn"]; //System.Configuration.ConfigurationManager.AppSettings["conn"];
+        static string conn = System.Configuration.ConfigurationSettings.AppSettings["conn"];
         //线路搜索接口地址
         // private string URL1
         private const string URL0 = "http://travelsearchservice.jinjiang.uat/travelsearchservice/travel/search/searchTravel";   //线路列表接口
@@ -33,6 +32,11 @@ namespace Trip.JinJiang.H5
         private const string urlcreateorder = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/create";    //创建订单接口
         private const string urlinventory = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/group/queryRealTimeRefresh/";   //查询库存 ,实时价格接口
         private const string urlcancelorder = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/cancel";    //取消订单接口
+        private const string urlcurl = "http://116.236.229.43:8081/pbp/payment/createOrUpdatePayPreInfo";
+        private const string urlcurl2 = "http://116.236.229.43:8081/pbp/ali/default/pay/12332";
+        private const string urlcurlwap = "http://116.236.229.43:8081/pbp/ali/wap/pay/xtsb";
+
+
         /// <summary>
         /// 查询路线
         /// </summary>
@@ -61,8 +65,9 @@ namespace Trip.JinJiang.H5
 
         public static string Getlinecategoriecrm(string category)
         {
-            string str = "select lineId,lineCategory from dbo.linecategory where lineCategory='" + category + "'";
-            DataSet ds = Common.fillds(str);
+            string str = "select lineId,lineCategory from dbo.tbl_lineLists where lineCategory='" + category + "'";
+            //  DataSet ds = Common.fillds(str);
+            DataSet ds = DbHelperSQL.Query(str);
             string json = Common.DataTable2Array(ds.Tables[0]);
             json = "{\"rows\":" + json.Replace("'", "\"") + "}";
             return json;
@@ -100,8 +105,8 @@ namespace Trip.JinJiang.H5
         /// </summary>
         public static string FindPromotion()
         {
-          //  string str = "select * from dbo.linecategory";
-         //   DataSet ds = Common.fillds(str);
+            //  string str = "select * from dbo.linecategory";
+            //   DataSet ds = Common.fillds(str);
 
             var data = "{\"isPromotion\":1}";
             data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":80,\"rows\":80,\"search\":false,\"startRow\":1,\"total\":80}}";
@@ -213,12 +218,12 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 
         /// </summary>
-        public static string cancelOrder3(string userid)
+        public static string cancelOrder(string userid)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select count(*) from LineCategory ");
-            DataTable dt = DataSource.ExecuteQuery(strSql.ToString(), conn);
-            if ((Convert.ToInt32(dt.Rows[0][0])) > 0)
+            strSql.Append("select count(*) from tbl_lineLists ");
+            int i = DbHelperSQL.ExecuteSql(strSql.ToString(), conn);
+            if (i > 0)
             {
                 return "";
             }
@@ -241,7 +246,7 @@ namespace Trip.JinJiang.H5
 
 
         //(1)line[0]的线路库esGroup先全存好.
-        public static string cancelOrder5(string json)
+        public static string cancelOrder4(string json)
         {
             var data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
             var response = HttpUtil.Post(data, URL0, contentType: "application/json");
@@ -274,21 +279,85 @@ namespace Trip.JinJiang.H5
         //    return "";
         //}
 
-        //(3)line[0]的线路库line全存好.
-        public static string cancelOrder(string json)
+        //(3)line[0]的线路库line[]先全存好.
+        public static string cancelOrder44(string json)
         {
-            var data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
+            var data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":80,\"search\":false,\"startRow\":1,\"total\":8}}";
             var response = HttpUtil.Post(data, URL0, contentType: "application/json");
             var result3 = JsonConvert.DeserializeObject<LineListModel>(response);
-            //var len = result3.lines[0].tags.Length;
             lineListsFac lineListsFac = new lineListsFac();
             Line table = new Line();
-          //  for (var i = 0; i < 1; i++)
-          //  {
-                table = result3.lines[1];
-                lineListsFac.Add(table);
-         //   }
+            for (var i = 0; i < result3.lines.Length; i++)
+            {
+                table = result3.lines[i];
+                try
+                {
+                    lineListsFac.Add(table);
+                }
+                catch { }
+            }
             return "";
+        }
+
+        //(--)测支付报文.
+        public static string cancelOrder5(string json)
+        {
+            // var data = "{\"bgUrl\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
+            var data = "{\"bgUrl\":\"\",\"callPart\":\"HOTEL\",\"cardNo\":\"\",\"csId\":\"\",\"csName\":\"\",\"orderNo\":\"H1D52A754174\",\"orderPageUrlFroAdmin\":\"\",\"pageUrl\":\"\"}";
+            data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl></bgUrl>  <buyerId> 10056582 </buyerId>  <buyerIp> 192.168.2.51 </buyerIp>     <buyerName> 惊云 </buyerName>     <callPart> HOTEL </callPart>     <description> 锦江之星上海外滩滨江酒店 </description>     <orderNo> H1D52C3DA815 </orderNo>     <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl><payMethod > MONEY </payMethod>     <payType> ONLINE </payType>     <paymentPlatform> ALIPAY </paymentPlatform>     <price> 77 </price><score> 0 </score>     <subject> 锦江之星上海外滩滨江酒店 </subject> </payRequest> ";
+            var response = HttpUtil.Post(data, urlcurl2, contentType: "application/xml");
+
+            var data2 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl>http://192.168.2.81:81/hbp/hotels/order/afterPayProcess</bgUrl>  <buyerId>10056582</buyerId>  <buyerIp>192.168.2.51</buyerIp>  <buyerName>惊云</buyerName>  <callPart>HOTEL</callPart>  <description>锦江之星上海外滩滨江酒店</description>  <orderNo>H1D52C3DA815</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl>  <payMethod>MONEY</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>ALIPAY_WAP</paymentPlatform>  <price>77</price>  <score>0</score>  <subject>锦江之星上海外滩滨江酒店</subject></payRequest> ";
+            var response2 = HttpUtil.Post(data2, urlcurlwap, contentType: "application/xml");
+
+            return "";
+
+            //var data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
+            //var response = HttpUtil.Post(data, URL0, contentType: "application/json");
+            //var result3 = JsonConvert.DeserializeObject<LineListModel>(response);
+            //lineListsFac lineListsFac = new lineListsFac();
+            //Line table = new Line();
+            //table = result3.lines[1];
+            //lineListsFac.Add(table);
+            //return "";
+        }
+
+
+        /// <summary>
+        /// 后台线路库
+        /// </summary>
+        public static string getlinesAd()
+        {
+            lineListsFac lineListsFac = new lineListsFac();
+            DataSet ds = lineListsFac.GetList("");
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
+
+        }
+        /// <summary>
+        /// 更新线路类型
+        /// </summary>
+        public static string updatelinesAd(string lineCategory ,int lineid)
+        {
+            Trip.JinJiang.H5.Line model = new Line();
+            model.lineCategory = lineCategory;
+            model.lineId = lineid;
+            lineListsFac lineListsFac = new lineListsFac();
+            lineListsFac.UpdatelineCategory(model);
+            return "";
+        }
+
+        /// <summary>
+        /// 获取线路类型
+        /// </summary>
+        public static string getlinecategorys()
+        {
+            lineCategoryFac lineCategoryFac = new lineCategoryFac();
+            DataSet ds = lineCategoryFac.GetList("");
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
         }
 
     }

@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="modules\.gitignore" />
+    <Content Include="modules\angular\js\angular-route.js" />
     <Content Include="modules\bootstrap\css\bootstrap.css" />
     <Content Include="modules\bootstrap\css\bootstrap.min.css" />
     <Content Include="modules\bootstrap\css\bootstrap-modal.css" />
@@ -1218,6 +1219,7 @@
     <Content Include="modules\README.md" />
     <Content Include="www\js\jquery.spinner2.js" />
     <Content Include="www\js\jquery.spinner.js" />
+    <Content Include="www\js\Jquerybui.js" />
     <Content Include="www\js\mfb-directive.js" />
     <Content Include="www\js\modernizr.touch.js" />
     <Content Include="www\js\zlDate.js" />

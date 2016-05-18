@@ -3,7 +3,7 @@ using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using Maticsoft.DBUtility;//Please add references
-using LW.Common.DB;
+//using LW.Common.DB;
 namespace Trip.JinJiang.H5.DAL
 {
     /// <summary>
@@ -66,9 +66,9 @@ namespace Trip.JinJiang.H5.DAL
             parameters[5].Value = model.departDate;
             parameters[6].Value = model.deadLineTimeVal;
 
-            int rows = DataSource.ExecuteSql(strSql.ToString(), parameters, conn);
+          //  int rows = DataSource.ExecuteSql(strSql.ToString(), parameters, conn);
 
-          //  int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
             {
                 return true;

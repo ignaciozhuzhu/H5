@@ -57,9 +57,10 @@
     var searchParam = request("search");
     var nghttp = "../../ajax/apihandler.ashx?fn=getlines";
     $http.get(nghttp).success(function (response) {
+       // debugger
         var arrayLinemm = new Array(0);
         for (var i = 0; i < response.lines.length; i++) {
-            if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0].indexOf('http') < 0)
+            if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0] === null || response.lines[i].imageUrls[0].indexOf('http') < 0)
                 response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
             //往搜索结果中添加合集(1)
             if (response.lines[i].lineName.indexOf(searchParam) > -1)
@@ -78,33 +79,37 @@
     var searchParam = lineCategory;
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinesbycategory&lineCategory=" + lineCategory + "";
     $http.get(nghttp).success(function (response) {
-
         $.ajax({
             url: "../../ajax/apihandler.ashx",
             data: { fn: "getlinecategoriecrm", category: lineCategory },
             type: "post",
             success: function (text) {
+             //   debugger
                 var d = eval("(" + text + ")");
-
+                var arrayLinemm = new Array(0);
                 for (var i = 0 ; i < d.rows.length; i++) {
                     for (var j = 0 ; j < response.lines.length; j++) {
                         if (d.rows[i].lineId == response.lines[j].lineId) {
+                            //往搜索结果中添加合集(1)
+                            if (response.lines[j].imageUrls[0] === undefined || response.lines[j].imageUrls[0] === null || response.lines[j].imageUrls[0].indexOf('http') < 0)
+                                response.lines[j].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg';
                             response.lines[j].lineCategory = d.rows[i].lineCategory;
+                            arrayLinemm.push(response.lines[j]);
                         }
                     }
                 }
 
-                var arrayLinemm = new Array(0);
-                for (var i = 0; i < response.lines.length; i++) {
-                    if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0].indexOf('http') < 0)
-                        response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
-                    //往搜索结果中添加合集(1)
-                    if (response.lines[i].lineCategory == searchParam)
-                        arrayLinemm.push(response.lines[i])
-                }
+                //for (var i = 0; i < response.lines.length; i++) {
+                //    if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0] === null || response.lines[i].imageUrls[0].indexOf('http') < 0)
+                //        response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
+                //    //往搜索结果中添加合集(1)
+                //    if (response.lines[i].lineCategory == searchParam)
+                //        arrayLinemm.push(response.lines[i])
+                //}
                 //往搜索结果中添加合集(2)
                 $scope.linelists = arrayLinemm;
                 $scope.agencies = response.agencies;
+
             }
         })
 
@@ -133,7 +138,7 @@
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinespromotion";
     $http.get(nghttp).success(function (response) {
         for (var i = 0; i < 8; i++) {
-            if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0].indexOf('http') < 0)
+            if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0] === null || response.lines[i].imageUrls[0].indexOf('http') < 0)
                 response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
         }
         var arrayLineP = new Array(0);
@@ -256,6 +261,10 @@
 
         //取团号
         $scope.groupcode = '团号:' + response.line.groups[0].groupCode.substring(response.line.groups[0].groupCode.length - 14, response.line.groups[0].groupCode.length);
+
+        //取线路旅游类型
+        //debugger
+        //$scope.linecategory = response.linecategory;
 
         //取价格
         $scope.price = response.minPrice;
@@ -424,6 +433,7 @@
 
 //填写订单控制器
 .controller('fillorderCtrl', function ($scope, $http) {
+    $.blockUI();
     var amount = getpbyurl(1);
     var cnum = getpbyurl(2);
     var pnum = getpbyurl(3);
@@ -450,9 +460,9 @@
             arrayGuests.push(i);
         }
         $scope.guests = arrayGuests;
+
+        $.unblockUI();
     })
-
-
 
     var Connect = {
         name: '',
@@ -462,6 +472,9 @@
     var guestsarr = new Array(0);
     $scope.Connect = Connect;
     $scope.createorder = function () {
+        $.blockUI({
+            message: '<h6>正在加载,请稍后...</h6>'
+        });
         var ConnectName = $scope.Connect.name;
         var ConnectMobile = $scope.Connect.mobile;
         var ConnectEmail = $scope.Connect.email;
@@ -499,8 +512,9 @@
             url: "../../ajax/apihandler.ashx?fn=createorder&json=" + json + "",
             type: "post",
             success: function (text) {
+                $.unblockUI();
                 var d = eval("(" + text + ")");
-                window.location.href = "#/app/payway/";
+                window.location.href = "#/app/payway";
             }
         });
     }
