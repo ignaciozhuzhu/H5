@@ -37,14 +37,16 @@ namespace Trip.JinJiang.H5.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into tbl_lineCategory(");
-            strSql.Append("lineCode,lineCategory)");
+            strSql.Append("categoryName,lineCategory,imgUrl)");
             strSql.Append(" values (");
-            strSql.Append("@lineCode,@lineCategory)");
+            strSql.Append("@categoryName,@lineCategory,@imgUrl)");
             SqlParameter[] parameters = {
-                    new SqlParameter("@lineCode", SqlDbType.NVarChar,50),
-                    new SqlParameter("@lineCategory", SqlDbType.NVarChar,50)};
-            parameters[0].Value = model.lineCode;
+                    new SqlParameter("@categoryName", SqlDbType.NVarChar,50),
+                    new SqlParameter("@lineCategory", SqlDbType.NVarChar,50),
+                    new SqlParameter("@imgUrl", SqlDbType.NVarChar,300)};
+            parameters[0].Value = model.categoryName;
             parameters[1].Value = model.lineCategory;
+            parameters[2].Value = model.imgUrl;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -59,41 +61,41 @@ namespace Trip.JinJiang.H5.DAL
         /// <summary>
         /// 更新一条数据
         /// </summary>
-        public bool Update(Trip.JinJiang.H5.Model.lineCategoryMod model)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("update tbl_lineCategory set ");
-            strSql.Append("lineCategory=@lineCategory");
-            strSql.Append(" where lineCode=@lineCode ");
-            SqlParameter[] parameters = {
-                    new SqlParameter("@lineCategory", SqlDbType.NVarChar,50),
-                    new SqlParameter("@lineCode", SqlDbType.NVarChar,50)};
-            parameters[0].Value = model.lineCategory;
-            parameters[1].Value = model.lineCode;
+        //public bool Update(Trip.JinJiang.H5.Model.lineCategoryMod model)
+        //{
+        //    StringBuilder strSql = new StringBuilder();
+        //    strSql.Append("update tbl_lineCategory set ");
+        //    strSql.Append("lineCategory=@lineCategory");
+        //    strSql.Append(" where lineCode=@lineCode ");
+        //    SqlParameter[] parameters = {
+        //            new SqlParameter("@lineCategory", SqlDbType.NVarChar,50),
+        //            new SqlParameter("@lineCode", SqlDbType.NVarChar,50)};
+        //    parameters[0].Value = model.lineCategory;
+        //    parameters[1].Value = model.lineCode;
 
-            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
-            if (rows > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //    int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+        //    if (rows > 0)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
         /// <summary>
         /// 删除一条数据
         /// </summary>
-        public bool Delete(string lineCode)
+        public bool Delete(int Id)
         {
 
             StringBuilder strSql = new StringBuilder();
             strSql.Append("delete from tbl_lineCategory ");
-            strSql.Append(" where lineCode=@lineCode ");
+            strSql.Append(" where Id=@Id ");
             SqlParameter[] parameters = {
-                    new SqlParameter("@lineCode", SqlDbType.NVarChar,50)            };
-            parameters[0].Value = lineCode;
+                    new SqlParameter("@Id", SqlDbType.Int,4)           };
+            parameters[0].Value = Id;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -125,51 +127,51 @@ namespace Trip.JinJiang.H5.DAL
         }
 
 
-        /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public Trip.JinJiang.H5.Model.lineCategoryMod GetModel(string lineCode)
-        {
+        ///// <summary>
+        ///// 得到一个对象实体
+        ///// </summary>
+        //public Trip.JinJiang.H5.Model.lineCategoryMod GetModel(string lineCode)
+        //{
 
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 lineCode,lineCategory from tbl_lineCategory ");
-            strSql.Append(" where lineCode=@lineCode ");
-            SqlParameter[] parameters = {
-                    new SqlParameter("@lineCode", SqlDbType.NVarChar,50)            };
-            parameters[0].Value = lineCode;
+        //    StringBuilder strSql = new StringBuilder();
+        //    strSql.Append("select  top 1 Id,lineCategory,categoryName from tbl_lineCategory ");
+        //    strSql.Append(" where lineCode=@lineCode ");
+        //    SqlParameter[] parameters = {
+        //            new SqlParameter("@lineCode", SqlDbType.NVarChar,50)            };
+        //    parameters[0].Value = lineCode;
 
-            Trip.JinJiang.H5.Model.lineCategoryMod model = new Trip.JinJiang.H5.Model.lineCategoryMod();
-            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                return DataRowToModel(ds.Tables[0].Rows[0]);
-            }
-            else
-            {
-                return null;
-            }
-        }
+        //    Trip.JinJiang.H5.Model.lineCategoryMod model = new Trip.JinJiang.H5.Model.lineCategoryMod();
+        //    DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+        //    if (ds.Tables[0].Rows.Count > 0)
+        //    {
+        //        return DataRowToModel(ds.Tables[0].Rows[0]);
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
 
 
-        /// <summary>
-        /// 得到一个对象实体
-        /// </summary>
-        public Trip.JinJiang.H5.Model.lineCategoryMod DataRowToModel(DataRow row)
-        {
-            Trip.JinJiang.H5.Model.lineCategoryMod model = new Trip.JinJiang.H5.Model.lineCategoryMod();
-            if (row != null)
-            {
-                if (row["lineCode"] != null)
-                {
-                    model.lineCode = row["lineCode"].ToString();
-                }
-                if (row["lineCategory"] != null)
-                {
-                    model.lineCategory = row["lineCategory"].ToString();
-                }
-            }
-            return model;
-        }
+        ///// <summary>
+        ///// 得到一个对象实体
+        ///// </summary>
+        //public Trip.JinJiang.H5.Model.lineCategoryMod DataRowToModel(DataRow row)
+        //{
+        //    Trip.JinJiang.H5.Model.lineCategoryMod model = new Trip.JinJiang.H5.Model.lineCategoryMod();
+        //    if (row != null)
+        //    {
+        //        if (row["lineCode"] != null)
+        //        {
+        //            model.lineCode = row["lineCode"].ToString();
+        //        }
+        //        if (row["lineCategory"] != null)
+        //        {
+        //            model.lineCategory = row["lineCategory"].ToString();
+        //        }
+        //    }
+        //    return model;
+        //}
 
         /// <summary>
         /// 获得数据列表
@@ -177,7 +179,7 @@ namespace Trip.JinJiang.H5.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select lineCode,lineCategory ");
+            strSql.Append("select Id,lineCategory,categoryName,imgUrl ");
             strSql.Append(" FROM tbl_lineCategory ");
             if (strWhere.Trim() != "")
             {
@@ -197,7 +199,7 @@ namespace Trip.JinJiang.H5.DAL
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" lineCode,lineCategory ");
+            strSql.Append(" Id,lineCategory,categoryName,imgUrl ");
             strSql.Append(" FROM tbl_lineCategory ");
             if (strWhere.Trim() != "")
             {

@@ -10,15 +10,16 @@ namespace Trip.JinJiang.H5.Model
         public lineCategoryMod()
         { }
         #region Model
-        private string _linecode;
+        private string _categoryName;
         private string _linecategory;
+        private string _imgUrl;
         /// <summary>
         /// 
         /// </summary>
-        public string lineCode
+        public string categoryName
         {
-            set { _linecode = value; }
-            get { return _linecode; }
+            set { _categoryName = value; }
+            get { return _categoryName; }
         }
         /// <summary>
         /// 
@@ -27,6 +28,14 @@ namespace Trip.JinJiang.H5.Model
         {
             set { _linecategory = value; }
             get { return _linecategory; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string imgUrl
+        {
+            set { _imgUrl = value; }
+            get { return _imgUrl; }
         }
         #endregion Model
 

@@ -40,11 +40,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 
     <![endif]-->
-    <style>
-        .box-body table thead tr th{
-            width:18%
-        }
-    </style>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -55,7 +51,7 @@
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>A</b>LT</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Admin</b>LTE</span>
+                <span class="logo-lg"><b>锦江H5</b>后台</span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -325,10 +321,10 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="../../img/logo.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Alexander Pierce</p>
+                        <p><!--Alexander Pierce--></p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
@@ -489,7 +485,7 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper" ng-app="lhxApp"  ng-controller="userCtrl">
+        <div class="content-wrapper" ng-app="lhxApp" ng-controller="userCtrl">
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
@@ -503,19 +499,26 @@
                 </ol>
             </section>
 
-            <div id="example" class="modal hide fade in" style="display: none; height: 200px; width: 300px; ">
+            <form id="example" class="modal hide fade in" style="display: none; height: 200px; width: 300px; ">
                 <div class="modal-header">
                     <a class="close" data-dismiss="modal">×</a>
-                    <h3>线路类型选择</h3>
+                    <h3>线路类型编辑</h3>
                 </div>
                 <div class="modal-body">
-                    <select id="sel">
-                        <option value="FREETRIP">自由行</option>
-                        <option value="GROUPTRIP">跟团游</option>
-                        <option value="SHIP">游轮</option>
-                        <option value="OUT">出境游</option>
-                        <option value="ONSALE">特价游</option>
-                    </select>
+                    <div>
+                        <div>类型名称</div>
+                        <div>
+                            <input id="categoryName" type="text" style="height: 30px" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>类型编码</div>
+                        <div>
+                            <input id="lineCategory" type="text" style="height: 30px" />
+                        </div>
+                        <input id="File1" name="File1" type="file" />
+                        <!--<input id="iptUp" type="button" value="上传" onclick="upload()" />-->  
+                    </div>
                     <input type="text" name="txt" id="txt" style="display:none">
                     <input type="button" name="btn" value="btn" id="btn" style="display:none">
                 </div>
@@ -523,38 +526,39 @@
                     <a href="#" class="btn btn-success" ng-click="reloadRoute()">保存</a>
                     <a href="#" class="btn" data-dismiss="modal">关闭</a>
                 </div>
-            </div>
+            </form>
 
             <!-- <p><a data-toggle="modal" href="#example" class="btn btn-primary btn-large motaiclick">选起来</a></p>-->
             <!-- Main content -->
-            <section class="content" >
+            <section class="content">
                 <div class="row">
                     <div class="col-xs-12">
 
                         <div class="box">
                             <!-- /.box-header -->
-                            <div class="box-body" >
+                            <div class="box-body">
+                                <div><a ng-click="add()" data-toggle="modal" href="#example" style="padding-left:1%">添加</a></div>
+
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th ng-hide="true">ID</th>
-                                            <th>名称</th>
-                                            <th>标题</th>
-                                            <th>目的地</th>
-                                            <th>线路类型</th>
-                                            <th>最低价</th>
+                                            <th ng-hide="true">Id</th>
+                                            <th>分类名称</th>
+                                            <th>分类编码</th>
+                                            <th>图标</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="x in lines">
-                                            <td ng-hide="true">{{x.lineId}}</td>
-                                            <td>{{x.name}}</td>
-                                            <td>{{x.title}}</td>
-                                            <td>{{x.destinationInfo}}</td>
+                                            <td ng-hide="true">{{x.Id}}</td>
+                                            <td>{{x.categoryName}}</td>
                                             <td>{{x.lineCategory}}</td>
-                                            <td>{{x.originalPrice}}</td>
-                                            <td><a ng-click="toggle($event)" data-toggle="modal" href="#example">编辑</a></td>
+                                            <td><img src={{x.imgUrl}} style="width:30px"></td>
+                                            <td>
+                                                <!--<a ng-click="edit($event)" data-toggle="modal" href="#example"  style="padding-left:5%">修改</a>-->
+                                                <a ng-click="delete($event)" href="#example">删除</a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -784,6 +788,9 @@
     <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
     <!-- SlimScroll -->
     <script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+
+    <!--<script src="http://libs.baidu.com/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>-->
+    <script src="../../js/jquery-form.js" type="text/javascript"></script>  
     <!-- FastClick -->
     <script src="../../plugins/fastclick/fastclick.js"></script>
 
@@ -808,22 +815,43 @@
             });
         });
 
-        var app = angular.module('lhxApp', [ 'ng-pagination']);
+        var app = angular.module('lhxApp', ['ng-pagination']);
         var selectid;
+        function modalclass() {
+            $("#example").attr("class", "modal fade in");
+            $("#example").height(300);
+        }
+        
         app.controller('userCtrl', function ($scope, $http, $window) {
             $scope.pageCount = 100;
             percount = 10;
-            $scope.toggle = function ($event) {
-                $("#example").attr("class", "modal fade in");
+            //$scope.edit = function ($event) {
+            //    modalclass();
+            //    selectid = $event.path[2].cells[0].innerText;
+            //};
+            $scope.delete = function ($event) {
                 selectid = $event.path[2].cells[0].innerText;
+                $.ajax({
+                    url: "../../../ajax/apihandler.ashx?fn=dellinecategory",
+                    type: "post",
+                    data: { Id: selectid },
+                    success: function (text) {
+                        $window.location.reload();
+                    }
+                });
             };
-            var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesad";
+            $scope.add = function () {
+                modalclass();
+            };
+            var nghttp = "../../../ajax/apihandler.ashx?fn=getlinecategorys";
             $http.get(nghttp).success(function (response) {
                 responseCache = response;
                 var arrayLine = new Array(0);
-                for (var i = 0; i < percount; i++) {
+                var pagec = responseCache.ds.length - (percount * ($scope.currentPage - 1)) >= percount ? percount * $scope.currentPage : responseCache.ds.length;
+                for (var i = 0; i < pagec; i++) {
                     arrayLine.push(responseCache.ds[i]);
                 }
+               // debugger
                 $scope.lines = arrayLine;
             });
             $scope.onPageChange = function () {
@@ -835,28 +863,48 @@
                 $scope.lines = arrayLine;
             };
             $scope.reloadRoute = function () {
-                $.ajax({
-                    url: "../../../ajax/apihandler.ashx?fn=updatelinesad",
-                    type: "post",
-                    data: { lineCategory: $('#sel')[0].value, lineid: selectid },
-                    success: function (text) {
-                        $window.location.reload();
-                    }
-                });
+                var path = document.getElementById("File1").value;
+                var img = document.getElementById("img1");
+                if ($.trim(path) == "") {
+                    alert("请选择要上传的文件");
+                    return;
+                }
+
+                //未选中行说明是新增,此处字段过少不涉及修改.
+                if (selectid === null || selectid === undefined) {
+                    $.ajax({
+                        url: "../../../ajax/apihandler.ashx?fn=editlinecategory",
+                        type: "post",
+                        data: { categoryName: $('#categoryName')[0].value, lineCategory: $('#lineCategory')[0].value },
+                        success: function (text) {
+                            $("#example").ajaxSubmit({
+                                success: function (str) {
+                                    if (str != null && str != "undefined") {
+                                        if (str == "1") {
+                                            alert('操作成功！');
+                                            $window.location.reload();
+                                           // alert("上传成功"); document.getElementById("img1").src = "images/logo.jpg?" + new Date();/*上传后刷新图片*/
+                                        }
+                                        else if (str == "2") { alert("只能上传jpg或png格式的图片"); }
+                                        else if (str == "3") { alert("图片不能大于1M"); }
+                                        else if (str == "4") { alert("请选择要上传的文件!!"); }
+                                        else { alert('操作失败！'); }
+                                    }
+                                    else alert('操作失败！');
+                                },
+                                error: function (error) { alert(error); },
+                                url: '../../../ajax/Handler.ashx', /*设置post提交到的页面*/
+                                type: "post", /*设置表单以post方法提交*/
+                                dataType: "text" /*设置返回值类型为文本*/
+                            });
+
+                        }
+                    });
+                }
 
             }
 
         });
-
-        function getlinecategorys() {
-            $.ajax({
-                url: "../../../ajax/apihandler.ashx?fn=getlinecategorys",
-                type: "post",
-                success: function (text) {
-                    var d = eval("(" + text + ")");
-                }
-            });
-        }
 
     </script>
 

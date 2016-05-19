@@ -201,7 +201,7 @@
     $('#ordernow').attr('href', '#/app/indexdate/' + lineid);
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
     $http.get(nghttp).success(function (response) {
-
+        
         //团框初始高度
         $("#groupsheight").height(16);
         $("#groupsinheight").height(16);

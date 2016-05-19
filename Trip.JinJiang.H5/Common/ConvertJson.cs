@@ -6,6 +6,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Trip.JinJiang.H5
@@ -332,6 +333,32 @@ namespace Trip.JinJiang.H5
             return jsonString.ToString();
         }
         #endregion
+
+        public static string DataTable2Array(DataTable dt)
+        {
+            if (dt.Rows.Count > 0)
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append("[");
+                foreach (DataRow dr in dt.Rows)
+                {
+                    str.Append("{");
+                    foreach (DataColumn dc in dt.Columns)
+                    {
+                        str.Append("'" + dc.ColumnName + "':'" + Regex.Replace(dr[dc.ColumnName].ToString(), @"[\n\r]", "") + "',");
+                    }
+                    str.Remove(str.Length - 1, 1);
+                    str.Append("},");
+                }
+                str.Remove(str.Length - 1, 1);
+                str.Append("]");
+                return str.ToString();
+            }
+            else
+            {
+                return "[]";
+            }
+        }
     }
 }
 

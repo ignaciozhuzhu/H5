@@ -25,7 +25,6 @@ namespace Trip.JinJiang.H5
             response = Regex.Replace(response, "SHA", "上海国旅国际旅行社有限公司", RegexOptions.IgnoreCase);
             response = Regex.Replace(response, "BJT", "北京锦江国际旅行社有限公司", RegexOptions.IgnoreCase);
             response = Regex.Replace(response, "SJT", "上海锦江旅游有限公司", RegexOptions.IgnoreCase);
-
             return response;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Web;
 using System.Web.SessionState;
@@ -24,6 +25,12 @@ namespace Trip.JinJiang.H5Web.ajax
             {
                 HttpContext.Current.Response.Write("接口出错!");
             }
+        }
+
+        private void ResponseWriteEnd(HttpContext context, string msg)
+        {
+            context.Response.Write(msg);
+            context.Response.End();
         }
 
         /// <summary>
@@ -137,7 +144,7 @@ namespace Trip.JinJiang.H5Web.ajax
         /// </summary>
         public void cancelorder()
         {
-            string orderCode= HttpContext.Current.Request["ordercode"];
+            string orderCode = HttpContext.Current.Request["ordercode"];
             try
             {
                 HttpContext.Current.Response.Write(JJH5Api.cancelOrder(orderCode));
@@ -155,7 +162,7 @@ namespace Trip.JinJiang.H5Web.ajax
             HttpContext.Current.Response.Write(JJH5Api.getlinesAd());
         }
         /// <summary>
-        /// 更新线路类型
+        /// 更新线路的类型
         /// </summary>
         public void updatelinesad()
         {
@@ -171,6 +178,27 @@ namespace Trip.JinJiang.H5Web.ajax
         {
             HttpContext.Current.Response.Write(JJH5Api.getlinecategorys());
         }
+
+
+        /// <summary>
+        /// 线路类型编辑
+        /// </summary>
+        public void editlinecategory()
+        {
+            // string categoryName = HttpContext.Current.Request["categoryName"].ToString();
+            //  string lineCategory = HttpContext.Current.Request["lineCategory"].ToString();
+            //  HttpContext.Current.Response.Write(JJH5Api.editlinecategory(categoryName, lineCategory));
+         //   HttpContext.Current.Response.Write()
+        }
+        /// <summary>
+        /// 线路类型删除
+        /// </summary>
+        public void dellinecategory()
+        {
+            int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
+            HttpContext.Current.Response.Write(JJH5Api.dellinecategory(Id));
+        }
+        
 
         public bool IsReusable
         {
