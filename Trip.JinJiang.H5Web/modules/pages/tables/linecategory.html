@@ -528,7 +528,16 @@
                 </div>
             </form>
 
-
+            <form id="example0" class="modal hide fade in" style="display: none; height: 120px; width: 270px; ">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">×</a>
+                    <h3>确认禁(可)用吗?</h3>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-success" ng-click="confirmEn()">认了</a>
+                    <a href="#" class="btn" data-dismiss="modal">不了</a>
+                </div>
+            </form>
             <form id="example2" class="modal hide fade in" style="display: none; height: 120px; width: 270px; ">
                 <div class="modal-header">
                     <a class="close" data-dismiss="modal">×</a>
@@ -557,6 +566,7 @@
                                             <th>分类名称</th>
                                             <th>分类编码</th>
                                             <th>图标</th>
+                                            <th>状态</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
@@ -566,9 +576,10 @@
                                             <td>{{x.categoryName}}</td>
                                             <td>{{x.lineCategory}}</td>
                                             <td><img src={{x.imgUrl}} style="width:30px;height:30px"></td>
+                                            <td>{{x.status}}</td>
                                             <td>
                                                 <a ng-click="edit($event)" data-toggle="modal" href="#example">修改</a>
-                                                <a ng-click="changeen($event)" data-toggle="modal" href="#example1" style="margin-left:5%">禁(可)用</a>
+                                                <a ng-click="changeen($event)" data-toggle="modal" href="#example0" style="margin-left:5%">禁(可)用</a>
                                                 <a ng-click="delete($event)" data-toggle="modal" href="#example2" style="margin-left:5%">删除</a>
                                             </td>
                                         </tr>
@@ -826,7 +837,7 @@
             $("#example").attr("class", "modal fade in");
         }
         function modalclass1() {
-            $("#example1").attr("class", "modal fade in");
+            $("#example0").attr("class", "modal fade in");
         }
         function modalclass2() {
             $("#example2").attr("class", "modal fade in");
@@ -856,6 +867,16 @@
             $scope.delete = function ($event) {
                 modalclass2();
                 selectid = $event.path[2].cells[0].innerText;
+            };
+            $scope.confirmEn = function () {
+                $.ajax({
+                    url: "../../../ajax/apihandler.ashx?fn=enlinecategory",
+                    type: "post",
+                    data: { Id: selectid },
+                    success: function (text) {
+                        $window.location.reload();
+                    }
+                });
             };
             $scope.confirmDel = function () {
                 $.ajax({

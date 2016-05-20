@@ -97,7 +97,7 @@ namespace Trip.JinJiang.H5.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update tbl_lineCategory set ");
-            strSql.Append("status=status ");
+            strSql.Append("status=!status ");
             strSql.Append(" where Id=@Id ");
             SqlParameter[] parameters = {
                     new SqlParameter("@Id", SqlDbType.Int,4)};

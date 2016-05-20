@@ -402,12 +402,12 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 线路类型禁(可)用
         /// </summary>
-        //public static string enlinecategory(int Id)
-        //{
-        //    lineCategoryFac Fac = new lineCategoryFac();
-        //    Fac.ChangeStatus(Id);
-        //    return "";
-        //}
+        public static string enlinecategory(int Id)
+        {
+            lineCategoryFac Fac = new lineCategoryFac();
+            Fac.ChangeStatus(Id);
+            return "";
+        }
         /// <summary>
         /// 线路类型删除
         /// </summary>
