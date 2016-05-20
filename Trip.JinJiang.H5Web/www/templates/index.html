@@ -50,6 +50,28 @@
         right: 10px;
         bottom: 0;
     }
+
+    .linecatebox {
+        /*height: 170px;*/
+        margin:3% 0;
+    }
+
+        .linecatebox .linecategorys {
+            width: 20%;
+            float: left;
+            text-align: center;
+            margin: 2% 0;
+        }
+
+            .linecatebox .linecategorys img {
+                width: 40px;
+                height: 40px
+            }
+
+            .linecatebox .linecategorys div {
+                font-size: 12px;
+                color: #a9a9a9;
+            }
 </style>
 
 <link href="css/royalslider.css?1" rel="stylesheet">
@@ -275,15 +297,8 @@
             </div>
         </div>
         <div>
-            <div class="imglineCategory">
-                <a href="#/app/linelists/GROUPTRIP"><img src="img/跟团游.png" /></a>
-                <a href="#/app/linelists/FREETRIP"><img src="img/定制游.png" /></a>
-                <a href="#/app/linelists/SHIP"><img src="img/主题游.png" /></a>
-                <a href="#/app/linelists/ONSALE"><img src="img/轮船游.png" /></a>
-                <a href="#/app/linelists/FREETRIP"><img src="img/自由行.png" /></a>
-</div>
-            <div class="qq_size">
-                <span>出境游</span><span>国内行</span><span>周边游</span><span>特价游</span><span>自由行</span>
+            <div class="linecatebox">
+                <div class="linecategorys" ng-repeat="x in linecategorys"><div><a href="#/app/linelists/{{x.lineCategory}}"><img src={{x.imgUrl}}></a></div><div>{{x.categoryName}}</div></div>
             </div>
             <!--框头部-->
             <div>

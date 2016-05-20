@@ -281,7 +281,7 @@ var commonUtil = {
             url: "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "",
             type: "post",
             success: function (text) {
-                
+                //debugger
                 var d = eval("(" + text + ")");
                 var leftNum = d.leftNum == null ? 0 : d.leftNum;
                 $('.numpera').empty().append(' ' + leftNum + ' ');

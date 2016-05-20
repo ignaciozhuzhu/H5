@@ -23,9 +23,9 @@ namespace Trip.JinJiang.H5
         private const string urlinventory = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/group/queryRealTimeRefresh/";   //查询库存 ,实时价格接口
         private const string urlcancelorder = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/cancel";    //取消订单接口
 
-        private const string urlcurlcreateorder = "http://116.236.229.43:8081/pbp/payment/createOrUpdatePayPreInfo";   //创建订单
-        private const string urlcurlpc = "http://116.236.229.43:8081/pbp/ali/default/pay/12332";     //网页端支付
-        private const string urlcurlwap = "http://116.236.229.43:8081/pbp/ali/wap/pay/xtsb";    //WAP端支付
+        private const string urlcurlcreateorder = "http://jjh5api.oando.com.cn/pbp/payment/createOrUpdatePayPreInfo";   //创建订单
+        private const string urlcurlpc = "http://jjh5api.oando.com.cn/pbp/ali/default/pay/12332";     //网页端支付
+        private const string urlcurlwap = "http://jjh5api.oando.com.cn/pbp/ali/wap/pay/";    //WAP端支付
 
         /// <summary>
         /// 查询路线
@@ -33,7 +33,7 @@ namespace Trip.JinJiang.H5
         public static string Find()
         {
             var data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
-            var data3 = "{\"endBookingDate\":\"2016-05-14\",\"mcMemberCode\":\"1231234\",\"orderCode\":\"\",\"orderStatus\":\"\",\"pagination\":{\"endRow\":10,\"page\":2,\"records\":0,\"rows\":10,\"search\":false,\"startRow\":1,\"total\":1},\"payStatus\":\"PAY_WAITING\",\"startBookingDate\":\"2016-05-10\"}";
+            var data3 = "{\"endBookingDate\":\"2016-05-21\",\"mcMemberCode\":\"1231234\",\"orderCode\":\"\",\"orderStatus\":\"\",\"pagination\":{\"endRow\":10,\"page\":2,\"records\":0,\"rows\":10,\"search\":false,\"startRow\":1,\"total\":1},\"payStatus\":\"PAY_WAITING\",\"startBookingDate\":\"2016-05-19\"}";
             var response = HttpUtil.Post(data, urllinesearch, contentType: "application/json");
             var response3 = HttpUtil.Post(data3, urlsearchorder, contentType: "application/json");
             response = maps.mapAgencies(response);
@@ -268,16 +268,47 @@ namespace Trip.JinJiang.H5
             return "";
         }
 
+        /// <summary>
+        /// pbp预支付
+        /// </summary>
+        public static string pbppaypre(string orderNo, int payAmount)
+        {
+            var data0 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payPreInfoDto>    <bgUrl></bgUrl>    <callPart>TRAVEL</callPart>    <cardNo></cardNo>    <csId></csId>    <csName></csName><orderNo>" + orderNo + "</orderNo><orderPageUrlFroAdmin></orderPageUrlFroAdmin><pageUrl></pageUrl>    <payAmount>" + payAmount + "</payAmount>    <payMethod>MONEY</payMethod>    <payType>ONLINE</payType>    <productTitle>锦江手机官网</productTitle>    <scoreAmount>0</scoreAmount>    <sign></sign>    <userId></userId>    <userName></userName>  </payPreInfoDto>";
+            var response0 = HttpUtil.Post(data0, urlcurlcreateorder, contentType: "application/xml");
+            return "";
+        }
+
+        /// <summary>
+        /// 支付宝支付
+        /// </summary>
+        public static string pbppayorder(string orderNo, int payAmount,string accountName)
+        {
+            accountName = "JJE_APP_CLIENT_ALI_WAP_PAY";
+            var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payPreInfoDto>    <bgUrl>http://www.baidu.com</bgUrl>    <callPart>TRAVEL</callPart>    <cardNo></cardNo>    <csId></csId>    <csName></csName><orderNo>" + orderNo + "</orderNo><orderPageUrlFroAdmin></orderPageUrlFroAdmin><pageUrl></pageUrl>    <payAmount>" + payAmount + "</payAmount>    <payMethod>MONEY</payMethod>    <payType>ONLINE</payType>    <productTitle>锦江手机官网</productTitle>    <scoreAmount>0</scoreAmount>    <sign></sign>    <userId></userId>    <userName></userName>  </payPreInfoDto>";
+            var url = urlcurlwap + accountName;
+            var response = HttpUtil.Post(data, url, contentType: "application/xml");
+            return response;
+        }
+
         //(--)测支付报文.
         public static string cancelOrder(string json)
         {
-            // var data = "{\"bgUrl\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
-            var data = "{\"bgUrl\":\"\",\"callPart\":\"HOTEL\",\"cardNo\":\"\",\"csId\":\"\",\"csName\":\"\",\"orderNo\":\"H1D52A754174\",\"orderPageUrlFroAdmin\":\"\",\"pageUrl\":\"\"}";
-            data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl></bgUrl>  <buyerId> 10056582 </buyerId>  <buyerIp> 192.168.2.51 </buyerIp>     <buyerName> 惊云 </buyerName>     <callPart> HOTEL </callPart>     <description> 锦江之星上海外滩滨江酒店 </description>     <orderNo> H1D52C3DA815 </orderNo>     <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl><payMethod > MONEY </payMethod>     <payType> ONLINE </payType>     <paymentPlatform> ALIPAY </paymentPlatform>     <price> 77 </price><score> 0 </score>     <subject> 锦江之星上海外滩滨江酒店 </subject> </payRequest> ";
-            var response = HttpUtil.Post(data, urlcurlpc, contentType: "application/xml");
+            var orderNo = "";
+            var payAmount = 0;
 
-            var data2 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl>http://192.168.2.81:81/hbp/hotels/order/afterPayProcess</bgUrl>  <buyerId>10056582</buyerId>  <buyerIp>192.168.2.51</buyerIp>  <buyerName>惊云</buyerName>  <callPart>HOTEL</callPart>  <description>锦江之星上海外滩滨江酒店</description>  <orderNo>H1D52C3DA815</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl>  <payMethod>MONEY</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>ALIPAY_WAP</paymentPlatform>  <price>77</price>  <score>0</score>  <subject>锦江之星上海外滩滨江酒店</subject></payRequest> ";
-            var response2 = HttpUtil.Post(data2, urlcurlwap, contentType: "application/xml");
+            var data0 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payPreInfoDto>    <bgUrl>http://172.24.88.73:6066/hotelservice/hotels/order/afterPayProcess</bgUrl>    <callPart>TRAVEL</callPart>    <cardNo></cardNo>    <csId></csId>    <csName></csName><orderNo>" + orderNo + "</orderNo><orderPageUrlFroAdmin></orderPageUrlFroAdmin><pageUrl></pageUrl>    <payAmount>" + payAmount + "</payAmount>    <payMethod>MONEY</payMethod>    <payType>ONLINE</payType>    <productTitle>锦江手机官网</productTitle>    <scoreAmount>0</scoreAmount>    <sign></sign>    <userId></userId>    <userName></userName>  </payPreInfoDto>";
+            var response0 = HttpUtil.Post(data0, urlcurlcreateorder, contentType: "application/xml");
+
+            // var data = "{\"bgUrl\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":50,\"search\":false,\"startRow\":1,\"total\":8}}";
+            //var data = "{\"bgUrl\":\"\",\"callPart\":\"HOTEL\",\"cardNo\":\"\",\"csId\":\"\",\"csName\":\"\",\"orderNo\":\"H1D52A754174\",\"orderPageUrlFroAdmin\":\"\",\"pageUrl\":\"\"}";
+            //data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl></bgUrl>  <buyerId> 10056582 </buyerId>  <buyerIp> 192.168.2.51 </buyerIp>     <buyerName> 惊云 </buyerName>     <callPart> HOTEL </callPart>     <description> 锦江之星上海外滩滨江酒店 </description>     <orderNo> H1D52C3DA815 </orderNo>     <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl><payMethod > MONEY </payMethod>     <payType> ONLINE </payType>     <paymentPlatform> ALIPAY </paymentPlatform>     <price> 77 </price><score> 0 </score>     <subject> 锦江之星上海外滩滨江酒店 </subject> </payRequest> ";
+            //var response = HttpUtil.Post(data, urlcurlpc, contentType: "application/xml");
+
+            var urlcurlwap3 = "http://jjh5api.oando.com.cn/pbp/ali/wap/pay/INNS_APP_CLIENT_ALI_WAP_PAY";
+
+            var data2 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl>http://192.168.2.81:81/hbp/hotels/order/afterPayProcess</bgUrl>  <buyerId>10056582</buyerId>  <buyerIp>192.168.2.51</buyerIp>  <buyerName>惊云</buyerName>  <callPart>HOTEL</callPart>  <description>锦江之星上海外滩滨江酒店</description>  <orderNo>1000160520000001</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl>  <payMethod>MONEY</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>ALIPAY_WAP</paymentPlatform>  <price>1</price>  <score>0</score>  <subject>锦江之星上海外滩滨江酒店</subject></payRequest> ";
+            // var response2 = HttpUtil.Post(data2, urlcurlwap, contentType: "application/xml");
+            var response2 = HttpUtil.Post(data2, urlcurlwap3, contentType: "application/xml");
 
             return "";
 
@@ -351,7 +382,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 线路类型编辑
         /// </summary>
-        public static string editlinecategory(string categoryName, string lineCategory ,string imgUrl,int Id)
+        public static string editlinecategory(string categoryName, string lineCategory, string imgUrl, int Id)
         {
             lineCategoryMod model = new lineCategoryMod();
             model.lineCategory = lineCategory;
@@ -359,7 +390,8 @@ namespace Trip.JinJiang.H5
             model.imgUrl = imgUrl;
             model.Id = Id;
             lineCategoryFac Fac = new lineCategoryFac();
-            if (Fac.Update(model)) {
+            if (Fac.Update(model))
+            {
                 return "操作成功!";
             }
             else {
@@ -367,6 +399,15 @@ namespace Trip.JinJiang.H5
             }
         }
 
+        /// <summary>
+        /// 线路类型禁(可)用
+        /// </summary>
+        //public static string enlinecategory(int Id)
+        //{
+        //    lineCategoryFac Fac = new lineCategoryFac();
+        //    Fac.ChangeStatus(Id);
+        //    return "";
+        //}
         /// <summary>
         /// 线路类型删除
         /// </summary>

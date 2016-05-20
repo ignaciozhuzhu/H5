@@ -70,8 +70,8 @@ namespace Trip.JinJiang.H5.DAL
             strSql.Append("imgUrl=@imgUrl");
             strSql.Append(" where Id=@Id ");
             SqlParameter[] parameters = {
-                    new SqlParameter("@lineCategory", SqlDbType.NVarChar,50),
                     new SqlParameter("@categoryName", SqlDbType.NVarChar,50),
+                    new SqlParameter("@lineCategory", SqlDbType.NVarChar,50),
                     new SqlParameter("@imgUrl", SqlDbType.NVarChar,200),
                     new SqlParameter("@Id", SqlDbType.Int,4)};
             parameters[0].Value = model.categoryName;
@@ -90,6 +90,29 @@ namespace Trip.JinJiang.H5.DAL
             }
         }
 
+        /// <summary>
+        /// 更新数据状态
+        /// </summary>
+        public bool ChangeStatus(int Id)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update tbl_lineCategory set ");
+            strSql.Append("status=status ");
+            strSql.Append(" where Id=@Id ");
+            SqlParameter[] parameters = {
+                    new SqlParameter("@Id", SqlDbType.Int,4)};
+            parameters[0].Value = Id;
+
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         /// <summary>
         /// 删除一条数据
         /// </summary>
@@ -184,7 +207,7 @@ namespace Trip.JinJiang.H5.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select Id,lineCategory,categoryName,imgUrl ");
+            strSql.Append("select Id,lineCategory,categoryName,imgUrl,status ");
             strSql.Append(" FROM tbl_lineCategory ");
             if (strWhere.Trim() != "")
             {
@@ -204,7 +227,7 @@ namespace Trip.JinJiang.H5.DAL
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" Id,lineCategory,categoryName,imgUrl ");
+            strSql.Append(" Id,lineCategory,categoryName,imgUrl,status ");
             strSql.Append(" FROM tbl_lineCategory ");
             if (strWhere.Trim() != "")
             {

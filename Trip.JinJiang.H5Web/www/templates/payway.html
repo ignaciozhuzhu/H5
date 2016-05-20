@@ -81,10 +81,10 @@
     <ion-content>
         <div class="payway">
             <div class="head">
-                <div><span>线路名称:</span><span>法国蔚蓝海岸普罗旺斯梦幻城堡12日</span></div>
-                <div><span>订单编号:</span><span>SJTAMA160622-003S</span></div>
-                <div><span>团期人数:</span><span>2016-05-18 2成人</span></div>
-                <div><span>为确保出票,请在16:06前完成支付.</span><span></span></div>
+                <div><span>线路名称:</span><span>{{lineTitle}}.</span></div>
+                <div><span>订单编号:</span><span>{{groupCode}}</span></div>
+                <div><span>团期人数:</span><span>{{departDate}} {{pnum}}成人</span></div>
+                <div><span>为确保出票,请在{{timepay}}前完成支付.</span><span></span></div>
             </div>
             <div class="border1"></div>
             <div>
@@ -96,34 +96,34 @@
                         </div>
                         <div style="float:left;width:75% ">
                             <div style="border-bottom:solid 1px #dcdee1;padding:5px 0">
-                                <span>成人团费</span> <span style="float:right;padding:0 10px">¥ 11000</span>
+                                <span>成人团费</span> <span style="float:right;padding:0 10px">¥ {{minprice}}</span>
                             </div>
                             <div style="padding:5px 0">
-                                <span>保险费用</span> <span style="float:right;padding:0 10px">¥ 130</span>
+                                <span>保险费用</span> <span style="float:right;padding:0 10px">¥ {{secureamount}}</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="border1"></div>
 
-                    <div style="height:60px">
+                    <div class="innamebox" style="height:60px">
                         <div style="float:left;height:30px;width:25%;padding:5px 10px">
                             出行人
                         </div>
                         <div style="float:left;width:75% ">
-                            <div style="border-bottom:solid 1px #dcdee1;padding:5px 0">
-                                <span>赵远洋</span>
+                            <div style="border-bottom:solid 1px #dcdee1;padding:5px 0" ng-repeat="x in inname">
+                                <span>{{x.name}}</span>
                             </div>
-                            <div style="padding:5px 0">
-                                <span>杨小辉</span>
-                            </div>
+                            <!--<div style="border-bottom:solid 1px #dcdee1;padding:5px 0">
+                                <span>{{inname1}}</span>
+                            </div>-->
                         </div>
                     </div>
 
                     <div class="border1"></div>
 
                 </div>
-                <div style="padding:5px 10px">应付总额 <img src="img/向上箭头.png" style="float:right;" /><a style="float:right;padding:0 5px;font-size:12px">收起</a><span style="float:right;padding:0 10px;color: #ff7200"> ¥ 17900</span></div>
+                <div style="padding:5px 10px">应付总额 <img src="img/向上箭头.png" style="float:right;" /><a style="float:right;padding:0 5px;font-size:12px"></a><span style="float:right;padding:0 10px;color: #ff7200"> ¥ {{amount}}</span></div>
                 <div style="background-image:url(img/锯齿划线.png);height:20px"></div>
                 <div class="listtyle">
                     <ul>
@@ -156,7 +156,7 @@
                             <span><input type="checkbox" /></span>
                         </li>
                     </ul>
-                    <div class="bottombutton">确认支付</div>
+                    <div ng-click="pay()" class="bottombutton">确认支付</div>
                 </div>
             </div>
         </div>

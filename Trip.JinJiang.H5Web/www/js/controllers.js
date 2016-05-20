@@ -57,7 +57,7 @@
     var searchParam = request("search");
     var nghttp = "../../ajax/apihandler.ashx?fn=getlines";
     $http.get(nghttp).success(function (response) {
-       // debugger
+        // debugger
         var arrayLinemm = new Array(0);
         for (var i = 0; i < response.lines.length; i++) {
             if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0] === null || response.lines[i].imageUrls[0].indexOf('http') < 0)
@@ -84,7 +84,7 @@
             data: { fn: "getlinecategoriecrm", category: lineCategory },
             type: "post",
             success: function (text) {
-             //   debugger
+                //   debugger
                 var d = eval("(" + text + ")");
                 var arrayLinemm = new Array(0);
                 for (var i = 0 ; i < d.rows.length; i++) {
@@ -130,10 +130,24 @@
         });
     });
 
+    //滚动,下拉出电话
     $scope.getScrollPosition = function () {
         var scrolltop = $ionicScrollDelegate.$getByHandle('indexDelegate').getScrollPosition().top;
         $('#teledown').css('top', scrolltop + document.documentElement.childNodes[2].scrollHeight - 170);
     }
+
+    var nghttpcategory = "../../ajax/apihandler.ashx?fn=getlinecategorys";
+    $http.get(nghttpcategory).success(function (response) {
+        $scope.linecategorys = response.ds;
+        if (response.ds.length / 5 > 0)
+            $('.linecatebox').height(110);
+        if (response.ds.length / 5 > 1)
+            $('.linecatebox').height(170);
+        if (response.ds.length / 5 > 2)
+            $('.linecatebox').height(230);
+        if (response.ds.length / 5 > 3)
+            $('.linecatebox').height(290);
+    })
 
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinespromotion";
     $http.get(nghttp).success(function (response) {
@@ -200,8 +214,9 @@
     var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
     $('#ordernow').attr('href', '#/app/indexdate/' + lineid);
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
+    debugger
     $http.get(nghttp).success(function (response) {
-        
+        debugger
         //团框初始高度
         $("#groupsheight").height(16);
         $("#groupsinheight").height(16);
@@ -293,6 +308,7 @@
         var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
         var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
         $http.get(nghttp).success(function (response) {
+            debugger
             intoCalendarTime();
             adn = 1;
             crn = 0;
@@ -424,7 +440,7 @@
             amountall = minprice * pnum + roomdiff;
             $('#amount').empty().append(amountall);
             $('#amountct').empty().append(minprice * pnum);
-            $('#nextfill').attr('href', '#/app/fillorder/' + groupid + '/' + pnum + '/' + cnum + '/' + amountall);
+            $('#nextfill').attr('href', '#/app/fillorder/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amountall);
         }
         subamount();
     })
@@ -434,10 +450,12 @@
 //填写订单控制器
 .controller('fillorderCtrl', function ($scope, $http) {
     $.blockUI();
+
     var amount = getpbyurl(1);
     var cnum = getpbyurl(2);
     var pnum = getpbyurl(3);
     var groupid = getpbyurl(4);
+    var secureamount = getpbyurl(5);
 
     var priceid;
     var Discount;
@@ -492,9 +510,11 @@
         guestsarr.push(p);
         p = new CGuest('ADULT', 'guest4');
         guestsarr.push(p);
+        p = new CGuest('ADULT', 'guest5');
+        guestsarr.push(p);
 
         var gueststring = "";
-        for (var i = 0; i < pnum;i++){
+        for (var i = 0; i < pnum; i++) {
             gueststring += "{\"category\":\"" + guestsarr[i].category + "\",\"name\":\"" + guestsarr[i].name + "\"},";
         }
         gueststring = gueststring.substring(0, gueststring.length - 1);
@@ -504,17 +524,23 @@
         //debugger
         json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
         //2人
-       // json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"},{\"category\":\"" + guestsarr[1].category + "\",\"name\":\"" + guestsarr[1].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
+        // json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"},{\"category\":\"" + guestsarr[1].category + "\",\"name\":\"" + guestsarr[1].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
         //1人
         //json = "{\"adultNum\":1,\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":1,\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount + "}],\"scorePay\":false}";
+
+
 
         $.ajax({
             url: "../../ajax/apihandler.ashx?fn=createorder&json=" + json + "",
             type: "post",
             success: function (text) {
+                //出行人只显示成人,有几人就设置几个cookiename
+                for (var i = 0; i < pnum; i++) {
+                    setCookie('inname' + i, $('.inname')[i].value, 1);
+                }
                 $.unblockUI();
                 var d = eval("(" + text + ")");
-                window.location.href = "#/app/payway";
+                window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
             }
         });
     }
@@ -523,11 +549,57 @@
 
 //支付方式控制器
 .controller('paywayCtrl', function ($scope, $http) {
-    //var nghttp = "../../ajax/apihandler.ashx?fn=getlines";
-    //$http.get(nghttp).success(function (response) {
-    //debugger
+    $.blockUI({
+        message: '<h6>正在加载,请稍后...</h6>'
+    });
+    var amount = getpbyurl(1);
+    var cnum = getpbyurl(2);
+    var pnum = getpbyurl(3);
+    var groupid = getpbyurl(4);
+    var secureamount = getpbyurl(5);
+    $scope.amount = amount;
+    var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
+    $http.get(nghttp).success(function (response) {
+        //  debugger
+        var minprice;
+        for (var j = 0; j < response.prices.length; j++) {
+            if (response.prices[j].offerType == '基本价')
+                minprice = response.prices[j].salePrice;
+        }
+        $scope.minprice = minprice;
+        $scope.secureamount = secureamount;
+        $scope.groupCode = response.groupCode;
+        $scope.lineTitle = response.lineTitle;
+        $scope.pnum = pnum;
+        $scope.departDate = FormatDateYear(response.departDate);
+        $scope.timepay = FormatDateTimeDiff(3600000);
 
-    //});
+
+        //出行人只显示成人,有几人就显示几个cookiename-----------st
+        var arrayinname = new Array(0);
+        function CGuest(name) {
+            this.name = name;
+        }
+        for (var i = 0; i < pnum; i++) {
+            p = new CGuest(getCookie('inname' + i));
+            arrayinname.push(p);
+        }
+        $scope.inname = arrayinname;
+
+        $('.innamebox').height(60 + 31 * (pnum - 2));
+        //出行人只显示成人,有几人就显示几个cookiename-----------ed
+
+        $.unblockUI();
+
+        //$scope.pay = function () {
+        //    var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
+        //    $http.get(nghttp).success(function (response) {
+            
+        //    })
+        //}
+
+    })
+
 })
 
 //取消订单控制器
@@ -611,45 +683,6 @@ function searchLines() {
     window.location.href = '#/app/linelists?search=' + searchParam;
 }
 
-//获取当前地
-function getPro() {
-    var url = 'http://chaxun.1616.net/s.php?type=ip&output=json&callback=?&_=' + Math.random();
-    $.getJSON(url, function (data) {
-        var pro = data.Isp.substring(data.Isp.indexOf(' ') - 3, data.Isp.indexOf(' ') - 1);
-        if (pro === "齐齐")
-            pro = "齐齐哈尔"
-        if (pro === "哈尔")
-            pro = "哈尔滨"
-        if (pro === "呼和")
-            pro = "呼和浩特"
-        if (pro === "乌鲁")
-            pro = "乌鲁木齐"
-        if (pro === "石家")
-            pro = "石家庄"
-        $("#beginProtxt")[0].placeholder = pro + '出发';
-        $("#nowPro").append(pro);
-    });
-
-}
-
-function getPro2() {
-    //Test: Print the IP addresses into the console
-    getIPs(function (ip) {
-        var remoteip;
-        if (ip.indexOf('192.168') < 0) {
-            remoteip = ip;
-            var province = '';
-            var city = '';
-            jQuery.getScript("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=" + remoteip, function () {
-                city = remote_ip_info["city"];
-                $("#beginProtxt")[0].placeholder = city + '出发';
-                $("#nowPro").append(city);
-
-            });
-        }
-    });
-}
-
 function removeclassblue() {
     $('.thirdCenter').removeClass("contentblue");
     $('.thirdCenter').removeClass("lineblue");
@@ -682,116 +715,13 @@ function expenseCl() {
     removeclassblue();
     addclassblue(2, 5);
 }
-//格式化日期
-function FormatDate(strTime) {
-    var date = new Date(strTime);
-    var month;
-    var day;
-    var year;
-    if (date.getMonth() + 1 < 10)
-        month = '0' + (date.getMonth() + 1);
-    else
-        month = date.getMonth() + 1;
-    if (date.getDate() < 10)
-        day = '0' + date.getDate();
-    else
-        day = date.getDate();
-    return month + "-" + day;
-}
-function FormatDateYear(strTime) {
-    var date = new Date(strTime);
-    var month;
-    var day;
-    var year;
-    year = date.getFullYear();
-    if (date.getMonth() + 1 < 10)
-        month = '0' + (date.getMonth() + 1);
-    else
-        month = date.getMonth() + 1;
-    if (date.getDate() < 10)
-        day = '0' + date.getDate();
-    else
-        day = date.getDate();
-    return year + '-' + month + "-" + day;
-}
+
 
 function sortbydepartDate(a, b) {
     return a.departDate - b.departDate;
 }
 function sortbydayNumber(a, b) {
     return a.dayNumber - b.dayNumber;
-}
-
-//get the IP addresses associated with an account
-function getIPs(callback) {
-    var ip_dups = {};
-
-    //compatibility for firefox and chrome
-    var RTCPeerConnection = window.RTCPeerConnection
-        || window.mozRTCPeerConnection
-        || window.webkitRTCPeerConnection;
-
-    //bypass naive webrtc blocking
-    if (!RTCPeerConnection) {
-        var iframe = document.createElement('iframe');
-        //invalidate content script
-        iframe.sandbox = 'allow-same-origin';
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
-        var win = iframe.contentWindow;
-        window.RTCPeerConnection = win.RTCPeerConnection;
-        window.mozRTCPeerConnection = win.mozRTCPeerConnection;
-        window.webkitRTCPeerConnection = win.webkitRTCPeerConnection;
-        RTCPeerConnection = window.RTCPeerConnection
-            || window.mozRTCPeerConnection
-            || window.webkitRTCPeerConnection;
-    }
-
-    //minimal requirements for data connection
-    var mediaConstraints = {
-        optional: [{ RtpDataChannels: true }]
-    };
-
-    //firefox already has a default stun server in about:config
-    //    media.peerconnection.default_iceservers =
-    //    [{"url": "stun:stun.services.mozilla.com"}]
-    var servers = undefined;
-
-    //add same stun server for chrome
-    if (window.webkitRTCPeerConnection)
-        servers = { iceServers: [{ urls: "stun:stun.services.mozilla.com" }] };
-
-    //construct a new RTCPeerConnection
-    var pc = new RTCPeerConnection(servers, mediaConstraints);
-
-    //listen for candidate events
-    pc.onicecandidate = function (ice) {
-
-        //skip non-candidate events
-        if (ice.candidate) {
-
-            //match just the IP address
-            var ip_regex = /([0-9]{1,3}(\.[0-9]{1,3}){3})/
-            var ip_addr = ip_regex.exec(ice.candidate.candidate)[1];
-
-            //remove duplicates
-            if (ip_dups[ip_addr] === undefined)
-                callback(ip_addr);
-
-            ip_dups[ip_addr] = true;
-        }
-    };
-
-    //create a bogus data channel
-    pc.createDataChannel("");
-
-    //create an offer sdp
-    pc.createOffer(function (result) {
-
-        //trigger the stun server request
-        pc.setLocalDescription(result, function () { }, function () { });
-
-    }, function () { });
 }
 
 //获取链接参数
@@ -815,6 +745,9 @@ function getpbyurl(typei) {
             break;
         case 5:
             geturl = subs(subs(subs(subs(geturl))));
+            break;
+        case 6:
+            geturl = subs(subs(subs(subs(subs(geturl)))));
             break;
     }
     return geturl.substring(geturl.lastIndexOf('/') + 1, geturl.length);

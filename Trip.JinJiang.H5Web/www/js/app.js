@@ -94,7 +94,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       })
        //填写订单---------------------------------------------
      .state('app.fillorder', {
-         url: '/fillorder/:groupid/:pnum/:cnum/:amount',
+         url: '/fillorder/:secureamount/:groupid/:pnum/:cnum/:amount',
          views: {
              'menuContent': {
                  templateUrl: 'templates/fillorder.html',
@@ -104,7 +104,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
      })
        //支付方式---------------------------------------------
      .state('app.payway', {
-         url: '/payway',
+         url: '/payway/:secureamount/:groupid/:pnum/:cnum/:amount',
          views: {
              'menuContent': {
                  templateUrl: 'templates/payway.html',

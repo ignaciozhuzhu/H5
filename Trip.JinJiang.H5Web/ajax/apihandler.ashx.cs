@@ -179,7 +179,14 @@ namespace Trip.JinJiang.H5Web.ajax
             HttpContext.Current.Response.Write(JJH5Api.getlinecategorys());
         }
 
-
+        /// <summary>
+        /// 线路类型禁(可)用
+        /// </summary>
+        //public void enlinecategory()
+        //{
+        //    int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
+        //    HttpContext.Current.Response.Write(JJH5Api.enlinecategory(Id));
+        //}
         /// <summary>
         /// 线路类型删除
         /// </summary>
@@ -188,6 +195,7 @@ namespace Trip.JinJiang.H5Web.ajax
             int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
             HttpContext.Current.Response.Write(JJH5Api.dellinecategory(Id));
         }
+
 
 
         public bool IsReusable

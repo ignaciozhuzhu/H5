@@ -13,6 +13,7 @@ namespace Trip.JinJiang.H5.Model
         private string _categoryName;
         private string _linecategory;
         private string _imgUrl;
+        private bool _status;
         private int _Id;
         /// <summary>
         /// 分类名称
@@ -37,6 +38,14 @@ namespace Trip.JinJiang.H5.Model
         {
             set { _imgUrl = value; }
             get { return _imgUrl; }
+        }
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public bool status
+        {
+            set { _status = value; }
+            get { return _status; }
         }
         /// <summary>
         /// 自增Id
