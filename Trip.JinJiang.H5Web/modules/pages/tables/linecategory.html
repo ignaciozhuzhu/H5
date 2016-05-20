@@ -489,7 +489,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    线路库
+                    线路库分类管理
                     <small>操作</small>
                 </h1>
                 <ol class="breadcrumb">
@@ -529,7 +529,7 @@
             </form>
 
 
-            <form id="example3" class="modal hide fade in" style="display: none; height: 120px; width: 270px; ">
+            <form id="example2" class="modal hide fade in" style="display: none; height: 120px; width: 270px; ">
                 <div class="modal-header">
                     <a class="close" data-dismiss="modal">×</a>
                     <h3>确认删除吗?</h3>
@@ -568,7 +568,8 @@
                                             <td><img src={{x.imgUrl}} style="width:30px;height:30px"></td>
                                             <td>
                                                 <a ng-click="edit($event)" data-toggle="modal" href="#example">修改</a>
-                                                <a ng-click="delete($event)" data-toggle="modal" href="#example3" style="margin-left:5%">删除</a>
+                                                <a ng-click="changeen($event)" data-toggle="modal" href="#example1" style="margin-left:5%">禁(可)用</a>
+                                                <a ng-click="delete($event)" data-toggle="modal" href="#example2" style="margin-left:5%">删除</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -824,8 +825,11 @@
         function modalclass() {
             $("#example").attr("class", "modal fade in");
         }
+        function modalclass1() {
+            $("#example1").attr("class", "modal fade in");
+        }
         function modalclass2() {
-            $("#example3").attr("class", "modal fade in");
+            $("#example2").attr("class", "modal fade in");
         }
 
         app.controller('userCtrl', function ($scope, $http, $window) {
@@ -844,6 +848,10 @@
                 $('#categoryName')[0].value = $event.path[2].cells[1].innerText;
                 $('#lineCategory')[0].value = $event.path[2].cells[2].innerText;
                 $('#lineCategory').attr("disabled", "disabled");
+            };
+            $scope.changeen = function ($event) {
+                modalclass1();
+                selectid = $event.path[2].cells[0].innerText;
             };
             $scope.delete = function ($event) {
                 modalclass2();
