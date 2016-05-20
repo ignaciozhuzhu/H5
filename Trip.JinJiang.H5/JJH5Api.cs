@@ -333,15 +333,38 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 线路类型编辑
         /// </summary>
-        public static string editlinecategory(string categoryName, string lineCategory ,string imgUrl)
+        public static string addlinecategory(string categoryName, string lineCategory, string imgUrl)
         {
             lineCategoryMod model = new lineCategoryMod();
             model.lineCategory = lineCategory;
             model.categoryName = categoryName;
             model.imgUrl = imgUrl;
             lineCategoryFac Fac = new lineCategoryFac();
-            Fac.Add(model);
-            return "";
+            if (Fac.Add(model))
+            {
+                return "操作成功!";
+            }
+            else {
+                return "操作失败!";
+            }
+        }
+        /// <summary>
+        /// 线路类型编辑
+        /// </summary>
+        public static string editlinecategory(string categoryName, string lineCategory ,string imgUrl,int Id)
+        {
+            lineCategoryMod model = new lineCategoryMod();
+            model.lineCategory = lineCategory;
+            model.categoryName = categoryName;
+            model.imgUrl = imgUrl;
+            model.Id = Id;
+            lineCategoryFac Fac = new lineCategoryFac();
+            if (Fac.Update(model)) {
+                return "操作成功!";
+            }
+            else {
+                return "操作失败!";
+            }
         }
 
         /// <summary>

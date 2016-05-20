@@ -61,35 +61,40 @@ namespace Trip.JinJiang.H5.DAL
         /// <summary>
         /// 更新一条数据
         /// </summary>
-        //public bool Update(Trip.JinJiang.H5.Model.lineCategoryMod model)
-        //{
-        //    StringBuilder strSql = new StringBuilder();
-        //    strSql.Append("update tbl_lineCategory set ");
-        //    strSql.Append("lineCategory=@lineCategory");
-        //    strSql.Append(" where lineCode=@lineCode ");
-        //    SqlParameter[] parameters = {
-        //            new SqlParameter("@lineCategory", SqlDbType.NVarChar,50),
-        //            new SqlParameter("@lineCode", SqlDbType.NVarChar,50)};
-        //    parameters[0].Value = model.lineCategory;
-        //    parameters[1].Value = model.lineCode;
+        public bool Update(Trip.JinJiang.H5.Model.lineCategoryMod model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update tbl_lineCategory set ");
+            strSql.Append("categoryName=@categoryName, ");
+            strSql.Append("lineCategory=@lineCategory, ");
+            strSql.Append("imgUrl=@imgUrl");
+            strSql.Append(" where Id=@Id ");
+            SqlParameter[] parameters = {
+                    new SqlParameter("@lineCategory", SqlDbType.NVarChar,50),
+                    new SqlParameter("@categoryName", SqlDbType.NVarChar,50),
+                    new SqlParameter("@imgUrl", SqlDbType.NVarChar,200),
+                    new SqlParameter("@Id", SqlDbType.Int,4)};
+            parameters[0].Value = model.categoryName;
+            parameters[1].Value = model.lineCategory;
+            parameters[2].Value = model.imgUrl;
+            parameters[3].Value = model.Id;
 
-        //    int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
-        //    if (rows > 0)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         /// 删除一条数据
         /// </summary>
         public bool Delete(int Id)
         {
-
             StringBuilder strSql = new StringBuilder();
             strSql.Append("delete from tbl_lineCategory ");
             strSql.Append(" where Id=@Id ");

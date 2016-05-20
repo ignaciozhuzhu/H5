@@ -13,8 +13,9 @@ namespace Trip.JinJiang.H5.Model
         private string _categoryName;
         private string _linecategory;
         private string _imgUrl;
+        private int _Id;
         /// <summary>
-        /// 
+        /// 分类名称
         /// </summary>
         public string categoryName
         {
@@ -22,7 +23,7 @@ namespace Trip.JinJiang.H5.Model
             get { return _categoryName; }
         }
         /// <summary>
-        /// 
+        /// 分类编码
         /// </summary>
         public string lineCategory
         {
@@ -30,12 +31,20 @@ namespace Trip.JinJiang.H5.Model
             get { return _linecategory; }
         }
         /// <summary>
-        /// 
+        /// 图标
         /// </summary>
         public string imgUrl
         {
             set { _imgUrl = value; }
             get { return _imgUrl; }
+        }
+        /// <summary>
+        /// 自增Id
+        /// </summary>
+        public int Id
+        {
+            set { _Id = value; }
+            get { return _Id; }
         }
         #endregion Model
 

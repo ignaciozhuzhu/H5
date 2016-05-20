@@ -1310,8 +1310,8 @@
     <Compile Include="ajax\apihandler.ashx.cs">
       <DependentUpon>apihandler.ashx</DependentUpon>
     </Compile>
-    <Compile Include="ajax\Handler.ashx.cs">
-      <DependentUpon>Handler.ashx</DependentUpon>
+    <Compile Include="ajax\lineCategoryHandler.ashx.cs">
+      <DependentUpon>lineCategoryHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="modules\pages\tables\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -1334,7 +1334,7 @@
   <ItemGroup>
     <Content Include="Web.config" />
     <Content Include="modules\pages\tables\Handler2.ashx" />
-    <Content Include="ajax\Handler.ashx" />
+    <Content Include="ajax\lineCategoryHandler.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

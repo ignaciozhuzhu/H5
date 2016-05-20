@@ -181,16 +181,6 @@ namespace Trip.JinJiang.H5Web.ajax
 
 
         /// <summary>
-        /// 线路类型编辑
-        /// </summary>
-        public void editlinecategory()
-        {
-            // string categoryName = HttpContext.Current.Request["categoryName"].ToString();
-            //  string lineCategory = HttpContext.Current.Request["lineCategory"].ToString();
-            //  HttpContext.Current.Response.Write(JJH5Api.editlinecategory(categoryName, lineCategory));
-         //   HttpContext.Current.Response.Write()
-        }
-        /// <summary>
         /// 线路类型删除
         /// </summary>
         public void dellinecategory()
@@ -198,7 +188,7 @@ namespace Trip.JinJiang.H5Web.ajax
             int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
             HttpContext.Current.Response.Write(JJH5Api.dellinecategory(Id));
         }
-        
+
 
         public bool IsReusable
         {
