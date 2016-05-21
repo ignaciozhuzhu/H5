@@ -136,6 +136,9 @@
         $('#teledown').css('top', scrolltop + document.documentElement.childNodes[2].scrollHeight - 170);
     }
 
+
+
+    //分类图标
     var nghttpcategory = "../../ajax/apihandler.ashx?fn=getlinecategorys";
     $http.get(nghttpcategory).success(function (response) {
         $scope.linecategorys = response.ds;
@@ -148,6 +151,7 @@
         if (response.ds.length / 5 > 3)
             $('.linecatebox').height(290);
     })
+
 
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinespromotion";
     $http.get(nghttp).success(function (response) {
@@ -176,32 +180,41 @@
     //自加载运行
     $scope.$on("$ionicView.loaded", function () {
         //自动加载播放滚动图片
-        $('#full-width-slider').royalSlider({
-            arrowsNav: true,
-            loop: false,
-            keyboardNavEnabled: true,
-            controlsInside: false,
-            imageScaleMode: 'fill',
-            arrowsNavAutoHide: false,
-            autoScaleSlider: true,
-            autoScaleSliderWidth: 960,
-            autoScaleSliderHeight: 350,
-            controlNavigation: 'bullets',
-            thumbsFitInViewport: false,
-            navigateByClick: true,
-            startSlideId: 0,
-            autoPlay: false,
-            transitionType: 'move',
-            globalCaption: true,
-            deeplinking: {
-                enabled: true,
-                change: false
-            },
+        //轮播图
+        var nghttpgg = "../../ajax/bannerImgHandler.ashx?fn=getbannerimglist";
+        $http.get(nghttpgg).success(function (response) {
+            // debugger
+            for (var i = 0; i < response.ds.length; i++) {
+                $('#full-width-slider').append('<div class="rsContent"><img class="rsImg" src=' + response.ds[i].imgUrl + ' /></div>');
+            }
+            $('#full-width-slider').royalSlider({
+                arrowsNav: true,
+                loop: false,
+                keyboardNavEnabled: true,
+                controlsInside: false,
+                imageScaleMode: 'fill',
+                arrowsNavAutoHide: false,
+                autoScaleSlider: true,
+                autoScaleSliderWidth: 960,
+                autoScaleSliderHeight: 350,
+                controlNavigation: 'bullets',
+                thumbsFitInViewport: false,
+                navigateByClick: true,
+                startSlideId: 0,
+                autoPlay: false,
+                transitionType: 'move',
+                globalCaption: true,
+                deeplinking: {
+                    enabled: true,
+                    change: false
+                },
 
-            imgWidth: 1400,
-            imgHeight: 680
-        });
-        getPro();
+                imgWidth: 1400,
+                imgHeight: 680
+            });
+            getPro();
+        })
+
 
 
     });
@@ -594,7 +607,7 @@
         //$scope.pay = function () {
         //    var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
         //    $http.get(nghttp).success(function (response) {
-            
+
         //    })
         //}
 

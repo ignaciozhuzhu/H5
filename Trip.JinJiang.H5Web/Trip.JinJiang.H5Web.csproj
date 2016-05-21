@@ -215,6 +215,7 @@
     <Content Include="modules\pages\mailbox\mailbox.html" />
     <Content Include="modules\pages\mailbox\read-mail.html" />
     <Content Include="modules\pages\tables\data.html" />
+    <Content Include="modules\pages\tables\bannerimg.html" />
     <Content Include="modules\pages\tables\linecategory.html" />
     <Content Include="modules\pages\tables\linestore.html" />
     <Content Include="modules\pages\tables\motai.html" />
@@ -1310,6 +1311,12 @@
     <Compile Include="ajax\apihandler.ashx.cs">
       <DependentUpon>apihandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="ajax\bannerImgHandler.ashx.cs">
+      <DependentUpon>bannerImgHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="ajax\commonHandler.ashx.cs">
+      <DependentUpon>commonHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="ajax\lineCategoryHandler.ashx.cs">
       <DependentUpon>lineCategoryHandler.ashx</DependentUpon>
     </Compile>
@@ -1324,6 +1331,8 @@
   <ItemGroup>
     <Content Include="Web.config" />
     <Content Include="ajax\lineCategoryHandler.ashx" />
+    <Content Include="ajax\bannerImgHandler.ashx" />
+    <Content Include="ajax\commonHandler.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

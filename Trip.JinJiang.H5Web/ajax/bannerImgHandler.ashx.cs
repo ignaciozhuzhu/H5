@@ -9,9 +9,9 @@ using Trip.JinJiang.H5;
 namespace Trip.JinJiang.H5Web.ajax
 {
     /// <summary>
-    /// lineCategoryHandler 的摘要说明
+    /// bannerImgHandler 的摘要说明
     /// </summary>
-    public class lineCategoryHandler : IHttpHandler, IRequiresSessionState
+    public class bannerImgHandler : IHttpHandler, IRequiresSessionState
     {
         public void ProcessRequest(HttpContext context)
         {
@@ -32,11 +32,18 @@ namespace Trip.JinJiang.H5Web.ajax
             context.Response.Write(msg);
             context.Response.End();
         }
-        
+        /// <summary>
+        /// 获取线路类型
+        /// </summary>
+        public void getbannerimglist()
+        {
+            HttpContext.Current.Response.Write(JJH5Api.getbannerimglist());
+        }
+
         /// <summary>
         /// 添加线路分类
         /// </summary>
-        public void addcategory()
+        public void addbannerimg()
         {
             string fileName = commonHandler.uploadimg();
             if (fileName == "0")
@@ -45,17 +52,16 @@ namespace Trip.JinJiang.H5Web.ajax
             }
             else
             {
-                string categoryName = HttpContext.Current.Request["categoryName"].ToString();
-                string lineCategory = HttpContext.Current.Request["lineCategory"].ToString();
+                string alt = HttpContext.Current.Request["alt"].ToString();
                 string imgUrl = "../../../modules/img/" + fileName;
-                HttpContext.Current.Response.Write(JJH5Api.addlinecategory(categoryName, lineCategory, imgUrl));
+                HttpContext.Current.Response.Write(JJH5Api.addbannerimg(alt, imgUrl));
             }
         }
 
         /// <summary>
         /// 线路类型编辑
         /// </summary>
-        public void editlinecategory()
+        public void editbannerimg()
         {
             string fileName = commonHandler.uploadimg();
             if (fileName == "0")
@@ -64,12 +70,28 @@ namespace Trip.JinJiang.H5Web.ajax
             }
             else
             {
-                string categoryName = HttpContext.Current.Request["categoryName"].ToString();
-                string lineCategory = HttpContext.Current.Request["lineCategory"].ToString();
+                string alt = HttpContext.Current.Request["alt"].ToString();
                 string imgUrl = "../../../modules/img/" + fileName;
                 int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-                HttpContext.Current.Response.Write(JJH5Api.editlinecategory(categoryName, lineCategory, imgUrl, Id));
+                HttpContext.Current.Response.Write(JJH5Api.editbannerimg(alt, imgUrl, Id));
             }
+        }
+        
+        /// <summary>
+        /// 轮播图禁(可)用
+        /// </summary>
+        public void enbannerimg()
+        {
+            int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
+            HttpContext.Current.Response.Write(JJH5Api.enbannerimg(Id));
+        }
+        /// <summary>
+        /// 轮播图删除
+        /// </summary>
+        public void delbannerimg()
+        {
+            int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
+            HttpContext.Current.Response.Write(JJH5Api.delbannerimg(Id));
         }
 
         public bool IsReusable

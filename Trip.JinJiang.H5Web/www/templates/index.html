@@ -281,23 +281,23 @@
     <ion-content id="divcontent" style="padding-top:60px;" on-scroll="getScrollPosition()" delegate-handle="indexDelegate">
         <!--这段轮播图-->
         <div class="sliderContainer fullWidth clearfix">
-            <div id="full-width-slider" class="royalSlider heroSlider rsMinW">
-                <div class="rsContent">
-                    <img class="rsImg" src="images/1.jpg" />
-                </div>
-                <div class="rsContent">
-                    <img class="rsImg" src="images/2.jpg" />
-                </div>
-                <div class="rsContent">
+            <div id="full-width-slider" class="royalSlider heroSlider rsMinW" >
+                <!--<div class="rsContent" ng-repeat="x in bannerimg">
+                    <img class="rsImg" src={{x.imgUrl}} />
+                </div>-->
+                <!--<div class="rsContent">
+                    <img class="rsImg" src="../../images/2.jpg" />
+                </div>-->
+                <!--<div class="rsContent">
                     <img class="rsImg" src="images/3.jpg" />
                 </div>
                 <div class="rsContent">
                     <img class="rsImg" src="images/4.jpg" />
-                </div>
+                </div>-->
             </div>
         </div>
         <div>
-            <div class="linecatebox">
+            <div class="linecatebox" >
                 <div class="linecategorys" ng-repeat="x in linecategorys"><div><a href="#/app/linelists/{{x.lineCategory}}"><img src={{x.imgUrl}}></a></div><div>{{x.categoryName}}</div></div>
             </div>
             <!--框头部-->

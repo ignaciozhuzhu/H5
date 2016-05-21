@@ -40,7 +40,11 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 
     <![endif]-->
-
+    <style>
+        .box-body table thead tr th {
+            width: 18%;
+        }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -420,6 +424,7 @@
                             <li class="active"><a href="data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
                             <li><a href="linestore.html"><i class="fa fa-circle-o"></i> 线路库</a></li>
                             <li><a href="linecategory.html"><i class="fa fa-circle-o"></i> 线路分类管理</a></li>
+                            <li><a href="bannerimg.html"><i class="fa fa-circle-o"></i> 轮播图管理</a></li>
                         </ul>
                     </li>
                     <li>
@@ -576,7 +581,7 @@
                                             <td>{{x.categoryName}}</td>
                                             <td>{{x.lineCategory}}</td>
                                             <td><img src={{x.imgUrl}} style="width:30px;height:30px"></td>
-                                            <td>{{x.status}}</td>
+                                            <td>{{x.status===true?'可用':'禁用'}}</td>
                                             <td>
                                                 <a ng-click="edit($event)" data-toggle="modal" href="#example">修改</a>
                                                 <a ng-click="changeen($event)" data-toggle="modal" href="#example0" style="margin-left:5%">禁(可)用</a>

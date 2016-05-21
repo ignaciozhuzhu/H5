@@ -153,6 +153,7 @@ namespace Trip.JinJiang.H5Web.ajax
             {
             }
         }
+        //以下为后台功能方法.---------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
         /// 后台线路库
@@ -171,6 +172,7 @@ namespace Trip.JinJiang.H5Web.ajax
             HttpContext.Current.Response.Write(JJH5Api.updatelinesAd(lineCategory, lineid));
         }
 
+        //-----------------------------线路分类管理 bg
         /// <summary>
         /// 获取线路类型
         /// </summary>
@@ -195,6 +197,8 @@ namespace Trip.JinJiang.H5Web.ajax
             int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
             HttpContext.Current.Response.Write(JJH5Api.dellinecategory(Id));
         }
+        //-----------------------------线路分类管理   ed
+
 
 
 

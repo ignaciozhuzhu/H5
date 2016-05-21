@@ -281,7 +281,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 支付宝支付
         /// </summary>
-        public static string pbppayorder(string orderNo, int payAmount,string accountName)
+        public static string pbppayorder(string orderNo, int payAmount, string accountName)
         {
             accountName = "JJE_APP_CLIENT_ALI_WAP_PAY";
             var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payPreInfoDto>    <bgUrl>http://www.baidu.com</bgUrl>    <callPart>TRAVEL</callPart>    <cardNo></cardNo>    <csId></csId>    <csName></csName><orderNo>" + orderNo + "</orderNo><orderPageUrlFroAdmin></orderPageUrlFroAdmin><pageUrl></pageUrl>    <payAmount>" + payAmount + "</payAmount>    <payMethod>MONEY</payMethod>    <payType>ONLINE</payType>    <productTitle>锦江手机官网</productTitle>    <scoreAmount>0</scoreAmount>    <sign></sign>    <userId></userId>    <userName></userName>  </payPreInfoDto>";
@@ -325,7 +325,7 @@ namespace Trip.JinJiang.H5
         //以下为后台功能方法.---------------------------------------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// 后台线路库
+        /// 获取后台线路库列表
         /// </summary>
         public static string getlinesAd()
         {
@@ -337,7 +337,7 @@ namespace Trip.JinJiang.H5
 
         }
         /// <summary>
-        /// 更新线路类型
+        /// 更改线路的类型
         /// </summary>
         public static string updatelinesAd(string lineCategory, int lineid)
         {
@@ -349,6 +349,7 @@ namespace Trip.JinJiang.H5
             return "";
         }
 
+        //-----------------------------线路分类管理 bg
         /// <summary>
         /// 获取线路类型
         /// </summary>
@@ -362,7 +363,7 @@ namespace Trip.JinJiang.H5
         }
 
         /// <summary>
-        /// 线路类型编辑
+        /// 线路类型添加
         /// </summary>
         public static string addlinecategory(string categoryName, string lineCategory, string imgUrl)
         {
@@ -417,6 +418,75 @@ namespace Trip.JinJiang.H5
             Fac.Delete(Id);
             return "";
         }
+        //-----------------------------线路分类管理   ed
+
+        //-----------------------------轮播图管理 bg
+        /// <summary>
+        /// 获取轮播图
+        /// </summary>
+        public static string getbannerimglist()
+        {
+            bannerImgFac Fac = new bannerImgFac();
+            DataSet ds = Fac.GetList("");
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
+        }
+
+        /// <summary>
+        /// 轮播图添加
+        /// </summary>
+        public static string addbannerimg(string alt, string imgUrl)
+        {
+            bannerImgMod model = new bannerImgMod();
+            model.alt = alt;
+            model.imgUrl = imgUrl;
+            bannerImgFac Fac = new bannerImgFac();
+            if (Fac.Add(model) > 0)
+            {
+                return "操作成功!";
+            }
+            else {
+                return "操作失败!";
+            }
+        }
+        /// <summary>
+        /// 轮播图编辑
+        /// </summary>
+        public static string editbannerimg(string alt, string imgUrl, int Id)
+        {
+            bannerImgMod model = new bannerImgMod();
+            model.alt = alt;
+            model.imgUrl = imgUrl;
+            model.Id = Id;
+            bannerImgFac Fac = new bannerImgFac();
+            if (Fac.Update(model))
+            {
+                return "操作成功!";
+            }
+            else {
+                return "操作失败!";
+            }
+        }
+        /// <summary>
+        /// 轮播图管理禁(可)用
+        /// </summary>
+        public static string enbannerimg(int Id)
+        {
+            bannerImgFac Fac = new bannerImgFac();
+            Fac.ChangeStatus(Id);
+            return "";
+        }
+        /// <summary>
+        /// 轮播图管理删除
+        /// </summary>
+        public static string delbannerimg(int Id)
+        {
+            bannerImgFac Fac = new bannerImgFac();
+            Fac.Delete(Id);
+            return "";
+        }
+        //-----------------------------轮播图管理   ed
 
     }
 }
