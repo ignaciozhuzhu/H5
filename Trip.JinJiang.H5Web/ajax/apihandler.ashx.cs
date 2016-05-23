@@ -200,6 +200,13 @@ namespace Trip.JinJiang.H5Web.ajax
         //-----------------------------线路分类管理   ed
 
 
+        public void pbppayorder()
+        {
+            string orderNo = HttpContext.Current.Request["orderNo"].ToString();
+            int payAmount = Convert.ToInt32(HttpContext.Current.Request["payAmount"]);
+            string accountName = HttpContext.Current.Request["accountName"].ToString();
+            HttpContext.Current.Response.Write(JJH5Api.pbppayorder(orderNo, payAmount, accountName));
+        }
 
 
         public bool IsReusable

@@ -184,7 +184,7 @@
         var nghttpgg = "../../ajax/bannerImgHandler.ashx?fn=getbannerimglist";
         $http.get(nghttpgg).success(function (response) {
             // debugger
-            for (var i = 0; i < response.ds.length; i++) {
+            for (var i = 0; i < 4; i++) { //response.ds.length
                 $('#full-width-slider').append('<div class="rsContent"><img class="rsImg" src=' + response.ds[i].imgUrl + ' /></div>');
             }
             $('#full-width-slider').royalSlider({
@@ -470,10 +470,18 @@
     var groupid = getpbyurl(4);
     var secureamount = getpbyurl(5);
 
+    var Connect = {
+        name: '',
+        mobile: '',
+        email: ''
+    };
+    $scope.Connect = Connect;
+
     var priceid;
     var Discount;
     $scope.amount = amount;
     $scope.pnum = pnum;
+
 
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
     $http.get(nghttp).success(function (response) {
@@ -495,13 +503,7 @@
         $.unblockUI();
     })
 
-    var Connect = {
-        name: '',
-        mobile: '',
-        email: ''
-    };
     var guestsarr = new Array(0);
-    $scope.Connect = Connect;
     $scope.createorder = function () {
         $.blockUI({
             message: '<h6>正在加载,请稍后...</h6>'
@@ -509,6 +511,8 @@
         var ConnectName = $scope.Connect.name;
         var ConnectMobile = $scope.Connect.mobile;
         var ConnectEmail = $scope.Connect.email;
+
+        $('.inname:first')[0].value = ConnectName;
 
         function CGuest(category, name) {
             this.category = category;
@@ -553,6 +557,8 @@
                 }
                 $.unblockUI();
                 var d = eval("(" + text + ")");
+                //debugger
+                setCookie('orderNo', d.orderNo, 1);
                 window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
             }
         });
@@ -564,7 +570,7 @@
 .controller('paywayCtrl', function ($scope, $http) {
     $.blockUI({
         message: '<h6>正在加载,请稍后...</h6>'
-    });
+    }); 
     var amount = getpbyurl(1);
     var cnum = getpbyurl(2);
     var pnum = getpbyurl(3);
@@ -573,7 +579,6 @@
     $scope.amount = amount;
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
     $http.get(nghttp).success(function (response) {
-        //  debugger
         var minprice;
         for (var j = 0; j < response.prices.length; j++) {
             if (response.prices[j].offerType == '基本价')
@@ -604,12 +609,18 @@
 
         $.unblockUI();
 
-        //$scope.pay = function () {
-        //    var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
-        //    $http.get(nghttp).success(function (response) {
+        var accountName = 'INNS_APP_CLIENT_ALI_WAP_PAY';
+        $scope.pay = function () {
+            var orderNo = getCookie('orderNo');
+            var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
+            $http.get(nghttp).success(function (response) {
 
-        //    })
-        //}
+            })
+        }
+        $scope.paywaySelect = function ($event) {
+            if ($event.target.parentNode.previousElementSibling.innerText == '支付宝')
+                accountName = 'INNS_APP_CLIENT_ALI_WAP_PAY';
+        }
 
     })
 

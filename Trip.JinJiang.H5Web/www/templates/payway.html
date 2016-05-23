@@ -114,18 +114,15 @@
                             <div style="border-bottom:solid 1px #dcdee1;padding:5px 0" ng-repeat="x in inname">
                                 <span>{{x.name}}</span>
                             </div>
-                            <!--<div style="border-bottom:solid 1px #dcdee1;padding:5px 0">
-                                <span>{{inname1}}</span>
-                            </div>-->
                         </div>
                     </div>
 
                     <div class="border1"></div>
 
                 </div>
-                <div style="padding:5px 10px">应付总额 <img src="img/向上箭头.png" style="float:right;" /><a style="float:right;padding:0 5px;font-size:12px"></a><span style="float:right;padding:0 10px;color: #ff7200"> ¥ {{amount}}</span></div>
+                <div style="padding:5px 10px">应付总额 <img src="img/向上箭头.png" style="float:right;display:none" /><a style="float:right;padding:0 5px;font-size:12px"></a><span style="float:right;padding:0 10px;color: #ff7200"> ¥ {{amount}}</span></div>
                 <div style="background-image:url(img/锯齿划线.png);height:20px"></div>
-                <div class="listtyle">
+                <div class="listtyle" ng-model="paybox" ng-click="paywaySelect($event)">
                     <ul>
                         <li>
                             <span>储蓄卡支付</span>
