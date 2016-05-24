@@ -227,6 +227,7 @@
     <Content Include="modules\angular\css\ng-pagination.min.css" />
     <Content Include="modules\pages\demo\simple.html" />
     <Content Include="modules\pages\demo\tagsdemo.html" />
+    <Content Include="modules\pages\tables\WebForm1.aspx" />
     <Content Include="modules\pages\UI\buttons.html" />
     <Content Include="modules\pages\UI\general.html" />
     <Content Include="modules\pages\UI\icons.html" />
@@ -1328,6 +1329,20 @@
     <Compile Include="ajax\lineCategoryHandler.ashx.cs">
       <DependentUpon>lineCategoryHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="modules\pages\tables\Header.Master.cs">
+      <DependentUpon>Header.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="modules\pages\tables\Header.Master.designer.cs">
+      <DependentUpon>Header.Master</DependentUpon>
+    </Compile>
+    <Compile Include="modules\pages\tables\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="modules\pages\tables\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1342,6 +1357,7 @@
     <Content Include="ajax\bannerImgHandler.ashx" />
     <Content Include="ajax\commonHandler.ashx" />
     <Content Include="ajax\areaHandler.ashx" />
+    <Content Include="modules\pages\tables\Header.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
