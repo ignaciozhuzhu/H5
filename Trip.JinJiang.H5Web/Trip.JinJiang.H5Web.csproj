@@ -184,7 +184,11 @@
     <Content Include="modules\documentation\index.html" />
     <Content Include="modules\documentation\style.css" />
     <Content Include="modules\Gruntfile.js" />
+    <Content Include="modules\img\add.png" />
+    <Content Include="modules\img\delete.png" />
+    <Content Include="modules\img\edit.png" />
     <Content Include="modules\img\logo.png" />
+    <Content Include="modules\img\取消标签.png" />
     <Content Include="modules\index.html" />
     <Content Include="modules\js\jquery-form.js" />
     <Content Include="modules\miniui\boot.js" />
@@ -216,11 +220,13 @@
     <Content Include="modules\pages\mailbox\read-mail.html" />
     <Content Include="modules\pages\tables\data.html" />
     <Content Include="modules\pages\tables\bannerimg.html" />
+    <Content Include="modules\pages\tables\searchtag.html" />
     <Content Include="modules\pages\tables\linecategory.html" />
     <Content Include="modules\pages\tables\linestore.html" />
     <Content Include="modules\pages\tables\motai.html" />
     <Content Include="modules\angular\css\ng-pagination.min.css" />
     <Content Include="modules\pages\tables\simple.html" />
+    <Content Include="modules\pages\tables\tagsdemo.html" />
     <Content Include="modules\pages\UI\buttons.html" />
     <Content Include="modules\pages\UI\general.html" />
     <Content Include="modules\pages\UI\icons.html" />
@@ -1088,7 +1094,7 @@
     <Content Include="www\img\轮船游.png" />
     <Content Include="www\img\锯齿划线.png" />
     <Content Include="www\js\angular-1.4.6.min.js" />
-    <Content Include="www\js\demo-module.js" />
+    <Content Include="www\js\controllersuser.js" />
     <Content Include="www\js\jquery-1.8.3.min.js" />
     <Content Include="www\js\jquery.royalslider.min.js" />
     <Content Include="modules\.jshintrc" />
@@ -1222,8 +1228,6 @@
     <Content Include="www\js\jquery.spinner.js" />
     <Content Include="www\js\Jquerybui.js" />
     <Content Include="www\js\jscommon.js" />
-    <Content Include="www\js\mfb-directive.js" />
-    <Content Include="www\js\modernizr.touch.js" />
     <Content Include="www\js\zlDate.js" />
     <Content Include="www\lib\ionic\fonts\ionicons.eot" />
     <Content Include="www\lib\ionic\fonts\ionicons.ttf" />
@@ -1269,6 +1273,7 @@
     <Content Include="www\lib\ionic\scss\_util.scss" />
     <Content Include="www\lib\ionic\scss\_variables.scss" />
     <Content Include="www\lib\ionic\version.json" />
+    <Content Include="www\templates\user\register.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="scripts\ai.0.15.0-build58334.js" />
@@ -1317,6 +1322,9 @@
     <Compile Include="ajax\commonHandler.ashx.cs">
       <DependentUpon>commonHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="ajax\areaHandler.ashx.cs">
+      <DependentUpon>areaHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="ajax\lineCategoryHandler.ashx.cs">
       <DependentUpon>lineCategoryHandler.ashx</DependentUpon>
     </Compile>
@@ -1333,6 +1341,7 @@
     <Content Include="ajax\lineCategoryHandler.ashx" />
     <Content Include="ajax\bannerImgHandler.ashx" />
     <Content Include="ajax\commonHandler.ashx" />
+    <Content Include="ajax\areaHandler.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

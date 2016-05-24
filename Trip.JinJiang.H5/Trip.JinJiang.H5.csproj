@@ -52,13 +52,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ConvertJson.cs" />
+    <Compile Include="DAL\areaFac.cs" />
     <Compile Include="DAL\bannerImgFac.cs" />
+    <Compile Include="DAL\destFac.cs" />
     <Compile Include="DAL\lineCategoryFac.cs" />
     <Compile Include="DAL\lineListsFac.cs" />
     <Compile Include="DAL\tagsFac.cs" />
     <Compile Include="DAL\esGroupsFac.cs" />
     <Compile Include="JJH5Api.cs" />
     <Compile Include="Common\maps.cs" />
+    <Compile Include="Model\destMod.cs" />
+    <Compile Include="Model\areaMod.cs" />
     <Compile Include="Model\bannerImgMod.cs" />
     <Compile Include="Model\lineCategoryMod.cs" />
     <Compile Include="Model\LineLists\Agency.cs" />

@@ -500,5 +500,124 @@ namespace Trip.JinJiang.H5
         }
         //-----------------------------轮播图管理   ed
 
+        //-----------------------------目的地标签管理 bg
+        /// <summary>
+        /// 获取目的地标签
+        /// </summary>
+        public static string getarealist()
+        {
+            areaFac Fac = new areaFac();
+            DataSet ds = Fac.GetList("");
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
+        }
+
+        /// <summary>
+        /// 目的地标签添加
+        /// </summary>
+        public static string addarea(string areaName,int order)
+        {
+            areaMod model = new areaMod();
+            model.areaName = areaName;
+            model.order = order;
+            areaFac Fac = new areaFac();
+            if (Fac.Add(model) > 0)
+            {
+                return "操作成功!";
+            }
+            else {
+                return "操作失败!";
+            }
+        }
+        /// <summary>
+        /// 目的地标签编辑
+        /// </summary>
+        public static string editarea(string areaName, int order, int Id)
+        {
+            areaMod model = new areaMod();
+            model.areaName = areaName;
+            model.order = order;
+            model.Id = Id;
+            areaFac Fac = new areaFac();
+            if (Fac.Update(model))
+            {
+                return "操作成功!";
+            }
+            else {
+                return "操作失败!";
+            }
+        }
+        /// <summary>
+        /// 目的地标签管理禁用
+        /// </summary>
+        public static string enarea(int Id)
+        {
+            areaFac Fac = new areaFac();
+            Fac.ChangeStatus(Id);
+            return "";
+        }
+        //-----------------------------目的地标签管理 ed
+
+        //-----------------------------目的地标签二级管理 bg
+        /// <summary>
+        /// 获取目的地标签
+        /// </summary>
+        public static string getarea2list(int aid)
+        {
+            destFac Fac = new destFac();
+            DataSet ds = Fac.GetList("A_Id="+ aid + "");
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
+        }
+
+        /// <summary>
+        /// 目的地标签添加
+        /// </summary>
+        public static string addarea2(int aId, string destName, int order)
+        {
+            destMod model = new destMod();
+            model.A_Id = aId;
+            model.destName = destName;
+            model.order = order;
+            destFac Fac = new destFac();
+            if (Fac.Add(model) > 0)
+            {
+                return "操作成功!";
+            }
+            else {
+                return "操作失败!";
+            }
+        }
+        /// <summary>
+        /// 目的地标签编辑
+        /// </summary>
+        public static string editarea2(int aId, string destName, int order, int Id)
+        {
+            destMod model = new destMod();
+            model.A_Id = aId;
+            model.destName = destName;
+            model.order = order;
+            model.Id = Id;
+            destFac Fac = new destFac();
+            if (Fac.Update(model))
+            {
+                return "操作成功!";
+            }
+            else {
+                return "操作失败!";
+            }
+        }
+        /// <summary>
+        /// 目的地标签管理禁用
+        /// </summary>
+        public static string enarea2(int Id)
+        {
+            destFac Fac = new destFac();
+            Fac.ChangeStatus(Id);
+            return "";
+        }
+        //-----------------------------目的地标签二级管理 ed
     }
 }
