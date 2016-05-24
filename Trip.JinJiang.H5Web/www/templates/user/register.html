@@ -1,138 +1,92 @@
 ﻿<style>
     .register {
-        font-size: 13px;
+        font-size: 12px;
     }
 
         .register .border1 {
             border: solid 1px #dcdee1;
         }
 
-    .has-header {
-        background-color: #f0f0f2;
+    .registerbox {
+        margin: 10px;
+        border: solid 1px #dcdee1;
     }
 
-    .register {
-        background-color: #f0f0f2;
-    }
-
-        .register .box {
-            margin: 15px 20px;
+        .registerbox .form-item {
+            margin: 20px auto;
+            position: relative;
         }
 
-            .register .box div {
-                margin: 5px 0;
-            }
+        .registerbox .item-tip {
+            position: absolute;
+            color: #999;
+            top: -3px;
+            left: 12px;
+            transition: all linear .2s;
+            background-color: #fff;
+            padding: 0 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            z-index: 4;
+        }
 
-                .register .box div div:first-child {
-                    width: 80px;
-                    display: inline-block;
-                    color: #acafb0;
-                }
+        .registerbox .item-tip-focus {
+            top: -29px;
+            font-size: 12px;
+            color: #5188a6;
+        }
 
-                .register .box div input {
-                    /*height: 25px;*/
-                }
+        .registerbox .form-input {
+            border-radius: 0;
+            width: 278px;
+            padding: 9px 15px;
+            border: 1px solid #dcdcdc;
+            -webkit-transition: border-color ease-in-out .15s;
+            transition: border-color ease-in-out .15s;
+            font-size: 12px;
+            border: none;
+            border-bottom: solid 1px #dcdee1;
+            width: 100%;
+        }
 
-                .register .box div div {
-                    display: inline-block;
-                }
-
-    /*.item-tip {
-        position: absolute;
-        color: #999;
-        top: 10px;
-        left: 12px;
-        transition: all linear .2s;
-        background-color: #fff;
-        padding: 0 3px;
-        font-size: 12px;
-    }
-
-    .item-tip-focus {
-        top: -8px;
-        font-size: 12px;
-        color: #5188a6;
-    }*/
-
-    input::-webkit-input-placeholder {
-        color: #999;
-        -webkit-transition: color.5s;
-    }
-
-    input:focus::-webkit-input-placeholder, input:hover::-webkit-input-placeholder {
-        color: #c2c2c2;
-        -webkit-transition: color.5s;
-        top: -8px;
-        position: absolute;
-        transition: all linear .2s;
-        color: #999;
-    }
-
-
-    /*input {
-        color: #999;
-        -webkit-transition: color.5s;
-    }*/
-
-    .item-tip {
-        position: absolute;
-        color: #999;
-        top: 10px;
-        left: 12px;
-        transition: all linear .2s;
-        background-color: #fff;
-        padding: 0 3px;
-        font-size: 12px;
-    }
-
-    .item-tip-focus {
-        top: -8px;
-        font-size: 12px;
-        color: #5188a6;
-    }
-
-    .form-input {
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        -ms-border-radius: 5px;
-        -o-border-radius: 5px;
-        border-radius: 5px;
-        width: 278px;
-        padding: 9px 10px;
-        border: 1px solid #dcdcdc;
-        -webkit-transition: border-color ease-in-out .15s;
-        transition: border-color ease-in-out .15s;
-        font-size: 12px;
-    }
-
-    .form-input-focus {
-        border-color: #5188a6;
-        outline: 0;
-    }
-
+        .registerbox .form-input-focus {
+            border-color: #5188a6;
+            outline: 0;
+        }
 </style>
 <!--<ion-view hide-nav-bar="true">
 </ion-view>-->
 <ion-view view-title="会员注册">
     <ion-content>
-
-        <div style="margin:10px">
-            <!--<input type="text" placeholder="手机号" name="username" />
-            <input type="text" placeholder="手机号" name="username" />-->
-            <!--<div class="item-tip" style="width:100%;background-color:white">密码</div>
-            <div class="item-tip-focus" style="width:100%;background-color:white">aaaa</div>
-
-            <div class="item-tip item-tip-focus">密码</div>
-            <input id="password" class="form-input form-input-focus" type="password" name="password" value="" tabindex="2">-->
-
-            <div class="item-tip">密码</div>
-            <input id="password" class="form-input" onfocus="myfocus()" onblur="myblur()" type="password" name="password" value="" tabindex="2">
-
-        </div>
         <div class="register">
+            <div class="registerbox">
+                <div class="form-item">
+                    <div class="item-tip">手机</div>
+                    <input id="phone" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text">
+                </div>
+                <div class="form-item">
+                    <div class="item-tip">邮箱</div>
+                    <input id="email" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text">
+                </div>
+                <div class="form-item">
+                    <div class="item-tip">密码</div>
+                    <input id="email" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text">
+                </div>
+                <div class="form-item">
+                    <div class="item-tip">确认密码</div>
+                    <input id="email" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text">
+                </div>
+                <div class="form-item">
+                    <div class="item-tip">姓名</div>
+                    <input id="email" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text">
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="register">
             <div class="box">
-                <!--<div class="item-tip">密码</div>-->
-                <!--<div class="item-tip-focus">密码</div>-->
+               <div class="item-tip">密码</div>
+                <!--<div class="item-tip-focus">密码</div>
                 <div><div>注册类型:</div><div><input type="radio" checked="checked" style="margin-right:5px"></div>手机</div>
 
 
@@ -154,6 +108,6 @@
             </div>
             <div style="background-color:#e84e40;height:50px; text-align: center;line-height:50px; font-weight: bold;
             color: white;">注册</div>
-        </div>
+        </div>-->
     </ion-content>
 </ion-view>

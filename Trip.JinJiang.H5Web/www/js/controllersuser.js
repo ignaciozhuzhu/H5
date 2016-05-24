@@ -72,36 +72,21 @@
     //    // debugger
 
     //});
+    $scope.$on("$ionicView.loaded", function () {
+    })
+
 })
-function myfocus() {
-    //if ($('#password')[0].value == "") {
-    //    //  alert()
-    //    $('.item-tip').removeClass('item-tip-focus');
-    //    $('.form-input').removeClass('form-input-focus');
-    //}
-    //else{
-    //    $('.item-tip').addClass('item-tip-focus');
-    //    $('.form-input').addClass('form-input-focus');
-
-    //}
-
-    if ($('#password')[0].value == "") {
-        $('.item-tip').addClass('item-tip-focus');
-        $('.form-input').addClass('form-input-focus');
+function myfocus(ob) {
+    if ($(ob)[0].value == "") {
+        $(ob)[0].previousElementSibling.className = 'item-tip item-tip-focus';
+        $(ob)[0].className = ('form-input form-input-focus');
     }
-
 }
 
 
-function myblur() {
-    if ($('#password')[0].value == "") {
-        $('.item-tip').removeClass('item-tip-focus');
-        $('.form-input').removeClass('form-input-focus');
+function myblur(ob) {
+    if ($(ob)[0].value == "") {
+        $(ob)[0].previousElementSibling.className = 'item-tip';
+        $(ob)[0].className = ('form-input');
     }
-    //else {
-    //    $('.item-tip').addClass('item-tip-focus');
-    //    $('.form-input').addClass('form-input-focus');
-
-    //}
-
 }
