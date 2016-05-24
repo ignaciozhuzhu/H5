@@ -95,6 +95,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="modules\.gitignore" />
+    <Content Include="modules\admin\functions\bannerimg.aspx" />
+    <Content Include="modules\admin\functions\linecategory.aspx" />
+    <Content Include="modules\admin\functions\linestore.aspx" />
+    <Content Include="modules\admin\functions\searchtag.aspx" />
     <Content Include="modules\angular\js\angular-route.js" />
     <Content Include="modules\bootstrap\css\bootstrap.css" />
     <Content Include="modules\bootstrap\css\bootstrap.min.css" />
@@ -1329,6 +1333,41 @@
     <Compile Include="ajax\lineCategoryHandler.ashx.cs">
       <DependentUpon>lineCategoryHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="modules\admin\functions\linecategory.aspx.cs">
+      <DependentUpon>linecategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="modules\admin\functions\linecategory.aspx.designer.cs">
+      <DependentUpon>linecategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="modules\admin\functions\linestore.aspx.cs">
+      <DependentUpon>linestore.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="modules\admin\functions\linestore.aspx.designer.cs">
+      <DependentUpon>linestore.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="modules\admin\functions\searchtag.aspx.cs">
+      <DependentUpon>searchtag.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="modules\admin\functions\searchtag.aspx.designer.cs">
+      <DependentUpon>searchtag.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="modules\admin\master\Header.Master.cs">
+      <DependentUpon>Header.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="modules\admin\master\Header.Master.designer.cs">
+      <DependentUpon>Header.Master</DependentUpon>
+    </Compile>
+    <Compile Include="modules\admin\functions\bannerimg.aspx.cs">
+      <DependentUpon>bannerimg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="modules\admin\functions\bannerimg.aspx.designer.cs">
+      <DependentUpon>bannerimg.aspx</DependentUpon>
+    </Compile>
     <Compile Include="modules\pages\tables\Header.Master.cs">
       <DependentUpon>Header.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1358,6 +1397,7 @@
     <Content Include="ajax\commonHandler.ashx" />
     <Content Include="ajax\areaHandler.ashx" />
     <Content Include="modules\pages\tables\Header.Master" />
+    <Content Include="modules\admin\master\Header.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1365,6 +1405,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
