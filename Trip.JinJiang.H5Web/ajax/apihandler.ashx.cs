@@ -160,7 +160,7 @@ namespace Trip.JinJiang.H5Web.ajax
         /// </summary>
         public void getlinesad()
         {
-            HttpContext.Current.Response.Write(JJH5Api.getlinesAd());
+            HttpContext.Current.Response.Write(Admin.getlinesAd());
         }
         /// <summary>
         /// 更新线路的类型
@@ -169,7 +169,7 @@ namespace Trip.JinJiang.H5Web.ajax
         {
             string lineCategory = HttpContext.Current.Request["lineCategory"];
             int lineid = Convert.ToInt32(HttpContext.Current.Request["lineid"]);
-            HttpContext.Current.Response.Write(JJH5Api.updatelinesAd(lineCategory, lineid));
+            HttpContext.Current.Response.Write(Admin.updatelinesAd(lineCategory, lineid));
         }
 
         //-----------------------------线路分类管理 bg
@@ -178,7 +178,7 @@ namespace Trip.JinJiang.H5Web.ajax
         /// </summary>
         public void getlinecategorys()
         {
-            HttpContext.Current.Response.Write(JJH5Api.getlinecategorys());
+            HttpContext.Current.Response.Write(Admin.getlinecategorys());
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace Trip.JinJiang.H5Web.ajax
         public void enlinecategory()
         {
             int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-            HttpContext.Current.Response.Write(JJH5Api.enlinecategory(Id));
+            HttpContext.Current.Response.Write(Admin.enlinecategory(Id));
         }
         /// <summary>
         /// 线路类型删除
@@ -195,7 +195,7 @@ namespace Trip.JinJiang.H5Web.ajax
         public void dellinecategory()
         {
             int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-            HttpContext.Current.Response.Write(JJH5Api.dellinecategory(Id));
+            HttpContext.Current.Response.Write(Admin.dellinecategory(Id));
         }
         //-----------------------------线路分类管理   ed
 

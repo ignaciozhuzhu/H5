@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin.cs" />
     <Compile Include="Common\ConvertJson.cs" />
     <Compile Include="DAL\areaFac.cs" />
     <Compile Include="DAL\bannerImgFac.cs" />

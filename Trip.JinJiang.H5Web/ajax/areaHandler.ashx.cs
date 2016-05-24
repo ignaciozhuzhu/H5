@@ -38,7 +38,7 @@ namespace Trip.JinJiang.H5Web.ajax
         /// </summary>
         public void getarealist()
         {
-            HttpContext.Current.Response.Write(JJH5Api.getarealist());
+            HttpContext.Current.Response.Write(Admin.getarealist());
         }
         /// <summary>
         /// 目的地标签添加
@@ -47,7 +47,7 @@ namespace Trip.JinJiang.H5Web.ajax
         {
             string areaName = HttpContext.Current.Request["areaName"].ToString();
             int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
-            HttpContext.Current.Response.Write(JJH5Api.addarea(areaName, order));
+            HttpContext.Current.Response.Write(Admin.addarea(areaName, order));
         }
         /// <summary>
         /// 目的地标签编辑
@@ -57,7 +57,7 @@ namespace Trip.JinJiang.H5Web.ajax
             string areaName = HttpContext.Current.Request["areaName"].ToString();
             int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
             int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-            HttpContext.Current.Response.Write(JJH5Api.editarea(areaName, order, Id));
+            HttpContext.Current.Response.Write(Admin.editarea(areaName, order, Id));
         }
         /// <summary>
         /// 目的地标签管理禁用
@@ -65,7 +65,7 @@ namespace Trip.JinJiang.H5Web.ajax
         public void enarea()
         {
             int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-            HttpContext.Current.Response.Write(JJH5Api.enarea(Id));
+            HttpContext.Current.Response.Write(Admin.enarea(Id));
         }
 
         //--------------------------------------------------------------------------------------
@@ -75,7 +75,7 @@ namespace Trip.JinJiang.H5Web.ajax
         public void getarea2list()
         {
             int aId = Convert.ToInt32(HttpContext.Current.Request["aId"]);
-            HttpContext.Current.Response.Write(JJH5Api.getarea2list(aId));
+            HttpContext.Current.Response.Write(Admin.getarea2list(aId));
         }
         /// <summary>
         /// 目的地标签添加
@@ -85,7 +85,7 @@ namespace Trip.JinJiang.H5Web.ajax
             int aId = Convert.ToInt32(HttpContext.Current.Request["aId"]);
             string destName = HttpContext.Current.Request["destName"].ToString();
             int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
-            HttpContext.Current.Response.Write(JJH5Api.addarea2(aId, destName, order));
+            HttpContext.Current.Response.Write(Admin.addarea2(aId, destName, order));
         }
         /// <summary>
         /// 目的地标签编辑
@@ -96,7 +96,7 @@ namespace Trip.JinJiang.H5Web.ajax
             string destName = HttpContext.Current.Request["destName"].ToString();
             int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
             int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-            HttpContext.Current.Response.Write(JJH5Api.editarea2(aId, destName, order, Id));
+            HttpContext.Current.Response.Write(Admin.editarea2(aId, destName, order, Id));
         }
         /// <summary>
         /// 目的地标签管理禁用
@@ -104,7 +104,7 @@ namespace Trip.JinJiang.H5Web.ajax
         public void enarea2()
         {
             int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-            HttpContext.Current.Response.Write(JJH5Api.enarea2(Id));
+            HttpContext.Current.Response.Write(Admin.enarea2(Id));
         }
 
         public bool IsReusable

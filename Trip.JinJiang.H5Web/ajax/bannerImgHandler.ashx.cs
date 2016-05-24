@@ -37,7 +37,7 @@ namespace Trip.JinJiang.H5Web.ajax
         /// </summary>
         public void getbannerimglist()
         {
-            HttpContext.Current.Response.Write(JJH5Api.getbannerimglist());
+            HttpContext.Current.Response.Write(Admin.getbannerimglist());
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Trip.JinJiang.H5Web.ajax
             {
                 string alt = HttpContext.Current.Request["alt"].ToString();
                 string imgUrl = "../../../modules/img/" + fileName;
-                HttpContext.Current.Response.Write(JJH5Api.addbannerimg(alt, imgUrl));
+                HttpContext.Current.Response.Write(Admin.addbannerimg(alt, imgUrl));
             }
         }
 
@@ -73,7 +73,7 @@ namespace Trip.JinJiang.H5Web.ajax
                 string alt = HttpContext.Current.Request["alt"].ToString();
                 string imgUrl = "../../../modules/img/" + fileName;
                 int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-                HttpContext.Current.Response.Write(JJH5Api.editbannerimg(alt, imgUrl, Id));
+                HttpContext.Current.Response.Write(Admin.editbannerimg(alt, imgUrl, Id));
             }
         }
         
@@ -83,7 +83,7 @@ namespace Trip.JinJiang.H5Web.ajax
         public void enbannerimg()
         {
             int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-            HttpContext.Current.Response.Write(JJH5Api.enbannerimg(Id));
+            HttpContext.Current.Response.Write(Admin.enbannerimg(Id));
         }
         /// <summary>
         /// 轮播图删除
@@ -91,7 +91,7 @@ namespace Trip.JinJiang.H5Web.ajax
         public void delbannerimg()
         {
             int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-            HttpContext.Current.Response.Write(JJH5Api.delbannerimg(Id));
+            HttpContext.Current.Response.Write(Admin.delbannerimg(Id));
         }
 
         public bool IsReusable

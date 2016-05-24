@@ -504,12 +504,10 @@
             </section>
 
 
-
-
             <!-- Main content -->
             <section class="content">
                 <div class="row">
-                    <div class="col-xs-4">
+                    <div class="col-xs-6">
 
                         <!--弹出框编辑开始-->
                         <form id="editbox" class="modal hide fade in" style="display: none; height: 330px; width: 270px; ">
@@ -525,9 +523,9 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div>排序:</div>
+                                    <div>排序2:</div>
                                     <div>
-                                        <input id="order" type="number" style="height: 30px" />
+                                        <input id="order" type="number" style="height: 30px"/>
                                     </div>
                                 </div>
                                 <input type="text" name="txt" id="txt" style="display:none">
@@ -585,7 +583,7 @@
                         <!-- /.box -->
                     </div>
 
-                    <div class="col-xs-4" ng-controller="secondCtrl">
+                    <div class="col-xs-6" ng-controller="secondCtrl">
 
                         <!--弹出框编辑开始-->
                         <form id="editbox2" class="modal hide fade in" style="display: none; height: 330px; width: 270px; ">
@@ -913,7 +911,7 @@
                 modalclass();
                 selectid = "";
                 $('#areaName')[0].value = "";
-                $('#order')[0].value = "";
+                $('#order')[0].value = "1";
             };
             $scope.edit = function ($event) {
                 modalclass();
@@ -998,7 +996,7 @@
                 modalclass();
                 selectid = "";
                 $('#destName')[0].value = "";
-                $('#order2')[0].value = "";
+                $('#order2')[0].value = "1";
             };
             $scope.edit = function ($event) {
                 modalclass();
