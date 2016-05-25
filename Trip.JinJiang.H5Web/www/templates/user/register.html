@@ -49,10 +49,24 @@
             width: 100%;
         }
 
+            .registerbox .sinbottom {
+                border-bottom: 0px;
+            }
+
         .registerbox .form-input-focus {
             border-color: #5188a6;
             outline: 0;
         }
+
+    .register .bottombutton {
+        font-weight: bold;
+        height: 50px;
+        background-color: #ff7200;
+        line-height: 50px;
+        text-align: center;
+        color: white;
+        width: 100%;
+    }
 </style>
 <!--<ion-view hide-nav-bar="true">
 </ion-view>-->
@@ -70,17 +84,31 @@
                 </div>
                 <div class="form-item">
                     <div class="item-tip">密码</div>
-                    <input id="email" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="password">
+                    <input id="password" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="password">
                 </div>
                 <div class="form-item">
                     <div class="item-tip">确认密码</div>
-                    <input id="email" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="password">
+                    <input id="password2" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="password">
                 </div>
                 <div class="form-item">
                     <div class="item-tip">姓名</div>
-                    <input id="email" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text">
+                    <input id="surname" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text">
+                </div>
+                <div class="form-item">
+                    <div class="item-tip">证件类型</div>
+                    <input id="certificateType" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text" >
+                </div>
+                <div class="form-item">
+                    <div class="item-tip">证件号</div>
+                    <input id="certificateNo" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text">
+                </div>
+                <div style="height:30px;color: #999">
+                    <div style="float:left;margin-left: 25px;">称谓:</div>
+                    <div style="float:left;margin-left: 20px;"><input type="radio" name="Sex" style="margin-right:5px;float:left" value="Mr.">先生</div>
+                    <div style="float:left;margin-left: 20px;"><input type="radio" name="Sex" style="margin-right:5px;float:left" value="Ms.">女士</div>
                 </div>
             </div>
+            <div ng-click="regist()" class="bottombutton">注册</div>
         </div>
 
         <!-- <div class="register">

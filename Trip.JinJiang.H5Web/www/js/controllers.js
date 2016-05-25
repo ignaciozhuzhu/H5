@@ -627,8 +627,8 @@
 
 //取消订单控制器
 .controller('cancelorderCtrl', function ($scope, $http) {
-    var ordercode = "1000160512000007";
-    var nghttp = "../../ajax/apihandler.ashx?fn=cancelorder&ordercode=" + ordercode + "";
+   // var ordercode = "1000160512000007";
+    var nghttp = "../../ajax/apihandler.ashx?fn=cancelorder&ordercode=111";
     $http.get(nghttp).success(function (response) {
         // debugger
 

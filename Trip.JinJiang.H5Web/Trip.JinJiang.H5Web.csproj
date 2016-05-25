@@ -1279,6 +1279,8 @@
     <Content Include="www\lib\ionic\scss\_util.scss" />
     <Content Include="www\lib\ionic\scss\_variables.scss" />
     <Content Include="www\lib\ionic\version.json" />
+    <Content Include="www\lib\md5.js" />
+    <Content Include="www\lib\sha1.js" />
     <Content Include="www\templates\user\register.html" />
   </ItemGroup>
   <ItemGroup>
@@ -1333,6 +1335,9 @@
     </Compile>
     <Compile Include="ajax\lineCategoryHandler.ashx.cs">
       <DependentUpon>lineCategoryHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="ajax\userHandler.ashx.cs">
+      <DependentUpon>userHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="modules\admin\functions\linecategory.aspx.cs">
       <DependentUpon>linecategory.aspx</DependentUpon>
@@ -1399,6 +1404,7 @@
     <Content Include="ajax\areaHandler.ashx" />
     <Content Include="modules\pages\tables\Header.Master" />
     <Content Include="modules\admin\master\Header.Master" />
+    <Content Include="ajax\userHandler.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -303,11 +303,23 @@ namespace Trip.JinJiang.H5
         //(--)测支付报文.
         public static string cancelOrder(string json)
         {
-            var pwdd = "121212";
+            //11. 直接修改密码
+            var data10 = "<memberDto><mcMemberCode>10059054</mcMemberCode><password>aa3f9313cab1c23764df04d831295c0f</password><sha1pwd>2ca9d3aa9dc4aaf65a2a6b7c054a0e3c58455b8b</sha1pwd></memberDto>";
+            var url10 = "http://116.236.229.43:8081/vbp/merge/modifyPwd";
+            var response10 = HttpUtil.Post(data10, url10, contentType: "application/xml");
+            return "";
+            //8. 修改密码（第三步）
+            var data08 = "<forgetPwdDto><loginName>18505793685</loginName><fullName>龙鸿轩</fullName><validateCode>154546</validateCode><md5>a91fb0d16d3d3180c8004306df9d6615</md5><sha1>cbe0d52e4132cfca924a051d2d0d97e42a633ee6</sha1></forgetPwdDto>";
+            var url08 = "http://116.236.229.43:8081/vbp/merge/forgetPwd";
+            var response08 = HttpUtil.Post(data08, url08, contentType: "application/xml");  //成功
+
+           
             //2. 新验证码（第一步）--发送接口
-            var data09 = "<validateCodeDto>       <channel>website</channel>       <interval>-1</interval>       <ip></ip>       <ipCheck></ipCheck>       <ipPeriod></ipPeriod>       <ipTimes></ipTimes>       <memberInfoId></memberInfoId>       <period></period>       <periodTimes>-1</periodTimes>       <receiver>119414860@qq.com</receiver>       <target>会员找回密码</target>       <templateNo></templateNo>       <type>MAIL</type>      <json>{pwd:123124}</json>    <jsonCode>pwd</jsonCode>    <templateNo>M_Forgot Password_SMS</templateNo></validateCodeDto>";
+            var data09 = "<validateCodeDto>       <channel>website</channel>       <interval>-1</interval>       <ip></ip>       <ipCheck></ipCheck>       <ipPeriod></ipPeriod>       <ipTimes></ipTimes>       <memberInfoId></memberInfoId>       <period></period>       <periodTimes>-1</periodTimes>       <receiver>18505793685</receiver>       <target>会员找回密码</target>      <type>SMS</type>      <json>{pwd}</json>    <jsonCode>pwd</jsonCode>    <templateNo>M_Forgot Password_SMS</templateNo></validateCodeDto>";
             var url09 = "http://116.236.229.43:8081/vbp/validateCode/sendValidateCode";
             var response09 = HttpUtil.Post(data09, url09, contentType: "application/xml");
+
+
 
             //注册2(完整注册)
             var data01 = "<memberRegisterDto><memberInfoDto><memberType>Silver Card</memberType><certificateNo>332510198211020626</certificateNo><certificateType>ID</certificateType><email>119414860@qq.com</email><mobile>18505793685</mobile><scoreType>1</scoreType><title>Mr.</title><passsword>9c7d4168c18e1aee29721134e27697cd</passsword><sha1pwd>d1805c2146c9627a8180a378cfe24a53b2c4a257</sha1pwd><surname>龙鸿轩</surname><memberScoreType>SCORE</memberScoreType><ipAddress>192.168.10.20</ipAddress><registerSource>Website</registerSource></memberInfoDto></memberRegisterDto>";
@@ -320,10 +332,6 @@ namespace Trip.JinJiang.H5
             var url02 = "http://116.236.229.43:8081/vbp/merge/checkName";
             var response02 = HttpUtil.Post(data02, url02, contentType: "application/xml");
 
-            //8. 修改密码（第三步）
-            var data08 = "<forgetPwdDto><loginName>1850512</loginName><fullName>龙鸿轩</fullName><validateCode></validateCode><md5>9c7d4168c18e1aee29721134e27697cd</md5><sha1>d1805c2146c9627a8180a378cfe24a53b2c4a257</sha1></forgetPwdDto>";
-            var url08 = "http://116.236.229.43:8081/vbp/merge/forgetPwd";
-            var response08 = HttpUtil.Post(data08, url08, contentType: "application/xml");
 
             //7. 新忘记密码（第二步）
             var data07 = "<forgetPwdDto><loginName>1850512</loginName><fullName>龙鸿轩</fullName></forgetPwdDto>";
@@ -336,7 +344,7 @@ namespace Trip.JinJiang.H5
             var response06 = HttpUtil.Post(data06, url06, contentType: "application/xml"); //成功
 
             //1.登录
-            var data05 = "<mergeLoginDto><loginName>1850512</loginName><md5>2f51d2bdaad6a56bfd8d6ddbdd4837c3</md5><sha1>48e0b82e61a41b29cf0c2bdcb06c82c90959fa8d</sha1></mergeLoginDto>";
+            var data05 = "<mergeLoginDto><loginName>18505793685</loginName><md5>aa3f9313cab1c23764df04d831295c0f</md5><sha1>2ca9d3aa9dc4aaf65a2a6b7c054a0e3c58455b8b</sha1></mergeLoginDto>";
             var url05 = "http://116.236.229.43:8081/vbp/merge/login";
             var response05 = HttpUtil.Post(data05, url05, contentType: "application/xml"); //成功
 
@@ -355,7 +363,6 @@ namespace Trip.JinJiang.H5
 
 
 
-            return "";
 
             var orderNo = "";
             var payAmount = 0;

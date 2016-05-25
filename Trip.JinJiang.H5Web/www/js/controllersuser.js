@@ -63,7 +63,7 @@
     });
 })
 
-//取消订单控制器
+//注册控制器
 .controller('registerCtrl', function ($scope, $http) {
 
     //   var ordercode = "1000160512000007";
@@ -72,6 +72,43 @@
     //    // debugger
 
     //});
+
+    $scope.regist = function () {
+        debugger
+        //需要传递到后台的XML报文串:
+        var passwordPlain = $('#password')[0].value;  //明文密码
+        passwordPlain = 'xtsb1';
+        var mh5pw = hex_md5(passwordPlain); //MD5密码
+        var sha = hex_sha1(passwordPlain);
+        var certificateType = $('#certificateType')[0].value;    //证件类型
+        var certificateNo = $('#certificateNo')[0].value;  //证件号
+        var email = $('#email')[0].value;  //邮箱
+        var mobile = $('#phone')[0].value; //手机
+        var title = $("input[name='Sex'][checked]").val();;  //称谓 
+        var surname = $('#surname')[0].value;    //姓名
+
+        var obj = document.getElementsByName("Sex")
+        for (var i = 0; i < obj.length; i++) { //遍历Radio 
+            if (obj[i].checked) {
+                title = obj[i].value;
+            }
+        }
+
+        certificateType = 'ID';
+        certificateNo = '332522115';
+        email = '11223@qq.com'; //<mcMemberCode>10059061</mcMemberCode>
+        mobile = '15111';
+        title = 'Mr.';
+        surname = '赵云';
+
+        var json = "<memberRegisterDto><memberInfoDto><memberType>Silver Card</memberType><certificateNo>" + certificateNo + "</certificateNo><certificateType>" + certificateType + "</certificateType><email>" + email + "</email><mobile>" + mobile + "</mobile><scoreType>1</scoreType><title>" + title + "</title><surname>" + surname + "</surname><memberScoreType>SCORE</memberScoreType><registerSource>Website</registerSource><passsword>String</passsword><sha1pwd>String</sha1pwd>";
+        var nghttp = "../../ajax/userHandler.ashx?fn=regist&json=" + json + "";
+          $http.get(nghttp).success(function (response) {
+              debugger
+          })
+    }
+   
+
     $scope.$on("$ionicView.loaded", function () {
     })
 
