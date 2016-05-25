@@ -78,6 +78,8 @@ function getPro() {
             pro = "乌鲁木齐"
         if (pro === "石家")
             pro = "石家庄"
+        if (pro === "美地")
+            pro = "杭州"
         $("#beginProtxt")[0].placeholder = pro + '出发';
         $("#nowPro").append(pro);
     });

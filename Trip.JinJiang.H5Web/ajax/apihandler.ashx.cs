@@ -178,7 +178,13 @@ namespace Trip.JinJiang.H5Web.ajax
         /// </summary>
         public void getlinecategorys()
         {
-            HttpContext.Current.Response.Write(Admin.getlinecategorys());
+            string status = "";
+            try
+            {
+                status = HttpContext.Current.Request["status"];
+            }
+            catch { }
+            HttpContext.Current.Response.Write(Admin.getlinecategorys(status));
         }
 
         /// <summary>

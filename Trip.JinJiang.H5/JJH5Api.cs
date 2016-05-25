@@ -302,15 +302,50 @@ namespace Trip.JinJiang.H5
         //(--)测支付报文.
         public static string cancelOrder(string json)
         {
+            //4. 验证身份信息（第一步）-- 验证姓名 //118415262@qq.com该用户名不存在
+            var data02 = "<memberAuthentidateDto>       <fullName>龙鸿轩</fullName>       <loginName>1850512</loginName>       <md5>2f51d2bdaad6a56bfd8d6ddbdd4837c3</md5>       <sha1>48e0b82e61a41b29cf0c2bdcb06c82c90959fa8d</sha1></memberAuthentidateDto>";
+            var url02 = "http://116.236.229.43:8081/vbp/merge/checkName";
+            var response02 = HttpUtil.Post(data02, url02, contentType: "application/xml");
+
+            //8. 修改密码（第三步）
+            var data08 = "<forgetPwdDto><loginName>1850512</loginName><fullName>龙鸿轩</fullName><validateCode></validateCode><md5>9c7d4168c18e1aee29721134e27697cd</md5><sha1>d1805c2146c9627a8180a378cfe24a53b2c4a257</sha1></forgetPwdDto>";
+            var url08 = "http://116.236.229.43:8081/vbp/merge/forgetPwd";
+            var response08 = HttpUtil.Post(data08, url08, contentType: "application/xml"); 
+
+            //7. 新忘记密码（第二步）
+            var data07 = "<forgetPwdDto><loginName>1850512</loginName><fullName>龙鸿轩</fullName></forgetPwdDto>";
+            var url07 = "http://116.236.229.43:8081/vbp/merge/checkMemberFullName";
+            var response07 = HttpUtil.Post(data07, url07, contentType: "application/xml"); //成功
+
+            //6. 新忘记密码（第一步）
+            var data06 = "<forgetPwdDto><loginName>1850512</loginName></forgetPwdDto>";
+            var url06 = "http://116.236.229.43:8081/vbp/merge/checkMember";
+            var response06 = HttpUtil.Post(data06, url06, contentType: "application/xml"); //成功
+
+            //1.登录
+            var data05 = "<mergeLoginDto><loginName>1850512</loginName><md5>2f51d2bdaad6a56bfd8d6ddbdd4837c3</md5><sha1>48e0b82e61a41b29cf0c2bdcb06c82c90959fa8d</sha1></mergeLoginDto>";
+            var url05 = "http://116.236.229.43:8081/vbp/merge/login";
+            var response05 = HttpUtil.Post(data05, url05, contentType: "application/xml"); //成功
+
+            //14.判断手机,邮箱是否已存在
+            var data04 = "<validateEmailOrPhoneRespDto><phone>1850512</phone></validateEmailOrPhoneRespDto>";
+            var url04 = "http://116.236.229.43:8081/vbp/merge/validateEmailOrTel";
+            var response04 = HttpUtil.Post(data04, url04, contentType: "application/xml"); //119@qq.com该邮箱不存在
+
             //注册1
-            var data00 = "<webMemberDto><email>118415262@qq.com</email><phone>18550250152</phone><pwd>2f51d2bdaad6a56bfd8d6ddbdd4837c3</pwd><sha1pwd>48e0b82e61a41b29cf0c2bdcb06c82c90959fa8d</sha1pwd><registChannel>Mobile</registChannel><registTag>IOS|JJTRAVEL_IOS_1|JinJiang</registTag></webMemberDto>";
+            //这个证明可以使用,返回了<?xml version="1.0" encoding="UTF-8" standalone="yes"?><webMemberRegisterReturnDto><cdsid>80012234</cdsid><mcMemberCode>10059052</mcMemberCode></webMemberRegisterReturnDto> 
+            var data00 = "<webMemberDto><email>1194@qq.com</email><phone>1850512</phone><pwd>2f51d2bdaad6a56bfd8d6ddbdd4837c3</pwd><sha1pwd>48e0b82e61a41b29cf0c2bdcb06c82c90959fa8d</sha1pwd><registChannel>Mobile</registChannel><registTag>IOS|JJTRAVEL_IOS_1|JinJiang</registTag></webMemberDto>";//密码的明文是 xtsbwe 118415262@qq.com</email><phone>18550250152
             var url00 = "http://116.236.229.43:8081/vbp/merge/quickRegist";
             var response00 = HttpUtil.Post(data00, url00, contentType: "application/xml");
 
             //注册2
-            var data01 = "<memberRegisterDto><memberInfoDto><memberType>String</memberType><airLineCardNo>String</airLineCardNo><airLineCompany>String</airLineCompany><certificateNo>String</certificateNo><certificateType>String</certificateType><email>String </email><mobile>Long</mobile><remindAnswer>String</remindAnswer><remindQuestion>String</remindQuestion><scoreType>Integer</coreType><title>String</title><passsword>String</passsword><sha1pwd>String</sha1pwd><surname>String</surname><memberScoreType>String</memberScoreType><ipAddress>String</ipAddress><registerSource>String</registerSource><hotelChannel>String</hotelChannel><customName>String</customName></memberInfoDto><registerTag>String</registerTag></memberRegisterDto>";
+            var data01 = "<memberRegisterDto><memberInfoDto><memberType>Silver Card</memberType><certificateNo>332510198211020625</certificateNo><certificateType>ID</certificateType><email>119@qq.com</email><mobile>1850512</mobile><scoreType>1</scoreType><title>Mr.</title><passsword>2f51d2bdaad6a56bfd8d6ddbdd4837c3</passsword><sha1pwd>48e0b82e61a41b29cf0c2bdcb06c82c90959fa8d</sha1pwd><surname>龙鸿轩</surname><memberScoreType>SCORE</memberScoreType><ipAddress>192.168.10.20</ipAddress><registerSource>Website</registerSource></memberInfoDto></memberRegisterDto>";
             var url01 = "http://116.236.229.43:8081/vbp/merge/completeRegist";
             var response01 = HttpUtil.Post(data01, url01, contentType: "application/xml");
+
+            
+
+
             return "";
 
             var orderNo = "";

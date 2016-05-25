@@ -139,17 +139,17 @@
 
 
     //分类图标
-    var nghttpcategory = "../../ajax/apihandler.ashx?fn=getlinecategorys";
+    var nghttpcategory = "../../ajax/apihandler.ashx?fn=getlinecategorys&status=true";
     $http.get(nghttpcategory).success(function (response) {
         $scope.linecategorys = response.ds;
         if (response.ds.length / 5 > 0)
-            $('.linecatebox').height(110);
+            $('.linecatebox').height(80);
         if (response.ds.length / 5 > 1)
-            $('.linecatebox').height(170);
+            $('.linecatebox').height(160);
         if (response.ds.length / 5 > 2)
-            $('.linecatebox').height(230);
+            $('.linecatebox').height(240);
         if (response.ds.length / 5 > 3)
-            $('.linecatebox').height(290);
+            $('.linecatebox').height(320);
     })
 
 
@@ -181,7 +181,7 @@
     $scope.$on("$ionicView.loaded", function () {
         //自动加载播放滚动图片
         //轮播图
-        var nghttpgg = "../../ajax/bannerImgHandler.ashx?fn=getbannerimglist";
+        var nghttpgg = "../../ajax/bannerImgHandler.ashx?fn=getbannerimglist&status=true";
         $http.get(nghttpgg).success(function (response) {
             // debugger
             for (var i = 0; i < 4; i++) { //response.ds.length
@@ -227,9 +227,8 @@
     var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
     $('#ordernow').attr('href', '#/app/indexdate/' + lineid);
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
-    debugger
     $http.get(nghttp).success(function (response) {
-        debugger
+        //debugger
         //团框初始高度
         $("#groupsheight").height(16);
         $("#groupsinheight").height(16);
@@ -321,7 +320,7 @@
         var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
         var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
         $http.get(nghttp).success(function (response) {
-            debugger
+            //debugger
             intoCalendarTime();
             adn = 1;
             crn = 0;

@@ -37,7 +37,13 @@ namespace Trip.JinJiang.H5Web.ajax
         /// </summary>
         public void getbannerimglist()
         {
-            HttpContext.Current.Response.Write(Admin.getbannerimglist());
+            string status = "";
+            try
+            {
+                status = HttpContext.Current.Request["status"];
+            }
+            catch { }
+            HttpContext.Current.Response.Write(Admin.getbannerimglist(status));
         }
 
         /// <summary>

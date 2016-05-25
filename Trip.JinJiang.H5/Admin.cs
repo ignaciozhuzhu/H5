@@ -39,10 +39,15 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 获取线路类型
         /// </summary>
-        public static string getlinecategorys()
+        public static string getlinecategorys(string status)
         {
+            string str = "";
+            if (status != "" && status != null)
+            {
+                str = " status='true' ";
+            }
             lineCategoryFac lineCategoryFac = new lineCategoryFac();
-            DataSet ds = lineCategoryFac.GetList("");
+            DataSet ds = lineCategoryFac.GetList(str);
             ConvertJson ConvertJson = new ConvertJson();
             string json = ConvertJson.ToJson(ds);
             return json;
@@ -110,10 +115,15 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 获取轮播图
         /// </summary>
-        public static string getbannerimglist()
+        public static string getbannerimglist(string status)
         {
+            string str = "";
+            if (status != "" && status != null)
+            {
+                str = " status='true' ";
+            }
             bannerImgFac Fac = new bannerImgFac();
-            DataSet ds = Fac.GetList("");
+            DataSet ds = Fac.GetList(str);
             ConvertJson ConvertJson = new ConvertJson();
             string json = ConvertJson.ToJson(ds);
             return json;

@@ -21,11 +21,11 @@
                 </div>
                 <div class="modal-body">
                     <select id="sel">
-                        <option value="FREETRIP">自由行</option>
-                        <option value="GROUPTRIP">跟团游</option>
+                        <option value={{x.lineCategory}} ng-repeat="x in linecates">{{x.categoryName}}</option>
+                        <%--<option value="GROUPTRIP">跟团游</option>
                         <option value="SHIP">游轮</option>
                         <option value="OUT">出境游</option>
-                        <option value="ONSALE">特价游</option>
+                        <option value="ONSALE">特价游</option>--%>
                     </select>
                     <input type="text" name="txt" id="txt" style="display:none">
                     <input type="button" name="btn" value="btn" id="btn" style="display:none">
@@ -65,7 +65,7 @@
                                             <td>{{x.destinationInfo}}</td>
                                             <td>{{x.lineCategory}}</td>
                                             <td>{{x.originalPrice}}</td>
-                                            <td><a ng-click="toggle($event)" data-toggle="modal" href="#example">编辑</a></td>
+                                            <td><img src='../../img/edit.png'><a ng-click="toggle($event)" data-toggle="modal" href="#example">修改</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -95,6 +95,18 @@
                 $("#example").attr("class", "modal fade in");
                 selectid = $event.path[2].cells[0].innerText;
             };
+
+            var nghttp0 = "../../../ajax/apihandler.ashx?fn=getlinecategorys&status=true";
+            $http.get(nghttp0).success(function (response) {
+              //  debugger
+                var responseCache0 = response;
+                var arrayLine = new Array(0);
+                for (var i = 0; i < responseCache0.ds.length; i++) {
+                    arrayLine.push(responseCache0.ds[i]);
+                }
+                $scope.linecates = arrayLine;
+            });
+
             var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesad";
             $http.get(nghttp).success(function (response) {
                 responseCache = response;

@@ -72,7 +72,7 @@
                     <div class="box">
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <div><a ng-click="add()" data-toggle="modal" href="#example" style="margin-left: 1%">添加</a></div>
+                            <div><img src='../../img/add.png' style="margin-left: 1%"><a ng-click="add()" data-toggle="modal" href="#example" >添加</a></div>
 
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
@@ -94,9 +94,9 @@
                                             <img src="{{x.imgUrl}}" style="width: 30px; height: 30px"></td>
                                         <td>{{x.status===true?'可用':'禁用'}}</td>
                                         <td>
-                                            <a ng-click="edit($event)" data-toggle="modal" href="#example">修改</a>
-                                            <a ng-click="changeen($event)" data-toggle="modal" href="#example0" style="margin-left: 5%">禁(可)用</a>
-                                            <a ng-click="delete($event)" data-toggle="modal" href="#example2" style="margin-left: 5%">删除</a>
+                                            <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#example">修改</a>
+                                            <img style="margin-left: 5%" src='../../img/disable.png'><a ng-click="changeen($event)" data-toggle="modal" href="#example0">禁(可)用</a>
+                                            <img style="margin-left: 5%" src='../../img/delete.png'><a ng-click="delete($event)" data-toggle="modal" href="#example2">删除</a>
                                         </td>
                                     </tr>
                                 </tbody>
