@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using System.Text;
 using Maticsoft.DBUtility;
 using Trip.JinJiang.H5.DAL;
-using Trip.JinJiang.H5.Model;
 
 namespace Trip.JinJiang.H5
 {
@@ -13,19 +12,23 @@ namespace Trip.JinJiang.H5
     /// </summary>
     public class JJH5Api
     {
-        private const string urllinesearch = "http://travelsearchservice.jinjiang.uat/travelsearchservice/travel/search/searchTravel";   //线路列表接口
-        private const string urllinedetail = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/line/";    //某线路详情
-        private const string urlcmslinedetail = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/line/queryCMSLineInfo";     //CMS线路详情接口
-        private const string urlcrmlinesearch = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/line/queryLinesForCMS";     //CMS线路列表接口
-        private const string urlprepay = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/payment/prepay";   //预支付接口
-        private const string urlsearchorder = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/queryOrderList";    //订单查询接口
-        private const string urlcreateorder = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/create";    //创建订单接口
-        private const string urlinventory = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/group/queryRealTimeRefresh/";   //查询库存 ,实时价格接口
-        private const string urlcancelorder = "http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/cancel";    //取消订单接口
+        private static string xhserver = System.Configuration.ConfigurationManager.AppSettings["xhserver"];
+        private static string jjh5Sserver = System.Configuration.ConfigurationManager.AppSettings["jjh5Sserver"];
+        private static string jjh5Bserver = System.Configuration.ConfigurationManager.AppSettings["jjh5Bserver"];
 
-        private const string urlcurlcreateorder = "http://jjh5api.oando.com.cn/pbp/payment/createOrUpdatePayPreInfo";   //创建订单(预支付)
-        private const string urlcurlpc = "http://jjh5api.oando.com.cn/pbp/ali/default/pay/12332";     //网页端支付
-        private const string urlcurlwap = "http://jjh5api.oando.com.cn/pbp/ali/wap/pay/";    //WAP端支付
+        private static string urllinesearch = jjh5Sserver + "/travel/search/searchTravel";   //线路列表接口
+        private static string urllinedetail = jjh5Bserver + "/travel/line/";    //某线路详情
+        private static string urlcmslinedetail = jjh5Bserver + "/travel/line/queryCMSLineInfo";     //CMS线路详情接口
+        private static string urlcrmlinesearch = jjh5Bserver + "/travel/line/queryLinesForCMS";     //CMS线路列表接口
+        private static string urlprepay = jjh5Bserver + "/travel/payment/prepay";   //预支付接口
+        private static string urlsearchorder = jjh5Bserver + "/travel/order/queryOrderList";    //订单查询接口
+        private static string urlcreateorder = jjh5Bserver + "/travel/order/create";    //创建订单接口
+        private static string urlinventory = jjh5Bserver + "/travel/group/queryRealTimeRefresh/";   //查询库存 ,实时价格接口
+        private static string urlcancelorder = jjh5Bserver + "/travel/order/cancel";    //取消订单接口
+
+        private static string urlcurlcreateorder = xhserver + "/pbp/payment/createOrUpdatePayPreInfo";   //创建订单(预支付)
+        private static string urlcurlpc = xhserver + "/pbp/ali/default/pay/";     //网页端支付
+        private static string urlcurlwap = xhserver + "/pbp/ali/wap/pay/";    //WAP端支付
 
         /// <summary>
         /// 查询路线
@@ -85,8 +88,6 @@ namespace Trip.JinJiang.H5
             data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":80,\"rows\":80,\"search\":false,\"startRow\":1,\"total\":80}}";
             var response = HttpUtil.Post(data, urllinesearch, contentType: "application/json");
             response = maps.mapAgencies(response);
-            string tourl = "http://192.168.2.81:81/hbp/hotels/order/afterPayProcess";
-            var data2 = "{\"bgUrl\":\"" + tourl + "\",\"callPart\":\"TRAVEL\",\"orderNo\":\"1000160323000023\",\"payMethod\":\"MONEY\",\"payType\":\"ONLINE\",\"productTitle\":\"旅游测试title\",\"payAmount\":\"10\",\"payChannel\":\"ALIPAY\"}";
 
             if (response != null)
             {
@@ -275,7 +276,7 @@ namespace Trip.JinJiang.H5
         {
             var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payPreInfoDto>    <bgUrl></bgUrl>    <callPart>TRAVEL</callPart>    <cardNo></cardNo>    <csId></csId>    <csName></csName><orderNo>" + orderNo + "</orderNo><orderPageUrlFroAdmin></orderPageUrlFroAdmin><pageUrl></pageUrl>    <payAmount>" + payAmount + "</payAmount>    <payMethod>MONEY</payMethod>    <payType>ONLINE</payType>    <productTitle>锦江手机官网</productTitle>    <scoreAmount>0</scoreAmount>    <sign></sign>    <userId></userId>    <userName></userName>  </payPreInfoDto>";
             var response = HttpUtil.Post(data, urlcurlcreateorder, contentType: "application/xml");
-            
+
             if (response == "")
                 return true;
             else
@@ -289,7 +290,7 @@ namespace Trip.JinJiang.H5
         {
             if (pbppaypre(orderNo, payAmount))
             {
-                var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl>http://www.baidu.com</bgUrl>  <buyerId>10056582</buyerId>  <buyerIp>192.168.2.51</buyerIp>  <buyerName>惊云</buyerName>  <callPart>TRAVEL</callPart>  <description>锦江手机官网</description>  <orderNo>" + orderNo + "</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl>  <payMethod>MONEY</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>ALIPAY_WAP</paymentPlatform>  <price>"+ payAmount + "</price>  <score>0</score>  <subject>锦江手机官网</subject></payRequest> ";
+                var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl>http://www.baidu.com</bgUrl>  <buyerId>10056582</buyerId>  <buyerIp>192.168.2.51</buyerIp>  <buyerName>惊云</buyerName>  <callPart>TRAVEL</callPart>  <description>锦江手机官网</description>  <orderNo>" + orderNo + "</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl>  <payMethod>MONEY</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>ALIPAY_WAP</paymentPlatform>  <price>" + payAmount + "</price>  <score>0</score>  <subject>锦江手机官网</subject></payRequest> ";
                 var url = urlcurlwap + accountName;
                 var response = HttpUtil.Post(data, url, contentType: "application/xml");
                 return response;
@@ -297,11 +298,23 @@ namespace Trip.JinJiang.H5
             else
                 return "预支付订单失败";
         }
-        
+
 
         //(--)测支付报文.
         public static string cancelOrder(string json)
         {
+            var pwdd = "121212";
+            //2. 新验证码（第一步）--发送接口
+            var data09 = "<validateCodeDto>       <channel>website</channel>       <interval>-1</interval>       <ip></ip>       <ipCheck></ipCheck>       <ipPeriod></ipPeriod>       <ipTimes></ipTimes>       <memberInfoId></memberInfoId>       <period></period>       <periodTimes>-1</periodTimes>       <receiver>119414860@qq.com</receiver>       <target>会员找回密码</target>       <templateNo></templateNo>       <type>MAIL</type>      <json>{pwd:123124}</json>    <jsonCode>pwd</jsonCode>    <templateNo>M_Forgot Password_SMS</templateNo></validateCodeDto>";
+            var url09 = "http://116.236.229.43:8081/vbp/validateCode/sendValidateCode";
+            var response09 = HttpUtil.Post(data09, url09, contentType: "application/xml");
+
+            //注册2(完整注册)
+            var data01 = "<memberRegisterDto><memberInfoDto><memberType>Silver Card</memberType><certificateNo>332510198211020626</certificateNo><certificateType>ID</certificateType><email>119414860@qq.com</email><mobile>18505793685</mobile><scoreType>1</scoreType><title>Mr.</title><passsword>9c7d4168c18e1aee29721134e27697cd</passsword><sha1pwd>d1805c2146c9627a8180a378cfe24a53b2c4a257</sha1pwd><surname>龙鸿轩</surname><memberScoreType>SCORE</memberScoreType><ipAddress>192.168.10.20</ipAddress><registerSource>Website</registerSource></memberInfoDto></memberRegisterDto>";
+            var url01 = "http://116.236.229.43:8081/vbp/merge/completeRegist";
+            var response01 = HttpUtil.Post(data01, url01, contentType: "application/xml");
+
+
             //4. 验证身份信息（第一步）-- 验证姓名 //118415262@qq.com该用户名不存在
             var data02 = "<memberAuthentidateDto>       <fullName>龙鸿轩</fullName>       <loginName>1850512</loginName>       <md5>2f51d2bdaad6a56bfd8d6ddbdd4837c3</md5>       <sha1>48e0b82e61a41b29cf0c2bdcb06c82c90959fa8d</sha1></memberAuthentidateDto>";
             var url02 = "http://116.236.229.43:8081/vbp/merge/checkName";
@@ -310,7 +323,7 @@ namespace Trip.JinJiang.H5
             //8. 修改密码（第三步）
             var data08 = "<forgetPwdDto><loginName>1850512</loginName><fullName>龙鸿轩</fullName><validateCode></validateCode><md5>9c7d4168c18e1aee29721134e27697cd</md5><sha1>d1805c2146c9627a8180a378cfe24a53b2c4a257</sha1></forgetPwdDto>";
             var url08 = "http://116.236.229.43:8081/vbp/merge/forgetPwd";
-            var response08 = HttpUtil.Post(data08, url08, contentType: "application/xml"); 
+            var response08 = HttpUtil.Post(data08, url08, contentType: "application/xml");
 
             //7. 新忘记密码（第二步）
             var data07 = "<forgetPwdDto><loginName>1850512</loginName><fullName>龙鸿轩</fullName></forgetPwdDto>";
@@ -338,12 +351,8 @@ namespace Trip.JinJiang.H5
             var url00 = "http://116.236.229.43:8081/vbp/merge/quickRegist";
             var response00 = HttpUtil.Post(data00, url00, contentType: "application/xml");
 
-            //注册2
-            var data01 = "<memberRegisterDto><memberInfoDto><memberType>Silver Card</memberType><certificateNo>332510198211020625</certificateNo><certificateType>ID</certificateType><email>119@qq.com</email><mobile>1850512</mobile><scoreType>1</scoreType><title>Mr.</title><passsword>2f51d2bdaad6a56bfd8d6ddbdd4837c3</passsword><sha1pwd>48e0b82e61a41b29cf0c2bdcb06c82c90959fa8d</sha1pwd><surname>龙鸿轩</surname><memberScoreType>SCORE</memberScoreType><ipAddress>192.168.10.20</ipAddress><registerSource>Website</registerSource></memberInfoDto></memberRegisterDto>";
-            var url01 = "http://116.236.229.43:8081/vbp/merge/completeRegist";
-            var response01 = HttpUtil.Post(data01, url01, contentType: "application/xml");
 
-            
+
 
 
             return "";
@@ -380,6 +389,6 @@ namespace Trip.JinJiang.H5
             //return "";
         }
 
-       
+
     }
 }

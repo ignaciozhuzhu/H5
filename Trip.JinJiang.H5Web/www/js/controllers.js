@@ -684,6 +684,22 @@ function citySelect() {
         }
     })
 }
+//城市选择框
+function desSelect() {
+    $('#divcontent').hide();
+    $('#bartitle').hide();
+    $('#divdesselect').show();
+
+    $('#divcityselect').click(function (event) {
+        if (event.target.nodeName === 'SPAN') {
+            alert(event.target.innerText);
+            //$('#divcontent').show();
+            //$('#bartitle').show();
+            //$('#divcityselect').hide();
+            //$("#beginProtxt")[0].placeholder = event.target.innerText + '出发';
+        }
+    })
+}
 //获取URL的参数
 function request(paras) {
     var url = location.href;

@@ -86,7 +86,7 @@
                     <img src="img/logo.png" style="width:50px;height:33px;margin: 1px;" />
                     <input id="beginProtxt" class="background_size" type="search" style="width:35%;background-image: url(img/定位图标2.png);padding-left: 25px; border-right: aliceblue;border-bottom-left-radius:5px;border-top-left-radius:5px;border-top-right-radius: 0;border-bottom-right-radius: 0;border-color:#ddd;margin:0 0 0 3px" onclick="citySelect()">
 
-                    <input id="searchtxt" class="background_size" type="search" style="width:65%;background-image: url(img/放大镜2.png);padding-left: 35px;border-bottom-right-radius:5px;border-top-right-radius:5px;border-top-left-radius: 0;border-bottom-left-radius: 0;border-color:#ddd;margin:0 3px 0 0" placeholder="路线/目的地/景点">
+                    <input id="searchtxt" class="background_size" type="search" style="width:65%;background-image: url(img/放大镜2.png);padding-left: 35px;border-bottom-right-radius:5px;border-top-right-radius:5px;border-top-left-radius: 0;border-bottom-left-radius: 0;border-color:#ddd;margin:0 3px 0 0" placeholder="路线/目的地/景点" onclick="desSelect()">
                     <img src="img/个人中心图标.png" style="width:40px;height:33px;padding : 5px 2px;margin:0 5px" onclick="searchLines(this)" /><!--<a id="searchbtn" href="javascript:void(0)" onclick="searchLines(this);">搜索</a>-->
 
                 </div>
@@ -97,6 +97,189 @@
         <!--城市选择框-->
         <div id="divcityselect" style="text-align:center;font-size:14px;display:none">
             <div class="grayback">当前定位城市</div>
+            <div class="gay">
+                <span id="nowPro"></span>
+            </div>
+            <div class="grayback">热门城市</div>
+            <div class="gay">
+                <span>上海</span>
+                <span>杭州</span>
+                <span>北京</span>
+                <span>成都</span>
+                <span>重庆</span>
+            </div>
+            <div class="gay">
+                <span>大连</span>
+                <span>东莞</span>
+                <span>厦门</span>
+                <span>福州</span>
+                <span>佛山</span>
+            </div>
+            <div class="gay">
+                <span>赣州</span>
+                <span>合肥</span>
+                <span>哈尔滨</span>
+                <span>邯郸</span>
+                <span>常州</span>
+            </div>
+            <div class="grayback">A</div>
+            <div class="gay">
+                <span>鞍山</span>
+            </div>
+            <div class="grayback">B</div>
+            <div class="gay">
+                <span>北京</span>
+                <span>蚌埠</span>
+            </div>
+            <div class="grayback">C</div>
+            <div class="gay">
+                <span>成都</span>
+                <span>重庆</span>
+                <span>长沙</span>
+                <span>长春</span>
+                <span>常州</span>
+            </div>
+            <div class="gay">
+                <span>常德</span>
+                <span>沧州</span>
+                <span>常熟</span>
+            </div>
+            <div class="grayback">D</div>
+            <div class="gay">
+                <span>大连</span>
+                <span>大同</span>
+                <span>东莞</span>
+                <span>东营</span>
+                <span>德阳</span>
+            </div>
+            <div class="grayback">F</div>
+            <div class="gay">
+                <span>福州</span>
+                <span>佛山</span>
+                <span>阜阳</span>
+            </div>
+            <div class="grayback">G</div>
+            <div class="gay">
+                <span>广州</span>
+                <span>贵阳</span>
+                <span>赣州</span>
+            </div>
+            <div class="grayback">H</div>
+            <div class="gay">
+                <span>杭州</span>
+                <span>合肥</span>
+                <span>哈尔滨</span>
+                <span>呼和浩特</span>
+                <span>邯郸</span>
+            </div>
+            <div class="gay">
+                <span>淮南</span>
+                <span>湖州</span>
+                <span>黄石</span>
+            </div>
+            <div class="grayback">J</div>
+            <div class="gay">
+                <span>济南</span>
+                <span>金华</span>
+                <span>吉林</span>
+                <span>锦州</span>
+                <span>嘉兴</span>
+            </div>
+            <div class="gay">
+                <span>济宁</span>
+            </div>
+            <div class="grayback">K</div>
+            <div class="gay">
+                <span>昆明</span>
+            </div>
+            <div class="grayback">N</div>
+            <div class="gay">
+                <span>南京</span>
+                <span>宁波</span>
+                <span>南宁</span>
+                <span>南昌</span>
+                <span>南阳</span>
+            </div>
+            <div class="gay">
+                <span>南通</span>
+                <span>南充</span>
+            </div>
+            <div class="grayback">Q</div>
+            <div class="gay">
+                <span>泉州</span>
+                <span>青岛</span>
+            </div>
+            <div class="grayback">R</div>
+            <div class="gay">
+                <span>日照</span>
+            </div>
+            <div class="grayback">S</div>
+            <div class="gay">
+                <span>上海</span>
+                <span>苏州</span>
+                <span>深圳</span>
+                <span>沈阳</span>
+                <span>石家庄</span>
+            </div>
+            <div class="gay">
+                <span>绍兴</span>
+                <span>汕头</span>
+            </div>
+            <div class="grayback">T</div>
+            <div class="gay">
+                <span>天津</span>
+                <span>太原</span>
+                <span>唐山</span>
+                <span>台州</span>
+                <span>泰州</span>
+            </div>
+            <div class="grayback">W</div>
+            <div class="gay">
+                <span>武汉</span>
+                <span>无锡</span>
+                <span>温州</span>
+                <span>芜湖</span>
+                <span>乌鲁木齐</span>
+            </div>
+            <div class="gay">
+                <span>潍坊</span>
+                <span>威海</span>
+            </div>
+            <div class="grayback">X</div>
+            <div class="gay">
+                <span>西安</span>
+                <span>厦门</span>
+                <span>徐州</span>
+                <span>许昌</span>
+            </div>
+            <div class="grayback">Y</div>
+            <div class="gay">
+                <span>延安</span>
+                <span>宜昌</span>
+                <span>烟台</span>
+                <span>扬州</span>
+                <span>银川</span>
+            </div>
+            <div class="gay">
+                <span>盐城</span>
+            </div>
+            <div class="grayback">Z</div>
+            <div class="gay">
+                <span>郑州</span>
+                <span>珠海</span>
+                <span>中山</span>
+                <span>漳州</span>
+                <span>株洲</span>
+            </div>
+            <div class="gay">
+                <span>淄博</span>
+                <span>镇江</span>
+                <span>舟山</span>
+            </div>
+        </div>
+        <!--目的地选择框-->
+        <div id="divdesselect" style="text-align:center;font-size:14px;display:none">
+            <div class="grayback">选择目的地</div>
             <div class="gay">
                 <span id="nowPro"></span>
             </div>
