@@ -569,7 +569,9 @@
 .controller('paywayCtrl', function ($scope, $http) {
     $.blockUI({
         message: '<h6>正在加载,请稍后...</h6>'
-    }); 
+    });
+    //清除登录用户cookie
+    //setCookie('mcMemberCode','',1);
     var amount = getpbyurl(1);
     var cnum = getpbyurl(2);
     var pnum = getpbyurl(3);
@@ -578,6 +580,7 @@
     $scope.amount = amount;
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
     $http.get(nghttp).success(function (response) {
+        debugger
         var minprice;
         for (var j = 0; j < response.prices.length; j++) {
             if (response.prices[j].offerType == '基本价')
@@ -610,11 +613,32 @@
 
         var accountName = 'INNS_APP_CLIENT_ALI_WAP_PAY';
         $scope.pay = function () {
-            var orderNo = getCookie('orderNo');
-            var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
-            $http.get(nghttp).success(function (response) {
+            //首先做身份认证,判断是否已经登录,没有帐号的客户先注册.
+            var mcMemberCode = getCookie('mcMemberCode');
+            if (mcMemberCode != "" && mcMemberCode != undefined && mcMemberCode != null) {
+                //其次再是发起付款
+                var orderNo = getCookie('orderNo');
+                var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
+                $http.get(nghttp).success(function (response) {
+                    window.location.href = response;
+                })
+            }
+            else {//把参数存入cookie
+                setCookie('amount', amount, 1);
+                setCookie('cnum', cnum, 1);
+                setCookie('pnum', pnum, 1);
+                setCookie('groupid', groupid, 1);
+                setCookie('secureamount', secureamount, 1);
+                //跳转至登录页
+                window.location.href = '#/app/user/login';
+            }
+            //var nghttpAuth = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
+            //$http.get(nghttpAuth).success(function (response) {
 
-            })
+
+            //})
+
+            
         }
         $scope.paywaySelect = function ($event) {
             if ($event.target.parentNode.previousElementSibling.innerText == '支付宝')

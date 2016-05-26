@@ -37,6 +37,14 @@ namespace Trip.JinJiang.H5Web.ajax
             string xml = HttpContext.Current.Request["xml"].ToString();
             HttpContext.Current.Response.Write(User.regist(xml));
         }
+        /// <summary>
+        /// 登录
+        /// </summary>
+        public void login()
+        {
+            string xml = HttpContext.Current.Request["xml"].ToString();
+            HttpContext.Current.Response.Write(User.login(xml));
+        }
 
 
         public bool IsReusable

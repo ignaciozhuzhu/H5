@@ -42,34 +42,13 @@
 })
 
 
-//线路列表控制器
-.controller('LinelistsCtrl', function ($scope, $http) {
-    var searchParam = request("search");
-    var nghttp = "../../ajax/apihandler.ashx?fn=getlines";
-    $http.get(nghttp).success(function (response) {
-        // debugger
-        var arrayLinemm = new Array(0);
-        for (var i = 0; i < response.lines.length; i++) {
-            if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0] === null || response.lines[i].imageUrls[0].indexOf('http') < 0)
-                response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
-            //往搜索结果中添加合集(1)
-            if (response.lines[i].lineName.indexOf(searchParam) > -1)
-                arrayLinemm.push(response.lines[i])
-        }
-        //往搜索结果中添加合集(2)
-        $scope.linelists = arrayLinemm;
-        $scope.agencies = response.agencies;
-
-    });
-})
-
 //注册控制器
 .controller('registerCtrl', function ($scope, $http) {
     var ipl;
     var ip4;
     var ip6;
     $scope.regist = function () {
-        debugger
+        //debugger
         //需要传递到后台的XML报文串:
         var passwordPlain = $('#password')[0].value;  //明文密码
         passwordPlain = 'xtsb1';
@@ -89,11 +68,11 @@
             }
         }
 
-        //懒得写入作为测试用例填入后台.
         certificateType = 'ID';
-        certificateNo = '332522115';
-        email = '11223@qq.com'; //<mcMemberCode>10059061</mcMemberCode>
-        mobile = '15111';
+        //懒得写入作为测试用例填入后台.
+        certificateNo = '33252211512';
+        email = '1122312@qq.com'; //<mcMemberCode>10059061</mcMemberCode>
+        mobile = '1511112';
         title = 'Mr.';
         surname = '赵云';
 
@@ -114,7 +93,27 @@
         xml += "</memberInfoDto></memberRegisterDto>";
         var nghttp = "../../ajax/userHandler.ashx?fn=regist&xml=" + xml + "";
         $http.get(nghttp).success(function (response) {
-           // debugger
+            //debugger
+            var x2js = new X2JS();
+            var xmlText = response;
+            var jsonObj = x2js.xml_str2json(xmlText);
+            if (jsonObj.crmResponseDto.retcode == "00001") {
+                var amount = getCookie('amount');
+                var cnum = getCookie('cnum');
+                var pnum = getCookie('pnum');
+                var groupid = getCookie('groupid');
+                var secureamount = getCookie('secureamount');
+
+                //设置客户cookie信息.
+                setCookie('mcMemberCode', jsonObj.crmResponseDto.mcMemberCode, 1);
+                //setCookie('fullName', jsonObj.memberMergeDto.fullName, 1);
+                //setCookie('cdsId', jsonObj.memberMergeDto.cdsId, 1);
+
+                alert('注册成功!将自动为您跳转回支付页面...');
+                window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
+            }
+            else
+                alert(jsonObj.crmResponseDto.retmsg);
         })
     }
 
@@ -142,6 +141,57 @@
     })
 
 })
+//注册控制器
+.controller('loginCtrl', function ($scope, $http) {
+
+    $scope.login = function () {
+        //需要传递到后台的XML报文串:
+        var loginname = $('#loginname')[0].value;  //用户名
+        var passwordPlain = $('#password')[0].value;  //明文密码
+        passwordPlain = 'xtbssb3';
+        var mh5pw = hex_md5(passwordPlain); //MD5密码
+        var sha = hex_sha1(passwordPlain);  //sha1密码
+
+        //懒得写入作为测试用例填入后台.
+        loginname = '18505793685';
+
+        var xml = "<mergeLoginDto>";
+        xml += "<loginName>" + loginname + "</loginName>";
+        xml += "<md5>" + mh5pw + "</md5>";
+        xml += "<sha1>" + sha + "</sha1>";
+        xml += "</mergeLoginDto>";
+        var nghttp = "../../ajax/userHandler.ashx?fn=login&xml=" + xml + "";
+        $http.get(nghttp).success(function (response) {
+            var x2js = new X2JS();
+            var xmlText = response;
+            var jsonObj = x2js.xml_str2json(xmlText);
+            if (jsonObj.memberMergeDto.remark === "登录成功") {
+                var amount = getCookie('amount');
+                var cnum = getCookie('cnum');
+                var pnum = getCookie('pnum');
+                var groupid = getCookie('groupid');
+                var secureamount = getCookie('secureamount');
+                
+                //设置客户cookie信息.
+                setCookie('mcMemberCode', jsonObj.memberMergeDto.mcMemberCode, 1);
+                //setCookie('fullName', jsonObj.memberMergeDto.fullName, 1);
+                //setCookie('cdsId', jsonObj.memberMergeDto.cdsId, 1);
+                alert('登录成功!');
+                window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
+            }
+            else {
+                alert(jsonObj.memberMergeDto.remark);
+            }
+        })
+    }
+
+    $scope.$on("$ionicView.loaded", function () {
+
+    })
+
+})
+
+//以下公用方法--------------------------------------------------
 function myfocus(ob) {
     if ($(ob)[0].value == "") {
         $(ob)[0].previousElementSibling.className = 'item-tip item-tip-focus';
@@ -155,4 +205,3 @@ function myblur(ob) {
         $(ob)[0].className = ('form-input');
     }
 }
-

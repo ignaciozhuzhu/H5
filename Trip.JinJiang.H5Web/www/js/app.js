@@ -22,7 +22,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
     });
 })
 
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    $ionicConfigProvider.backButton.text("");
+    $ionicConfigProvider.backButton.previousTitleText(false);
     $stateProvider
 
       .state('app', {
@@ -123,12 +125,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
          }
      })
 
+      //会员模块---------------------------------------------
      .state('app.register', {
          url: '/user/register',
          views: {
              'menuContent': {
                  templateUrl: 'templates/user/register.html',
                  controller: 'registerCtrl'
+             }
+         }
+     })
+     .state('app.login', {
+         url: '/user/login',
+         views: {
+             'menuContent': {
+                 templateUrl: 'templates/user/login.html',
+                 controller: 'loginCtrl'
              }
          }
      })

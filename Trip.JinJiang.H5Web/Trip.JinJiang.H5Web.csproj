@@ -1234,6 +1234,7 @@
     <Content Include="www\js\jquery.spinner.js" />
     <Content Include="www\js\Jquerybui.js" />
     <Content Include="www\js\jscommon.js" />
+    <Content Include="www\lib\xml2json.min.js" />
     <Content Include="www\js\zlDate.js" />
     <Content Include="www\lib\ionic\fonts\ionicons.eot" />
     <Content Include="www\lib\ionic\fonts\ionicons.ttf" />
@@ -1281,6 +1282,7 @@
     <Content Include="www\lib\ionic\version.json" />
     <Content Include="www\lib\md5.js" />
     <Content Include="www\lib\sha1.js" />
+    <Content Include="www\templates\user\login.html" />
     <Content Include="www\templates\user\register.html" />
   </ItemGroup>
   <ItemGroup>

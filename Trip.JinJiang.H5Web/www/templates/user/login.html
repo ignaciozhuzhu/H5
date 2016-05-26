@@ -1,0 +1,88 @@
+﻿<style>
+    .login {
+        font-size: 12px;
+    }
+
+        .login .border1 {
+            border: solid 1px #dcdee1;
+        }
+
+    .loginbox {
+        margin: 10px;
+        border: solid 1px #dcdee1;
+    }
+
+        .loginbox .form-item {
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .loginbox .item-tip {
+            position: absolute;
+            color: #999;
+            top: -3px;
+            left: 12px;
+            transition: all linear .2s;
+            background-color: #fff;
+            padding: 0 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            z-index: 4;
+        }
+
+        .loginbox .item-tip-focus {
+            top: -29px;
+            font-size: 12px;
+            color: #5188a6;
+        }
+
+        .loginbox .form-input {
+            border-radius: 0;
+            width: 278px;
+            padding: 9px 15px;
+            border: 1px solid #dcdcdc;
+            -webkit-transition: border-color ease-in-out .15s;
+            transition: border-color ease-in-out .15s;
+            font-size: 12px;
+            border: none;
+            border-bottom: solid 1px #dcdee1;
+            width: 100%;
+        }
+
+        .loginbox .sinbottom {
+            border-bottom: 0px;
+        }
+
+        .loginbox .form-input-focus {
+            border-color: #5188a6;
+            outline: 0;
+        }
+
+    .login .bottombutton {
+        font-weight: bold;
+        height: 50px;
+        background-color: #ff7200;
+        line-height: 50px;
+        text-align: center;
+        color: white;
+        width: 100%;
+    }
+</style>
+<ion-view view-title="会员登录">
+    <ion-content>
+        <div class="login">
+            <div class="loginbox">
+                <div class="form-item">
+                    <div class="item-tip">手机号/邮箱</div>
+                    <input id="loginname" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text">
+                </div>
+                <div class="form-item">
+                    <div class="item-tip">密码</div>
+                    <input id="password" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="password">
+                </div>
+                <div style="margin:0px 20px 10px"><a href="">忘记密码?</a><a href="#/app/user/register" style="float:right">注册新帐号</a></div>
+            </div>
+            <div ng-click="login()" class="bottombutton">登录</div>
+        </div>
+    </ion-content>
+</ion-view>
