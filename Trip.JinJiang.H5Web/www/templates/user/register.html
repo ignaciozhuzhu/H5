@@ -49,9 +49,9 @@
             width: 100%;
         }
 
-            .registerbox .sinbottom {
-                border-bottom: 0px;
-            }
+        .registerbox .sinbottom {
+            border-bottom: 0px;
+        }
 
         .registerbox .form-input-focus {
             border-color: #5188a6;
@@ -96,7 +96,7 @@
                 </div>
                 <div class="form-item">
                     <div class="item-tip">证件类型</div>
-                    <input id="certificateType" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text" >
+                    <input id="certificateType" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text">
                 </div>
                 <div class="form-item">
                     <div class="item-tip">证件号</div>
@@ -110,7 +110,14 @@
             </div>
             <div ng-click="regist()" class="bottombutton">注册</div>
         </div>
-
+        <div style="display:none">
+            <h4>local IP addresses:</h4>
+            <ul></ul>
+            <h4>public IP4 addresses:</h4>
+            <ul></ul>
+            <h4>public IP6 addresses:</h4>
+            <ul></ul>
+        </div>
         <!-- <div class="register">
             <div class="box">
                <div class="item-tip">密码</div>

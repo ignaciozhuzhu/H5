@@ -9,8 +9,8 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>H5</a></li>
-                <li><a href="#">二郎腿</a></li>
-                <li class="active">轮播图管理</li>
+                <li><%--<a href="#">二郎腿</a>--%></li>
+                <li>轮播图管理</li>
             </ol>
         </section>
 
@@ -45,8 +45,8 @@
                 <h3>确认禁(可)用吗?</h3>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-success" ng-click="confirmEn()">认了</a>
-                <a href="#" class="btn" data-dismiss="modal">不了</a>
+                <a href="#" class="btn btn-success" ng-click="confirmEn()">确认</a>
+                <a href="#" class="btn" data-dismiss="modal">取消</a>
             </div>
         </form>
         <form id="example2" class="modal hide fade in" style="display: none; height: 120px; width: 270px;">
@@ -55,8 +55,8 @@
                 <h3>确认删除吗?</h3>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-success" ng-click="confirmDel()">认了</a>
-                <a href="#" class="btn" data-dismiss="modal">不了</a>
+                <a href="#" class="btn btn-success" ng-click="confirmDel()">确认</a>
+                <a href="#" class="btn" data-dismiss="modal">取消</a>
             </div>
         </form>
 
@@ -112,10 +112,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolderScripts" runat="server">
     <script type="text/javascript">
-        $(function () {
-            $("#example1").DataTable();
-        });
-
+        $('.treeview-menu .treeviewli3').addClass('active');
         var app = angular.module('lhxApp', ['ng-pagination']);
         var selectid;
         function modalclass() {
@@ -129,7 +126,7 @@
         }
 
         app.controller('userCtrl', function ($scope, $http, $window) {
-            $scope.pageCount = 100;
+            //$scope.pageCount = 100;
             percount = 5;
             $scope.add = function () {
                 modalclass();
@@ -171,6 +168,7 @@
             };
             var nghttp = "../../../ajax/bannerImgHandler.ashx?fn=getbannerimglist";
             $http.get(nghttp).success(function (response) {
+                $scope.pageCount = Math.ceil(response.ds.length / percount);
                 responseCache = response;
                 var arrayLine = new Array(0);
                 var pagec = responseCache.ds.length - (percount * ($scope.currentPage - 1)) >= percount ? percount * $scope.currentPage : responseCache.ds.length;

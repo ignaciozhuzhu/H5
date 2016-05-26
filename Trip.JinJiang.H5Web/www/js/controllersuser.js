@@ -65,14 +65,9 @@
 
 //注册控制器
 .controller('registerCtrl', function ($scope, $http) {
-
-    //   var ordercode = "1000160512000007";
-    //  var nghttp = "../../ajax/apihandler.ashx?fn=cancelorder&ordercode=" + ordercode + "";
-    //$http.get(nghttp).success(function (response) {
-    //    // debugger
-
-    //});
-
+    var ipl;
+    var ip4;
+    var ip6;
     $scope.regist = function () {
         debugger
         //需要传递到后台的XML报文串:
@@ -94,6 +89,7 @@
             }
         }
 
+        //懒得写入作为测试用例填入后台.
         certificateType = 'ID';
         certificateNo = '332522115';
         email = '11223@qq.com'; //<mcMemberCode>10059061</mcMemberCode>
@@ -101,15 +97,48 @@
         title = 'Mr.';
         surname = '赵云';
 
-        var json = "<memberRegisterDto><memberInfoDto><memberType>Silver Card</memberType><certificateNo>" + certificateNo + "</certificateNo><certificateType>" + certificateType + "</certificateType><email>" + email + "</email><mobile>" + mobile + "</mobile><scoreType>1</scoreType><title>" + title + "</title><surname>" + surname + "</surname><memberScoreType>SCORE</memberScoreType><registerSource>Website</registerSource><passsword>String</passsword><sha1pwd>String</sha1pwd>";
-        var nghttp = "../../ajax/userHandler.ashx?fn=regist&json=" + json + "";
-          $http.get(nghttp).success(function (response) {
-              debugger
-          })
+        var xml = "<memberRegisterDto><memberInfoDto>";
+        xml += "<memberType>Silver Card</memberType>";
+        xml += "<certificateNo>" + certificateNo + "</certificateNo>";
+        xml += "<certificateType>" + certificateType + "</certificateType>";
+        xml += "<email>" + email + "</email>";
+        xml += "<mobile>" + mobile + "</mobile>";
+        xml += "<scoreType>1</scoreType>";
+        xml += "<title>" + title + "</title>";
+        xml += "<surname>" + surname + "</surname>";
+        xml += "<memberScoreType>SCORE</memberScoreType>";
+        xml += "<registerSource>Website</registerSource>";
+        xml += "<passsword>" + mh5pw + "</passsword>";
+        xml += "<sha1pwd>" + sha + "</sha1pwd>";
+        xml += "<ipAddress>" + ip4 + "</ipAddress>";
+        xml += "</memberInfoDto></memberRegisterDto>";
+        var nghttp = "../../ajax/userHandler.ashx?fn=regist&xml=" + xml + "";
+        $http.get(nghttp).success(function (response) {
+           // debugger
+        })
     }
-   
 
     $scope.$on("$ionicView.loaded", function () {
+        
+        getIPs2(function (ip) {
+             var li = document.createElement("li");
+             li.textContent = ip;
+            //local IPs
+            if (ip.match(/^(192\.168\.|169\.254\.|10\.|172\.(1[6-9]|2\d|3[01]))/)) {
+                document.getElementsByTagName("ul")[0].appendChild(li);
+                ipl = ip;
+            }
+                //IPv6 addresses
+            else if (ip.match(/^[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7}$/)) {
+                ip6 = ip;
+                document.getElementsByTagName("ul")[2].appendChild(li);
+            }
+                //assume the rest are public IPs
+            else {
+                ip4 = ip
+                document.getElementsByTagName("ul")[1].appendChild(li);
+            }
+        });
     })
 
 })
@@ -120,10 +149,10 @@ function myfocus(ob) {
     }
 }
 
-
 function myblur(ob) {
     if ($(ob)[0].value == "") {
         $(ob)[0].previousElementSibling.className = 'item-tip';
         $(ob)[0].className = ('form-input');
     }
 }
+

@@ -10,15 +10,7 @@
     <script src="../../angular/js/ng-pagination.min.js"></script>
     <script src="../../angular/js/angular-route.js"></script>
     <link href="../../angular/css/ng-pagination.min.css" rel="stylesheet" />
-    <!--<style type="text/css">
-        body {
-            padding: 20px 0 0 20px;
-        }
-
-        .pager {
-            margin: 20px;
-        }
-    </style>-->
+    
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -328,7 +320,7 @@
                     </div>
                 </div>
                 <!-- search form -->
-                <form action="#" method="get" class="sidebar-form">
+                <form action="#" method="get" class="sidebar-form" style="visibility:hidden;height:10px">
                     <div class="input-group">
                         <input type="text" name="q" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
@@ -343,15 +335,15 @@
                 <ul class="sidebar-menu">
                     <%--<li class="header">MAIN NAVIGATION</li>--%>
                     <li class="treeview active">
-                        <a href="#">
+<%--                        <a href="#">
                             <i class="fa fa-table"></i><span>二郎腿</span>
                             <i class="fa fa-angle-left pull-right"></i>
-                        </a>
+                        </a>--%>
                         <ul class="treeview-menu">
-                            <li><a href="linestore.aspx"><i class="fa fa-circle-o"></i>线路库</a></li>
-                            <li><a href="linecategory.aspx"><i class="fa fa-circle-o"></i>线路分类管理</a></li>
-                            <li class="active"><a href="bannerimg.aspx"><i class="fa fa-circle-o"></i>轮播图管理</a></li>
-                            <li><a href="searchtag.aspx"><i class="fa fa-circle-o"></i>目的地标签管理</a></li>
+                            <li class="treeviewli1"><a href="linestore.aspx"><i class="fa fa-circle-o"></i>线路库</a></li>
+                            <li class="treeviewli2"><a href="linecategory.aspx"><i class="fa fa-circle-o"></i>线路分类管理</a></li>
+                            <li class="treeviewli3"><a href="bannerimg.aspx"><i class="fa fa-circle-o"></i>轮播图管理</a></li>
+                            <li class="treeviewli4"><a href="searchtag.aspx"><i class="fa fa-circle-o"></i>目的地标签管理</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -370,13 +362,13 @@
     </div>
 
         <!-- /.content-wrapper -->
-        <footer class="main-footer">
+<%--        <footer class="main-footer">
             <div class="pull-right hidden-xs">
                 <b>Version</b> 2.3.3
             </div>
             <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
             reserved.
-        </footer>
+        </footer>--%>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -585,11 +577,18 @@
 
 
     <link href="../../bootstrap/css/bootstrap-modal.css" rel="stylesheet">
+    <style type="text/css">
+        .treeview-menu li{
+        line-height:28px;
+        }
+    </style>
 
     <!-- AdminLTE App -->
     <script src="../../dist/js/app.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="../../dist/js/demo.js"></script>
+    
+    <script type="text/javascript" src="../../../../www/js/jscommon.js"></script>
     <!-- page script -->
 
      <div>

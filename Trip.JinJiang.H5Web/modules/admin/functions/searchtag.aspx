@@ -1,23 +1,25 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/modules/admin/master/Header.Master" AutoEventWireup="true" CodeBehind="searchtag.aspx.cs" Inherits="Trip.JinJiang.H5Web.modules.admin.functions.searchtag" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <div class="content-wrapper" ng-app="lhxApp" ng-controller="firstCtrl">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>目的地标签管理
                     <small>操作</small>
+                    <small><a href="" ng-click="ks()">空搜关键字</a></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>H5</a></li>
-                <li><a href="#">二郎腿</a></li>
-                <li class="active">目的地标签管理</li>
+                <li>目的地标签管理</li>
             </ol>
         </section>
 
 
         <!-- Main content -->
         <section class="content">
-            <div class="row">
+            
+            <div class="row" id="row1" >
                 <div class="col-xs-6">
 
                     <!--弹出框编辑开始-->
@@ -54,8 +56,8 @@
                             <h3>确认禁用吗?</h3>
                         </div>
                         <div class="modal-footer">
-                            <a href="#" class="btn btn-success" ng-click="confirmEn()">认了</a>
-                            <a href="#" class="btn" data-dismiss="modal">不了</a>
+                            <a href="#" class="btn btn-success" ng-click="confirmEn()">确认</a>
+                            <a href="#" class="btn" data-dismiss="modal">取消</a>
                         </div>
                     </form>
                     <!--弹出框确认结束-->
@@ -131,8 +133,8 @@
                             <h3>确认禁用吗?</h3>
                         </div>
                         <div class="modal-footer">
-                            <a href="#" class="btn btn-success" ng-click="confirmEn()">认了</a>
-                            <a href="#" class="btn" data-dismiss="modal">不了</a>
+                            <a href="#" class="btn btn-success" ng-click="confirmEn()">确认</a>
+                            <a href="#" class="btn" data-dismiss="modal">取消</a>
                         </div>
                     </form>
                     <!--弹出框确认结束-->
@@ -173,6 +175,79 @@
                 </div>
                 <!-- /.col -->
             </div>
+
+            
+            <!-- 空搜关键字-->
+            <div class="row" id="row3" ng-controller="thirdCtrl" style="display:none">
+                <div class="col-xs-6">
+
+                    <!--弹出框编辑开始-->
+                    <form id="editbox3" class="modal hide fade in" style="display: none; height: 230px; width: 270px;">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal">×</a>
+                            <h3>关键词编辑</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div>关键词名称:</div>
+                                <div>
+                                    <input id="searchName" type="text" style="height: 30px" />
+                                </div>
+                            </div>
+                            <input type="text" name="txt" id="txt" style="display: none">
+                            <input type="button" name="btn" value="btn" id="btn" style="display: none">
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-success" ng-click="reloadRoute()">保存</a>
+                            <a href="#" class="btn" data-dismiss="modal">关闭</a>
+                        </div>
+                    </form>
+
+                    <form id="confirmbox3" class="modal hide fade in" style="display: none; height: 120px; width: 270px;">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal">×</a>
+                            <h3>确认禁用吗?</h3>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-success" ng-click="confirmEn()">确认</a>
+                            <a href="#" class="btn" data-dismiss="modal">取消</a>
+                        </div>
+                    </form>
+                    <!--弹出框确认结束-->
+
+                    <div class="box">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div>
+                                <img src='../../img/add.png'><a ng-click="add()" data-toggle="modal" href="#editbox3" style="margin-left: 1%">添加</a></div>
+
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th ng-hide="true">Id</th>
+                                        <th>关键字</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in emptyKey">
+                                        <td ng-hide="true">{{x.Id}}</td>
+                                        <td ng-click="showson($event)"><a href="#">{{x.searchName}}</a></td>
+                                        <td>
+                                            <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#editbox3">修改</a>
+                                            <img style="margin-left: 5%" src='../../img/delete.png'><a ng-click="changeen($event)" data-toggle="modal" href="#confirmbox3">禁用</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
             <!-- /.row -->
         </section>
         <!-- /.content -->
@@ -180,18 +255,28 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolderScripts" runat="server">
     <script type="text/javascript">
+        $('.treeview-menu .treeviewli4').addClass('active');
         var app = angular.module('lhxApp', ['ng-pagination']);
         var selectid;
         var aid;
         $('#addtag').removeAttr('href');
+
         function modalclass() {
             $("#editbox").attr("class", "modal fade in");
             $("#confirmbox").attr("class", "modal fade in");
             $("#editbox2").attr("class", "modal fade in");
             $("#confirmbox2").attr("class", "modal fade in");
+            $("#editbox3").attr("class", "modal fade in");
+            $("#confirmbox3").attr("class", "modal fade in");
         }
 
         app.controller('firstCtrl', function ($scope, $http, $window) {
+
+            $scope.ks = function () {
+                $('#row1').hide();
+                $('#row3').show();
+            }
+
             $scope.pageCount = 100;
             percount = 100;
             $scope.add = function () {
@@ -220,6 +305,24 @@
                     }
                 });
             };
+            //默认显示之前选择修改或添加过的二级标签.
+            if (getCookie('tagaid') > 0) {
+                selectid = getCookie('tagaid');
+                var nghttp = "../../../ajax/areaHandler.ashx?fn=getarea2list&aId=" + selectid + "";
+                $http.get(nghttp).success(function (response) {
+                    //debugger
+                    responseCache = response;
+                    var arrayLine = new Array(0);
+                    var pagec = responseCache.ds.length - (percount * ($scope.currentPage - 1)) >= percount ? percount * $scope.currentPage : responseCache.ds.length;
+                    for (var i = 0; i < pagec; i++) {
+                        arrayLine.push(responseCache.ds[i]);
+                    }
+                    $scope.tags = arrayLine;
+                });
+                //防止为空的情况
+                $scope.tags = "";
+            }
+
             $scope.showson = function ($event) {
                 selectid = $event.currentTarget.previousElementSibling.innerText;
                 aid = selectid;
@@ -238,6 +341,7 @@
                 //防止为空的情况
                 $scope.tags = "";
             };
+
             var nghttp = "../../../ajax/areaHandler.ashx?fn=getarealist";
             $http.get(nghttp).success(function (response) {
                 responseCache = response;
@@ -268,6 +372,7 @@
                         type: "post",
                         data: { Id: selectid, areaName: areaName, order: order },
                         success: function (text) {
+                            setCookie('tagaid', selectid, 1);
                             $window.location.reload();
                         }
                     });
@@ -315,6 +420,7 @@
                         type: "post",
                         data: { aId: aid, destName: destName, order: order },
                         success: function (text) {
+                            setCookie('tagaid', aid, 1);
                             $window.location.reload();
                         }
                     });
@@ -325,6 +431,7 @@
                         type: "post",
                         data: { aId: aid, Id: selectid, destName: destName, order: order },
                         success: function (text) {
+                            setCookie('tagaid', aid, 1);
                             $window.location.reload();
                         }
                     });
@@ -333,6 +440,72 @@
 
         });
 
+        app.controller('thirdCtrl', function ($scope, $http, $window) {
+            $scope.pageCount = 100;
+            percount = 100;
+            $scope.add = function () {
+                modalclass();
+                selectid = "";
+                $('#searchName')[0].value = "";
+            };
+            $scope.edit = function ($event) {
+                modalclass();
+                selectid = $event.path[2].cells[0].innerText;
+                $('#searchName')[0].value = $event.path[2].cells[1].innerText;
+            };
+            $scope.changeen = function ($event) {
+                modalclass();
+                selectid = $event.path[2].cells[0].innerText;
+            };
+            var nghttp = "../../../ajax/areaHandler.ashx?fn=getarea3list"; 
+            $http.get(nghttp).success(function (response) {
+                responseCache = response;
+                var arrayLine = new Array(0);
+                var pagec = responseCache.ds.length - (percount * ($scope.currentPage - 1)) >= percount ? percount * $scope.currentPage : responseCache.ds.length;
+                for (var i = 0; i < pagec; i++) {
+                    arrayLine.push(responseCache.ds[i]);
+                }
+                $scope.emptyKey = arrayLine;
+            });
+            //防止为空的情况
+            $scope.emptyKey = "";
+
+            $scope.confirmEn = function () {
+                $.ajax({
+                    url: "../../../ajax/areaHandler.ashx?fn=enarea3",
+                    type: "post",
+                    data: { Id: selectid },
+                    success: function (text) {
+                        $window.location.reload();
+                    }
+                });
+            };
+
+            $scope.reloadRoute = function () {
+                var searchName = $('#searchName')[0].value;
+                if (selectid === null || selectid === undefined || selectid === "") {
+                    $.ajax({
+                        url: "../../../ajax/areaHandler.ashx?fn=addarea3",
+                        type: "post",
+                        data: { searchName: searchName},
+                        success: function (text) {
+                            $window.location.reload();
+                        }
+                    });
+                }
+                else {
+                    $.ajax({
+                        url: "../../../ajax/areaHandler.ashx?fn=editarea3",
+                        type: "post",
+                        data: { Id: selectid, searchName: searchName },
+                        success: function (text) {
+                            $window.location.reload();
+                        }
+                    });
+                }
+            }
+
+        })
     </script>
 
 </asp:Content>

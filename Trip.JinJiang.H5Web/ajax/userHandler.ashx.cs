@@ -34,8 +34,8 @@ namespace Trip.JinJiang.H5Web.ajax
         /// </summary>
         public void regist()
         {
-            string json = HttpContext.Current.Request["json"].ToString();
-            HttpContext.Current.Response.Write(User.regist(json));
+            string xml = HttpContext.Current.Request["xml"].ToString();
+            HttpContext.Current.Response.Write(User.regist(xml));
         }
 
 

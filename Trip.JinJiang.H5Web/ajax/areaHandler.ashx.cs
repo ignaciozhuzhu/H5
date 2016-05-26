@@ -68,7 +68,7 @@ namespace Trip.JinJiang.H5Web.ajax
             HttpContext.Current.Response.Write(Admin.enarea(Id));
         }
 
-        //--------------------------------------------------------------------------------------
+        //----二级标签----------------------------------------------------------------------------------
         /// <summary>
         /// 获取标签列表
         /// </summary>
@@ -105,6 +105,40 @@ namespace Trip.JinJiang.H5Web.ajax
         {
             int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
             HttpContext.Current.Response.Write(Admin.enarea2(Id));
+        }
+
+        //----空搜----------------------------------------------------------------------------------
+        /// <summary>
+        /// 获取空搜关键词列表
+        /// </summary>
+        public void getarea3list()
+        {
+            HttpContext.Current.Response.Write(Admin.getarea3list());
+        }
+        /// <summary>
+        /// 空搜关键词添加
+        /// </summary>
+        public void addarea3()
+        {
+            string searchName = HttpContext.Current.Request["searchName"].ToString();
+            HttpContext.Current.Response.Write(Admin.addarea3(searchName));
+        }
+        /// <summary>
+        /// 空搜关键词编辑
+        /// </summary>
+        public void editarea3()
+        {
+            string searchName = HttpContext.Current.Request["searchName"].ToString();
+            int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
+            HttpContext.Current.Response.Write(Admin.editarea3(searchName, Id));
+        }
+        /// <summary>
+        /// 空搜关键词禁用
+        /// </summary>
+        public void enarea3()
+        {
+            int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
+            HttpContext.Current.Response.Write(Admin.enarea3(Id));
         }
 
         public bool IsReusable

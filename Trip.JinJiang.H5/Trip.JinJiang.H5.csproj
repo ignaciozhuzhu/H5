@@ -58,6 +58,7 @@
     <Compile Include="DAL\areaFac.cs" />
     <Compile Include="DAL\bannerImgFac.cs" />
     <Compile Include="DAL\destFac.cs" />
+    <Compile Include="DAL\emptySearchFac.cs" />
     <Compile Include="DAL\lineCategoryFac.cs" />
     <Compile Include="DAL\lineListsFac.cs" />
     <Compile Include="DAL\tagsFac.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Model\destMod.cs" />
     <Compile Include="Model\areaMod.cs" />
     <Compile Include="Model\bannerImgMod.cs" />
+    <Compile Include="Model\emptySearchMod.cs" />
     <Compile Include="Model\lineCategoryMod.cs" />
     <Compile Include="Model\LineLists\Agency.cs" />
     <Compile Include="Model\LineLists\Brand.cs" />

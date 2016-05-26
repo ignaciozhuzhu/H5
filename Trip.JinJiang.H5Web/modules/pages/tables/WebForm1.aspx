@@ -44,8 +44,8 @@
                 <h3>确认禁(可)用吗?</h3>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-success" ng-click="confirmEn()">认了</a>
-                <a href="#" class="btn" data-dismiss="modal">不了</a>
+                <a href="#" class="btn btn-success" ng-click="confirmEn()">确认</a>
+                <a href="#" class="btn" data-dismiss="modal">取消</a>
             </div>
         </form>
         <form id="example2" class="modal hide fade in" style="display: none; height: 120px; width: 270px;">
@@ -54,8 +54,8 @@
                 <h3>确认删除吗?</h3>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-success" ng-click="confirmDel()">认了</a>
-                <a href="#" class="btn" data-dismiss="modal">不了</a>
+                <a href="#" class="btn btn-success" ng-click="confirmDel()">确认</a>
+                <a href="#" class="btn" data-dismiss="modal">取消</a>
             </div>
         </form>
 

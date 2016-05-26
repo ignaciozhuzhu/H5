@@ -303,5 +303,62 @@ namespace Trip.JinJiang.H5
             return "";
         }
         //-----------------------------目的地标签二级管理 ed
+
+        //-----------------------------空搜关键词管理 bg
+        /// <summary>
+        /// 获取空搜关键词
+        /// </summary>
+        public static string getarea3list()
+        {
+            emptySearchFac Fac = new emptySearchFac();
+            DataSet ds = Fac.GetList("");
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
+        }
+
+        /// <summary>
+        /// 空搜关键词添加
+        /// </summary>
+        public static string addarea3(string searchName)
+        {
+            emptySearchMod model = new emptySearchMod();
+            model.searchName = searchName;
+            emptySearchFac Fac = new emptySearchFac();
+            if (Fac.Add(model) > 0)
+            {
+                return "操作成功!";
+            }
+            else {
+                return "操作失败!";
+            }
+        }
+        /// <summary>
+        /// 空搜关键词编辑
+        /// </summary>
+        public static string editarea3(string searchName , int Id)
+        {
+            emptySearchMod model = new emptySearchMod();
+            model.searchName = searchName;
+            model.Id = Id;
+            emptySearchFac Fac = new emptySearchFac();
+            if (Fac.Update(model))
+            {
+                return "操作成功!";
+            }
+            else {
+                return "操作失败!";
+            }
+        }
+        /// <summary>
+        /// 空搜关键词禁用
+        /// </summary>
+        public static string enarea3(int Id)
+        {
+            emptySearchFac Fac = new emptySearchFac();
+            Fac.ChangeStatus(Id);
+            return "";
+        }
+        //-----------------------------空搜关键词管理 ed
     }
 }
