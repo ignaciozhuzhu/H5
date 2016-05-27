@@ -152,6 +152,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
                  controller: 'quickregisterCtrl'
              }
          }
+     }).state('app.forgetpwd', {
+         url: '/user/forgetpwd',
+         views: {
+             'menuContent': {
+                 templateUrl: 'templates/user/forgetpwd.html',
+                 controller: 'forgetpwdCtrl'
+             }
+         }
      })
 
     // if none of the above states are matched, use this as the fallback

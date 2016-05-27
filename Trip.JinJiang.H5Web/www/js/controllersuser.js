@@ -193,7 +193,6 @@
 //注册控制器
 .controller('loginCtrl', function ($scope, $http) {
 
-
     $scope.login = function () {
 
         //需要传递到后台的XML报文串:
@@ -235,10 +234,6 @@
             }
         })
     }
-
-    $scope.$on("$ionicView.loaded", function () {
-
-    })
 
 })
 
@@ -296,7 +291,7 @@
         xml += "</webMemberDto>";
         var nghttp = "../../ajax/userHandler.ashx?fn=quickregist&xml=" + xml + "";
         $http.get(nghttp).success(function (response) {
-            debugger
+            //debugger
             var x2js = new X2JS();
             var xmlText = response;
             var jsonObj = x2js.xml_str2json(xmlText);
@@ -331,6 +326,93 @@
     }
 
 })
+//密码找回控制器
+.controller('forgetpwdCtrl', function ($scope, $http) {
+    
+    $scope.forgetpwd = function () {
+        if (!isPassword($('#newpwd')[0].value)) {
+            blockmyui('密码过于简单,不能少于六位数');
+            return;
+        }
+
+        var validateCode = $('#code')[0].value;
+        var loginName = $('#phone')[0].value;
+        var fullName = $('#name')[0].value;
+        var mh5pw = hex_md5($('#newpwd')[0].value); //MD5密码
+        var sha = hex_sha1($('#newpwd')[0].value);
+
+        var nghttp = "../../ajax/userHandler.ashx?fn=forgetpwd";
+        nghttp += "&validateCode=" + validateCode + "";
+        nghttp += "&loginName=" + loginName + "";
+        nghttp += "&fullName=" + fullName + "";
+        nghttp += "&md5=" + mh5pw + "";
+        nghttp += "&sha1=" + sha + "";
+        $http.get(nghttp).success(function (response) {
+            //debugger
+            var x2js = new X2JS();
+            var xmlText = response;
+            var jsonObj = x2js.xml_str2json(xmlText);
+            if (jsonObj.memberBaseDto.rtcode === "success") {
+                blockmyui('密码修改完成,<br>将跳转至登录页面', 2500);
+                window.setTimeout("window.location='#/app/user/login'", 2500);
+                return;
+            }
+            else {
+                blockmyui('修改失败,请检查.');
+                return;
+            }
+        })
+    }
+
+})
+
+//发送短信验证码
+var sends = {
+    checked: 1,
+    send: function () {
+        var numbers = /^1\d{10}$/;
+        var val = $('#phone').val().replace(/\s+/g, ""); //获取输入手机号码
+        if ($('.div-phone').find('span').length == 0 && $('.div-phone a').attr('class') == 'send1 activated') {
+            if (!numbers.test(val) || val.length == 0) {
+                $('.div-phone').append('<span class="error">手机格式错误</span>');
+                return false;
+            }
+        }
+        if (numbers.test(val)) {
+            var time = 30;
+            $('.div-phone span').remove();
+            function timeCountDown() {
+                if (time == 0) {
+                    clearInterval(timer);
+                    $('.div-phone a').addClass('send1').removeClass('send0').html("发送验证码");
+                    sends.checked = 1;
+                    return true;
+                }
+                $('.div-phone a').html(time + "S后再次发送");
+                time--;
+                return false;
+                sends.checked = 0;
+            }
+            $('.div-phone a').addClass('send0').removeClass('send1');
+            timeCountDown();
+            var timer = setInterval(timeCountDown, 1000);
+            debugger
+            //传入后台操作
+            $.ajax({
+                url: "../../ajax/userHandler.ashx?fn=sendvalidatecode&loginName=" + $('#phone').val(),
+                type: 'post',
+                success: function (response) {
+                    //验证码已发送
+                    //debugger
+                    //var x2js = new X2JS();
+                    //var xmlText = response;
+                    //var jsonObj = x2js.xml_str2json(xmlText);
+                    // if(jsonObj.rtcode=="success")
+                }
+            });
+        }
+    }
+}
 
 //以下公用方法--------------------------------------------------
 function myfocus(ob) {

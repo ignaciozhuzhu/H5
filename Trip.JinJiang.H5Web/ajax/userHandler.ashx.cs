@@ -53,6 +53,36 @@ namespace Trip.JinJiang.H5Web.ajax
             string xml = HttpContext.Current.Request["xml"].ToString();
             HttpContext.Current.Response.Write(User.quickregist(xml));
         }
+        //----------------------------------------------密码找回4个步骤 bg
+        /// <summary>
+        /// 忘记密码并设置新密码
+        /// </summary>
+        public void sendvalidatecode()
+        {
+            string loginName = HttpContext.Current.Request["loginName"].ToString();
+            HttpContext.Current.Response.Write(User.sendvalidatecode(loginName));
+        }
+        public void checkmember()
+        {
+            string loginName = HttpContext.Current.Request["loginName"].ToString();
+            HttpContext.Current.Response.Write(User.checkmember(loginName));
+        }
+        public void checkmemberfullname()
+        {
+            string loginName = HttpContext.Current.Request["loginName"].ToString();
+            string fullName = HttpContext.Current.Request["fullName"].ToString();
+            HttpContext.Current.Response.Write(User.checkmemberfullname(loginName, fullName));
+        }
+        public void forgetpwd()
+        {
+            string validateCode = HttpContext.Current.Request["validateCode"].ToString();
+            string loginName = HttpContext.Current.Request["loginName"].ToString();
+            string fullName = HttpContext.Current.Request["fullName"].ToString();
+            string md5 = HttpContext.Current.Request["md5"].ToString();
+            string sha1 = HttpContext.Current.Request["sha1"].ToString();
+            HttpContext.Current.Response.Write(User.forgetpwd(loginName, fullName, validateCode, md5, sha1));
+        }
+        //----------------------------------------------密码找回4个步骤 ed
 
 
         public bool IsReusable

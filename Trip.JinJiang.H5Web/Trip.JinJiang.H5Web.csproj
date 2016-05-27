@@ -1282,7 +1282,9 @@
     <Content Include="www\lib\ionic\version.json" />
     <Content Include="www\lib\md5.js" />
     <Content Include="www\lib\sha1.js" />
+    <Content Include="www\templates\user\forgetpwd.html" />
     <Content Include="www\templates\user\login.html" />
+    <Content Include="www\templates\user\quickregister.html" />
     <Content Include="www\templates\user\register.html" />
   </ItemGroup>
   <ItemGroup>

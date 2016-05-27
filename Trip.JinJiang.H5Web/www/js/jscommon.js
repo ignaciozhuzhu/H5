@@ -234,12 +234,13 @@ var mybuicss = {
 }
 
 //暂时先设置自动延迟为1.5秒吧
-function blockmyui(msg, time) {
+function blockmyui(msg) {
+    var time = arguments[1] ? arguments[1] : 1000;
     $.blockUI({
         css: mybuicss,
         message: msg
     });
-    setTimeout($.unblockUI, 1000);
+    setTimeout($.unblockUI, time);
 }
 function isEmail(str) {
     var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
