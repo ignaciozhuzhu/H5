@@ -52,8 +52,7 @@ function FormatDateYear(strTime) {
 }
 
 
-function FormatDateTimeDiff(difftime)
-{
+function FormatDateTimeDiff(difftime) {
     //1800000;半个小时的毫秒数
     var d = new Date();
     var t = d.getTime();
@@ -222,3 +221,36 @@ function getIPs2(callback) {
     }, 1000);
 }
 //insert IP addresses into the page
+
+
+var mybuicss = {
+    border: 'none',
+    padding: '15px',
+    backgroundColor: '#000',
+    '-webkit-border-radius': '10px',
+    '-moz-border-radius': '10px',
+    opacity: .5,
+    color: '#fff'
+}
+
+//暂时先设置自动延迟为1.5秒吧
+function blockmyui(msg, time) {
+    $.blockUI({
+        css: mybuicss,
+        message: msg
+    });
+    setTimeout($.unblockUI, 1000);
+}
+function isEmail(str) {
+    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+    return reg.test(str);
+}
+function isPassword(str) {
+    var reg = /^[\w\W]{6,}$/;
+    return reg.test(str);
+}
+
+function isIdCardNo(str) {
+    reg = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
+    return reg.test(str.toUpperCase());
+}

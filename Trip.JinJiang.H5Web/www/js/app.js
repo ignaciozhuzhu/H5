@@ -144,6 +144,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
              }
          }
      })
+     .state('app.quickregister', {
+         url: '/user/quickregister',
+         views: {
+             'menuContent': {
+                 templateUrl: 'templates/user/quickregister.html',
+                 controller: 'quickregisterCtrl'
+             }
+         }
+     })
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/index');///app/playlists

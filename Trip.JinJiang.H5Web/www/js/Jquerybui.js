@@ -134,6 +134,7 @@
                 backgroundColor: '#fff',
                 cursor: 'wait'
             },
+            
 
             // minimal style set used when themes are used
             themedCSS: {

@@ -580,7 +580,7 @@
     $scope.amount = amount;
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
     $http.get(nghttp).success(function (response) {
-        debugger
+        //debugger
         var minprice;
         for (var j = 0; j < response.prices.length; j++) {
             if (response.prices[j].offerType == '基本价')

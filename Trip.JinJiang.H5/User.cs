@@ -13,6 +13,7 @@ namespace Trip.JinJiang.H5
 
         private static string urlregist = userserver + "/vbp/merge/completeRegist";    //注册2(完整注册)
         private static string urllogin = userserver + "/vbp/merge/login";    //登录
+        private static string urlquickregist = userserver + "/vbp/merge/quickRegist";    //注册1(快速注册)
 
         //注册2(完整注册)
         public static string regist(string xml)
@@ -26,6 +27,12 @@ namespace Trip.JinJiang.H5
         public static string login(string xml)
         {
             var response = HttpUtil.Post(xml, urllogin, contentType: "application/xml");
+            return response;
+        }
+        //注册1(快速注册)
+        public static string quickregist(string xml)
+        {
+            var response = HttpUtil.Post(xml, urlquickregist, contentType: "application/xml");
             return response;
         }
     }
