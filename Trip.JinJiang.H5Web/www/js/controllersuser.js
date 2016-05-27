@@ -353,8 +353,8 @@
             var xmlText = response;
             var jsonObj = x2js.xml_str2json(xmlText);
             if (jsonObj.memberBaseDto.rtcode === "success") {
-                blockmyui('密码修改完成,<br>将跳转至登录页面', 2500);
-                window.setTimeout("window.location='#/app/user/login'", 2500);
+                blockmyui('密码修改完成,<br>将跳转至登录页面', 3000);
+                window.setTimeout("window.location='#/app/user/login'", 3000);
                 return;
             }
             else {
@@ -396,7 +396,7 @@ var sends = {
             $('.div-phone a').addClass('send0').removeClass('send1');
             timeCountDown();
             var timer = setInterval(timeCountDown, 1000);
-            debugger
+            //debugger
             //传入后台操作
             $.ajax({
                 url: "../../ajax/userHandler.ashx?fn=sendvalidatecode&loginName=" + $('#phone').val(),
