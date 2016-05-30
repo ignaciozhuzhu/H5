@@ -152,7 +152,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
                  controller: 'quickregisterCtrl'
              }
          }
-     }).state('app.forgetpwd', {
+     })
+        //忘记密码
+        .state('app.forgetpwd', {
          url: '/user/forgetpwd',
          views: {
              'menuContent': {
@@ -160,7 +162,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
                  controller: 'forgetpwdCtrl'
              }
          }
-     })
+        })
+        //我的订单
+        .state('app.myorder', {
+            url: '/user/myorder',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/user/myorder.html',
+                    controller: 'myorderCtrl'
+                }
+            }
+        })
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/index');///app/playlists

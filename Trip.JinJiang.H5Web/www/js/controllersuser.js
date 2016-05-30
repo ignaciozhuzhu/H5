@@ -49,7 +49,6 @@
     var ip6;
 
     $scope.regist = function () {
-
         //debugger
         //需要传递到后台的XML报文串:
         var passwordPlain = $('#password')[0].value;  //明文密码
@@ -141,8 +140,12 @@
         xml += "<ipAddress>" + ip4 + "</ipAddress>";
         xml += "</memberInfoDto></memberRegisterDto>";
         var nghttp = "../../ajax/userHandler.ashx?fn=regist&xml=" + xml + "";
+        $.blockUI({
+            message: '<h6>正在提交,请稍后...</h6>'
+        });
         $http.get(nghttp).success(function (response) {
             //debugger
+            $.unblockUI();
             var x2js = new X2JS();
             var xmlText = response;
             var jsonObj = x2js.xml_str2json(xmlText);
@@ -158,8 +161,14 @@
                 //setCookie('fullName', jsonObj.memberMergeDto.fullName, 1);
                 //setCookie('cdsId', jsonObj.memberMergeDto.cdsId, 1);
 
-                alert('注册成功!将自动为您跳转回支付页面...');
-                window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
+                if (groupid > 0) {
+                    alert('注册成功!将自动为您跳转回支付页面...');
+                    window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
+                }
+                else {
+                    alert('注册成功!将自动为您跳转回首页...');
+                    window.location.href = '#/app/index';
+                }
             }
             else
                 alert(jsonObj.crmResponseDto.retmsg);
@@ -190,8 +199,9 @@
     })
 
 })
-//注册控制器
+//登录控制器
 .controller('loginCtrl', function ($scope, $http) {
+    //var mygate = getpbyurl(1);
 
     $scope.login = function () {
 
@@ -211,7 +221,11 @@
         xml += "<sha1>" + sha + "</sha1>";
         xml += "</mergeLoginDto>";
         var nghttp = "../../ajax/userHandler.ashx?fn=login&xml=" + xml + "";
+        $.blockUI({
+            message: '<h6>正在提交,请稍后...</h6>'
+        });
         $http.get(nghttp).success(function (response) {
+            $.unblockUI();
             var x2js = new X2JS();
             var xmlText = response;
             var jsonObj = x2js.xml_str2json(xmlText);
@@ -227,7 +241,16 @@
                 //setCookie('fullName', jsonObj.memberMergeDto.fullName, 1);
                 //setCookie('cdsId', jsonObj.memberMergeDto.cdsId, 1);
                 alert('登录成功!');
-                window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
+                var ckmcMemberCode = getCookie('mcMemberCode');
+                if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
+                    $('#account').empty().append('注销');
+                }
+                if (groupid > 0) {
+                    window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
+                }
+                else {
+                    window.location.href = '#/app/index';
+                }
             }
             else {
                 alert(jsonObj.memberMergeDto.remark);
@@ -244,39 +267,39 @@
 
         //debugger
         //需要传递到后台的XML报文串:
-        var passwordPlain = $('#password')[0].value;  //明文密码
+        var passwordPlain = $('.quickregisterbox #password')[0].value;  //明文密码
         //passwordPlain = 'xtsb1';
         var mh5pw = hex_md5(passwordPlain); //MD5密码
         var sha = hex_sha1(passwordPlain);
-        var email = $('#email')[0].value;  //邮箱
+        var email = $('.quickregisterbox #email')[0].value;  //邮箱
         var mobile = $('#phone')[0].value; //手机
 
         //前端数据验证
-        if ($('#phone')[0].value === "") {
+        if ($('.quickregisterbox #phone')[0].value === "") {
             blockmyui('请输入手机号');
             return;
         }
-        if ($('#email')[0].value === "") {
+        if ($('.quickregisterbox #email')[0].value === "") {
             blockmyui('请输入邮箱');
             return;
         }
-        if (!isEmail($('#email')[0].value)) {
+        if (!isEmail($('.quickregisterbox #email')[0].value)) {
             blockmyui('邮箱格式不正确');
             return;
         }
-        if ($('#password')[0].value === "") {
+        if ($('.quickregisterbox #password')[0].value === "") {
             blockmyui('请输入密码');
             return;
         }
-        if (!isPassword($('#password')[0].value)) {
+        if (!isPassword($('.quickregisterbox #password')[0].value)) {
             blockmyui('密码过于简单,不能少于六位数');
             return;
         }
-        if ($('#password2')[0].value === "") {
+        if ($('.quickregisterbox #password2')[0].value === "") {
             blockmyui('请输入确认密码');
             return;
         }
-        if ($('#password2')[0].value !== $('#password')[0].value) {
+        if ($('.quickregisterbox #password2')[0].value !== $('.quickregisterbox #password')[0].value) {
             blockmyui('两次密码不一致');
             return;
         }
@@ -290,7 +313,11 @@
         xml += "<registTag>IOS|JJTRAVEL_IOS_1|JinJiang</registTag>";
         xml += "</webMemberDto>";
         var nghttp = "../../ajax/userHandler.ashx?fn=quickregist&xml=" + xml + "";
+        $.blockUI({
+            message: '<h6>正在提交,请稍后...</h6>'
+        });
         $http.get(nghttp).success(function (response) {
+            $.unblockUI();
             //debugger
             var x2js = new X2JS();
             var xmlText = response;
@@ -316,7 +343,12 @@
                 //setCookie('cdsId', jsonObj.memberMergeDto.cdsId, 1);
 
                 alert('注册成功!将自动为您跳转回支付页面...');
-                window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
+                if (groupid > 0) {
+                    window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
+                }
+                else {
+                    window.location.href = '#/app/index';
+                }
             }
             else {
                 alert(jsonObj.webMemberRegisterReturnDto.message);
@@ -328,7 +360,45 @@
 })
 //密码找回控制器
 .controller('forgetpwdCtrl', function ($scope, $http) {
-    
+
+    $scope.forgetpwd = function () {
+        if (!isPassword($('#newpwd')[0].value)) {
+            blockmyui('密码过于简单,不能少于六位数');
+            return;
+        }
+
+        var validateCode = $('#code')[0].value;
+        var loginName = $('#phone')[0].value;
+        var fullName = $('#name')[0].value;
+        var mh5pw = hex_md5($('#newpwd')[0].value); //MD5密码
+        var sha = hex_sha1($('#newpwd')[0].value);
+
+        var nghttp = "../../ajax/userHandler.ashx?fn=forgetpwd";
+        nghttp += "&validateCode=" + validateCode + "";
+        nghttp += "&loginName=" + loginName + "";
+        nghttp += "&fullName=" + fullName + "";
+        nghttp += "&md5=" + mh5pw + "";
+        nghttp += "&sha1=" + sha + "";
+        $http.get(nghttp).success(function (response) {
+            //debugger
+            var x2js = new X2JS();
+            var xmlText = response;
+            var jsonObj = x2js.xml_str2json(xmlText);
+            if (jsonObj.memberBaseDto.rtcode === "success") {
+                blockmyui('密码修改完成,<br>将跳转至登录页面', 3000);
+                window.setTimeout("window.location='#/app/user/login'", 3000);
+                return;
+            }
+            else {
+                blockmyui('修改失败,请检查.');
+                return;
+            }
+        })
+    }
+
+})
+//密码找回控制器
+.controller('myorderCtrl', function ($scope, $http) {
     $scope.forgetpwd = function () {
         if (!isPassword($('#newpwd')[0].value)) {
             blockmyui('密码过于简单,不能少于六位数');
