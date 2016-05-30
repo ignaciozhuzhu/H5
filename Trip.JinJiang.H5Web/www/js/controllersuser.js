@@ -362,7 +362,19 @@
 .controller('forgetpwdCtrl', function ($scope, $http) {
 
     $scope.forgetpwd = function () {
-        if (!isPassword($('#newpwd')[0].value)) {
+        if ($('.forgetpwd0 #name')[0].value === "") {
+            blockmyui('请输入姓名');
+            return;
+        }
+        if ($('.forgetpwd0 #phone')[0].value === "") {
+            blockmyui('请输入手机');
+            return;
+        }
+        if ($('.forgetpwd0 #code')[0].value === "") {
+            blockmyui('请输入验证码');
+            return;
+        }
+        if (!isPassword($('.forgetpwd0 #newpwd')[0].value)) {
             blockmyui('密码过于简单,不能少于六位数');
             return;
         }
@@ -397,44 +409,40 @@
     }
 
 })
-//密码找回控制器
+//我的订单控制器
 .controller('myorderCtrl', function ($scope, $http) {
-    $scope.forgetpwd = function () {
-        if (!isPassword($('#newpwd')[0].value)) {
-            blockmyui('密码过于简单,不能少于六位数');
-            return;
-        }
+    // $scope.myorder = function () {
+    var mcMemberCode = "";
+    var orderStatus = "";
+    var payStatus = "";
+    var nghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
 
-        var validateCode = $('#code')[0].value;
-        var loginName = $('#phone')[0].value;
-        var fullName = $('#name')[0].value;
-        var mh5pw = hex_md5($('#newpwd')[0].value); //MD5密码
-        var sha = hex_sha1($('#newpwd')[0].value);
+    $http.get(nghttp).success(function (response) {
+        //   debugger
+        // $scope.payStatusName = response.orders;
+        $scope.orders = response.orders;
 
-        var nghttp = "../../ajax/userHandler.ashx?fn=forgetpwd";
-        nghttp += "&validateCode=" + validateCode + "";
-        nghttp += "&loginName=" + loginName + "";
-        nghttp += "&fullName=" + fullName + "";
-        nghttp += "&md5=" + mh5pw + "";
-        nghttp += "&sha1=" + sha + "";
-        $http.get(nghttp).success(function (response) {
-            //debugger
-            var x2js = new X2JS();
-            var xmlText = response;
-            var jsonObj = x2js.xml_str2json(xmlText);
-            if (jsonObj.memberBaseDto.rtcode === "success") {
-                blockmyui('密码修改完成,<br>将跳转至登录页面', 3000);
-                window.setTimeout("window.location='#/app/user/login'", 3000);
-                return;
-            }
-            else {
-                blockmyui('修改失败,请检查.');
-                return;
-            }
-        })
+    })
+    $scope.li1 = function ($event) {
+        a($event);
+    }
+    $scope.li2 = function ($event) {
+        $('#li2').css({ color: "#f59609" })
+    }
+    function a(event) {
+        debugger
+        $('#li1').css({ color: "#beb9c0" })
+        $('#li2').css({ color: "#beb9c0" })
+        $('#li3').css({ color: "#beb9c0" })
+        $('#li4').css({ color: "#beb9c0" })
+        $('#li5').css({ color: "#beb9c0" })
+        $('#li5').css({ color: "#beb9c0" })
+        event.currentTarget.css({ color: "#f59609" });
+        
     }
 
 })
+
 
 //发送短信验证码
 var sends = {

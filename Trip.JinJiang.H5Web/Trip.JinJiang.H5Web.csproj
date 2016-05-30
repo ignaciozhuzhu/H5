@@ -1282,6 +1282,7 @@
     <Content Include="www\lib\ionic\version.json" />
     <Content Include="www\lib\md5.js" />
     <Content Include="www\lib\sha1.js" />
+    <Content Include="www\templates\user\myorder.html" />
     <Content Include="www\templates\user\forgetpwd.html" />
     <Content Include="www\templates\user\login.html" />
     <Content Include="www\templates\user\quickregister.html" />
@@ -1416,7 +1417,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="modules\css\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

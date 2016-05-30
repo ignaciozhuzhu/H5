@@ -7,6 +7,7 @@
 
         .myorder .header {
             height: 25px;
+            margin: 5px 0;
         }
 
             .myorder .header div {
@@ -14,7 +15,7 @@
                 color: #beb9c0;
                 width: 20%;
                 text-align: center;
-                margin: 5px 0;
+                padding: 5px 0;
                 border-bottom: solid 1px;
             }
 
@@ -24,8 +25,8 @@
         }
 
         .myorder .timeorder {
-            height: 35px;
-            line-height: 30px;
+            height: 40px;
+            line-height: 45px;
         }
 
             .myorder .timeorder div:nth-child(1) {
@@ -35,43 +36,116 @@
             .myorder .timeorder div:nth-child(2) {
                 float: right;
             }
+
+        .myorder .detailbox {
+            height: 45px;
+        }
+
             .myorder .detailbox div:nth-child(1) {
                 float: left;
-            }.myorder .detailbox div:nth-child(2) {
-                float: right;
+                height: 30px;
+                font-size: 14px;
+                font: bold;
+                line-height: 30px;
+                color: black;
             }
+
+            .myorder .detailbox div:nth-child(2) {
+                float: right;
+                height: 30px;
+                font-size: 14px;
+                font: bold;
+                line-height: 30px;
+                color: #e69245;
+            }
+
+        .myorder .clear {
+            clear: both;
+            height: 30px;
+        }
+
+        .myorder .detailbox2 {
+            height: 30px;
+        }
+
+            .myorder .detailbox2 div:nth-child(1) {
+                float: left;
+            }
+
+            .myorder .detailbox2 div:nth-child(2) {
+                float: left;
+                margin-left: 10%;
+            }
+
+            .myorder .detailbox2 div:nth-child(3) {
+                float: right;
+                color: #e69245;
+            }
+
+        .myorder .seebutton {
+            height: 40px;
+        }
+
+        .myorder .orderbutton {
+            float: right;
+            margin: 5px;
+            background-color: #f59609;
+            color: white;
+            font: bold;
+            padding: 5px;
+        }
 </style>
 <ion-view view-title="我的订单">
     <ion-content>
         <div class="myorder">
             <div class="header">
-                <div>全部订单</div>
-                <div>待支付</div>
-                <div>已支付</div>
-                <div>已取消</div>
-                <div>已完成</div>
+                <div id="li1" ng-click="li1($event)">全部订单</div>
+                <div id="li2" ng-click="li2()">待支付</div>
+                <div id="li3" ng-click="li3()">已支付</div>
+                <div id="li4" ng-click="li4()">已取消</div>
+                <div id="li5" ng-click="li5()">已完成</div>
             </div>
-            <div class="timeorder">
-                <div>
-                    2016-04-08 03:52
+            <div class="orders" ng-repeat="x in orders">
+                <div class="timeorder">
+                    <div>
+                        {{x.createTime}}
+                    </div>
+                    <div>
+                        订单号:{{x.code}}
+                    </div>
                 </div>
-                <div>
-                    订单号:7588919
+                <div class="heightgray"></div>
+                <div class="detailbox">
+                    <div>
+                        {{x.lineName}}
+                    </div>
+                    <div>
+                        ¥ {{x.amount}}
+                    </div>
+                </div>
+                <div class="clear">
+                    <div class="detailbox2">
+                        <div>
+                            成人 : {{x.adultNum}}位
+                        </div>
+                        <div>
+                            {{x.departrueDate}}出发
+                        </div>
+                        <div>
+                            {{x.payStatusName}}
+                        </div>
+                    </div>
+                </div>
+                <div class="heightgray">
+                </div>
+                <div class="seebutton">
+                    <div class="orderbutton"> 查看订单</div>
+                </div>
+                <div class="heightgray">
+                </div>
+                <div class="heightgray">
                 </div>
             </div>
-            <div class="heightgray"></div>
-            <div class="detailbox">
-                <div>
-                    巴厘岛5晚6日杭州直飞
-                </div>
-                <div>
-                    ¥ 14320
-                </div>
-                <div>
-
-                </div>
-            </div>
-
 
         </div>
     </ion-content>

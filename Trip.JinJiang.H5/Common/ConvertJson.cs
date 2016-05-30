@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace Trip.JinJiang.H5
 {
@@ -358,6 +359,13 @@ namespace Trip.JinJiang.H5
             {
                 return "[]";
             }
+        }
+
+        //Object2Json
+        public static string ToJSON(object obj)
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            return serializer.Serialize(obj);
         }
     }
 }

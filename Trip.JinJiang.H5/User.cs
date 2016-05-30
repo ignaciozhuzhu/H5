@@ -1,26 +1,34 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 using Trip.Core;
+using Trip.JinJiang.H5.Model;
 
 namespace Trip.JinJiang.H5
 {
     public class User
     {
         private static string userserver = System.Configuration.ConfigurationManager.AppSettings["userserver"];
+        private static string jjh5Bserver = System.Configuration.ConfigurationManager.AppSettings["jjh5Bserver"];
 
         private static string urlregist = userserver + "/vbp/merge/completeRegist";    //注册2(完整注册)
         private static string urllogin = userserver + "/vbp/merge/login";    //登录
         private static string urlquickregist = userserver + "/vbp/merge/quickRegist";    //注册1(快速注册)
 
-        private static string urlsendValidateCode = userserver + "/vbp/validateCode/sendValidateCode";
+        private static string urlsendValidateCode = userserver + "/vbp/validateCode/sendValidateCode"; //忘记密码
         private static string urlcheckMember = userserver + "/vbp/merge/checkMember";
         private static string urlcheckMemberFullName = userserver + "/vbp/merge/checkMemberFullName";
         private static string urlforgetPwd = userserver + "/vbp/merge/forgetPwd";
 
-
+        private static string urlqueryorder = jjh5Bserver + "/travel/order/queryOrderList";
+        private static string urlqueryorderdetail = jjh5Bserver + "/travel/order/orderDetail/";
 
         //注册2(完整注册)
         public static string regist(string xml)
@@ -72,21 +80,62 @@ namespace Trip.JinJiang.H5
             var response = HttpUtil.Post(xml, urlforgetPwd, contentType: "application/xml");
             return response;
         }
-        //public static string forgetmodifypwd(string validateCode, string loginName, string fullName, string md5, string sha1)
-        //{
-        //    string response;
-        //    sendvalidatecode(loginName);
-        //    checkmember(loginName);
-        //    checkmemberfullname(loginName, fullName);
-        //    response = forgetpwd(loginName, fullName, validateCode, md5, sha1);
-        //    return response;
-        //}
-        //----------------------------------------------------------------------ed
 
+        //查看我的订单
+        public static string queryorder(string mcMemberCode, string orderStatus, string payStatus)
+        {
+            string startBookingDate = "2016-01-01";
+            string endBookingDate = "2017-01-01";
+            string json = "{\"endBookingDate\":\"" + endBookingDate + "\",\"mcMemberCode\":\"" + mcMemberCode + "\",\"orderCode\":\"\",\"orderStatus\":\"" + orderStatus + "\",\"pagination\":{ \"endRow\":10,\"page\":2,\"records\":0,\"rows\":10,\"search\":false,\"startRow\":1,\"total\":1},\"payStatus\":\"" + payStatus + "\",\"startBookingDate\":\"" + startBookingDate + "\"}";
+
+            var response = HttpUtil.Post(json, urlqueryorder, contentType: "application/json");
+            var result = JsonConvert.DeserializeObject<OrderdetailMod>(response);
+
+            //需要两个表做关联,得到3个明细字段的数据
+            for (int i = 0; i < result.orders.Length; i++)
+            {
+                var response2 = queryorderdetail(result.orders[i].code);
+                var result2 = JsonConvert.DeserializeObject<OrderdetailMod>(response2);
+                result.orders[i].adultNum = result2.adultNum;
+                result.orders[i].departrueDate = GetTime(result2.departrueDate).ToString("yyyy-MM-dd");
+                result.orders[i].createTime = result2.createTime;
+            }
+            response = ConvertJson.ToJSON(result);
+            return response;
+        }
+
+
+        //查看某订单号的更多详情
+        public static string queryorderdetail(string code)
+        {
+            var response = HttpUtil.Get(urlqueryorderdetail + code);
+            return response;
+        }
+
+        //时间戳转换
+        private static DateTime GetTime(string timeStamp)
+        {
+            DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            long lTime = long.Parse(timeStamp + "0000");
+            TimeSpan toNow = new TimeSpan(lTime);
+            return dtStart.Add(toNow);
+        }
     }
 
 
 }
+
+
+//public static string forgetmodifypwd(string validateCode, string loginName, string fullName, string md5, string sha1)
+//{
+//    string response;
+//    sendvalidatecode(loginName);
+//    checkmember(loginName);
+//    checkmemberfullname(loginName, fullName);
+//    response = forgetpwd(loginName, fullName, validateCode, md5, sha1);
+//    return response;
+//}
+//----------------------------------------------------------------------ed
 
 
 //完整注册demoxml "<memberRegisterDto><memberInfoDto><memberType>Silver Card</memberType><certificateNo>332510198211020626</certificateNo><certificateType>ID</certificateType><email>119414860@qq.com</email><mobile>18505793685</mobile><scoreType>1</scoreType><title>Mr.</title><passsword>9c7d4168c18e1aee29721134e27697cd</passsword><sha1pwd>d1805c2146c9627a8180a378cfe24a53b2c4a257</sha1pwd><surname>龙鸿轩</surname><memberScoreType>SCORE</memberScoreType><ipAddress>"+ localIP + "</ipAddress><registerSource>Website</registerSource></memberInfoDto></memberRegisterDto>";

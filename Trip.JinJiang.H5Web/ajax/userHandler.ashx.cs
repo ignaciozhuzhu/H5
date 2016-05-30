@@ -84,6 +84,18 @@ namespace Trip.JinJiang.H5Web.ajax
         }
         //----------------------------------------------密码找回4个步骤 ed
 
+        public void queryorder()
+        {
+            string mcMemberCode = HttpContext.Current.Request["mcMemberCode"].ToString();
+            string orderStatus = HttpContext.Current.Request["orderStatus"].ToString();
+            string payStatus = HttpContext.Current.Request["payStatus"].ToString();
+            HttpContext.Current.Response.Write(User.queryorder(mcMemberCode, orderStatus, payStatus));
+        }
+        public void queryorderdetail()
+        {
+            string code = HttpContext.Current.Request["code"].ToString();
+            HttpContext.Current.Response.Write(User.queryorderdetail(code));
+        }
 
         public bool IsReusable
         {
