@@ -417,27 +417,59 @@
     var payStatus = "";
     var nghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
 
+    removeclassyellow();
+    addclassyellow(0);
+
     $http.get(nghttp).success(function (response) {
-        //   debugger
-        // $scope.payStatusName = response.orders;
         $scope.orders = response.orders;
 
     })
-    $scope.li1 = function ($event) {
-        a($event);
+    function getorders(mynghttp) {
+        $http.get(mynghttp).success(function (response) {
+            $scope.orders = response.orders;
+        })
     }
-    $scope.li2 = function ($event) {
-        $('#li2').css({ color: "#f59609" })
+
+    function addclassyellow(q) {
+        $('.header div:eq(' + q + ')').css("color", "#f59609");
     }
-    function a(event) {
-        debugger
-        $('#li1').css({ color: "#beb9c0" })
-        $('#li2').css({ color: "#beb9c0" })
-        $('#li3').css({ color: "#beb9c0" })
-        $('#li4').css({ color: "#beb9c0" })
-        $('#li5').css({ color: "#beb9c0" })
-        $('#li5').css({ color: "#beb9c0" })
-        event.currentTarget.css({ color: "#f59609" });
+    function removeclassyellow(q) {
+        $('.header div').css("color", "#beb9c0");
+    }
+
+    $scope.li0 = function () {
+        removeclassyellow();
+        addclassyellow(0);
+        var mynghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
+        getorders(mynghttp);
+    }
+    $scope.li1 = function () {
+        removeclassyellow();
+        addclassyellow(1);
+        var payStatus = "PAY_WAITING";
+        var mynghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
+        getorders(mynghttp);
+    }
+    $scope.li2 = function () {
+        removeclassyellow();
+        addclassyellow(2);
+        var payStatus = "PAYED";
+        var mynghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
+        getorders(mynghttp);
+    }
+    $scope.li3 = function () {
+        removeclassyellow();
+        addclassyellow(3);
+        orderStatus = "CANCELED";
+        var mynghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
+        getorders(mynghttp);
+    }
+    $scope.li4 = function () {
+        removeclassyellow();
+        addclassyellow(4);
+        orderStatus = "CONFIRMED";
+        var mynghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
+        getorders(mynghttp);
         
     }
 
