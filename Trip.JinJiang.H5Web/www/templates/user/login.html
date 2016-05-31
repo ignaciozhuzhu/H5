@@ -67,17 +67,20 @@
         color: white;
         width: 100%;
     }
+    .login input[readonly] {
+        background-color:white;border:0;width:35px;
+    }
 </style>
 <ion-view view-title="会员登录">
     <ion-content>
         <div class="login">
             <div class="loginbox">
                 <div class="form-item">
-                    <div class="item-tip" tabindex="-1" onfocus="myfocust(this)" onblur="myblurt(this)">手机号/邮箱</div>
+                    <input class="item-tip" readonly onfocus="myfocust(this)" onblur="myblurt(this)" value="手机号/邮箱" style="width:80px">
                     <input id="loginname" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text">
                 </div>
                 <div class="form-item">
-                    <div class="item-tip" tabindex="-1" onfocus="myfocust(this)" onblur="myblurt(this)">密码</div>
+                    <input class="item-tip" readonly onfocus="myfocust(this)" onblur="myblurt(this)" value="密码">
                     <input id="password" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="password">
                 </div>
                 <div style="margin:0px 20px 10px"><a href="#/app/user/forgetpwd">忘记密码?</a><a href="#/app/user/register" style="float:right">注册新帐号</a></div>

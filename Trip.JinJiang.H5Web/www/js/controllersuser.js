@@ -51,16 +51,16 @@
     $scope.regist = function () {
         //debugger
         //需要传递到后台的XML报文串:
-        var passwordPlain = $('#password')[0].value;  //明文密码
+        var passwordPlain = $('.register #password')[0].value;  //明文密码
         //passwordPlain = 'xtsb1';
         var mh5pw = hex_md5(passwordPlain); //MD5密码
         var sha = hex_sha1(passwordPlain);
-        var certificateType = $('#certificateType')[0].value;    //证件类型
-        var certificateNo = $('#certificateNo')[0].value;  //证件号
-        var email = $('#email')[0].value;  //邮箱
-        var mobile = $('#phone')[0].value; //手机
+        var certificateType = $('.register #certificateType')[0].value;    //证件类型
+        var certificateNo = $('.register #certificateNo')[0].value;  //证件号
+        var email = $('.register #email')[0].value;  //邮箱
+        var mobile = $('.register #phone')[0].value; //手机
         var title = $("input[name='Sex'][checked]").val();;  //称谓 
-        var surname = $('#surname')[0].value;    //姓名
+        var surname = $('.register #surname')[0].value;    //姓名
 
         var obj = document.getElementsByName("Sex")
         for (var i = 0; i < obj.length; i++) { //遍历Radio 
@@ -70,31 +70,31 @@
         }
 
         //前端数据验证
-        if ($('#phone')[0].value === "") {
+        if ($('.register #phone')[0].value === "") {
             blockmyui('请输入手机号');
             return;
         }
-        if ($('#email')[0].value === "") {
+        if ($('.register #email')[0].value === "") {
             blockmyui('请输入邮箱');
             return;
         }
-        if (!isEmail($('#email')[0].value)) {
+        if (!isEmail($('.register #email')[0].value)) {
             blockmyui('邮箱格式不正确');
             return;
         }
-        if ($('#password')[0].value === "") {
+        if ($('.register #password')[0].value === "") {
             blockmyui('请输入密码');
             return;
         }
-        if (!isPassword($('#password')[0].value)) {
+        if (!isPassword($('.register #password')[0].value)) {
             blockmyui('密码过于简单,不能少于六位数');
             return;
         }
-        if ($('#password2')[0].value === "") {
+        if ($('.register #password2')[0].value === "") {
             blockmyui('请输入确认密码');
             return;
         }
-        if ($('#password2')[0].value !== $('#password')[0].value) {
+        if ($('.register #password2')[0].value !== $('.register #password')[0].value) {
             blockmyui('两次密码不一致');
             return;
         }
@@ -206,8 +206,8 @@
     $scope.login = function () {
 
         //需要传递到后台的XML报文串:
-        var loginname = $('#loginname')[0].value;  //用户名
-        var passwordPlain = $('#password')[0].value;  //明文密码
+        var loginname = $('.login #loginname')[0].value;  //用户名
+        var passwordPlain = $('.login #password')[0].value;  //明文密码
         //passwordPlain = 'xtbssb3';
         var mh5pw = hex_md5(passwordPlain); //MD5密码
         var sha = hex_sha1(passwordPlain);  //sha1密码
@@ -267,39 +267,39 @@
 
         //debugger
         //需要传递到后台的XML报文串:
-        var passwordPlain = $('.quickregisterbox #password')[0].value;  //明文密码
+        var passwordPlain = $('.quickregister #password')[0].value;  //明文密码
         //passwordPlain = 'xtsb1';
         var mh5pw = hex_md5(passwordPlain); //MD5密码
         var sha = hex_sha1(passwordPlain);
-        var email = $('.quickregisterbox #email')[0].value;  //邮箱
-        var mobile = $('#phone')[0].value; //手机
+        var email = $('.quickregister #email')[0].value;  //邮箱
+        var mobile = $('.quickregister #phone')[0].value; //手机
 
         //前端数据验证
-        if ($('.quickregisterbox #phone')[0].value === "") {
+        if ($('.quickregister #phone')[0].value === "") {
             blockmyui('请输入手机号');
             return;
         }
-        if ($('.quickregisterbox #email')[0].value === "") {
+        if ($('.quickregister #email')[0].value === "") {
             blockmyui('请输入邮箱');
             return;
         }
-        if (!isEmail($('.quickregisterbox #email')[0].value)) {
+        if (!isEmail($('.quickregister #email')[0].value)) {
             blockmyui('邮箱格式不正确');
             return;
         }
-        if ($('.quickregisterbox #password')[0].value === "") {
+        if ($('.quickregister #password')[0].value === "") {
             blockmyui('请输入密码');
             return;
         }
-        if (!isPassword($('.quickregisterbox #password')[0].value)) {
+        if (!isPassword($('.quickregister #password')[0].value)) {
             blockmyui('密码过于简单,不能少于六位数');
             return;
         }
-        if ($('.quickregisterbox #password2')[0].value === "") {
+        if ($('.quickregister #password2')[0].value === "") {
             blockmyui('请输入确认密码');
             return;
         }
-        if ($('.quickregisterbox #password2')[0].value !== $('.quickregisterbox #password')[0].value) {
+        if ($('.quickregister #password2')[0].value !== $('.quickregister #password')[0].value) {
             blockmyui('两次密码不一致');
             return;
         }
@@ -379,11 +379,11 @@
             return;
         }
 
-        var validateCode = $('#code')[0].value;
-        var loginName = $('#phone')[0].value;
-        var fullName = $('#name')[0].value;
-        var mh5pw = hex_md5($('#newpwd')[0].value); //MD5密码
-        var sha = hex_sha1($('#newpwd')[0].value);
+        var validateCode = $('.forgetpwd0 #code')[0].value;
+        var loginName = $('.forgetpwd0 #phone')[0].value;
+        var fullName = $('.forgetpwd0 #name')[0].value;
+        var mh5pw = hex_md5($('.forgetpwd0 #newpwd')[0].value); //MD5密码
+        var sha = hex_sha1($('.forgetpwd0 #newpwd')[0].value);
 
         var nghttp = "../../ajax/userHandler.ashx?fn=forgetpwd";
         nghttp += "&validateCode=" + validateCode + "";
