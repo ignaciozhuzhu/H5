@@ -173,6 +173,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
                 }
             }
         })
+        //订单详情
+        .state('app.orderdetail', {
+            url: '/user/orderdetail/:ordercode',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/user/orderdetail.html',
+                    controller: 'orderdetailCtrl'
+                }
+            }
+        })
+        //个人中心
+        .state('app.myinfo', {
+            url: '/user/myinfo',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/user/myinfo.html',
+                    controller: 'myinfoCtrl'
+                }
+            }
+        })
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/index');///app/playlists

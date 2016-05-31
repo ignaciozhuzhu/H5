@@ -238,7 +238,7 @@
 
                 //设置客户cookie信息.
                 setCookie('mcMemberCode', jsonObj.memberMergeDto.mcMemberCode, 1);
-                //setCookie('fullName', jsonObj.memberMergeDto.fullName, 1);
+                setCookie('fullName', jsonObj.memberMergeDto.fullName, 1);
                 //setCookie('cdsId', jsonObj.memberMergeDto.cdsId, 1);
                 alert('登录成功!');
                 var ckmcMemberCode = getCookie('mcMemberCode');
@@ -411,19 +411,15 @@
 })
 //我的订单控制器
 .controller('myorderCtrl', function ($scope, $http) {
-    // $scope.myorder = function () {
     var mcMemberCode = "";
     var orderStatus = "";
     var payStatus = "";
-    var nghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
 
     removeclassyellow();
     addclassyellow(0);
+    var nghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
+    getorders(nghttp);
 
-    $http.get(nghttp).success(function (response) {
-        $scope.orders = response.orders;
-
-    })
     function getorders(mynghttp) {
         $http.get(mynghttp).success(function (response) {
             $scope.orders = response.orders;
@@ -435,6 +431,11 @@
     }
     function removeclassyellow(q) {
         $('.header div').css("color", "#beb9c0");
+    }
+
+    $scope.seedetail = function ($event) {
+        var ordercode = event.currentTarget.lastElementChild.innerText;
+        window.location.href = '#/app/user/orderdetail/' + ordercode + '';
     }
 
     $scope.li0 = function () {
@@ -470,7 +471,98 @@
         orderStatus = "CONFIRMED";
         var mynghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
         getorders(mynghttp);
-        
+
+    }
+
+})
+//订单详情控制器
+.controller('orderdetailCtrl', function ($scope, $http) {
+
+    var orderCode = 1000160531000003;
+    var nghttp = "../../ajax/userHandler.ashx?fn=queryorderdetail&code=" + orderCode;
+
+    $http.get(nghttp).success(function (response) {
+       //debugger
+        $scope.status = response.payStatus == "PAYED" ? "已支付" : "待支付";
+
+        $scope.lineName = response.lineName;
+        //订单信息
+        $scope.orderCode = response.orderCode;
+        $scope.departrueDate = FormatDateYear(response.departrueDate);
+        $scope.returnDate = FormatDateYear(response.returnDate);
+        $scope.guestsNum = response.guests.length;
+
+        //联系人信息
+        $scope.contactName = response.contactName;
+        $scope.contactMobile = response.contactMobile;
+        $scope.contactEmail = response.contactEmail;
+
+        //出行人信息
+        $scope.guests = response.guests;
+
+        //需支付金额
+        $scope.paymentAmount = response.paymentAmount;
+
+    })
+
+    var accountName = 'INNS_APP_CLIENT_ALI_WAP_PAY';
+    $scope.pay = function () {
+        //首先做身份认证,判断是否已经登录,没有帐号的客户先注册.
+        var mcMemberCode = getCookie('mcMemberCode');
+        if (mcMemberCode != "" && mcMemberCode != undefined && mcMemberCode != null) {
+            //其次再是发起付款
+            var orderNo = $scope.orderCode;
+            var amount = $scope.paymentAmount;
+            var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
+            $.blockUI({
+                message: '<h6>正在加载,请稍后...</h6>'
+            });
+            $http.get(nghttp).success(function (response) {
+                $.unblockUI();
+                window.location.href = response;
+            })
+        }
+        else {//把参数存入cookie
+            setCookie('amount', amount, 1);
+            setCookie('cnum', cnum, 1);
+            setCookie('pnum', pnum, 1);
+            setCookie('groupid', groupid, 1);
+            setCookie('secureamount', secureamount, 1);
+            //跳转至登录页
+            window.location.href = '#/app/user/login';
+        }
+
+    }
+
+})
+//个人中心控制器
+.controller('myinfoCtrl', function ($scope, $http) {
+  
+   // var nghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
+    //$http.get(mynghttp).success(function (response) {
+    //    debugger
+    //})
+
+    //判断是否已经登录帐号,获取membercode 的cookie
+    var ckmcMemberCode = getCookie('mcMemberCode');
+    $scope.fullName = getCookie('fullName');
+    if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
+        $('#account').empty().append('注销');
+    }
+
+    //注销
+    $scope.zx = function () {
+        //debugger
+        var ckmcMemberCode = getCookie('mcMemberCode');
+        if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
+            setCookie('mcMemberCode', '', 1);
+            setCookie('fullName', '', 1);
+            $('#account').empty().append('登录');
+            alert('已注销');
+        }
+        else {
+            window.location.href = '#/app/user/login';
+        }
     }
 
 })
@@ -539,3 +631,19 @@ function myblur(ob) {
     }
 }
 
+function myfocust(ob) {
+   // debugger
+    ob = ob.nextElementSibling;
+    if ($(ob)[0].value == "") {
+        $(ob)[0].previousElementSibling.className = 'item-tip item-tip-focus';
+        $(ob)[0].className = ('form-input form-input-focus');
+    }
+}
+
+function myblurt(ob) {
+    ob = ob.nextElementSibling;
+    if ($(ob)[0].value == "") {
+        $(ob)[0].previousElementSibling.className = 'item-tip';
+        $(ob)[0].className = ('form-input');
+    }
+}

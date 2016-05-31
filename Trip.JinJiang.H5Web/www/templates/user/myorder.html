@@ -55,7 +55,7 @@
             float: left;
             height: 30px;
             font-size: 14px;
-            font: bold;
+            font-weight: bold;
             line-height: 25px;
             color: black;
         }
@@ -64,7 +64,7 @@
             float: right;
             height: 30px;
             font-size: 14px;
-            font: bold;
+            font-weight: bold;
             line-height: 25px;
             color: #e69245;
         }
@@ -105,6 +105,7 @@
         border-radius: 5px;
         width: 25%;
         text-align: center;
+        font-weight: bold;
     }
 
     .myorder .contentblue {
@@ -165,7 +166,7 @@
                 <div class="heightgray">
                 </div>
                 <div class="seebutton">
-                    <div class="orderbutton"> 查看订单</div>
+                    <div class="orderbutton" ng-click="seedetail($event)"> 查看订单<div ng-show="false">{{x.code}}</div></div>
                 </div>
                 <div class="heightgray">
                 </div>

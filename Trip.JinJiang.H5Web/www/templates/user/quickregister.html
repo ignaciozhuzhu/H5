@@ -67,26 +67,29 @@
         color: white;
         width: 100%;
     }
-    
+    .quickregisterbox input {
+        outline: none;
+    }
+
 </style>
 <ion-view view-title="会员快速注册">
     <ion-content>
         <div class="quickregister">
             <div class="quickregisterbox">
                 <div class="form-item">
-                    <div class="item-tip">手机</div>
+                    <input class="item-tip" onfocus="myfocust(this)" onblur="myblurt(this)" value="手机" style="border:0;width:40px ">
                     <input id="phone" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text" required>
                 </div>
                 <div class="form-item">
-                    <div class="item-tip">邮箱</div>
+                    <div class="item-tip" tabindex="-1" onfocus="myfocust(this)" onblur="myblurt(this)">邮箱</div>
                     <input id="email" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="email">
                 </div>
                 <div class="form-item">
-                    <div class="item-tip">密码</div>
+                    <div class="item-tip" tabindex="-1" onfocus="myfocust(this)" onblur="myblurt(this)">密码</div>
                     <input id="password" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="password">
                 </div>
                 <div class="form-item">
-                    <div class="item-tip">确认密码</div>
+                    <div class="item-tip" tabindex="-1" onfocus="myfocust(this)" onblur="myblurt(this)">确认密码</div>
                     <input id="password2" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="password">
                 </div>
             </div>

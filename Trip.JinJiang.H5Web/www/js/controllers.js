@@ -136,25 +136,7 @@
         $('#teledown').css('top', scrolltop + document.documentElement.childNodes[2].scrollHeight - 190);
     }
 
-    //判断是否已经登录帐号,获取membercode 的cookie
-    var ckmcMemberCode = getCookie('mcMemberCode');
-    if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
-        $('#account').empty().append('注销');
-    }
 
-    //注销
-    $scope.zx = function () {
-        //debugger
-        var ckmcMemberCode = getCookie('mcMemberCode');
-        if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
-            setCookie('mcMemberCode', '', 1);
-            $('#account').empty().append('登录');
-            alert('已注销');
-        }
-        else {
-            window.location.href = '#/app/user/login';
-        }
-    }
 
 
     //分类图标

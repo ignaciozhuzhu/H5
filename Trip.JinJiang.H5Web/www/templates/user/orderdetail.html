@@ -1,0 +1,99 @@
+﻿<style>
+    .orderdetail {
+        font-size: 13px;
+    }
+
+        .orderdetail .heightgray {
+            background-color: #beb9c0;
+            height: 1px;
+        }
+
+        .orderdetail .seebutton {
+            overflow: hidden;
+        }
+
+        .orderdetail .orderbutton {
+            float: right;
+            margin: 5px;
+            background-color: #ff7043;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            width: 25%;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .orderdetail .orderinfobox {
+            margin: 10px;
+        }
+
+            .orderdetail .orderinfobox .detailtitle {
+                margin: 5px;
+            }
+
+                .orderdetail .orderinfobox .detailtitle div:nth-child(1) {
+                    background-color: green;
+                    height: 16px;
+                    width: 5px;
+                    float: left;
+                }
+
+                .orderdetail .orderinfobox .detailtitle div:nth-child(2) {
+                    padding-left: 10px;
+                }
+
+            .orderdetail .orderinfobox ul {
+                line-height: 25px;
+                overflow: hidden;
+            }
+</style>
+<ion-view view-title="订单详情">
+    <ion-content>
+        <div class="orderdetail">
+            <div style="margin:10px;text-align:center">{{lineName}}</div>
+            <div class="heightgray"></div>
+            <div class="orderinfobox">
+                <div class="detailtitle">
+                    <div></div><div>订单信息</div>
+                </div>
+                <ul>
+                    <li>订单编号 : {{orderCode}}</li>
+                    <li>出团时间 : {{departrueDate}}</li>
+                    <li>归团时间 : {{returnDate}}</li>
+                    <li style="float:left">参加人数 : {{guestsNum}}</li>
+                    <li style="float:right;color:#e69245;">{{status}}</li>
+                </ul>
+            </div>
+            <div class="heightgray"></div>
+            <div class="seebutton">
+                <div ng-click="pay()" class="orderbutton"> 去支付</div>
+            </div>
+            <div class="heightgray"></div>
+            <div class="orderinfobox">
+                <div class="detailtitle">
+                    <div></div><div>联系人信息</div>
+                </div>
+                <ul>
+                    <li>联系人 : {{contactName}}</li>
+                    <li>联系电话 : {{contactMobile}}</li>
+                    <li>电子邮箱 : {{contactEmail}}</li>
+                </ul>
+            </div>
+            <div class="heightgray"></div>
+            <div style="height:10px">
+            </div>
+            <div class="heightgray"></div>
+            <div class="orderinfobox">
+                <div class="detailtitle">
+                    <div></div><div>出行人信息</div>
+                </div>
+                <ul style="float:left;width:50%" ng-repeat="x in guests">
+                    <li>出行人 : {{x.name}}</li>
+                    <li>证件类型 :{{x.guestIDType}} </li>
+                    <li>证件ID :{{x.guestID}} </li>
+                </ul>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

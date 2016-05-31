@@ -87,7 +87,7 @@
                     <input id="beginProtxt" class="background_size" type="search" style="width:35%;background-image: url(img/定位图标2.png);padding-left: 25px; border-right: aliceblue;border-bottom-left-radius:5px;border-top-left-radius:5px;border-top-right-radius: 0;border-bottom-right-radius: 0;border-color:#ddd;margin:0 0 0 3px" onclick="citySelect()">
 
                     <input id="searchtxt" class="background_size" type="search" style="width:65%;background-image: url(img/放大镜2.png);padding-left: 35px;border-bottom-right-radius:5px;border-top-right-radius:5px;border-top-left-radius: 0;border-bottom-left-radius: 0;border-color:#ddd;margin:0 3px 0 0" placeholder="路线/目的地/景点" ><!--onclick="desSelect()"-->
-                    <img src="img/个人中心图标.png" style="width:40px;height:33px;padding : 5px 2px;margin:0 5px" onclick="searchLines(this)" /><!--<a id="searchbtn" href="javascript:void(0)" onclick="searchLines(this);">搜索</a>-->
+                    <a href="#/app/user/myinfo"><img src="img/个人中心图标.png" style="width:40px;height:33px;padding : 5px 2px;margin:0 5px" /></a><!--<a id="searchbtn" href="javascript:void(0)" onclick="searchLines(this);">搜索</a>-->
 
                 </div>
             </form>
@@ -531,11 +531,6 @@
         <div id="teledown"><a href="tel:10101666" style="float: right"><img src="img/tele3.png" style="width: 50px;" /></a></div>
 
     </ion-content>
-    <div class="bar bar-footer">
-
-        <a style="width:33%;float:left;text-align:center;font-size:12px;height:33px;line-height:33px;font:bold" href="#/app/index"><div>首页</div></a>
-        <a style="width:33%;float:left;text-align:center;font-size:12px;height:33px;line-height:33px;font:bold" href="#/app/user/myorder"><div>我的订单</div></a>
-        <a style="width:33%;float:left;text-align:center;font-size:12px;height:33px;line-height:33px;font:bold" href=""><div ng-click="zx()" id="account">账户</div></a>
-    </div>
+    
 
 </ion-view>
