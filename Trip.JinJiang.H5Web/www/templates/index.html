@@ -53,7 +53,7 @@
 
     .linecatebox {
         /*height: 170px;*/
-        margin:3% 0;
+        margin: 3% 0;
     }
 
         .linecatebox .linecategorys {
@@ -65,30 +65,43 @@
 
             .linecatebox .linecategorys img {
                 width: 40px;
-                height: 40px
+                height: 40px;
             }
 
             .linecatebox .linecategorys div {
                 font-size: 12px;
                 color: #a9a9a9;
             }
+    .myindexbox .bar-header {
+        height:35px
+    }
+    .myindexbox .bar-subheader {
+    height:35px
+    }
+    .myindexbox #bartitle {
+        top:35px
+    }
 </style>
 
 <link href="css/royalslider.css?1" rel="stylesheet">
 <link href="css/rs-minimal-white.css" rel="stylesheet">
 <link href="lib/ionic/css/ionic.css" rel="stylesheet">
 
-<ion-view view-title="锦江旅游">
+<ion-view hide-nav-bar="true">
+</ion-view>
+<ion-view view-title="锦江旅游" class="myindexbox">
+
     <ion-header-bar>
+        <div style="margin:0 30%"><div style="width:30%;float:left"><img src="img/logo.png" style="width:70%;height:70%" /></div>锦江旅游</div>
         <div id="bartitle" class="bar bar-subheader bar-stable" style="height:60px;padding:10px 5px">
             <form>
                 <div class="button-bar">
-                    <img src="img/logo.png" style="width:50px;height:33px;margin: 1px;" />
                     <input id="beginProtxt" class="background_size" type="search" style="width:35%;background-image: url(img/定位图标2.png);padding-left: 25px; border-right: aliceblue;border-bottom-left-radius:5px;border-top-left-radius:5px;border-top-right-radius: 0;border-bottom-right-radius: 0;border-color:#ddd;margin:0 0 0 3px" onclick="citySelect()">
 
-                    <input id="searchtxt" class="background_size" type="search" style="width:65%;background-image: url(img/放大镜2.png);padding-left: 35px;border-bottom-right-radius:5px;border-top-right-radius:5px;border-top-left-radius: 0;border-bottom-left-radius: 0;border-color:#ddd;margin:0 3px 0 0" placeholder="路线/目的地/景点" ><!--onclick="desSelect()"-->
-                    <a href="#/app/user/myinfo"><img src="img/个人中心图标.png" style="width:40px;height:33px;padding : 5px 2px;margin:0 5px" /></a><!--<a id="searchbtn" href="javascript:void(0)" onclick="searchLines(this);">搜索</a>-->
-
+                    <input id="searchtxt" class="background_size" type="search" style="width:60%;background-image: url(img/放大镜2.png);padding-left:35px;border-bottom-right-radius:5px;border-top-right-radius:5px;border-top-left-radius: 0;border-bottom-left-radius: 0;border-color:#ddd;margin:0 3px 0 0" placeholder="路线/目的地/景点"><!--onclick="desSelect()"-->
+                    <div style="width:30%">
+                        <a href="#/app/user/myinfo"><img src="img/个人中心图标.png" style="width:85%;height:85%;padding : 5px 2px;margin:0px 5px" /></a><!--<a id="searchbtn" href="javascript:void(0)" onclick="searchLines(this);">搜索</a>-->
+                    </div>
                 </div>
             </form>
         </div>
@@ -461,14 +474,14 @@
             </div>
         </div>
     </ion-content>
-    <ion-content id="divcontent" style="padding-top:60px;" on-scroll="getScrollPosition()" delegate-handle="indexDelegate">
+    <ion-content id="divcontent" style="padding-top:40px;" on-scroll="getScrollPosition()" delegate-handle="indexDelegate">
         <!--这段轮播图-->
         <div class="sliderContainer fullWidth clearfix">
-            <div id="full-width-slider" class="royalSlider heroSlider rsMinW" >
+            <div id="full-width-slider" class="royalSlider heroSlider rsMinW">
             </div>
         </div>
         <div>
-            <div class="linecatebox" >
+            <div class="linecatebox">
                 <div class="linecategorys" ng-repeat="x in linecategorys"><div><a href="#/app/linelists/{{x.lineCategory}}"><img src={{x.imgUrl}}></a></div><div>{{x.categoryName}}</div></div>
             </div>
             <!--框头部-->
@@ -531,6 +544,6 @@
         <div id="teledown"><a href="tel:10101666" style="float: right"><img src="img/tele3.png" style="width: 50px;" /></a></div>
 
     </ion-content>
-    
+
 
 </ion-view>

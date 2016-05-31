@@ -478,6 +478,7 @@
 //订单详情控制器
 .controller('orderdetailCtrl', function ($scope, $http) {
 
+    //暂时作为测试用
     var orderCode = 1000160531000003;
     var nghttp = "../../ajax/userHandler.ashx?fn=queryorderdetail&code=" + orderCode;
 
