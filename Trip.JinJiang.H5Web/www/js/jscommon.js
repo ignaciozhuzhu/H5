@@ -85,9 +85,14 @@ function getPro() {
 
 }
 
-//function getIP() {
-
-//}
+function getcategoryNameByCode(categorycode) {
+    if (categorycode === "GROUPTRIP")
+        return "跟团游";
+    if (categorycode === "FREETRIP")
+        return "自由行";
+    if (categorycode === "SHIP")
+        return "游轮";
+}
 
 //get the IP addresses associated with an account
 function getIPs(callback) {

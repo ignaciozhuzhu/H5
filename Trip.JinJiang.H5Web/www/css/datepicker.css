@@ -31,7 +31,7 @@
 .calendar .calendar_right .today{margin: -1px 0 0 -1px;background-color: #fffbee;}
 .calendar .calendar_right .on .team{color: #339900;}
 .calendar .calendar_right .team{display: block;text-align: right;height: 16px;line-height: 16px;}
-.calendar .calendar_right .on .calendar_price01{color: #ff6000;text-align: right;padding-left:0px;font-size:10px}
+.calendar .calendar_right .on .calendar_price01{color: #ff6000;text-align: right;padding-left:0px;font-size:8px}
 .calendar dfn{font-style: normal;font-size: 12px;font-family: Arial !important;}
 .calendar .calendar_loding{float: right;width: 591px;text-align: center;padding: 147px 0;}
 .calendar .calendar_loding img{vertical-align: middle;margin-right: 10px;}

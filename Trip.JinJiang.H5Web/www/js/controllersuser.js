@@ -202,6 +202,10 @@
 //登录控制器
 .controller('loginCtrl', function ($scope, $http) {
     //var mygate = getpbyurl(1);
+    //$(".login .item-tip").focus(function () {
+    //    $(".login #loginname").css("background-color", "#FFFFCC");
+    //    $(".login #loginname").focus();
+    //});
 
     $scope.login = function () {
 
@@ -483,7 +487,7 @@
     var nghttp = "../../ajax/userHandler.ashx?fn=queryorderdetail&code=" + orderCode;
 
     $http.get(nghttp).success(function (response) {
-       //debugger
+        //debugger
         $scope.status = response.payStatus == "PAYED" ? "已支付" : "待支付";
 
         $scope.lineName = response.lineName;
@@ -538,8 +542,8 @@
 })
 //个人中心控制器
 .controller('myinfoCtrl', function ($scope, $http) {
-  
-   // var nghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
+
+    // var nghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
     //$http.get(mynghttp).success(function (response) {
     //    debugger
     //})
@@ -624,6 +628,32 @@ function myfocus(ob) {
         $(ob)[0].className = ('form-input form-input-focus');
     }
 }
+//function login_reg_input(b) {
+//    SetInputCss(b);
+//    $(b).mouseup(function () { SetInputCss(b); });
+//    $(b).blur(function () {
+//        if ($.trim($(this).val()) == "") {
+//            $(this).removeClass("form-input-focus");
+//            $(this).prev().removeClass("item-tip-focus");
+//        }
+//    });
+//    $(b).focus(function () {
+//        if (!$(this).hasClass("form-input-focus")) { $(this).addClass("form-input-focus"); $(this).prev().addClass("item-tip-focus"); }
+//    });
+//    $(".item-tip").click(function () {
+//        $(this).next().focus();
+//    });
+//}
+//function SetInputCss(b) {
+//    debugger
+//    $(b).each(function () {
+//        if ($.trim($(this).val()) != "") {
+//            $(this).addClass("form-input-focus");
+//            $(this).prev().addClass("item-tip-focus");
+//        }
+//    });
+//}
+//login_reg_input(".form-input");
 
 function myblur(ob) {
     if ($(ob)[0].value == "") {
@@ -638,7 +668,10 @@ function myfocust(ob) {
     if ($(ob)[0].value == "") {
         $(ob)[0].previousElementSibling.className = 'item-tip item-tip-focus';
         $(ob)[0].className = ('form-input form-input-focus');
+
     }
+    //$(ob)[0].focus();
+    // document.getElementById("loginname").focus();
 }
 
 function myblurt(ob) {
@@ -646,5 +679,8 @@ function myblurt(ob) {
     if ($(ob)[0].value == "") {
         $(ob)[0].previousElementSibling.className = 'item-tip';
         $(ob)[0].className = ('form-input');
+
     }
+    //  document.getElementById("loginname").focus();
 }
+

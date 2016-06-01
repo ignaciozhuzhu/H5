@@ -24,7 +24,7 @@
             left: 12px;
             transition: all linear .2s;
             background-color: #fff;
-            padding: 0 3px;
+            padding: 6px 3px;
             font-size: 12px;
             margin-left: 10px;
             z-index: 4;
@@ -39,7 +39,7 @@
         .loginbox .form-input {
             border-radius: 0;
             width: 278px;
-            padding: 9px 15px;
+            padding: 0px 15px;
             border: 1px solid #dcdcdc;
             -webkit-transition: border-color ease-in-out .15s;
             transition: border-color ease-in-out .15s;
@@ -70,13 +70,16 @@
     .login input[readonly] {
         background-color:white;border:0;width:35px;
     }
+    .login .form-input {
+        
+    }
 </style>
 <ion-view view-title="会员登录">
     <ion-content>
         <div class="login">
             <div class="loginbox">
                 <div class="form-item">
-                    <input class="item-tip" readonly onfocus="myfocust(this)" onblur="myblurt(this)" value="手机号/邮箱" style="width:80px">
+                    <input class="item-tip" readonly onfocus="myfocust(this)" onblur="myblurt(this)" value="手机号/邮箱" style="width:80px" >
                     <input id="loginname" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text">
                 </div>
                 <div class="form-item">

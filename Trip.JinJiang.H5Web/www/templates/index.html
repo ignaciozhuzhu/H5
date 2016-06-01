@@ -64,41 +64,29 @@
         }
 
             .linecatebox .linecategorys img {
-                width: 40px;
-                height: 40px;
+                width: 70%;
+                height: 70%;
             }
 
             .linecatebox .linecategorys div {
                 font-size: 12px;
                 color: #a9a9a9;
             }
-    .myindexbox .bar-header {
-        height:35px
-    }
-    .myindexbox .bar-subheader {
-    height:35px
-    }
-    .myindexbox #bartitle {
-        top:35px
-    }
 </style>
 
 <link href="css/royalslider.css?1" rel="stylesheet">
 <link href="css/rs-minimal-white.css" rel="stylesheet">
 <link href="lib/ionic/css/ionic.css" rel="stylesheet">
 
-<ion-view hide-nav-bar="true">
-</ion-view>
-<ion-view view-title="锦江旅游" class="myindexbox">
-
+<ion-view view-title="锦江旅游">
     <ion-header-bar>
-        <div style="margin:0 30%"><div style="width:30%;float:left"><img src="img/logo.png" style="width:70%;height:70%" /></div>锦江旅游</div>
         <div id="bartitle" class="bar bar-subheader bar-stable" style="height:60px;padding:10px 5px">
             <form>
                 <div class="button-bar">
-                    <input id="beginProtxt" class="background_size" type="search" style="width:35%;background-image: url(img/定位图标2.png);padding-left: 25px; border-right: aliceblue;border-bottom-left-radius:5px;border-top-left-radius:5px;border-top-right-radius: 0;border-bottom-right-radius: 0;border-color:#ddd;margin:0 0 0 3px" onclick="citySelect()">
+                    <div style="width:30%"><img src="img/logo.png" style="width:85%;height:85%" /></div>
+                    <input id="beginProtxt" class="background_size" type="search" style="width:35%;background-image: url(img/定位图标3.png);padding-left: 7.5%; border-right: aliceblue;border-bottom-left-radius:5px;border-top-left-radius:5px;border-top-right-radius: 0;border-bottom-right-radius: 0;border-color:#ddd;margin:0 0 0 3px" onclick="citySelect()">
 
-                    <input id="searchtxt" class="background_size" type="search" style="width:60%;background-image: url(img/放大镜2.png);padding-left:35px;border-bottom-right-radius:5px;border-top-right-radius:5px;border-top-left-radius: 0;border-bottom-left-radius: 0;border-color:#ddd;margin:0 3px 0 0" placeholder="路线/目的地/景点"><!--onclick="desSelect()"-->
+                    <input id="searchtxt" class="background_size" type="search" style="width:60%;background-image: url(img/放大镜2.png);padding-left:10.5%;border-bottom-right-radius:5px;border-top-right-radius:5px;border-top-left-radius: 0;border-bottom-left-radius: 0;border-color:#ddd;margin:0 3px 0 0" placeholder="路线/目的地/景点"><!--onclick="desSelect()"-->
                     <div style="width:30%">
                         <a href="#/app/user/myinfo"><img src="img/个人中心图标.png" style="width:85%;height:85%;padding : 5px 2px;margin:0px 5px" /></a><!--<a id="searchbtn" href="javascript:void(0)" onclick="searchLines(this);">搜索</a>-->
                     </div>
@@ -474,7 +462,7 @@
             </div>
         </div>
     </ion-content>
-    <ion-content id="divcontent" style="padding-top:40px;" on-scroll="getScrollPosition()" delegate-handle="indexDelegate">
+    <ion-content id="divcontent" style="padding-top:60px;" on-scroll="getScrollPosition()" delegate-handle="indexDelegate">
         <!--这段轮播图-->
         <div class="sliderContainer fullWidth clearfix">
             <div id="full-width-slider" class="royalSlider heroSlider rsMinW">
@@ -491,9 +479,9 @@
                 <div style="font-size:18px;margin:4px 10px 2px 10px "><div class="graytitleleft" style=""></div>热门路线</div>
             </div>
             <!--框内容-->
-            <div style="height:365px">
+            <div style="height:365px;margin:1.5%">
                 <div ng-repeat="playlist in linelistsP">
-                    <div style="float:left;width:50%; padding: 5px 10px 5px 10px">
+                    <div style="float:left;width:50%; padding: 1.5%">
                         <a href="#/app/linedetail/{{playlist.lineId}}"><img style="width:100%;height:119px" src="{{playlist.imageUrls[0]}}" /></a>
                         <div style='padding-bottom:8px;font-weight:bold;font-size:15px;'>
                             {{ playlist.name.length > 9 ? playlist.name.substring(0,8)+'...':playlist.name}}
@@ -519,9 +507,9 @@
                 <div style="font-size:18px;margin:10px 10px 2px 10px "><div class="graytitleleft"></div>近期特惠</div>
             </div>
             <!--框内容-->
-            <div style="height:365px">
+            <div style="height:365px;margin:1.5%">
                 <div ng-repeat="playlist in linelistsN">
-                    <div style="float:left;width:50%; padding: 5px 10px 5px 10px">
+                    <div style="float:left;width:50%; padding: 1.5%">
                         <a href="#/app/linedetail/{{playlist.lineId}}"><img style="width:100%;height:119px" src="{{playlist.imageUrls[0]}}"></a>
                         <div style='padding-bottom:8px;font-weight:bold;font-size:15px;'>
                             {{ playlist.name.length > 9 ? playlist.name.substring(0,8)+'...':playlist.name}}

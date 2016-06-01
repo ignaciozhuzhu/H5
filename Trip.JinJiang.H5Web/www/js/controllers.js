@@ -133,11 +133,8 @@
     //滚动,下拉出电话
     $scope.getScrollPosition = function () {
         var scrolltop = $ionicScrollDelegate.$getByHandle('indexDelegate').getScrollPosition().top;
-        $('#teledown').css('top', scrolltop + document.documentElement.childNodes[2].scrollHeight - 190);
+        $('#teledown').css('top', scrolltop + document.documentElement.childNodes[2].scrollHeight - 170);
     }
-
-
-
 
     //分类图标
     var nghttpcategory = "../../ajax/apihandler.ashx?fn=getlinecategorys&status=true";
@@ -156,6 +153,7 @@
 
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinespromotion";
     $http.get(nghttp).success(function (response) {
+        //debugger
         for (var i = 0; i < 8; i++) {
             if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0] === null || response.lines[i].imageUrls[0].indexOf('http') < 0)
                 response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
@@ -224,6 +222,7 @@
 
 //线路详情控制器
 .controller('lineDetailCtrl', function ($scope, $http, $sce) {
+
     var url = location.href;
     var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
     $('#ordernow').attr('href', '#/app/indexdate/' + lineid);
@@ -292,12 +291,16 @@
 
         //取线路旅游类型
         //debugger
-        //$scope.linecategory = response.linecategory;
+        $scope.lineCategory = getcategoryNameByCode(response.line.lineCategory);
 
         //取价格
         $scope.price = response.minPrice;
+        //debugger
         //产品经理推荐
-        $scope.recommend = response.line.recommend;
+        $scope.recommend = response.line.recommend; // response.line.recommend.url;
+
+        //取图片
+        $scope.image = response.line.images[0].url;
 
         $('#idline').show();
         $('#idfeature').hide();
@@ -639,7 +642,7 @@
 
             //})
 
-            
+
         }
         $scope.paywaySelect = function ($event) {
             if ($event.target.parentNode.previousElementSibling.innerText == '支付宝')
@@ -652,7 +655,7 @@
 
 //取消订单控制器
 .controller('cancelorderCtrl', function ($scope, $http) {
-   // var ordercode = "1000160512000007";
+    // var ordercode = "1000160512000007";
     var nghttp = "../../ajax/apihandler.ashx?fn=cancelorder&ordercode=111";
     $http.get(nghttp).success(function (response) {
         // debugger
