@@ -31,8 +31,8 @@
         }
 
             .linelistbox .imgdiv .img {
-                width: 90%;
-                height: 90%;
+                width: 100%;
+                height: 95px;
             }
 
         .linelistbox .rightcontent {
@@ -50,6 +50,7 @@
             .linelistbox .rightcontent .title {
                 font-size: 13px;
                 color: #6F6F6F;
+                height:40px;
             }
 
             .linelistbox .rightcontent .pt {
@@ -119,8 +120,12 @@
                         <img class="img" src={{playlist.imageUrls[0]}} alt="旅游图片" />
                     </div>
                     <div class="rightcontent">
-                        <div class="name">{{playlist.name}} </div>
-                        <div class="title">{{playlist.title}}</div>
+                        <div class="name">
+                            {{ playlist.name.length > 12 ? playlist.name.substring(0,11)+'...':playlist.name}}
+                        </div>
+                        <div class="title">
+                            {{ playlist.title.length > 30 ? playlist.title.substring(0,29)+'...':playlist.title}}
+                        </div>
                         <div class="pt">
                             <div class="floatleft">
                                 <span class="span1">¥{{playlist.originalPrice}}</span><span class="span2">起</span>

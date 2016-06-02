@@ -225,13 +225,14 @@
 
     var url = location.href;
     var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
-    $('#ordernow').attr('href', '#/app/indexdate/' + lineid);
+    $('.linedetail .ordernow').attr('href', '#/app/indexdate/' + lineid);
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
+    //debugger
     $http.get(nghttp).success(function (response) {
         //debugger
         //团框初始高度
-        $("#groupsheight").height(16);
-        $("#groupsinheight").height(16);
+        $(".linedetail .groupsheight").height(16);
+        $(".linedetail .groupsinheight").height(16);
 
         //行程
         if (response.line === null) {
@@ -242,7 +243,7 @@
         $scope.linedetails = response.line;
         $scope.journeys = response.line.journeys.sort(sortbydayNumber);
 
-       // $scope.journeys2 = response.line.journeys.sort(sortbydayNumber);
+        // $scope.journeys2 = response.line.journeys.sort(sortbydayNumber);
 
         //行程明细
         //$sce 是 angularJS 自带的安全处理模块，$sce.trustAsHtml(str) 方法便是将数据内容以 html 的形式进行解析并返回。将此过滤器添加到 ng-bind-html 、data-ng-bind-html  所绑定的数据中，便实现了在数据加载时对于 html 标签的自动转义。
@@ -308,14 +309,15 @@
         else
             $scope.image = response.line.images[0].url;
 
-        $('#idline').show();
-        $('#idfeature').hide();
-        $('#idexpense').hide();
-
-        $('.thirdCenter:eq(0)').addClass("contentblue");
-        $('.thirdCenter:eq(3)').addClass("lineblue");
-    });
-    $scope.$on("$ionicView.loaded", function () {
+        $('.linedetail .idline').show();
+        $('.linedetail .idfeature').hide();
+        $('.linedetail .idexpense').hide();
+        //debugger
+        var jq_div = $(".linedetail .thirdCenter");
+        jq_div.eq(0).addClass("contentblue");
+        jq_div.eq(3).addClass("lineblue");
+        //$('.linedetail .thirdCenter:eq(0)').addClass("contentblue");
+       // $('.linedetail .thirdCenter:eq(3)').addClass("lineblue");
     });
 
 })
@@ -709,16 +711,25 @@ function moredays() {
     counting++;
     if (counting % 2 == 1) {
         var moha = dayslength / 4;
-        $("#groupsheight").height(5 + 20 * moha);
-        $("#groupsinheight").height(5 + 20 * moha);
-        $(".daysgroup2").slideToggle();
+        if (moha <= 1) {
+            $(".linedetail .groupsheight").height(16);
+            $(".linedetail .groupsinheight").height(16);
+            $(".daysgroup2").slideToggle();
+            return;
+        }
+        else {
+            $(".linedetail .groupsheight").height(5 + 20 * moha);
+            $(".linedetail .groupsinheight").height(5 + 20 * moha);
+            $(".daysgroup2").slideToggle();
+        }
 
     }
     else {
-        $("#groupsheight").height(16);
-        $("#groupsinheight").height(16);
+        $(".linedetail .groupsheight").height(16);
+        $(".linedetail .groupsinheight").height(16);
         $(".daysgroup2").slideToggle();
     }
+
 }
 //城市选择框
 function citySelect() {
@@ -769,25 +780,25 @@ function addclassblue(q, i) {
 }
 
 function lineCl() {
-    $('#idfeature').hide();
-    $('#idline').show();
-    $('#idexpense').hide();
+    $('.linedetail .idfeature').hide();
+    $('.linedetail .idline').show();
+    $('.linedetail .idexpense').hide();
     removeclassblue();
     addclassblue(0, 3);
 }
 
 function featureCl() {
-    $('#idfeature').show();
-    $('#idline').hide();
-    $('#idexpense').hide();
+    $('.linedetail .idfeature').show();
+    $('.linedetail .idline').hide();
+    $('.linedetail .idexpense').hide();
     removeclassblue();
     addclassblue(1, 4);
 }
 
 function expenseCl() {
-    $('#idfeature').hide();
-    $('#idline').hide();
-    $('#idexpense').show();
+    $('.linedetail .idfeature').hide();
+    $('.linedetail .idline').hide();
+    $('.linedetail .idexpense').show();
     removeclassblue();
     addclassblue(2, 5);
 }
