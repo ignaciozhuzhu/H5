@@ -26,7 +26,7 @@
 
         .orderdetail .orderinfobox {
             margin: 10px;
-            overflow:hidden;
+            overflow: hidden;
         }
 
             .orderdetail .orderinfobox .detailtitle {
@@ -48,11 +48,33 @@
                 line-height: 25px;
                 overflow: hidden;
             }
+
+        .orderdetail .ftdiv {
+            margin: 10px;
+        }
+
+        .orderdetail .lileft {
+            float: left;
+        }
+
+        .orderdetail .liright {
+            float: right;
+            color: #e69245;
+        }
+
+        .orderdetail .height10 {
+            height: 10px;
+        }
+
+        .orderdetail .orderinfobox .detailul {
+            float: left;
+            width: 50%;
+        }
 </style>
 <ion-view view-title="订单详情">
     <ion-content>
         <div class="orderdetail">
-            <div style="margin:10px">{{lineName}}</div>
+            <div class="ftdiv">{{lineName}}</div>
             <div class="heightgray"></div>
             <div class="orderinfobox">
                 <div class="detailtitle">
@@ -62,8 +84,8 @@
                     <li>订单编号 : {{orderCode}}</li>
                     <li>出团时间 : {{departrueDate}}</li>
                     <li>归团时间 : {{returnDate}}</li>
-                    <li style="float:left">参加人数 : {{guestsNum}}</li>
-                    <li style="float:right;color:#e69245;">{{status}}</li>
+                    <li class="lileft">参加人数 : {{guestsNum}}</li>
+                    <li class="liright">{{status}}</li>
                 </ul>
             </div>
             <div class="heightgray"></div>
@@ -82,14 +104,14 @@
                 </ul>
             </div>
             <div class="heightgray"></div>
-            <div style="height:10px">
+            <div class="height10">
             </div>
             <div class="heightgray"></div>
             <div class="orderinfobox">
                 <div class="detailtitle">
                     <div></div><div>出行人信息</div>
                 </div>
-                <ul style="float:left;width:50%" ng-repeat="x in guests">
+                <ul class="detailul" ng-repeat="x in guests">
                     <li>出行人 : {{x.name}}</li>
                     <li>证件类型 :{{x.guestIDType}} </li>
                     <li>证件ID :{{x.guestID}} </li>
