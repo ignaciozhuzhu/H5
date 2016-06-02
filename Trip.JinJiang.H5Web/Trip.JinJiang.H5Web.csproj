@@ -71,11 +71,14 @@
       <HintPath>..\packages\Microsoft.ApplicationInsights.1.2.3\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft Web Tools\Packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -1039,6 +1042,9 @@
     <Content Include="modules\plugins\timepicker\bootstrap-timepicker.min.js" />
     <Content Include="modules\starter.html" />
     <Content Include="ajax\apihandler.ashx" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="www\css\datepicker.css" />
     <Content Include="www\css\jquery.spinner2.css" />
     <Content Include="www\css\mfb2.css" />
@@ -1075,13 +1081,17 @@
     <Content Include="www\img\tele2.png" />
     <Content Include="www\img\tele3.png" />
     <Content Include="www\img\个人中心图标.png" />
+    <Content Include="www\img\个人中心图标2.png" />
+    <Content Include="www\img\个人图标.jpg" />
     <Content Include="www\img\主题游.png" />
     <Content Include="www\img\信用卡支付.png" />
     <Content Include="www\img\储蓄卡支付.png" />
     <Content Include="www\img\向上箭头.png" />
     <Content Include="www\img\定位图标2.png" />
+    <Content Include="www\img\定位图标3.png" />
     <Content Include="www\img\定制游.png" />
     <Content Include="www\img\小黄星.png" />
+    <Content Include="www\img\左边li图标.png" />
     <Content Include="www\img\微信支付.png" />
     <Content Include="www\img\支付宝.png" />
     <Content Include="www\img\收藏前.png" />
@@ -1282,6 +1292,8 @@
     <Content Include="www\lib\ionic\version.json" />
     <Content Include="www\lib\md5.js" />
     <Content Include="www\lib\sha1.js" />
+    <Content Include="www\templates\user\myinfo.html" />
+    <Content Include="www\templates\user\orderdetail.html" />
     <Content Include="www\templates\user\myorder.html" />
     <Content Include="www\templates\user\forgetpwd.html" />
     <Content Include="www\templates\user\login.html" />
@@ -1402,7 +1414,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ajax\lineCategoryHandler.ashx" />
     <Content Include="ajax\bannerImgHandler.ashx" />
     <Content Include="ajax\commonHandler.ashx" />

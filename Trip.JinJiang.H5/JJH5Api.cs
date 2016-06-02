@@ -30,6 +30,8 @@ namespace Trip.JinJiang.H5
         private static string urlcurlpc = xhserver + "/pbp/ali/default/pay/";     //网页端支付
         private static string urlcurlwap = xhserver + "/pbp/ali/wap/pay/";    //WAP端支付
 
+        private static string urlcurlh5 = xhserver + "/pbp/wechat/jsapi/pay/JJE_APP_WECHAT_PAY";    //WAP H5 微信
+
         /// <summary>
         /// 查询路线
         /// </summary>
@@ -290,17 +292,28 @@ namespace Trip.JinJiang.H5
         {
             //测试,将订单金额改为0.
             //payAmount = 0;
+            string paymentPlatform = "";
             if (pbppaypre(orderNo, payAmount))
             {
-                var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl>http://travel.jinjiang.com/</bgUrl>  <buyerId></buyerId>  <buyerIp></buyerIp>  <buyerName></buyerName>  <callPart>TRAVEL</callPart>  <description>锦江手机官网</description>  <orderNo>" + orderNo + "</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl>  <payMethod>MONEY</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>ALIPAY_WAP</paymentPlatform>  <price>" + payAmount + "</price>  <score>0</score>  <subject>锦江手机官网</subject></payRequest> ";
-                var url = urlcurlwap + accountName;
+                
+                var url = "";
+                if (accountName == "INNS_APP_CLIENT_ALI_WAP_PAY")
+                {
+                    url = urlcurlwap + accountName;
+                    paymentPlatform = "ALIPAY_WAP";
+                }
+                else if (accountName == "JJE_APP_WECHAT_PAY")
+                {
+                    url = urlcurlh5;
+                    paymentPlatform = "WEIXIN";
+                }
+                var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl>http://travel.jinjiang.com/</bgUrl>  <buyerId></buyerId>  <buyerIp></buyerIp>  <buyerName></buyerName>  <callPart>TRAVEL</callPart>  <description>锦江手机官网</description>  <orderNo>" + orderNo + "</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl>  <payMethod>MONEY</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>" + paymentPlatform + "</paymentPlatform>  <price>" + payAmount + "</price>  <score>0</score>  <subject>锦江手机官网</subject></payRequest> ";
                 var response = HttpUtil.Post(data, url, contentType: "application/xml");
                 return response;
             }
             else
                 return "预支付订单失败";
         }
-
 
         //(--)测支付报文.
         public static string cancelOrder(string json)
@@ -315,7 +328,7 @@ namespace Trip.JinJiang.H5
             var url08 = "http://116.236.229.43:8081/vbp/merge/forgetPwd";
             var response08 = HttpUtil.Post(data08, url08, contentType: "application/xml");  //成功
 
-           
+
             //2. 新验证码（第一步）--发送接口
             var data09 = "<validateCodeDto>       <channel>website</channel>       <interval>-1</interval>       <ip></ip>       <ipCheck></ipCheck>       <ipPeriod></ipPeriod>       <ipTimes></ipTimes>       <memberInfoId></memberInfoId>       <period></period>       <periodTimes>-1</periodTimes>       <receiver>18505793685</receiver>       <target>会员找回密码</target>      <type>SMS</type>      <json>{pwd}</json>    <jsonCode>pwd</jsonCode>    <templateNo>M_Forgot Password_SMS</templateNo></validateCodeDto>";
             var url09 = "http://116.236.229.43:8081/vbp/validateCode/sendValidateCode";
@@ -379,11 +392,11 @@ namespace Trip.JinJiang.H5
             //var data = "{\"bgUrl\":\"\",\"callPart\":\"HOTEL\",\"cardNo\":\"\",\"csId\":\"\",\"csName\":\"\",\"orderNo\":\"H1D52A754174\",\"orderPageUrlFroAdmin\":\"\",\"pageUrl\":\"\"}";
             //data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl></bgUrl>  <buyerId> 10056582 </buyerId>  <buyerIp> 192.168.2.51 </buyerIp>     <buyerName> 惊云 </buyerName>     <callPart> HOTEL </callPart>     <description> 锦江之星上海外滩滨江酒店 </description>     <orderNo> H1D52C3DA815 </orderNo>     <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl><payMethod > MONEY </payMethod>     <payType> ONLINE </payType>     <paymentPlatform> ALIPAY </paymentPlatform>     <price> 77 </price><score> 0 </score>     <subject> 锦江之星上海外滩滨江酒店 </subject> </payRequest> ";
             //var response = HttpUtil.Post(data, urlcurlpc, contentType: "application/xml");
-            
 
-          //  var data2 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl>http://192.168.2.81:81/hbp/hotels/order/afterPayProcess</bgUrl>  <buyerId>10056582</buyerId>  <buyerIp>192.168.2.51</buyerIp>  <buyerName>惊云</buyerName>  <callPart>HOTEL</callPart>  <description>锦江之星上海外滩滨江酒店</description>  <orderNo>1000160520000001</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl>  <payMethod>MONEY</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>ALIPAY_WAP</paymentPlatform>  <price>1</price>  <score>0</score>  <subject>锦江之星上海外滩滨江酒店</subject></payRequest> ";
+
+            //  var data2 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl>http://192.168.2.81:81/hbp/hotels/order/afterPayProcess</bgUrl>  <buyerId>10056582</buyerId>  <buyerIp>192.168.2.51</buyerIp>  <buyerName>惊云</buyerName>  <callPart>HOTEL</callPart>  <description>锦江之星上海外滩滨江酒店</description>  <orderNo>1000160520000001</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl>  <payMethod>MONEY</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>ALIPAY_WAP</paymentPlatform>  <price>1</price>  <score>0</score>  <subject>锦江之星上海外滩滨江酒店</subject></payRequest> ";
             // var response2 = HttpUtil.Post(data2, urlcurlwap, contentType: "application/xml");
-           // var response2 = HttpUtil.Post(data2, urlcurlwap3, contentType: "application/xml");
+            // var response2 = HttpUtil.Post(data2, urlcurlwap3, contentType: "application/xml");
 
             return "";
 

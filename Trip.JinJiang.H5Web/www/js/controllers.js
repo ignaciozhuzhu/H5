@@ -241,6 +241,9 @@
         }
         $scope.linedetails = response.line;
         $scope.journeys = response.line.journeys.sort(sortbydayNumber);
+
+       // $scope.journeys2 = response.line.journeys.sort(sortbydayNumber);
+
         //行程明细
         //$sce 是 angularJS 自带的安全处理模块，$sce.trustAsHtml(str) 方法便是将数据内容以 html 的形式进行解析并返回。将此过滤器添加到 ng-bind-html 、data-ng-bind-html  所绑定的数据中，便实现了在数据加载时对于 html 标签的自动转义。
         if (response.line.lineFeature !== null)
@@ -300,7 +303,10 @@
         $scope.recommend = response.line.recommend; // response.line.recommend.url;
 
         //取图片
-        $scope.image = response.line.images[0].url;
+        if (response.line.images[0] === undefined || response.line.images[0] === null || response.line.images[0] === "")
+            $scope.image = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
+        else
+            $scope.image = response.line.images[0].url;
 
         $('#idline').show();
         $('#idfeature').hide();
@@ -514,6 +520,22 @@
         var ConnectName = $scope.Connect.name;
         var ConnectMobile = $scope.Connect.mobile;
         var ConnectEmail = $scope.Connect.email;
+        if (ConnectName == "" || ConnectName == undefined || ConnectName == null) {
+            blockmyui('请输入联系人');
+            return;
+        }
+        if (ConnectMobile == "" || ConnectMobile == undefined || ConnectMobile == null) {
+            blockmyui('请输入手机号');
+            return;
+        }
+        if (ConnectEmail == "" || ConnectEmail == undefined || ConnectEmail == null) {
+            blockmyui('请输入邮箱');
+            return;
+        }
+        if (!isEmail(ConnectEmail)) {
+            blockmyui('邮箱格式不正确');
+            return;
+        }
 
         $('.inname:first')[0].value = ConnectName;
 
@@ -615,7 +637,7 @@
 
         $.unblockUI();
 
-        var accountName = 'INNS_APP_CLIENT_ALI_WAP_PAY';
+        var accountName = '';
         $scope.pay = function () {
             //首先做身份认证,判断是否已经登录,没有帐号的客户先注册.
             var mcMemberCode = getCookie('mcMemberCode');
@@ -633,19 +655,20 @@
                 setCookie('pnum', pnum, 1);
                 setCookie('groupid', groupid, 1);
                 setCookie('secureamount', secureamount, 1);
+                //将跳回支付该产品的cookie
+                //debugger
+                setCookie('linkbackpay', 'true', 1);
                 //跳转至登录页
                 window.location.href = '#/app/user/login';
             }
-            //var nghttpAuth = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
-            //$http.get(nghttpAuth).success(function (response) {
-
-
-            //})
-
 
         }
         $scope.paywaySelect = function ($event) {
             if ($event.target.parentNode.previousElementSibling.innerText == '支付宝')
+                accountName = 'INNS_APP_CLIENT_ALI_WAP_PAY';
+            else if ($event.target.parentNode.previousElementSibling.innerText == '微信支付')
+                accountName = 'JJE_APP_WECHAT_PAY';
+            else
                 accountName = 'INNS_APP_CLIENT_ALI_WAP_PAY';
         }
 

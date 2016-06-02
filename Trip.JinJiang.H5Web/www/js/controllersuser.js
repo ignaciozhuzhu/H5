@@ -201,11 +201,6 @@
 })
 //登录控制器
 .controller('loginCtrl', function ($scope, $http) {
-    //var mygate = getpbyurl(1);
-    //$(".login .item-tip").focus(function () {
-    //    $(".login #loginname").css("background-color", "#FFFFCC");
-    //    $(".login #loginname").focus();
-    //});
 
     $scope.login = function () {
 
@@ -246,10 +241,13 @@
                 //setCookie('cdsId', jsonObj.memberMergeDto.cdsId, 1);
                 alert('登录成功!');
                 var ckmcMemberCode = getCookie('mcMemberCode');
+                var linkbackpay = getCookie('linkbackpay');
                 if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
                     $('#account').empty().append('注销');
                 }
-                if (groupid > 0) {
+                //debugger
+                if (groupid > 0 && linkbackpay === 'true') {
+                    setCookie('linkbackpay', '', 1);
                     window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
                 }
                 else {
@@ -483,7 +481,8 @@
 .controller('orderdetailCtrl', function ($scope, $http) {
 
     //暂时作为测试用
-    var orderCode = 1000160531000003;
+    // var orderCode = 1000160531000003;
+    var orderCode = getpbyurl(1);
     var nghttp = "../../ajax/userHandler.ashx?fn=queryorderdetail&code=" + orderCode;
 
     $http.get(nghttp).success(function (response) {
@@ -543,11 +542,6 @@
 //个人中心控制器
 .controller('myinfoCtrl', function ($scope, $http) {
 
-    // var nghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
-    //$http.get(mynghttp).success(function (response) {
-    //    debugger
-    //})
-
     //判断是否已经登录帐号,获取membercode 的cookie
     var ckmcMemberCode = getCookie('mcMemberCode');
     $scope.fullName = getCookie('fullName');
@@ -564,6 +558,7 @@
             setCookie('fullName', '', 1);
             $('#account').empty().append('登录');
             alert('已注销');
+            $scope.fullName = '';
         }
         else {
             window.location.href = '#/app/user/login';
@@ -578,7 +573,7 @@ var sends = {
     checked: 1,
     send: function () {
         var numbers = /^1\d{10}$/;
-        var val = $('#phone').val().replace(/\s+/g, ""); //获取输入手机号码
+        var val = $('.forgetpwd0 #phone').val().replace(/\s+/g, ""); //获取输入手机号码
         if ($('.div-phone').find('span').length == 0 && $('.div-phone a').attr('class') == 'send1 activated') {
             if (!numbers.test(val) || val.length == 0) {
                 $('.div-phone').append('<span class="error">手机格式错误</span>');
@@ -595,7 +590,7 @@ var sends = {
                     sends.checked = 1;
                     return true;
                 }
-                $('.div-phone a').html(time + "S后再次发送");
+                $('.div-phone a').html(time + "秒后再次发送");
                 time--;
                 return false;
                 sends.checked = 0;
@@ -663,7 +658,7 @@ function myblur(ob) {
 }
 
 function myfocust(ob) {
-   // debugger
+    // debugger
     ob = ob.nextElementSibling;
     if ($(ob)[0].value == "") {
         $(ob)[0].previousElementSibling.className = 'item-tip item-tip-focus';

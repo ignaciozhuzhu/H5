@@ -35,7 +35,7 @@
     }
 
     .graytitleleft {
-        height: 18px;
+        height: 15px;
         width: 5px;
         background-color: gray;
         float: left;
@@ -52,7 +52,6 @@
     }
 
     .linecatebox {
-        /*height: 170px;*/
         margin: 3% 0;
     }
 
@@ -72,6 +71,143 @@
                 font-size: 12px;
                 color: #a9a9a9;
             }
+
+    .indexbox {
+        padding-top: 60px;
+    }
+
+        .indexbox .imgmore {
+            width: 18px;
+            padding: 4px 0 0 5px;
+        }
+
+        .indexbox .amore {
+            font-size: 14px;
+            color: #a5a5a5;
+        }
+
+        .indexbox .aligncenter {
+            text-align: center;
+        }
+
+        .indexbox .amountbg {
+            font-size: 15px;
+            color: #fd7204;
+        }
+
+        .indexbox .contentboxdiv {
+            padding-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .indexbox .contentimg {
+            width: 100%;
+            height: 119px;
+        }
+
+        .indexbox .morefont {
+            font-size: 18px;
+            margin: 4px 10px 2px 10px;
+        }
+
+        .indexbox .contentpw {
+            float: left;
+            width: 50%;
+            padding: 1.5%;
+        }
+
+        .indexbox .contentpwp {
+            height: 365px;
+            margin: 1.5%;
+        }
+
+        .indexbox .morefoot {
+            height: 1px;
+            background-color: #ddd;
+            margin-top: 8px;
+        }
+
+        .indexbox .morehead {
+            height: 1px;
+            background-color: #ddd;
+            margin-bottom: 4px;
+        }
+
+        .indexbox .teleimg {
+            width: 50px;
+        }
+
+    .indebox .telea {
+        float: right;
+    }
+
+    .indexbox .mountfont {
+        padding-left: 7px;
+        font-size: 12px;
+        color: #fd7204;
+    }
+
+    .indexbox .heightgray1 {
+        height: 1px;
+        background-color: #ddd;
+    }
+
+    .indexbox .heightgray5 {
+        height: 5px;
+        background-color: #f3f3f3;
+    }
+
+    .indexheader .headertitle {
+        height: 60px;
+        padding: 10px 5px;
+    }
+
+    .indexheader .button-bar .divh {
+        width: 30%;
+    }
+
+    .indexheader .button-bar .imgh {
+        width: 78%;
+        height: 78%;
+    }
+
+    .indexheader .button-bar .imgo {
+        width: 70%;
+        height: 70%;
+        padding: 5px 2px;
+        margin: 0px 5px;
+    }
+
+    .indexheader .button-bar .inputbg {
+        width: 35%;
+        background-image: url(img/定位图标3.png);
+        padding-left: 7.5%;
+        border-right: aliceblue;
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-color: #ddd;
+        margin: 0 0 0 3px;
+    }
+
+    .indexheader .button-bar .inputsc {
+        width: 60%;
+        background-image: url(img/放大镜2.png);
+        padding-left: 10.5%;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-color: #ddd;
+        margin: 0 3px 0 0;
+    }
+
+    .cityselectbox {
+        text-align: center;
+        font-size: 14px;
+        display: none;
+    }
 </style>
 
 <link href="css/royalslider.css?1" rel="stylesheet">
@@ -79,16 +215,16 @@
 <link href="lib/ionic/css/ionic.css" rel="stylesheet">
 
 <ion-view view-title="锦江旅游">
-    <ion-header-bar>
-        <div id="bartitle" class="bar bar-subheader bar-stable" style="height:60px;padding:10px 5px">
+    <ion-header-bar class="indexheader">
+        <div id="bartitle" class="bar bar-subheader bar-stable headertitle">
             <form>
                 <div class="button-bar">
-                    <div style="width:30%"><img src="img/logo.png" style="width:85%;height:85%" /></div>
-                    <input id="beginProtxt" class="background_size" type="search" style="width:35%;background-image: url(img/定位图标3.png);padding-left: 7.5%; border-right: aliceblue;border-bottom-left-radius:5px;border-top-left-radius:5px;border-top-right-radius: 0;border-bottom-right-radius: 0;border-color:#ddd;margin:0 0 0 3px" onclick="citySelect()">
+                    <div class="divh"><img src="img/logo.png" class="imgh" /></div>
+                    <input id="beginProtxt" class="background_size inputbg" type="search" onclick="citySelect()">
 
-                    <input id="searchtxt" class="background_size" type="search" style="width:60%;background-image: url(img/放大镜2.png);padding-left:10.5%;border-bottom-right-radius:5px;border-top-right-radius:5px;border-top-left-radius: 0;border-bottom-left-radius: 0;border-color:#ddd;margin:0 3px 0 0" placeholder="路线/目的地/景点"><!--onclick="desSelect()"-->
-                    <div style="width:30%">
-                        <a href="#/app/user/myinfo"><img src="img/个人中心图标.png" style="width:85%;height:85%;padding : 5px 2px;margin:0px 5px" /></a><!--<a id="searchbtn" href="javascript:void(0)" onclick="searchLines(this);">搜索</a>-->
+                    <input id="searchtxt" class="background_size inputsc" type="search" placeholder="路线/目的地/景点">
+                    <div class="divh">
+                        <a href="#/app/user/myinfo"><img src="img/个人中心图标.png" class="imgo" /></a>
                     </div>
                 </div>
             </form>
@@ -96,7 +232,7 @@
     </ion-header-bar>
     <ion-content>
         <!--城市选择框-->
-        <div id="divcityselect" style="text-align:center;font-size:14px;display:none">
+        <div id="divcityselect" class="cityselectbox">
             <div class="grayback">当前定位城市</div>
             <div class="gay">
                 <span id="nowPro"></span>
@@ -279,7 +415,7 @@
             </div>
         </div>
         <!--目的地选择框-->
-        <div id="divdesselect" style="text-align:center;font-size:14px;display:none">
+        <div id="divdesselect" class="cityselectbox">
             <div class="grayback">选择目的地</div>
             <div class="gay">
                 <span id="nowPro"></span>
@@ -462,7 +598,7 @@
             </div>
         </div>
     </ion-content>
-    <ion-content id="divcontent" style="padding-top:60px;" on-scroll="getScrollPosition()" delegate-handle="indexDelegate">
+    <ion-content class="indexbox" id="divcontent" on-scroll="getScrollPosition()" delegate-handle="indexDelegate">
         <!--这段轮播图-->
         <div class="sliderContainer fullWidth clearfix">
             <div id="full-width-slider" class="royalSlider heroSlider rsMinW">
@@ -474,20 +610,20 @@
             </div>
             <!--框头部-->
             <div>
-                <div style="height:1px;background-color:#ddd"></div>
-                <div style="height:5px;background-color:#f3f3f3"></div>
-                <div style="font-size:18px;margin:4px 10px 2px 10px "><div class="graytitleleft" style=""></div>热门路线</div>
+                <div class="heightgray1"></div>
+                <div class="heightgray5"></div>
+                <div class=morefont><div class="graytitleleft"></div><div>热门路线</div></div>
             </div>
             <!--框内容-->
-            <div style="height:365px;margin:1.5%">
+            <div class="contentpwp">
                 <div ng-repeat="playlist in linelistsP">
-                    <div style="float:left;width:50%; padding: 1.5%">
-                        <a href="#/app/linedetail/{{playlist.lineId}}"><img style="width:100%;height:119px" src="{{playlist.imageUrls[0]}}" /></a>
-                        <div style='padding-bottom:8px;font-weight:bold;font-size:15px;'>
+                    <div class="contentpw">
+                        <a href="#/app/linedetail/{{playlist.lineId}}"><img class="contentimg" src="{{playlist.imageUrls[0]}}" /></a>
+                        <div class="contentboxdiv">
                             {{ playlist.name.length > 9 ? playlist.name.substring(0,8)+'...':playlist.name}}
                         </div>
                         <div>
-                            <span style="font-size:15px;color:goldenrod;">¥{{playlist.originalPrice}}</span><span style="padding-left:7px;font-size:12px;color:#A2A2A2">起</span>
+                            <span class="amountbg">¥{{playlist.originalPrice}}</span><span class="mountfont">起</span>
                         </div>
                     </div>
                 </div>
@@ -495,27 +631,27 @@
             </div>
             <!--查看更多-->
             <div>
-                <div style="height:1px;background-color:#ddd;margin-bottom:4px"></div>
-                <a style="font-size:14px;color:#a5a5a5" href="#/app/linelists/"><div style="text-align:center">更多线路<img style="width:18px;padding:4px 0 0 5px" src="img/更多.png" /></div></a>
+                <div class="morehead"></div>
+                <a class="amore" href="#/app/linelists/"><div class="aligncenter">更多线路<img class="imgmore" src="img/更多.png" /></div></a>
 
-                <div style="height:1px;background-color:#ddd;margin-top:8px"></div>
+                <div class="morefoot"></div>
             </div>
             <!--框头部-->
             <div>
-                <div style="height:1px;background-color:#ddd"></div>
-                <div style="height:5px;background-color:#f3f3f3"></div>
-                <div style="font-size:18px;margin:10px 10px 2px 10px "><div class="graytitleleft"></div>近期特惠</div>
+                <div class="heightgray1"></div>
+                <div class="heightgray5"></div>
+                <div class="morefont"><div class="graytitleleft"></div>近期特惠</div>
             </div>
             <!--框内容-->
-            <div style="height:365px;margin:1.5%">
+            <div class="contentpwp">
                 <div ng-repeat="playlist in linelistsN">
-                    <div style="float:left;width:50%; padding: 1.5%">
-                        <a href="#/app/linedetail/{{playlist.lineId}}"><img style="width:100%;height:119px" src="{{playlist.imageUrls[0]}}"></a>
-                        <div style='padding-bottom:8px;font-weight:bold;font-size:15px;'>
+                    <div class="contentpw">
+                        <a href="#/app/linedetail/{{playlist.lineId}}"><img class="contentimg" src="{{playlist.imageUrls[0]}}"></a>
+                        <div class="contentboxdiv">
                             {{ playlist.name.length > 9 ? playlist.name.substring(0,8)+'...':playlist.name}}
                         </div>
                         <div>
-                            <span style="font-size:15px;color:goldenrod;">¥{{playlist.originalPrice}}</span><span style="padding-left:7px;font-size:12px;color:#A2A2A2">起</span>
+                            <span class="amountbg">¥{{playlist.originalPrice}}</span><span class="mountfont">起</span>
                         </div>
                     </div>
                 </div>
@@ -524,12 +660,12 @@
 
             <!--查看更多-->
             <div>
-                <div style="height:1px;background-color:#ddd;margin-bottom:4px"></div>
-                <a style="font-size:14px;color:#a5a5a5" href="#/app/linelists/"><div style="text-align:center">更多特惠<img style="width:18px;padding:4px 0 0 5px" src="img/更多.png" /></div></a>
+                <div class="morehead"></div>
+                <a class="amore" href="#/app/linelists/"><div class="aligncenter">更多特惠<img class="imgmore" src="img/更多.png" /></div></a>
             </div>
-            <div style="height:1px;background-color:#ddd;margin-top:8px"></div>
+            <div class="morefoot"></div>
         </div>
-        <div id="teledown"><a href="tel:10101666" style="float: right"><img src="img/tele3.png" style="width: 50px;" /></a></div>
+        <div id="teledown"><a href="tel:10101666" class="telea"><img src="img/tele3.png" class="teleimg" /></a></div>
 
     </ion-content>
 

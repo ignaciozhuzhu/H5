@@ -28,13 +28,22 @@
         color: white;
         border: 1px solid white;
     }
+
+    .myinfo .foo2ter {
+        margin: 3%;
+        height: 30px;
+        line-height: 30px;
+        /*font-weight: bold;*/
+        padding-left: 10%;
+        color:black
+    }
 </style>
 <ion-view view-title="个人中心">
     <ion-content>
         <div class="myinfo">
             <div class="head">
                 <div>
-                    <img style="border-radius:50%;width:80px;height:80px; border:double 7px #ccc;position:absolute;top: 30px; left: 0; right: 0;margin: auto;" src="img/个人图标.jpg">
+                    <img style="border-radius:50%;width:80px;height:80px; border:solid 2px #ccc;position:absolute;top: 30px; left: 0; right: 0;margin: auto;" src="img/个人中心图标2.png">
                     <!--<span style="position:absolute;top: 10px; left: 0; bottom: 0; right: 0;margin: auto;text-align: center;">龙鸿轩</span>-->
                 </div>
 
@@ -46,10 +55,18 @@
             </div>
             <div class="heightgray"></div>
             <div class="heightgray2"></div>
-
-            <a class="footer" href="#/app/index"><div>首页</div></a>
-            <a class="footer" href="#/app/user/myorder"><div>我的订单</div></a>
-            <a class="footer" href=""><div ng-click="zx()" id="account">登录</div></a>
+            <a href="#/app/index">
+                <div class="foo2ter">首页</div>
+            </a>
+            <div class="heightgray"></div>
+            <a href="#/app/user/myorder">
+                <div class="foo2ter">我的订单</div>
+            </a>
+            <div class="heightgray"></div>
+            <a href="">
+                <div  ng-click="zx()" id="account" class="foo2ter">登录</div>
+            </a>
+            <div class="heightgray"></div>
         </div>
     </ion-content>
 </ion-view>

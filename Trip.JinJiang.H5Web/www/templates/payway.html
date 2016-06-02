@@ -123,19 +123,19 @@
                 <div style="padding:5px 10px">应付总额 <img src="img/向上箭头.png" style="float:right;display:none" /><a style="float:right;padding:0 5px;font-size:12px"></a><span style="float:right;padding:0 10px;color: #ff7200"> ¥ {{amount}}</span></div>
                 <div style="background-image:url(img/锯齿划线.png);height:20px"></div>
                 <div class="listtyle" ng-model="paybox" ng-click="paywaySelect($event)">
-                    <ul>
+                    <ul style="display:none">
                         <li>
                             <span>储蓄卡支付</span>
                             <span><input type="checkbox" /></span>
                         </li>
                     </ul>
-                    <ul>
+                    <ul style="display:none">
                         <li>
                             <span>信用卡支付</span>
                             <span><input type="checkbox" /></span>
                         </li>
                     </ul>
-                    <ul>
+                    <ul style="display:none">
                         <li>
                             <span>微信支付</span>
                             <span><input type="checkbox" /></span>
@@ -147,7 +147,7 @@
                             <span><input type="checkbox" /></span>
                         </li>
                     </ul>
-                    <ul>
+                    <ul style="display:none">
                         <li>
                             <span style="padding-left:50px">apple pay</span>
                             <span><input type="checkbox" /></span>
