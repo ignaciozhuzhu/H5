@@ -77,16 +77,26 @@
         width: 100%;
     }
 </style>
-<!--<ion-view hide-nav-bar="true">
-</ion-view>-->
-<ion-view view-title="路线详细">
+<ion-view hide-nav-bar="true">
+</ion-view>
+<ion-view view-title="路线详情">
+    <!--我来组成头部bg-->
+    <div class="bar bar-header bar-stable">
+        <a class="headleftback" href="#/app/index">
+            <div class="button back-button">
+                <img src="img/返回.png">
+            </div>
+        </a>
+        <h1 class="title">路线详情</h1>
+    </div>
+    <!--我来组成头部ed-->
     <ion-content>
         <div class="linedetail">
             <div style="background-image:url({{image}});height:180px;background-repeat:no-repeat;background-size: 100% ;position:relative">
                 <div><img style="height:30px;float:right" src="img/收藏后.png" /></div>
 
                 <div style="color:white;font-size:15px;position:absolute;bottom:2%;left:2%">
-                <span>{{lineCategory}}</span>
+                    <span>{{lineCategory}}</span>
                 </div>
 
                 <div style="color:white;font-size:15px;position:absolute;bottom:2%;right:2%">

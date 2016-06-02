@@ -9,7 +9,7 @@
     .myorderh {
         padding-top: 40px;
         font-size: 13px;
-        margin: 0 5px;
+        margin: 0 2px;
     }
 
         .myorderh .header {
@@ -120,9 +120,27 @@
     .myorder .fifthCentera {
         color: #f59609;
     }
+    .myorderh .title {
+        left:-200px;right:0;
+    }
+    .myorderh .myheadtitle {
+        margin:auto 15%;font-size:16px
+    }
 </style>
+<ion-view hide-nav-bar="true">
+</ion-view>
 <ion-view view-title="我的订单">
     <ion-header-bar class="myorderh">
+        <!--我来组成头部bg-->
+        <div class="bar bar-header bar-stable">
+            <a class="headleftback" href="#/app/user/myinfo">
+                <div class="button back-button">
+                    <img src="img/返回.png">
+                </div>
+            </a>
+            <div class="myheadtitle">我的订单</div>
+        </div>
+        <!--我来组成头部ed-->
         <div class="header">
             <div ng-click="li0()">全部订单</div>
             <div ng-click="li1()">待支付</div>

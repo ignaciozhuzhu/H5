@@ -1,4 +1,4 @@
-a {
+﻿a {
     text-decoration: none;
 }
 
@@ -13,3 +13,18 @@ input[type="checkbox"] {
     input[type="checkbox"]:checked {
         background-position: -48px 0;
     }
+
+.bar-stable .headleftback {
+    width: 40%;
+    margin-left: -16%;
+    margin-top: 1%;
+}
+
+    .bar-stable .headleftback div {
+        height: 30px;
+    }
+
+.bar-stable h1 {
+    margin:auto 0;
+    font-family: "Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu;
+}

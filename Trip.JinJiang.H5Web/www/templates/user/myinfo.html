@@ -1,9 +1,6 @@
 ﻿<style>
-    .myi2nfo {
-        font-size: 13px;
-        margin: 0 5px;
-        color: #beb9c0;
-        margin-top: 30px;
+    .myinfo {
+        margin-top: 44px;
     }
 
     .myinfo .heightgray {
@@ -29,22 +26,32 @@
         border: 1px solid white;
     }
 
-    .myinfo .foo2ter {
+    .myinfo .footer2 {
         margin: 3%;
         height: 30px;
         line-height: 30px;
-        /*font-weight: bold;*/
         padding-left: 10%;
         color:black
     }
 </style>
+<ion-view hide-nav-bar="true">
+</ion-view>
 <ion-view view-title="个人中心">
+    <!--我来组成头部bg-->
+    <div class="bar bar-header bar-stable">
+        <a class="headleftback" href="#/app/index">
+            <div class="button back-button">
+                <img src="img/返回.png">
+            </div>
+        </a>
+        <h1 class="title">个人中心</h1>
+    </div>
+    <!--我来组成头部ed-->
     <ion-content>
         <div class="myinfo">
             <div class="head">
                 <div>
                     <img style="border-radius:50%;width:80px;height:80px; border:solid 2px #ccc;position:absolute;top: 30px; left: 0; right: 0;margin: auto;" src="img/个人中心图标2.png">
-                    <!--<span style="position:absolute;top: 10px; left: 0; bottom: 0; right: 0;margin: auto;text-align: center;">龙鸿轩</span>-->
                 </div>
 
                 <div style="background-color:#9cd6ea;height:70px;text-align: center;">
@@ -56,15 +63,15 @@
             <div class="heightgray"></div>
             <div class="heightgray2"></div>
             <a href="#/app/index">
-                <div class="foo2ter">首页</div>
+                <div class="footer2">首页</div>
             </a>
             <div class="heightgray"></div>
             <a href="#/app/user/myorder">
-                <div class="foo2ter">我的订单</div>
+                <div class="footer2">我的订单</div>
             </a>
             <div class="heightgray"></div>
             <a href="">
-                <div  ng-click="zx()" id="account" class="foo2ter">登录</div>
+                <div  ng-click="zx()" id="account" class="footer2">登录</div>
             </a>
             <div class="heightgray"></div>
         </div>

@@ -51779,7 +51779,7 @@ function($rootScope, $state, $location, $document, $ionicPlatform, $ionicHistory
     }
   });
 
-  $rootScope.$ionicGoBack = function(backCount) {
+  $rootScope.$ionicGoBack = function (backCount) {
     $ionicHistory.goBack(backCount);
   };
 

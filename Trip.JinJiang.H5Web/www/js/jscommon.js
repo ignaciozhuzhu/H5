@@ -260,3 +260,48 @@ function isIdCardNo(str) {
     reg = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
     return reg.test(str.toUpperCase());
 }
+
+//获取链接参数
+function getpbyurl(typei) {
+    function subs(href) {
+        return href.substring(0, href.lastIndexOf('/'));
+    }
+    var localhref = location.href;
+    var geturl = localhref;
+    switch (typei) {
+        case 1:
+            break;
+        case 2:
+            geturl = subs(geturl);
+            break;
+        case 3:
+            geturl = subs(subs(geturl));
+            break;
+        case 4:
+            geturl = subs(subs(subs(geturl)));
+            break;
+        case 5:
+            geturl = subs(subs(subs(subs(geturl))));
+            break;
+        case 6:
+            geturl = subs(subs(subs(subs(subs(geturl)))));
+            break;
+    }
+    return geturl.substring(geturl.lastIndexOf('/') + 1, geturl.length);
+}
+
+//获取URL的参数
+function request(paras) {
+    var url = location.href;
+    var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+    var paraObj = {}
+    for (i = 0, j = decodeURI(paraString[0]) ; i < 1; i++) {
+        paraObj[j.substring(0, j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=") + 1, j.length);
+    }
+    var returnValue = paraObj[paras.toLowerCase()];
+    if (typeof (returnValue) == "undefined") {
+        return "";
+    } else {
+        return returnValue;
+    }
+}
