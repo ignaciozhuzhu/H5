@@ -117,7 +117,7 @@
             <ion-item ng-repeat="playlist in linelists | filter:fAgencies | orderBy:orderByPrice | orderBy:orderByDay" href="#/app/linedetail/{{playlist.lineId}}">
                 <div>
                     <div class="imgdiv">
-                        <img class="img" src={{playlist.imageUrls[0]}} alt="旅游图片" />
+                        <img ng-click="listent()" class="img" src={{playlist.imageUrls[0]}} alt="旅游图片" />
                     </div>
                     <div class="rightcontent">
                         <div class="name">
