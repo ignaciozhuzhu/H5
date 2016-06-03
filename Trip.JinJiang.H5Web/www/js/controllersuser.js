@@ -71,47 +71,47 @@
 
         //前端数据验证
         if ($('.register #phone')[0].value === "") {
-            blockmyui('请输入手机号');
+            layermyui('请输入手机号');
             return;
         }
         if ($('.register #email')[0].value === "") {
-            blockmyui('请输入邮箱');
+            layermyui('请输入邮箱');
             return;
         }
         if (!isEmail($('.register #email')[0].value)) {
-            blockmyui('邮箱格式不正确');
+            layermyui('邮箱格式不正确');
             return;
         }
         if ($('.register #password')[0].value === "") {
-            blockmyui('请输入密码');
+            layermyui('请输入密码');
             return;
         }
         if (!isPassword($('.register #password')[0].value)) {
-            blockmyui('密码过于简单,不能少于六位数');
+            layermyui('密码过于简单,不能少于六位数');
             return;
         }
         if ($('.register #password2')[0].value === "") {
-            blockmyui('请输入确认密码');
+            layermyui('请输入确认密码');
             return;
         }
         if ($('.register #password2')[0].value !== $('.register #password')[0].value) {
-            blockmyui('两次密码不一致');
+            layermyui('两次密码不一致');
             return;
         }
         if (surname === "") {
-            blockmyui('请输入姓名');
+            layermyui('请输入姓名');
             return;
         }
         if (certificateNo === "") {
-            blockmyui('请输入证件号');
+            layermyui('请输入证件号');
             return;
         }
         if (!isIdCardNo(certificateNo)) {
-            blockmyui('证件号不对');
+            layermyui('证件号不对');
             return;
         }
         if (title == "" || title == undefined || title == null) {
-            blockmyui('请选择称谓');
+            layermyui('请选择称谓');
             return;
         }
 
@@ -140,10 +140,16 @@
         xml += "<ipAddress>" + ip4 + "</ipAddress>";
         xml += "</memberInfoDto></memberRegisterDto>";
         var nghttp = "../../ajax/userHandler.ashx?fn=regist&xml=" + xml + "";
-        blockmyui('正在加载,请稍后...');
+        //alert('正在加载,请稍后...');
+        //loading层
+        var mylayeruiwait = layer.load(1, {
+            shade: [0.5, '#ababab'] //0.1透明度的白色背景
+        });
         $http.get(nghttp).success(function (response) {
             //debugger
-            $.unblockUI();
+            // $.unblockUI();
+            find404admin(response);
+            layer.close(mylayeruiwait);
             var x2js = new X2JS();
             var xmlText = response;
             var jsonObj = x2js.xml_str2json(xmlText);
@@ -160,16 +166,16 @@
                 //setCookie('cdsId', jsonObj.memberMergeDto.cdsId, 1);
 
                 if (groupid > 0) {
-                    alert('注册成功!将自动为您跳转回支付页面...');
+                    layermyui('注册成功!将自动为您跳转回支付页面...');
                     window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
                 }
                 else {
-                    alert('注册成功!将自动为您跳转回首页...');
+                    layermyui('注册成功!将自动为您跳转回首页...');
                     window.location.href = '#/app/index';
                 }
             }
             else
-                alert(jsonObj.crmResponseDto.retmsg);
+                layermyui(jsonObj.crmResponseDto.retmsg);
         })
     }
 
@@ -200,6 +206,7 @@
 //登录控制器
 .controller('loginCtrl', function ($scope, $http) {
 
+
     $scope.login = function () {
 
         //需要传递到后台的XML报文串:
@@ -208,7 +215,6 @@
         //passwordPlain = 'xtbssb3';
         var mh5pw = hex_md5(passwordPlain); //MD5密码
         var sha = hex_sha1(passwordPlain);  //sha1密码
-
         //懒得写入作为测试用例填入后台.
         //loginname = '18505793685';
 
@@ -218,9 +224,15 @@
         xml += "<sha1>" + sha + "</sha1>";
         xml += "</mergeLoginDto>";
         var nghttp = "../../ajax/userHandler.ashx?fn=login&xml=" + xml + "";
-        blockmyui('正在提交,请稍后...');
+        //loading层
+        var mylayeruiwait = layer.load(1, {
+            shade: [0.5, '#ababab'] //0.1透明度的白色背景
+        });
         $http.get(nghttp).success(function (response) {
-            $.unblockUI();
+            //debugger
+            find404admin(response);
+            //  $.unblockUI();
+            layer.close(mylayeruiwait);
             var x2js = new X2JS();
             var xmlText = response;
             var jsonObj = x2js.xml_str2json(xmlText);
@@ -235,11 +247,11 @@
                 setCookie('mcMemberCode', jsonObj.memberMergeDto.mcMemberCode, 1);
                 setCookie('fullName', jsonObj.memberMergeDto.fullName, 1);
                 //setCookie('cdsId', jsonObj.memberMergeDto.cdsId, 1);
-                alert('登录成功!');
+                layermyui('登录成功!');
                 var ckmcMemberCode = getCookie('mcMemberCode');
                 var linkbackpay = getCookie('linkbackpay');
                 if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
-                    $('#account').empty().append('注销');
+                    $('#account').empty().append('退出当前账户');
                 }
                 //debugger
                 if (groupid > 0 && linkbackpay === 'true') {
@@ -251,7 +263,7 @@
                 }
             }
             else {
-                alert(jsonObj.memberMergeDto.remark);
+                layermyui(jsonObj.memberMergeDto.remark);
             }
         })
     }
@@ -274,31 +286,31 @@
 
         //前端数据验证
         if ($('.quickregister #phone')[0].value === "") {
-            blockmyui('请输入手机号');
+            layermyui('请输入手机号');
             return;
         }
         if ($('.quickregister #email')[0].value === "") {
-            blockmyui('请输入邮箱');
+            layermyui('请输入邮箱');
             return;
         }
         if (!isEmail($('.quickregister #email')[0].value)) {
-            blockmyui('邮箱格式不正确');
+            layermyui('邮箱格式不正确');
             return;
         }
         if ($('.quickregister #password')[0].value === "") {
-            blockmyui('请输入密码');
+            layermyui('请输入密码');
             return;
         }
         if (!isPassword($('.quickregister #password')[0].value)) {
-            blockmyui('密码过于简单,不能少于六位数');
+            layermyui('密码过于简单,不能少于六位数');
             return;
         }
         if ($('.quickregister #password2')[0].value === "") {
-            blockmyui('请输入确认密码');
+            layermyui('请输入确认密码');
             return;
         }
         if ($('.quickregister #password2')[0].value !== $('.quickregister #password')[0].value) {
-            blockmyui('两次密码不一致');
+            layermyui('两次密码不一致');
             return;
         }
 
@@ -311,9 +323,15 @@
         xml += "<registTag>IOS|JJTRAVEL_IOS_1|JinJiang</registTag>";
         xml += "</webMemberDto>";
         var nghttp = "../../ajax/userHandler.ashx?fn=quickregist&xml=" + xml + "";
-        blockmyui('正在提交,请稍后...');
+        //alert('正在提交,请稍后...');
+        //loading层
+        var mylayeruiwait = layer.load(1, {
+            shade: [0.5, '#ababab'] //0.1透明度的白色背景
+        });
         $http.get(nghttp).success(function (response) {
-            $.unblockUI();
+            //$.unblockUI();
+            find404admin(response);
+            layer.close(mylayeruiwait);
             //debugger
             var x2js = new X2JS();
             var xmlText = response;
@@ -338,7 +356,7 @@
                 //setCookie('fullName', jsonObj.memberMergeDto.fullName, 1);
                 //setCookie('cdsId', jsonObj.memberMergeDto.cdsId, 1);
 
-                alert('注册成功!将自动为您跳转回支付页面...');
+                layermyui('注册成功!将自动为您跳转回支付页面...');
                 if (groupid > 0) {
                     window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
                 }
@@ -347,7 +365,7 @@
                 }
             }
             else {
-                alert(jsonObj.webMemberRegisterReturnDto.message);
+                layermyui(jsonObj.webMemberRegisterReturnDto.message);
                 return;
             }
         })
@@ -359,19 +377,19 @@
 
     $scope.forgetpwd = function () {
         if ($('.forgetpwd0 #name')[0].value === "") {
-            blockmyui('请输入姓名');
+            layermyui('请输入姓名');
             return;
         }
         if ($('.forgetpwd0 #phone')[0].value === "") {
-            blockmyui('请输入手机');
+            layermyui('请输入手机');
             return;
         }
         if ($('.forgetpwd0 #code')[0].value === "") {
-            blockmyui('请输入验证码');
+            layermyui('请输入验证码');
             return;
         }
         if (!isPassword($('.forgetpwd0 #newpwd')[0].value)) {
-            blockmyui('密码过于简单,不能少于六位数');
+            layermyui('密码过于简单,不能少于六位数');
             return;
         }
 
@@ -387,18 +405,24 @@
         nghttp += "&fullName=" + fullName + "";
         nghttp += "&md5=" + mh5pw + "";
         nghttp += "&sha1=" + sha + "";
+        //loading层
+        var mylayeruiwait = layer.load(1, {
+            shade: [0.5, '#ababab'] //0.1透明度的白色背景
+        });
         $http.get(nghttp).success(function (response) {
             //debugger
+            find404admin(response);
+            layer.close(mylayeruiwait);
             var x2js = new X2JS();
             var xmlText = response;
             var jsonObj = x2js.xml_str2json(xmlText);
             if (jsonObj.memberBaseDto.rtcode === "success") {
-                blockmyui('密码修改完成,<br>将跳转至登录页面', 3000);
+                layermyui('密码修改完成,<br>将跳转至登录页面', 3000);
                 window.setTimeout("window.location='#/app/user/login'", 3000);
                 return;
             }
             else {
-                blockmyui('修改失败,请检查.');
+                layermyui('修改失败,请检查.');
                 return;
             }
         })
@@ -418,6 +442,7 @@
 
     function getorders(mynghttp) {
         $http.get(mynghttp).success(function (response) {
+            find404admin(response);
             $scope.orders = response.orders;
         })
     }
@@ -480,7 +505,8 @@
     var nghttp = "../../ajax/userHandler.ashx?fn=queryorderdetail&code=" + orderCode;
 
     $http.get(nghttp).success(function (response) {
-        //debugger
+
+        find404admin(response);
         $scope.status = response.payStatus == "PAYED" ? "已支付" : "待支付";
 
         $scope.lineName = response.lineName;
@@ -512,9 +538,15 @@
             var orderNo = $scope.orderCode;
             var amount = $scope.paymentAmount;
             var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
-            blockmyui('正在加载,请稍后...');
+            //alert('正在加载,请稍后...');
+            //loading层
+            var mylayeruiwait = layer.load(1, {
+                shade: [0.5, '#ababab'] //0.1透明度的白色背景
+            });
             $http.get(nghttp).success(function (response) {
-                $.unblockUI();
+                //$.unblockUI();
+                find404admin(response);
+                layer.close(mylayeruiwait);
                 window.location.href = response;
             })
         }
@@ -543,14 +575,21 @@
 
     //注销
     $scope.zx = function () {
-        //debugger
         var ckmcMemberCode = getCookie('mcMemberCode');
         if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
-            setCookie('mcMemberCode', '', 1);
-            setCookie('fullName', '', 1);
-            $('#account').empty().append('登录');
-            alert('已注销');
-            $scope.fullName = '';
+            layer.open({
+                title: '提示',
+                content: '您确定要注销吗？',
+                btn: ['嗯', '不要'],
+                yes: function (index) {
+                    setCookie('mcMemberCode', '', 1);
+                    setCookie('fullName', '', 1);
+                    $('#account').empty().append('登录');
+                    $scope.fullName = '';
+                    layer.close(index);
+                    layermyui('已注销!');
+                }
+            });
         }
         else {
             window.location.href = '#/app/user/login';

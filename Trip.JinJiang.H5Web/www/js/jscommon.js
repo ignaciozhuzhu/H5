@@ -247,6 +247,28 @@ function blockmyui(msg) {
     });
     setTimeout($.unblockUI, time);
 }
+function layermyui(msg) {
+    var time = arguments[1] ? arguments[1] : 2000;
+    layer.msg(msg, {
+        time: time
+    })
+}
+
+//接口又挂了,一天不知道要挂几次.随时挂,时时挂.调用接口返回后每次直接调用该方法以确认不是自方问题.
+function find404admin(response) {
+    var restext = "";
+    try {
+        restext = response.indexOf('404');
+    }
+    catch (e) {
+    }
+    if (restext !== "" && restext > -1) {
+        layermyui('不好意思接口挂了,返回404,请联系网络管理员!', 3000);
+        return;
+    }
+}
+
+
 function isEmail(str) {
     var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
     return reg.test(str);

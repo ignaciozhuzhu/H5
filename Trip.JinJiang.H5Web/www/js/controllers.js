@@ -56,8 +56,14 @@
 .controller('LinelistsCtrl', function ($scope, $http) {
     var searchParam = request("search");
     var nghttp = "../../ajax/apihandler.ashx?fn=getlines";
+
+    $scope.historygoback = function () {
+        //window.location.href = "#/app/index";
+        location.reload();
+    }
+
     $http.get(nghttp).success(function (response) {
-        // debugger
+        //debugger
         var arrayLinemm = new Array(0);
         for (var i = 0; i < response.lines.length; i++) {
             if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0] === null || response.lines[i].imageUrls[0].indexOf('http') < 0)
@@ -174,7 +180,7 @@
 
     });
 
-    $scope.indexent= function(){
+    $scope.indexent = function () {
         setCookie('ent2detail', 'index', 1);
     }
 
@@ -230,27 +236,40 @@
 
     //页面详情页分两种情况返回,三个入口
     $scope.historygoback = function () {
-        var ent2detail=getCookie('ent2detail');
+        var ent2detail = getCookie('ent2detail');
         if (ent2detail == "index") {
             window.location.href = "#/app/index";
+            location.reload();
         }
         else {
             window.location.href = "#/app/linelists/" + ent2detail;
+            //window.location.reload();
+            location.reload();
         }
     }
 
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
-    blockmyui('正在加载,请稍后...');
+
+    //blockmyui('正在加载,请稍后...');
+    //$.blockUI({
+    //    message: '<h6>正在提交,请稍后...</h6>'
+    //});
+    //loading层
+    var mylayeruiwait = layer.load(1, {
+        shade: [0.5, '#ababab'] //0.1透明度的白色背景
+    });
     $http.get(nghttp).success(function (response) {
-        $.unblockUI();
         //debugger
+        //$.unblockUI();
+        find404admin(response);
+        layer.close(mylayeruiwait);
         //团框初始高度
         $(".linedetail .groupsheight").height(16);
         $(".linedetail .groupsinheight").height(16);
 
         //行程
         if (response.line === null) {
-            alert('此线路暂无详细数据!');
+            layermyui('此线路暂无详细数据!',1500);
             window.location.href = "#/app/index";
             return;
         }
@@ -481,7 +500,6 @@
 
 //填写订单控制器
 .controller('fillorderCtrl', function ($scope, $http) {
-    $.blockUI();
 
     var amount = getpbyurl(1);
     var cnum = getpbyurl(2);
@@ -503,7 +521,13 @@
 
 
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
+    //loading层
+    var mylayeruiwait = layer.load(1, {
+        shade: [0.5, '#ababab'] //0.1透明度的白色背景
+    });
     $http.get(nghttp).success(function (response) {
+        find404admin(response);
+        layer.close(mylayeruiwait);
         $scope.lineTitle = response.lineTitle;
         $scope.date = FormatDateYear(response.departDate);
         for (var j = 0; j < response.prices.length; j++) {
@@ -519,29 +543,29 @@
         }
         $scope.guests = arrayGuests;
 
-        $.unblockUI();
+        //$.unblockUI();
     })
 
     var guestsarr = new Array(0);
     $scope.createorder = function () {
-        blockmyui('正在加载,请稍后...');
+        //blockmyui('正在加载,请稍后...');
         var ConnectName = $scope.Connect.name;
         var ConnectMobile = $scope.Connect.mobile;
         var ConnectEmail = $scope.Connect.email;
         if (ConnectName == "" || ConnectName == undefined || ConnectName == null) {
-            blockmyui('请输入联系人');
+            layermyui('请输入联系人');
             return;
         }
         if (ConnectMobile == "" || ConnectMobile == undefined || ConnectMobile == null) {
-            blockmyui('请输入手机号');
+            layermyui('请输入手机号');
             return;
         }
         if (ConnectEmail == "" || ConnectEmail == undefined || ConnectEmail == null) {
-            blockmyui('请输入邮箱');
+            layermyui('请输入邮箱');
             return;
         }
         if (!isEmail(ConnectEmail)) {
-            blockmyui('邮箱格式不正确');
+            layermyui('邮箱格式不正确');
             return;
         }
 
@@ -579,16 +603,20 @@
         //json = "{\"adultNum\":1,\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":1,\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount + "}],\"scorePay\":false}";
 
 
-
+        //loading层
+        var mylayeruiwait = layer.load(1, {
+            shade: [0.5, '#ababab'] //0.1透明度的白色背景
+        });
         $.ajax({
             url: "../../ajax/apihandler.ashx?fn=createorder&json=" + json + "",
             type: "post",
             success: function (text) {
+                layer.close(mylayeruiwait);
                 //出行人只显示成人,有几人就设置几个cookiename
                 for (var i = 0; i < pnum; i++) {
                     setCookie('inname' + i, $('.inname')[i].value, 1);
                 }
-                $.unblockUI();
+                //$.unblockUI();
                 var d = eval("(" + text + ")");
                 //debugger
                 setCookie('orderNo', d.orderNo, 1);
@@ -601,7 +629,7 @@
 
 //支付方式控制器
 .controller('paywayCtrl', function ($scope, $http) {
-    blockmyui('正在加载,请稍后...');
+    //blockmyui('正在加载,请稍后...');
     //清除登录用户cookie
     //setCookie('mcMemberCode','',1);
     var amount = getpbyurl(1);
@@ -611,8 +639,14 @@
     var secureamount = getpbyurl(5);
     $scope.amount = amount;
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
+    //loading层
+    var mylayeruiwait = layer.load(1, {
+        shade: [0.5, '#ababab'] //0.1透明度的白色背景
+    });
     $http.get(nghttp).success(function (response) {
         //debugger
+        find404admin(response);
+        layer.close(mylayeruiwait);
         var minprice;
         for (var j = 0; j < response.prices.length; j++) {
             if (response.prices[j].offerType == '基本价')
@@ -641,12 +675,12 @@
         $('.innamebox').height(60 + 31 * (pnum - 2));
         //出行人只显示成人,有几人就显示几个cookiename-----------ed
 
-        $.unblockUI();
+        //$.unblockUI();
 
         var accountName = '';
         $scope.pay = function () {
             if (accountName == "") {
-                blockmyui('请选择支付方式');
+                layermyui('请选择支付方式');
                 return;
             }
             //首先做身份认证,判断是否已经登录,没有帐号的客户先注册.
@@ -655,7 +689,12 @@
                 //其次再是发起付款
                 var orderNo = getCookie('orderNo');
                 var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
+                //loading层
+                var mylayeruiwait = layer.load(1, {
+                    shade: [0.5, '#ababab'] //0.1透明度的白色背景
+                });
                 $http.get(nghttp).success(function (response) {
+                    layer.close(mylayeruiwait);
                     window.location.href = response;
                 })
             }
@@ -792,7 +831,7 @@ function lineCl() {
     $('.linedetail .idline').show();
     $('.linedetail .idexpense').hide();
     removeclassblue();
-  //  addclassblue(0, 3);
+    //  addclassblue(0, 3);
     $('.tunbl1').addClass("contentblue");
     $('.tunbl4').addClass("lineblue");
 }

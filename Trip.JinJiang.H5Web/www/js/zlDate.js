@@ -104,7 +104,7 @@ var pickerHtml = {
         htmlObj.header = head;
     },
     getLeft: function () {
-        var left = '<div class="calendar_left pkg_double_month"><p class="date_text">' + obj.year.toString().substring(2, 4) + '年<br>' + obj.month + '月</p><a href="javascript:void()" title="上一月" id="picker_last" class="pkg_circle_top">上一月</a><a href="javascript:void()" title="下一月" id="picker_next" class="pkg_circle_bottom ">下一月</a></div>';
+        var left = '<div class="calendar_left pkg_double_month"><p class="date_text">' + obj.year.toString().substring(2, 4) + '年<br>' + obj.month + '月</p><a href="javascript:void()" id="picker_last" title="上一月"  class="pkg_circle_top">上一月</a><a href="javascript:void()" title="下一月" id="picker_next" class="pkg_circle_bottom ">下一月</a></div>';
         htmlObj.left = left;
     },
     getRight: function () {
@@ -281,7 +281,7 @@ var commonUtil = {
             url: "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "",
             type: "post",
             success: function (text) {
-               // debugger
+                //debugger
                 var d = eval("(" + text + ")");
                 var leftNum = d.leftNum == null ? 0 : d.leftNum;
                 $('.numpera').empty().append(' ' + leftNum + ' ');

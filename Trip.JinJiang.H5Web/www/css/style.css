@@ -23,6 +23,9 @@ input[type="checkbox"] {
     .bar-stable .headleftback div {
         height: 30px;
     }
+    .bar-stable .headleftback div>img {
+        /*width: 28px;*/
+    }
 
 .bar-stable h1 {
     margin:auto 0;
