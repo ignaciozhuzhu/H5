@@ -140,14 +140,6 @@
     var nghttpcategory = "../../ajax/apihandler.ashx?fn=getlinecategorys&status=true";
     $http.get(nghttpcategory).success(function (response) {
         $scope.linecategorys = response.ds;
-        if (response.ds.length / 5 > 0)
-            $('.linecatebox').height(80);
-        if (response.ds.length / 5 > 1)
-            $('.linecatebox').height(160);
-        if (response.ds.length / 5 > 2)
-            $('.linecatebox').height(240);
-        if (response.ds.length / 5 > 3)
-            $('.linecatebox').height(320);
     })
 
 
@@ -312,12 +304,8 @@
         $('.linedetail .idline').show();
         $('.linedetail .idfeature').hide();
         $('.linedetail .idexpense').hide();
-        //debugger
-        var jq_div = $(".linedetail .thirdCenter");
-        jq_div.eq(0).addClass("contentblue");
-        jq_div.eq(3).addClass("lineblue");
-        //$('.linedetail .thirdCenter:eq(0)').addClass("contentblue");
-       // $('.linedetail .thirdCenter:eq(3)').addClass("lineblue");
+        $(".linedetail .tunbl1").addClass("contentblue");
+        $(".linedetail .tunbl4").addClass("lineblue");
     });
 
 })
@@ -784,7 +772,9 @@ function lineCl() {
     $('.linedetail .idline').show();
     $('.linedetail .idexpense').hide();
     removeclassblue();
-    addclassblue(0, 3);
+  //  addclassblue(0, 3);
+    $('.tunbl1').addClass("contentblue");
+    $('.tunbl4').addClass("lineblue");
 }
 
 function featureCl() {
@@ -792,7 +782,9 @@ function featureCl() {
     $('.linedetail .idline').hide();
     $('.linedetail .idexpense').hide();
     removeclassblue();
-    addclassblue(1, 4);
+    //addclassblue(1, 4);
+    $('.tunbl2').addClass("contentblue");
+    $('.tunbl5').addClass("lineblue");
 }
 
 function expenseCl() {
@@ -800,7 +792,9 @@ function expenseCl() {
     $('.linedetail .idline').hide();
     $('.linedetail .idexpense').show();
     removeclassblue();
-    addclassblue(2, 5);
+    //addclassblue(2, 5);
+    $('.tunbl3').addClass("contentblue");
+    $('.tunbl6').addClass("lineblue");
 }
 
 
