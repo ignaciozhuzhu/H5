@@ -57,8 +57,8 @@
     var searchParam = request("search");
     var nghttp = "../../ajax/apihandler.ashx?fn=getlines";
 
-    $scope.historygoback = function () {
-        //window.location.href = "#/app/index";
+    $scope.listhistorygoback = function () {
+        window.location.href = "#/app/index";
         location.reload();
     }
 
@@ -87,12 +87,17 @@
     var lineCategory = url.substring(url.lastIndexOf('/') + 1, url.length);
     var searchParam = lineCategory;
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinesbycategory&lineCategory=" + lineCategory + "";
+    //loading层
+    var mylayeruiwait = layer.load(1, {
+        shade: [0.5, '#ababab'] //0.1透明度的白色背景
+    });
     $http.get(nghttp).success(function (response) {
         $.ajax({
             url: "../../ajax/apihandler.ashx",
             data: { fn: "getlinecategoriecrm", category: lineCategory },
             type: "post",
             success: function (text) {
+                layer.close(mylayeruiwait);
                 //   debugger
                 var d = eval("(" + text + ")");
                 var arrayLinemm = new Array(0);
@@ -145,7 +150,7 @@
     //滚动,下拉出电话
     $scope.getScrollPosition = function () {
         var scrolltop = $ionicScrollDelegate.$getByHandle('indexDelegate').getScrollPosition().top;
-        $('#teledown').css('top', scrolltop + document.documentElement.childNodes[2].scrollHeight - 150);
+        $('#teledown').css('top', scrolltop + document.documentElement.childNodes[2].scrollHeight - 120);
     }
 
     //分类图标
@@ -192,7 +197,7 @@
         $http.get(nghttpgg).success(function (response) {
             // debugger
             for (var i = 0; i < 4; i++) { //response.ds.length
-                $('#full-width-slider').append('<div class="rsContent"><img class="rsImg" src=' + response.ds[i].imgUrl + ' /></div>');
+                $('#full-width-slider').append('<div class="rsContent"><a href="#/app/linedetail/' + response.ds[i].lineId + '"><img class="rsImg" src=' + response.ds[i].imgUrl + ' /></a></div>');
             }
             $('#full-width-slider').royalSlider({
                 arrowsNav: true,
@@ -735,8 +740,6 @@
     });
 })
 
-.controller('PlaylistCtrl', function ($scope, $stateParams) {
-});
 
 //***************************以下公用方法***************************
 

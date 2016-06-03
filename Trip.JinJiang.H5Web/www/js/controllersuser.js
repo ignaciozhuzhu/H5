@@ -572,6 +572,16 @@
     if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
         $('#account').empty().append('注销');
     }
+    $scope.seemyorder = function () {
+        var ckmcMemberCode = getCookie('mcMemberCode');
+        if (ckmcMemberCode == "" || ckmcMemberCode == undefined || ckmcMemberCode == null) {
+            layermyui('请先登录');
+            return;
+        }
+        else {
+            window.location.href = '#/app/user/myorder';
+        }
+    }
 
     //注销
     $scope.zx = function () {

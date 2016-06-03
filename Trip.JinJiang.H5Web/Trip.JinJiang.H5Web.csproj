@@ -1301,7 +1301,6 @@
     <Content Include="www\lib\ionic\version.json" />
     <Content Include="www\lib\md5.js" />
     <Content Include="www\lib\sha1.js" />
-    <Content Include="www\templates\aa.html" />
     <Content Include="www\templates\user\myinfo.html" />
     <Content Include="www\templates\user\orderdetail.html" />
     <Content Include="www\templates\user\myorder.html" />

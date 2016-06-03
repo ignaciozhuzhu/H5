@@ -262,7 +262,7 @@ function find404admin(response) {
     }
     catch (e) {
     }
-    if (restext !== "" && restext > -1) {
+    if ((restext !== "" && restext > -1) || response === "") {
         layermyui('不好意思接口挂了,返回404,请联系网络管理员!', 3000);
         return;
     }

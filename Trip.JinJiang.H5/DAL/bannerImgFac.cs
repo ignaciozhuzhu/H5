@@ -162,7 +162,7 @@ namespace Trip.JinJiang.H5.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 Id,alt,imgUrl,status from tbl_bannerImg ");
+            strSql.Append("select  top 1 Id,alt,imgUrl,status,lineId from tbl_bannerImg ");
             strSql.Append(" where Id=@Id");
             SqlParameter[] parameters = {
                     new SqlParameter("@Id", SqlDbType.Int,4)
@@ -223,7 +223,7 @@ namespace Trip.JinJiang.H5.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select Id,alt,imgUrl,status ");
+            strSql.Append("select Id,alt,imgUrl,status,lineId ");
             strSql.Append(" FROM tbl_bannerImg ");
             if (strWhere.Trim() != "")
             {
@@ -243,7 +243,7 @@ namespace Trip.JinJiang.H5.DAL
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" Id,alt,imgUrl,status ");
+            strSql.Append(" Id,alt,imgUrl,status,lineId ");
             strSql.Append(" FROM tbl_bannerImg ");
             if (strWhere.Trim() != "")
             {
