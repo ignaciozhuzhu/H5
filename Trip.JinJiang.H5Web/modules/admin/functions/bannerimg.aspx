@@ -1,6 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/modules/admin/master/Header.Master" AutoEventWireup="true" CodeBehind="bannerimg.aspx.cs" Inherits="Trip.JinJiang.H5Web.modules.admin.functions.bannerimg" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <style>
+        #example.modal {
+            max-height: 600px;
+            max-width: 1300px;
+            left: 30%;
+            top: 30%;
+        }
+    </style>
     <div class="content-wrapper" ng-app="lhxApp" ng-controller="userCtrl">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -13,28 +21,70 @@
             </ol>
         </section>
 
-        <form id="example" class="modal hide fade in" style="display: none; height: 330px; width: 270px;">
+        <form id="example" class="modal hide fade in" style="display: none; height: 600px; width: 1300px;">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
-                <h3>线路类型编辑</h3>
+                <h3>编辑</h3>
             </div>
             <div class="modal-body">
-                <div>
-                    <div>描述:</div>
+                <div class="col-xs-4">
                     <div>
-                        <input id="alt" type="text" style="height: 30px" />
+                        <div>描述:</div>
+                        <div>
+                            <input id="alt" type="text" style="height: 30px" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>选择线路:</div>
+                        <select ng-model="selectedcate" ng-options="x.categoryName for x in linecates">
+                        </select>
+                    </div>
+                    <div>
+                        <div>图片:</div>
+                        <input id="File1" name="File1" type="file" />
+                    </div>
+                    <input type="text" name="txt" id="txt" style="display: none">
+                    <input type="button" name="btn" value="btn" id="btn" style="display: none">
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-success" ng-click="reloadRoute()">保存</a>
+                        <a href="#" class="btn" data-dismiss="modal">关闭</a>
                     </div>
                 </div>
-                <div>
-                    <div>图片:</div>
-                    <input id="File1" name="File1" type="file" />
+
+                <div class="col-xs-8">
+
+                    <div class="box">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th ng-hide="true">Id</th>
+                                        <th>名称</th>
+                                        <th>标题</th>
+                                        <th>目的地</th>
+                                        <th>线路类型</th>
+                                        <th>最低价</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in linesad | filter:selectedcate.categoryName">
+                                        <td ng-hide="true">{{x.lineId}}</td>
+                                        <td>{{x.name}}</td>
+                                        <td>{{x.title}}</td>
+                                        <td>{{x.destinationInfo}}</td>
+                                        <td>{{x.lineCategory}}</td>
+                                        <td>{{x.originalPrice}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <pager page-count="pageCount2" current-page="currentPage2" on-page-change="onPageChange2()" first-text="首页" next-text="下一页" prev-text="上一页" last-text="尾页"></pager>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
                 </div>
-                <input type="text" name="txt" id="txt" style="display: none">
-                <input type="button" name="btn" value="btn" id="btn" style="display: none">
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-success" ng-click="reloadRoute()">保存</a>
-                <a href="#" class="btn" data-dismiss="modal">关闭</a>
             </div>
         </form>
 
@@ -67,7 +117,9 @@
                     <div class="box">
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <div><img src='../../img/add.png' style="margin-left: 1%"><a ng-click="add()" data-toggle="modal" href="#example">添加</a></div>
+                            <div>
+                                <img src='../../img/add.png' style="margin-left: 1%"><a ng-click="add()" data-toggle="modal" href="#example">添加</a>
+                            </div>
 
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
@@ -145,6 +197,41 @@
                 modalclass2();
                 selectid = $event.path[2].cells[0].innerText;
             };
+            //线路分类下拉框bg
+            var nghttp0 = "../../../ajax/apihandler.ashx?fn=getlinecategorys&status=true";
+            $http.get(nghttp0).success(function (response) {
+                //  debugger
+                var responseCache0 = response;
+                var arrayLine = new Array(0);
+                for (var i = 0; i < responseCache0.ds.length; i++) {
+                    arrayLine.push(responseCache0.ds[i]);
+                }
+                $scope.linecates = arrayLine;
+            });
+            //线路分类下拉框ed
+
+            //线路列表bg
+            var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesad";
+            $http.get(nghttp).success(function (response) {
+                //  debugger
+                $scope.pageCount2 = Math.ceil(response.ds.length / percount);
+                responseCache2 = response;
+                var arrayLine = new Array(0);
+                for (var i = 0; i < percount; i++) {
+                    arrayLine.push(responseCache2.ds[i]);
+                }
+                $scope.linesad = arrayLine;
+            });
+            $scope.onPageChange2 = function () {
+                var arrayLine = new Array(0);
+                var pagec = responseCache2.ds.length - (percount * ($scope.currentPage2 - 1)) >= percount ? percount * $scope.currentPage2 : responseCache2.ds.length;
+                for (var i = percount * ($scope.currentPage2 - 1) ; i < pagec; i++) {
+                    arrayLine.push(responseCache2.ds[i]);
+                }
+                $scope.linesad = arrayLine;
+            };
+            //线路列表ed
+
             $scope.confirmEn = function () {
                 $.ajax({
                     url: "../../../ajax/bannerImgHandler.ashx?fn=enbannerimg",
