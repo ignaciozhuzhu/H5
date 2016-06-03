@@ -645,6 +645,10 @@
 
         var accountName = '';
         $scope.pay = function () {
+            if (accountName == "") {
+                blockmyui('请选择支付方式');
+                return;
+            }
             //首先做身份认证,判断是否已经登录,没有帐号的客户先注册.
             var mcMemberCode = getCookie('mcMemberCode');
             if (mcMemberCode != "" && mcMemberCode != undefined && mcMemberCode != null) {
