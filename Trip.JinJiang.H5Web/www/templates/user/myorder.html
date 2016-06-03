@@ -1,9 +1,9 @@
 ﻿<style>
     .myorder {
         font-size: 13px;
-        margin: 0 5px;
+        margin: 0 0px;
         color: #beb9c0;
-        margin-top: 35px;
+        margin-top:44px;
     }
 
     .myorderh {
@@ -15,59 +15,61 @@
         .myorderh .header {
             color: #beb9c0;
             height: 25px;
-            margin: 5px -5px;
+            margin: 5px 0px;
             width: 100%;
         }
 
-            .myorderh .header div {
-                float: left;
-                color: #beb9c0;
-                width: 20%;
-                text-align: center;
-                padding: 10px 0;
-                border-bottom: solid 1px;
-                background-color: white;
-                font-weight:bold;
-            }
-
+        .myorderh .header div {
+             float: left;
+             color: #beb9c0;
+             width: 20%;
+             text-align: center;
+             padding: 10px 0;
+             border-bottom: solid 1px;
+             background-color: white;
+         }
     .myorder .heightgray {
-        background-color: #beb9c0;
+        background-color: #cecece;
         height: 1px;
     }
-
+    .myorder .heightgray5 {
+        height: 8px;
+        background-color: #f3f3f3;
+    }
     .myorder .timeorder {
-        height: 40px;
-        line-height: 45px;
+        height:36px;
+        line-height:36px;
+        color:#878787;
+        font-size:12px;
+        padding:0 6px;
     }
 
-        .myorder .timeorder div:nth-child(1) {
-            float: left;
-        }
-
-        .myorder .timeorder div:nth-child(2) {
-            float: right;
-        }
-
+    .myorder .timeorder div:nth-child(1) {
+        float: left;
+    }
+    .myorder .timeorder div:nth-child(2) {
+        float: right;
+    }
     .myorder .detailbox {
         height: 45px;
     }
-
-        .myorder .detailbox div:nth-child(1) {
+    .myorder .detailbox div:nth-child(1) {
             float: left;
-            height: 30px;
-            font-size: 14px;
-            font-weight: bold;
-            line-height: 25px;
+            height:50px;
+            overflow :hidden ;
+            font-size: 15px;
+            line-height: 22px;
+            padding:6px 6px 0 6px;
             color: black;
         }
 
         .myorder .detailbox div:nth-child(2) {
             float: right;
-            height: 30px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
             line-height: 25px;
-            color: #e69245;
+            color: #ff8201;
+            padding-right:8px;
         }
 
     .myorder .clear {
@@ -77,6 +79,9 @@
 
     .myorder .detailbox2 {
         height: 30px;
+        color:#878787;
+        line-height:30px;
+        padding:0 6px;
     }
 
         .myorder .detailbox2 div:nth-child(1) {
@@ -94,19 +99,18 @@
         }
 
     .myorder .seebutton {
-        height: 40px;
+        height: 46px;
     }
 
     .myorder .orderbutton {
         float: right;
-        margin: 5px;
-        background-color: #f59609;
+        margin:8px;
+        background-color: #ff8201;
         color: white;
         padding: 5px;
-        border-radius: 5px;
+        border-radius:2px;
         width: 25%;
         text-align: center;
-        font-weight: bold;
     }
 
     .myorder .contentblue {
@@ -182,15 +186,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="heightgray">
-                </div>
+                <div class="heightgray"></div>
                 <div class="seebutton">
                     <div class="orderbutton" ng-click="seedetail($event)"> 查看订单<div ng-show="false">{{x.code}}</div></div>
                 </div>
-                <div class="heightgray">
-                </div>
-                <div class="heightgray">
-                </div>
+                <div class="heightgray"></div>
+                <div class="heightgray5"></div>
             </div>
 
         </div>
