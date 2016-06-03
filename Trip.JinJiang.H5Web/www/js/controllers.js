@@ -71,6 +71,9 @@
         $scope.agencies = response.agencies;
 
     });
+    $scope.listent = function () {
+        setCookie('ent2detail', 'index', 1);
+    }
 })
  //线路列表控制器2,唯独不一样的是路由
 .controller('LinelistsCtrl2', function ($scope, $http) {
@@ -114,6 +117,9 @@
         })
 
     });
+    $scope.listent = function () {
+        setCookie('ent2detail', lineCategory, 1);
+    }
 })
 
 
@@ -168,6 +174,10 @@
 
     });
 
+    $scope.indexent= function(){
+        setCookie('ent2detail', 'index', 1);
+    }
+
     //自加载运行
     $scope.$on("$ionicView.loaded", function () {
         //自动加载播放滚动图片
@@ -214,13 +224,25 @@
 
 //线路详情控制器
 .controller('lineDetailCtrl', function ($scope, $http, $sce) {
-
     var url = location.href;
     var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
     $('.linedetail .ordernow').attr('href', '#/app/indexdate/' + lineid);
+
+    //页面详情页分两种情况返回,三个入口
+    $scope.historygoback = function () {
+        var ent2detail=getCookie('ent2detail');
+        if (ent2detail == "index") {
+            window.location.href = "#/app/index";
+        }
+        else {
+            window.location.href = "#/app/linelists/" + ent2detail;
+        }
+    }
+
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
-    //debugger
+    blockmyui('正在加载,请稍后...');
     $http.get(nghttp).success(function (response) {
+        $.unblockUI();
         //debugger
         //团框初始高度
         $(".linedetail .groupsheight").height(16);
@@ -286,12 +308,10 @@
         $scope.groupcode = '团号:' + response.line.groups[0].groupCode.substring(response.line.groups[0].groupCode.length - 14, response.line.groups[0].groupCode.length);
 
         //取线路旅游类型
-        //debugger
         $scope.lineCategory = getcategoryNameByCode(response.line.lineCategory);
 
         //取价格
         $scope.price = response.minPrice;
-        //debugger
         //产品经理推荐
         $scope.recommend = response.line.recommend; // response.line.recommend.url;
 
@@ -504,9 +524,7 @@
 
     var guestsarr = new Array(0);
     $scope.createorder = function () {
-        $.blockUI({
-            message: '<h6>正在加载,请稍后...</h6>'
-        });
+        blockmyui('正在加载,请稍后...');
         var ConnectName = $scope.Connect.name;
         var ConnectMobile = $scope.Connect.mobile;
         var ConnectEmail = $scope.Connect.email;
@@ -583,9 +601,7 @@
 
 //支付方式控制器
 .controller('paywayCtrl', function ($scope, $http) {
-    $.blockUI({
-        message: '<h6>正在加载,请稍后...</h6>'
-    });
+    blockmyui('正在加载,请稍后...');
     //清除登录用户cookie
     //setCookie('mcMemberCode','',1);
     var amount = getpbyurl(1);
