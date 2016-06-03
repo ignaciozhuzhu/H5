@@ -656,7 +656,7 @@
             <div class="contentpwp">
                 <div ng-repeat="playlist in linelistsP">
                     <div class="contentpw">
-                        <a href="#/app/linedetail/{{playlist.lineId}}"><img class="contentimg" src="{{playlist.imageUrls[0]}}" /></a>
+                        <a ng-click="indexent()" href="#/app/linedetail/{{playlist.lineId}}"><img class="contentimg" src="{{playlist.imageUrls[0]}}" /></a>
                         <div class="contentboxdiv">
                             {{ playlist.name.length > 9 ? playlist.name.substring(0,8)+'...':playlist.name}}
                         </div>

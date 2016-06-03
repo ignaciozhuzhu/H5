@@ -140,9 +140,7 @@
         xml += "<ipAddress>" + ip4 + "</ipAddress>";
         xml += "</memberInfoDto></memberRegisterDto>";
         var nghttp = "../../ajax/userHandler.ashx?fn=regist&xml=" + xml + "";
-        $.blockUI({
-            message: '<h6>正在提交,请稍后...</h6>'
-        });
+        blockmyui('正在加载,请稍后...');
         $http.get(nghttp).success(function (response) {
             //debugger
             $.unblockUI();
@@ -220,9 +218,7 @@
         xml += "<sha1>" + sha + "</sha1>";
         xml += "</mergeLoginDto>";
         var nghttp = "../../ajax/userHandler.ashx?fn=login&xml=" + xml + "";
-        $.blockUI({
-            message: '<h6>正在提交,请稍后...</h6>'
-        });
+        blockmyui('正在提交,请稍后...');
         $http.get(nghttp).success(function (response) {
             $.unblockUI();
             var x2js = new X2JS();
@@ -315,9 +311,7 @@
         xml += "<registTag>IOS|JJTRAVEL_IOS_1|JinJiang</registTag>";
         xml += "</webMemberDto>";
         var nghttp = "../../ajax/userHandler.ashx?fn=quickregist&xml=" + xml + "";
-        $.blockUI({
-            message: '<h6>正在提交,请稍后...</h6>'
-        });
+        blockmyui('正在提交,请稍后...');
         $http.get(nghttp).success(function (response) {
             $.unblockUI();
             //debugger
@@ -518,9 +512,7 @@
             var orderNo = $scope.orderCode;
             var amount = $scope.paymentAmount;
             var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
-            $.blockUI({
-                message: '<h6>正在加载,请稍后...</h6>'
-            });
+            blockmyui('正在加载,请稍后...');
             $http.get(nghttp).success(function (response) {
                 $.unblockUI();
                 window.location.href = response;
