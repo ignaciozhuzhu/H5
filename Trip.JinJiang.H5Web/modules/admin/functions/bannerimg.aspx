@@ -38,6 +38,7 @@
                         <div>选择线路:</div>
                         <select ng-model="selectedcate" ng-options="x.categoryName for x in linecates">
                         </select>
+                        <%--<input type="button" value="查询">--%>
                     </div>
                     <div>
                         <div>图片:</div>
