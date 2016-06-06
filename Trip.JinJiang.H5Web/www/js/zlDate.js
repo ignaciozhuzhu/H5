@@ -282,6 +282,7 @@ var commonUtil = {
             type: "post",
             success: function (text) {
                 //debugger
+                finderrorMsgadmin(text);
                 var d = eval("(" + text + ")");
                 var leftNum = d.leftNum == null ? 0 : d.leftNum;
                 $('.numpera').empty().append(' ' + leftNum + ' ');

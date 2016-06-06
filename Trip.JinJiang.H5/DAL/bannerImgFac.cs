@@ -37,15 +37,17 @@ namespace Trip.JinJiang.H5.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into tbl_bannerImg(");
-            strSql.Append("alt,imgUrl)");
+            strSql.Append("alt,imgUrl,lineId)");
             strSql.Append(" values (");
-            strSql.Append("@alt,@imgUrl)");
+            strSql.Append("@alt,@imgUrl,@lineId)");
             strSql.Append(";select @@IDENTITY");
             SqlParameter[] parameters = {
                     new SqlParameter("@alt", SqlDbType.NVarChar,100),
-                    new SqlParameter("@imgUrl", SqlDbType.NVarChar,200)};
+                    new SqlParameter("@imgUrl", SqlDbType.NVarChar,200),
+                    new SqlParameter("@lineId", SqlDbType.Int,4)};
             parameters[0].Value = model.alt;
             parameters[1].Value = model.imgUrl;
+            parameters[2].Value = model.lineId;
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
             if (obj == null)
@@ -65,16 +67,17 @@ namespace Trip.JinJiang.H5.DAL
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update tbl_bannerImg set ");
             strSql.Append("alt=@alt,");
-            strSql.Append("imgUrl=@imgUrl ");
+            strSql.Append("imgUrl=@imgUrl, ");
+            strSql.Append("lineId=@lineId ");
             strSql.Append(" where Id=@Id");
             SqlParameter[] parameters = {
                     new SqlParameter("@alt", SqlDbType.NVarChar,100),
                     new SqlParameter("@imgUrl", SqlDbType.NVarChar,200),
-                    new SqlParameter("@status", SqlDbType.Bit,1),
+                    new SqlParameter("@lineId", SqlDbType.Int,4),
                     new SqlParameter("@Id", SqlDbType.Int,4)};
             parameters[0].Value = model.alt;
             parameters[1].Value = model.imgUrl;
-            parameters[2].Value = model.status;
+            parameters[2].Value = model.lineId;
             parameters[3].Value = model.Id;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);

@@ -467,8 +467,9 @@ namespace Trip.JinJiang.H5.DAL
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select lineId,lineName,name,title,destinationInfo,spotInfo,lineSubjectInfo,destination,spot,lineSubject,manualRecommend,imageNo,brand,agency,days,isPromotion,departureMonth,priceScope,point,imageUrls,b.categoryName as lineCategory,minPrice,productCode,priceScopeAndLine,lineDistrict,originalPrice,priceExplain,recommend ");
             strSql.Append(" FROM tbl_lineLists a left join tbl_lineCategory b on a.lineCategory=b.lineCategory");
-            if (strWhere.Trim() != "")
+            if (strWhere != null && strWhere.Trim() != "")
             {
+                strWhere = " b.categoryName='" + strWhere + "'";
                 strSql.Append(" where " + strWhere);
             }
             return DbHelperSQL.Query(strSql.ToString());
