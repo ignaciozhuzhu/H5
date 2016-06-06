@@ -196,6 +196,7 @@
     <Content Include="modules\img\disable.png" />
     <Content Include="modules\img\edit.png" />
     <Content Include="modules\img\logo5.png" />
+    <Content Include="modules\img\okbtn.png" />
     <Content Include="modules\img\取消标签.png" />
     <Content Include="modules\index.html" />
     <Content Include="modules\js\jquery-form.js" />
@@ -1253,6 +1254,7 @@
     <Content Include="www\js\layer\skin\default\loading-1.gif" />
     <Content Include="www\js\layer\skin\default\loading-2.gif" />
     <Content Include="www\js\layer\skin\layer.css" />
+    <Content Include="www\js\less\less.js" />
     <Content Include="www\lib\xml2json.min.js" />
     <Content Include="www\js\zlDate.js" />
     <Content Include="www\lib\ionic\fonts\ionicons.eot" />
@@ -1442,6 +1444,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="modules\css\" />
+    <Folder Include="www\js\css\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

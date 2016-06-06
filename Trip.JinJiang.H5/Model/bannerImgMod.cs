@@ -14,6 +14,7 @@ namespace Trip.JinJiang.H5.Model
         private string _alt;
         private string _imgurl;
         private bool _status = true;
+        private int _lineid;
         /// <summary>
         /// 自增主键
         /// </summary>
@@ -45,6 +46,11 @@ namespace Trip.JinJiang.H5.Model
         {
             set { _status = value; }
             get { return _status; }
+        }
+        public int lineId
+        {
+            set { _lineid = value; }
+            get { return _lineid; }
         }
         #endregion Model
 

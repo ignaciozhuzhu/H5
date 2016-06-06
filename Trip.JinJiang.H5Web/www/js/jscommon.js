@@ -268,6 +268,19 @@ function find404admin(response) {
     }
 }
 
+function finderrorMsgadmin(response) {
+    var restext = "";
+    try {
+        restext = response.indexOf('errorMsg');
+    }
+    catch (e) {
+    }
+    response = eval("(" + response + ")");
+    if ((restext !== "" && restext > -1) || response === "") {
+        layermyui(response.errorMsg, 3000);
+        return;
+    }
+}
 
 function isEmail(str) {
     var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;

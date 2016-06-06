@@ -139,7 +139,7 @@
 
     //实现自带搜索按钮跳转并失去焦点关闭键盘.
     $(function () {
-        $('#searchtxt').bind('keypress', function (event) {
+        $('.searchtxt').bind('keypress', function (event) {
             if (event.keyCode == "13") {
                 searchLines(this);
                 document.activeElement.blur();
@@ -188,6 +188,31 @@
     $scope.indexent = function () {
         setCookie('ent2detail', 'index', 1);
     }
+    //城目的地选择
+    $scope.desSelect=function() {
+        $('#divcontent').hide();
+        $('#bartitle').hide();
+        $('#divdesselect').show();
+
+        $('#divdesselect').click(function (event) {
+            if (event.target.className === 'searchDest') {
+                $(".searchtxt")[1].value = event.target.innerText;
+            }
+            if (event.target.className === 'search0Dest') {
+                //var nghttp = "../../ajax/areaHandler.ashx?fn=getarealist";
+                //$http.get(nghttp).success(function (response) {
+                //    debugger
+                //   // Id, areaName
+                //    $scope.area = response.ds;
+                //})
+               // $(".searchtxt")[1].value = event.target.innerText;
+            }
+        })
+    }
+    var nghttp3 = "../../ajax/areaHandler.ashx?fn=getarealist";
+    $http.get(nghttp3).success(function (response) {
+        $scope.area = response.ds;
+    })
 
     //自加载运行
     $scope.$on("$ionicView.loaded", function () {
@@ -796,27 +821,23 @@ function citySelect() {
         }
     })
 }
-//城市选择框
-function desSelect() {
-    $('#divcontent').hide();
-    $('#bartitle').hide();
-    $('#divdesselect').show();
+////城市选择框
+//function desSelect() {
+//    $('#divcontent').hide();
+//    $('#bartitle').hide();
+//    $('#divdesselect').show();
 
-    $('#divcityselect').click(function (event) {
-        if (event.target.nodeName === 'SPAN') {
-            alert(event.target.innerText);
-            //$('#divcontent').show();
-            //$('#bartitle').show();
-            //$('#divcityselect').hide();
-            //$("#beginProtxt")[0].placeholder = event.target.innerText + '出发';
-        }
-    })
-}
+//    $('#divdesselect').click(function (event) {
+//        if (event.target.className === 'searchDest') {
+//            $(".searchtxt")[1].value = event.target.innerText;
+//        }
+//    })
+//}
 
 
 //线路查询传参,前台点击事件
 function searchLines() {
-    var searchParam = $("#searchtxt")[0].value;
+    var searchParam = $(".searchtxt")[1].value;
     window.location.href = '#/app/linelists?search=' + searchParam;
 }
 

@@ -52,9 +52,9 @@
     }
 
     .linecatebox {
-        margin:3% 0 2% 0;
-        overflow:hidden;
-        height:100%;
+        margin: 3% 0 2% 0;
+        overflow: hidden;
+        height: 100%;
     }
 
         .linecatebox .linecategorys {
@@ -70,7 +70,7 @@
             }
 
             .linecatebox .linecategorys div {
-                font-size:13px;
+                font-size: 13px;
                 color: #7a7a7a;
             }
 
@@ -81,7 +81,7 @@
         .indexbox .imgmore {
             width: 20px;
             padding: 0px 0 2px 6px;
-            vertical-align:middle;
+            vertical-align: middle;
         }
 
         .indexbox .amore {
@@ -96,15 +96,15 @@
         .indexbox .amountbg {
             font-size: 15px;
             color: #fd7204;
-            font-weight:400
+            font-weight: 400;
         }
 
         .indexbox .contentboxdiv {
             padding-bottom: 8px;
             font-size: 14px;
-            line-height:20px;
-            height:40px;
-            overflow:hidden;
+            line-height: 20px;
+            height: 40px;
+            overflow: hidden;
         }
 
         .indexbox .contentimg {
@@ -139,7 +139,7 @@
         }
 
         .indexbox .teleimg {
-            width:56px;
+            width: 56px;
         }
 
     .indebox .telea {
@@ -165,7 +165,7 @@
     .indexheader .headertitle {
         height: 48px;
         padding: 6px 5px;
-        border:0;
+        border: 0;
     }
 
     .indexheader .button-bar .divh {
@@ -175,7 +175,7 @@
 
     .indexheader .button-bar .imgh {
         width: 56%;
-        height:56%;
+        height: 56%;
         max-width: 40px;
         max-height: 40px;
     }
@@ -187,15 +187,15 @@
         margin: 0px 5px;*/
         max-width: 40px;
         max-height: 40px;
-        padding:6%;
+        padding: 6%;
     }
 
     .indexheader .button-bar .inputbg {
         width: 35%;
-        height:32px;
+        height: 32px;
         background-image: url(img/定位图标3.png);
         padding-left: 7.5%;
-        padding-top:0;
+        padding-top: 0;
         border-right: aliceblue;
         border-bottom-left-radius: 5px;
         border-top-left-radius: 5px;
@@ -203,21 +203,23 @@
         border-bottom-right-radius: 0;
         border: 1px solid #b3b3b3;
         margin: 0 0 0 3px;
+        line-height: 39px;
     }
 
     .indexheader .button-bar .inputsc {
         width: 60%;
-        height:32px;
+        height: 32px;
         background-image: url(img/放大镜2.png);
         padding-left: 10.5%;
-        padding-top:0;
+        padding-top: 0;
         border-bottom-right-radius: 5px;
         border-top-right-radius: 5px;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
         border: 1px solid #b3b3b3;
-        border-left:0px;
+        border-left: 0px;
         margin: 0 3px 0 0;
+        line-height: 39px;
     }
 
     .cityselectbox {
@@ -252,7 +254,7 @@
         }
     }*/
     #bartitle.headertitle {
-        border:0
+        border: 0;
     }
 </style>
 
@@ -272,7 +274,7 @@
                     <div class="divh"><img src="img/logo.png" class="imgh" /></div>
                     <input id="beginProtxt" class="background_size inputbg" type="search" onclick="citySelect()">
 
-                    <input id="searchtxt" class="background_size inputsc" type="search" placeholder="路线/目的地/景点">
+                    <input class="background_size inputsc searchtxt" type="search" placeholder="路线/目的地/景点" ng-click="desSelect()">
                     <div class="divh">
                         <a href="#/app/user/myinfo"><img src="img/个人中心图标.png" class="imgo" /></a>
                     </div>
@@ -466,185 +468,17 @@
         </div>
         <!--目的地选择框-->
         <div id="divdesselect" class="cityselectbox">
-            <div class="grayback">选择目的地</div>
-            <div class="gay">
-                <span id="nowPro"></span>
+            <div style="margin-top:10px;height:60px;">
+                <input style="margin:auto;height:40px;width:80%" class="background_size inputsc searchtxt" type="search" placeholder="路线/目的地/景点">
             </div>
-            <div class="grayback">热门城市</div>
-            <div class="gay">
-                <span>上海</span>
-                <span>杭州</span>
-                <span>北京</span>
-                <span>成都</span>
-                <span>重庆</span>
+            <div style="float:left;width:24%;">
+                <div ng-repeat="x in area" class="search0Dest" style="border: solid 2px #f5f5f5;margin: -2px;padding: 10%;">{{x.areaName}}<div ng-show="false">{{x.Id}}</div></div>
             </div>
-            <div class="gay">
-                <span>大连</span>
-                <span>东莞</span>
-                <span>厦门</span>
-                <span>福州</span>
-                <span>佛山</span>
-            </div>
-            <div class="gay">
-                <span>赣州</span>
-                <span>合肥</span>
-                <span>哈尔滨</span>
-                <span>邯郸</span>
-                <span>常州</span>
-            </div>
-            <div class="grayback">A</div>
-            <div class="gay">
-                <span>鞍山</span>
-            </div>
-            <div class="grayback">B</div>
-            <div class="gay">
-                <span>北京</span>
-                <span>蚌埠</span>
-            </div>
-            <div class="grayback">C</div>
-            <div class="gay">
-                <span>成都</span>
-                <span>重庆</span>
-                <span>长沙</span>
-                <span>长春</span>
-                <span>常州</span>
-            </div>
-            <div class="gay">
-                <span>常德</span>
-                <span>沧州</span>
-                <span>常熟</span>
-            </div>
-            <div class="grayback">D</div>
-            <div class="gay">
-                <span>大连</span>
-                <span>大同</span>
-                <span>东莞</span>
-                <span>东营</span>
-                <span>德阳</span>
-            </div>
-            <div class="grayback">F</div>
-            <div class="gay">
-                <span>福州</span>
-                <span>佛山</span>
-                <span>阜阳</span>
-            </div>
-            <div class="grayback">G</div>
-            <div class="gay">
-                <span>广州</span>
-                <span>贵阳</span>
-                <span>赣州</span>
-            </div>
-            <div class="grayback">H</div>
-            <div class="gay">
-                <span>杭州</span>
-                <span>合肥</span>
-                <span>哈尔滨</span>
-                <span>呼和浩特</span>
-                <span>邯郸</span>
-            </div>
-            <div class="gay">
-                <span>淮南</span>
-                <span>湖州</span>
-                <span>黄石</span>
-            </div>
-            <div class="grayback">J</div>
-            <div class="gay">
-                <span>济南</span>
-                <span>金华</span>
-                <span>吉林</span>
-                <span>锦州</span>
-                <span>嘉兴</span>
-            </div>
-            <div class="gay">
-                <span>济宁</span>
-            </div>
-            <div class="grayback">K</div>
-            <div class="gay">
-                <span>昆明</span>
-            </div>
-            <div class="grayback">N</div>
-            <div class="gay">
-                <span>南京</span>
-                <span>宁波</span>
-                <span>南宁</span>
-                <span>南昌</span>
-                <span>南阳</span>
-            </div>
-            <div class="gay">
-                <span>南通</span>
-                <span>南充</span>
-            </div>
-            <div class="grayback">Q</div>
-            <div class="gay">
-                <span>泉州</span>
-                <span>青岛</span>
-            </div>
-            <div class="grayback">R</div>
-            <div class="gay">
-                <span>日照</span>
-            </div>
-            <div class="grayback">S</div>
-            <div class="gay">
-                <span>上海</span>
-                <span>苏州</span>
-                <span>深圳</span>
-                <span>沈阳</span>
-                <span>石家庄</span>
-            </div>
-            <div class="gay">
-                <span>绍兴</span>
-                <span>汕头</span>
-            </div>
-            <div class="grayback">T</div>
-            <div class="gay">
-                <span>天津</span>
-                <span>太原</span>
-                <span>唐山</span>
-                <span>台州</span>
-                <span>泰州</span>
-            </div>
-            <div class="grayback">W</div>
-            <div class="gay">
-                <span>武汉</span>
-                <span>无锡</span>
-                <span>温州</span>
-                <span>芜湖</span>
-                <span>乌鲁木齐</span>
-            </div>
-            <div class="gay">
-                <span>潍坊</span>
-                <span>威海</span>
-            </div>
-            <div class="grayback">X</div>
-            <div class="gay">
-                <span>西安</span>
-                <span>厦门</span>
-                <span>徐州</span>
-                <span>许昌</span>
-            </div>
-            <div class="grayback">Y</div>
-            <div class="gay">
-                <span>延安</span>
-                <span>宜昌</span>
-                <span>烟台</span>
-                <span>扬州</span>
-                <span>银川</span>
-            </div>
-            <div class="gay">
-                <span>盐城</span>
-            </div>
-            <div class="grayback">Z</div>
-            <div class="gay">
-                <span>郑州</span>
-                <span>珠海</span>
-                <span>中山</span>
-                <span>漳州</span>
-                <span>株洲</span>
-            </div>
-            <div class="gay">
-                <span>淄博</span>
-                <span>镇江</span>
-                <span>舟山</span>
+            <div style="float:left;width:72%;margin-left:4%">
+                <div class="searchDest" style="float:left;width:46%;border: solid 2px #f5f5f5;margin: 2%;padding: 2%;">蜜月</div>
+                <div class="searchDest" style="float:left;width:46%;border: solid 2px #f5f5f5;margin: 2%;padding: 2%;">云南</div>
+                <div class="searchDest" style="float:left;width:46%;border: solid 2px #f5f5f5;margin: 2%;padding: 2%;">广西</div>
+                <div class="searchDest" style="float:left;width:46%;border: solid 2px #f5f5f5;margin: 2%;padding: 2%;">浙江</div>
             </div>
         </div>
     </ion-content>

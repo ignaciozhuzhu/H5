@@ -160,7 +160,13 @@ namespace Trip.JinJiang.H5Web.ajax
         /// </summary>
         public void getlinesad()
         {
-            HttpContext.Current.Response.Write(Admin.getlinesAd());
+            string category = "";
+            try
+            {
+                category = HttpContext.Current.Request["category"];
+            }
+            catch { }
+            HttpContext.Current.Response.Write(Admin.getlinesAd(category));
         }
         /// <summary>
         /// 更新线路的类型

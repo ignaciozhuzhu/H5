@@ -38,7 +38,14 @@
                         <div>选择线路:</div>
                         <select ng-model="selectedcate" ng-options="x.categoryName for x in linecates">
                         </select>
-                        <%--<input type="button" value="查询">--%>
+                        <input ng-click="filtcategory()" type="button" value="筛选">
+                    </div>
+                    <div>
+                        <div>线路名称:</div>
+                        <div>
+                            <input id="linename" disabled type="text" style="height: 30px" />
+                            <input id="linenameid" type="text" style="height: 30px; display: none" />
+                        </div>
                     </div>
                     <div>
                         <div>图片:</div>
@@ -57,7 +64,7 @@
                     <div class="box">
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="example2" class="table table-bordered table-striped">
+                            <table id="example20" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th ng-hide="true">Id</th>
@@ -66,16 +73,19 @@
                                         <th>目的地</th>
                                         <th>线路类型</th>
                                         <th>最低价</th>
+                                        <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="x in linesad | filter:selectedcate.categoryName">
+                                    <tr ng-repeat="x in linesad ">
                                         <td ng-hide="true">{{x.lineId}}</td>
                                         <td>{{x.name}}</td>
                                         <td>{{x.title}}</td>
                                         <td>{{x.destinationInfo}}</td>
                                         <td>{{x.lineCategory}}</td>
                                         <td>{{x.originalPrice}}</td>
+                                        <td>
+                                            <img class="myselectrarion" src='../../img/radiono.png'><a href="#" ng-click="selectedline($event)">选择</a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -233,6 +243,41 @@
             };
             //线路列表ed
 
+            $scope.filtcategory = function () {
+                //线路列表bg
+                //debugger
+                var filtcate = $scope.selectedcate.categoryName;
+                // debugger
+                var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesad&category=" + filtcate + "";
+                $http.get(nghttp).success(function (response) {
+                    //  debugger
+                    $scope.pageCount2 = Math.ceil(response.ds.length / percount);
+                    responseCache2 = response;
+                    var arrayLine = new Array(0);
+                    var mypercount = percount > responseCache2.ds.length ? responseCache2.ds.length : percount;
+                    for (var i = 0; i < mypercount; i++) {
+                        arrayLine.push(responseCache2.ds[i]);
+                    }
+                    $scope.linesad = arrayLine;
+                });
+                $scope.onPageChange2 = function () {
+                    var arrayLine = new Array(0);
+                    var pagec = responseCache2.ds.length - (percount * ($scope.currentPage2 - 1)) >= percount ? percount * $scope.currentPage2 : responseCache2.ds.length;
+                    for (var i = percount * ($scope.currentPage2 - 1) ; i < pagec; i++) {
+                        arrayLine.push(responseCache2.ds[i]);
+                    }
+                    $scope.linesad = arrayLine;
+                };
+                //线路列表ed
+            }
+            $scope.selectedline = function (event) {
+                debugger
+                $("#linename")[0].value = event.target.parentNode.parentElement.cells[1].innerText;
+                $("#linenameid")[0].value = event.target.parentNode.parentElement.cells[0].innerText;
+                $(".myselectrarion").attr('src', "../../img/radiono.png");
+                event.target.previousSibling.src = "../../img/radiook.png";
+            }
+
             $scope.confirmEn = function () {
                 $.ajax({
                     url: "../../../ajax/bannerImgHandler.ashx?fn=enbannerimg",
@@ -279,6 +324,11 @@
                     alert("请选择要上传的文件");
                     return;
                 }
+                var linenameid = document.getElementById("linenameid").value;
+                if (!linenameid) {
+                    alert("请选择线路");
+                    return;
+                }
 
                 //未选中行说明是新增.
                 if (selectid === null || selectid === undefined || selectid === "") {
@@ -299,7 +349,7 @@
                         error: function (error) { alert(error); },
                         url: '../../../ajax/bannerImgHandler.ashx?fn=addbannerimg',
                         type: "post",
-                        data: { alt: $('#alt')[0].value },
+                        data: { alt: $('#alt')[0].value, lineId: linenameid },
                         dataType: "text"
                     });
 
@@ -322,7 +372,7 @@
                         error: function (error) { alert(error); },
                         url: '../../../ajax/bannerImgHandler.ashx?fn=editbannerimg',
                         type: "post",
-                        data: { alt: $('#alt')[0].value, Id: selectid },
+                        data: { alt: $('#alt')[0].value, Id: selectid, lineId: linenameid },
                         dataType: "text"
                     });
 

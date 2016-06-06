@@ -60,7 +60,8 @@ namespace Trip.JinJiang.H5Web.ajax
             {
                 string alt = HttpContext.Current.Request["alt"].ToString();
                 string imgUrl = "../../../modules/img/" + fileName;
-                HttpContext.Current.Response.Write(Admin.addbannerimg(alt, imgUrl));
+                int lineId = Convert.ToInt32(HttpContext.Current.Request["lineId"]);
+                HttpContext.Current.Response.Write(Admin.addbannerimg(alt, imgUrl, lineId));
             }
         }
 
@@ -79,10 +80,11 @@ namespace Trip.JinJiang.H5Web.ajax
                 string alt = HttpContext.Current.Request["alt"].ToString();
                 string imgUrl = "../../../modules/img/" + fileName;
                 int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-                HttpContext.Current.Response.Write(Admin.editbannerimg(alt, imgUrl, Id));
+                int lineId = Convert.ToInt32(HttpContext.Current.Request["lineId"]);
+                HttpContext.Current.Response.Write(Admin.editbannerimg(alt, imgUrl, Id, lineId));
             }
         }
-        
+
         /// <summary>
         /// 轮播图禁(可)用
         /// </summary>

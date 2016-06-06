@@ -13,10 +13,10 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 获取后台线路库列表
         /// </summary>
-        public static string getlinesAd()
+        public static string getlinesAd(string category)
         {
             lineListsFac lineListsFac = new lineListsFac();
-            DataSet ds = lineListsFac.GetList("");
+            DataSet ds = lineListsFac.GetList(category);
             ConvertJson ConvertJson = new ConvertJson();
             string json = ConvertJson.ToJson(ds);
             return json;
@@ -132,11 +132,12 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 轮播图添加
         /// </summary>
-        public static string addbannerimg(string alt, string imgUrl)
+        public static string addbannerimg(string alt, string imgUrl,int lineId)
         {
             bannerImgMod model = new bannerImgMod();
             model.alt = alt;
             model.imgUrl = imgUrl;
+            model.lineId = lineId;
             bannerImgFac Fac = new bannerImgFac();
             if (Fac.Add(model) > 0)
             {
@@ -149,12 +150,13 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 轮播图编辑
         /// </summary>
-        public static string editbannerimg(string alt, string imgUrl, int Id)
+        public static string editbannerimg(string alt, string imgUrl, int Id,int lineId)
         {
             bannerImgMod model = new bannerImgMod();
             model.alt = alt;
             model.imgUrl = imgUrl;
             model.Id = Id;
+            model.lineId = lineId;
             bannerImgFac Fac = new bannerImgFac();
             if (Fac.Update(model))
             {
