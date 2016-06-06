@@ -198,17 +198,23 @@
             if (event.target.className === 'searchDest') {
                 $(".searchtxt")[1].value = event.target.innerText;
             }
-            if (event.target.className === 'search0Dest') {
-                //var nghttp = "../../ajax/areaHandler.ashx?fn=getarealist";
-                //$http.get(nghttp).success(function (response) {
-                //    debugger
-                //   // Id, areaName
-                //    $scope.area = response.ds;
-                //})
-               // $(".searchtxt")[1].value = event.target.innerText;
-            }
         })
     }
+
+    //二级线路查询
+    $scope.search0Dest = function (event) {
+        //debugger
+         var aId = event.currentTarget.lastElementChild.innerText;
+        var nghttp = "../../ajax/areaHandler.ashx?fn=getarea2list&aId=" + aId + "";
+        $http.get(nghttp).success(function (response) {
+            $scope.dest = response.ds;
+        })
+    }
+    //二级线路的选择
+    $scope.search1Dest = function (event) {
+        $(".searchtxt")[1].value = event.currentTarget.innerText;
+    }
+
     var nghttp3 = "../../ajax/areaHandler.ashx?fn=getarealist";
     $http.get(nghttp3).success(function (response) {
         $scope.area = response.ds;

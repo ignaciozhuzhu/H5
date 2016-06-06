@@ -472,13 +472,13 @@
                 <input style="margin:auto;height:40px;width:80%" class="background_size inputsc searchtxt" type="search" placeholder="路线/目的地/景点">
             </div>
             <div style="float:left;width:24%;">
-                <div ng-repeat="x in area" class="search0Dest" style="border: solid 2px #f5f5f5;margin: -2px;padding: 10%;">{{x.areaName}}<div ng-show="false">{{x.Id}}</div></div>
+                <div ng-repeat="x in area" ng-click="search0Dest($event)" style="border: solid 2px #f5f5f5;margin: -2px;padding: 10%;">
+                    {{x.areaName}}
+                <div ng-show="false">{{x.Id}}</div>
+                </div>
             </div>
             <div style="float:left;width:72%;margin-left:4%">
-                <div class="searchDest" style="float:left;width:46%;border: solid 2px #f5f5f5;margin: 2%;padding: 2%;">蜜月</div>
-                <div class="searchDest" style="float:left;width:46%;border: solid 2px #f5f5f5;margin: 2%;padding: 2%;">云南</div>
-                <div class="searchDest" style="float:left;width:46%;border: solid 2px #f5f5f5;margin: 2%;padding: 2%;">广西</div>
-                <div class="searchDest" style="float:left;width:46%;border: solid 2px #f5f5f5;margin: 2%;padding: 2%;">浙江</div>
+                <div ng-repeat="x in dest"  ng-click="search1Dest($event)" class="searchDest" style="float:left;width:46%;border: solid 2px #f5f5f5;margin: 2%;padding: 2%;">{{x.destName}}</div>
             </div>
         </div>
     </ion-content>
