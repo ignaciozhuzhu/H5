@@ -13,7 +13,7 @@
             </ol>
         </section>
 
-        <form id="example" class="modal hide fade in" style="display: none; height: 330px; width: 270px;">
+        <form id="example" class="modal hide fade in" style="display: none; height: 390px; width: 270px;">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
                 <h3>线路类型编辑</h3>
@@ -29,6 +29,13 @@
                     <div>分类编码:</div>
                     <div>
                         <input id="lineCategory" type="text" style="height: 30px" />
+                    </div>
+                    <div>样式归属:</div>
+                    <div>
+                        <select id="pattern">
+                            <option value="{{x.pattern}}" ng-repeat="x in patterns">{{x.pattern}}</option>
+                        </select>
+                        <%--<input id="pattern" type="text" style="height: 30px" />--%>
                     </div>
                     <div>图标:</div>
                     <input id="File1" name="File1" type="file" />
@@ -71,17 +78,20 @@
                     <div class="box">
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <div><img src='../../img/add.png' style="margin-left: 1%"><a ng-click="add()" data-toggle="modal" href="#example" >添加</a></div>
+                            <div>
+                                <img src='../../img/add.png' style="margin-left: 1%"><a ng-click="add()" data-toggle="modal" href="#example">添加</a>
+                            </div>
 
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th ng-hide="true">Id</th>
-                                        <th>分类名称</th>
-                                        <th>分类编码</th>
-                                        <th>图标</th>
-                                        <th>状态</th>
-                                        <th>操作</th>
+                                        <th style="width: 15%">分类名称</th>
+                                        <th style="width: 20%">分类编码</th>
+                                        <th style="width: 10%">图标</th>
+                                        <th style="width: 10%">样式归属</th>
+                                        <th style="width: 15%">状态</th>
+                                        <th style="width: 30%">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,6 +101,7 @@
                                         <td>{{x.lineCategory}}</td>
                                         <td>
                                             <img src="{{x.imgUrl}}" style="width: 30px; height: 30px"></td>
+                                        <td>{{x.pattern}}</td>
                                         <td>{{x.status===true?'可用':'禁用'}}</td>
                                         <td>
                                             <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#example">修改</a>
@@ -139,6 +150,8 @@
                 $('#categoryName')[0].value = "";
                 $('#lineCategory')[0].value = "";
                 $('#lineCategory').removeAttr('disabled');
+                $('#pattern')[0].value = "";
+                $('#pattern').removeAttr('disabled');
             };
             $scope.edit = function ($event) {
                 modalclass();
@@ -146,6 +159,8 @@
                 $('#categoryName')[0].value = $event.path[2].cells[1].innerText;
                 $('#lineCategory')[0].value = $event.path[2].cells[2].innerText;
                 $('#lineCategory').attr("disabled", "disabled");
+                $('#pattern')[0].value = $event.path[2].cells[4].innerText;
+                $('#pattern').attr("disabled", "disabled");
             };
             $scope.changeen = function ($event) {
                 modalclass1();
@@ -197,7 +212,11 @@
             $scope.reloadRoute = function () {
                 var path = document.getElementById("File1").value;
                 var img = document.getElementById("img1");
-                if ($.trim(path) == "") {
+                if ($('#pattern')[0].value === "") {
+                    alert("请选择样式归属");
+                    return;
+                }
+                if ($.trim(path) == "" && $('#pattern')[0].value === "S1") {
                     alert("请选择要上传的文件");
                     return;
                 }
@@ -221,7 +240,7 @@
                         error: function (error) { alert(error); },
                         url: '../../../ajax/lineCategoryHandler.ashx?fn=addcategory',
                         type: "post",
-                        data: { categoryName: $('#categoryName')[0].value, lineCategory: $('#lineCategory')[0].value },
+                        data: { categoryName: $('#categoryName')[0].value, lineCategory: $('#lineCategory')[0].value, pattern: $('#pattern')[0].value },
                         dataType: "text"
                     });
 
@@ -251,6 +270,11 @@
                 }
 
             }
+
+            var nghttp02 = "../../../ajax/lineCategoryHandler.ashx?fn=getpatterns";
+            $http.get(nghttp02).success(function (response) {
+                $scope.patterns = response.ds;
+            })
 
         });
 

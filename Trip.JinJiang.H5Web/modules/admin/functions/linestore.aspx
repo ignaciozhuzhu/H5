@@ -21,10 +21,6 @@
             <div class="modal-body">
                 <select id="sel">
                     <option value="{{x.lineCategory}}" ng-repeat="x in linecates">{{x.categoryName}}</option>
-                    <%--<option value="GROUPTRIP">跟团游</option>
-                        <option value="SHIP">游轮</option>
-                        <option value="OUT">出境游</option>
-                        <option value="ONSALE">特价游</option>--%>
                 </select>
                 <input type="text" name="txt" id="txt" style="display: none">
                 <input type="button" name="btn" value="btn" id="btn" style="display: none">

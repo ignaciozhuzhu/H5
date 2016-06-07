@@ -32,24 +32,25 @@ namespace Trip.JinJiang.H5Web.ajax
             context.Response.Write(msg);
             context.Response.End();
         }
-        
+
         /// <summary>
         /// 添加线路分类
         /// </summary>
         public void addcategory()
         {
             string fileName = commonHandler.uploadimg();
-            if (fileName == "0")
-            {
-                ResponseWriteEnd(HttpContext.Current, "4");//请选择要上传的文件  
-            }
-            else
-            {
-                string categoryName = HttpContext.Current.Request["categoryName"].ToString();
-                string lineCategory = HttpContext.Current.Request["lineCategory"].ToString();
-                string imgUrl = "../../../modules/img/" + fileName;
-                HttpContext.Current.Response.Write(Admin.addlinecategory(categoryName, lineCategory, imgUrl));
-            }
+            // if (fileName == "0")
+            //  {
+            //ResponseWriteEnd(HttpContext.Current, "4");//请选择要上传的文件  
+            //  }
+            //  else
+            // {
+            string categoryName = HttpContext.Current.Request["categoryName"].ToString();
+            string lineCategory = HttpContext.Current.Request["lineCategory"].ToString();
+            string imgUrl = "../../../modules/img/" + fileName;
+            string pattern = HttpContext.Current.Request["pattern"].ToString();
+            HttpContext.Current.Response.Write(Admin.addlinecategory(categoryName, lineCategory, imgUrl, pattern));
+            //   }
         }
 
         /// <summary>
@@ -70,6 +71,13 @@ namespace Trip.JinJiang.H5Web.ajax
                 int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
                 HttpContext.Current.Response.Write(Admin.editlinecategory(categoryName, lineCategory, imgUrl, Id));
             }
+        }
+        /// <summary>
+        /// 获得所有样式
+        /// </summary>
+        public void getpatterns()
+        {
+            HttpContext.Current.Response.Write(Admin.getpatterns());
         }
 
         public bool IsReusable

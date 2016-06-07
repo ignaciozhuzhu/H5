@@ -84,7 +84,7 @@
 <ion-view view-title="线路选择">
     <!--我来组成头部bg-->
     <div class="bar bar-header bar-stable">
-        <a class="headleftback" href="#/app/index" ng-click="listhistorygoback()">
+        <a class="headleftback" ng-click="listhistorygoback()">
             <div class="button back-button">
                 <img src="img/返回.png">
             </div>
@@ -116,9 +116,9 @@
         <div class="linelistbox">
             <ion-list>
                 <ion-item ng-repeat="playlist in linelists | filter:fAgencies | orderBy:orderByPrice | orderBy:orderByDay" href="#/app/linedetail/{{playlist.lineId}}">
-                    <div>
+                    <div ng-click="listent()">
                         <div class="imgdiv">
-                            <img ng-click="listent()" class="img" src={{playlist.imageUrls[0]}} alt="旅游图片" />
+                            <img class="img" src={{playlist.imageUrls[0]}} alt="旅游图片" />
                         </div>
                         <div class="rightcontent">
                             <div class="name">

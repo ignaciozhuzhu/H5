@@ -15,6 +15,7 @@ namespace Trip.JinJiang.H5.Model
         private string _imgUrl;
         private bool _status;
         private int _Id;
+        private string _pattern;
         /// <summary>
         /// 分类名称
         /// </summary>
@@ -54,6 +55,14 @@ namespace Trip.JinJiang.H5.Model
         {
             set { _Id = value; }
             get { return _Id; }
+        }
+        /// <summary>
+        /// 自增Id
+        /// </summary>
+        public string pattern
+        {
+            set { _pattern = value; }
+            get { return _pattern; }
         }
         #endregion Model
 

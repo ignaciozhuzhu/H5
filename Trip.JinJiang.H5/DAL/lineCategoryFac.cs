@@ -37,16 +37,20 @@ namespace Trip.JinJiang.H5.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into tbl_lineCategory(");
-            strSql.Append("categoryName,lineCategory,imgUrl)");
+            strSql.Append("categoryName,lineCategory,imgUrl,pattern )");
             strSql.Append(" values (");
-            strSql.Append("@categoryName,@lineCategory,@imgUrl)");
+            strSql.Append("@categoryName,@lineCategory,@imgUrl,@pattern)");
             SqlParameter[] parameters = {
                     new SqlParameter("@categoryName", SqlDbType.NVarChar,50),
                     new SqlParameter("@lineCategory", SqlDbType.NVarChar,50),
-                    new SqlParameter("@imgUrl", SqlDbType.NVarChar,300)};
+                    new SqlParameter("@imgUrl", SqlDbType.NVarChar,300),
+                    new SqlParameter("@pattern", SqlDbType.NVarChar,50)};
             parameters[0].Value = model.categoryName;
             parameters[1].Value = model.lineCategory;
+            if (model.imgUrl == "../../../modules/img/0")
+                model.imgUrl = "";
             parameters[2].Value = model.imgUrl;
+            parameters[3].Value = model.pattern;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -207,11 +211,11 @@ namespace Trip.JinJiang.H5.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select Id,lineCategory,categoryName,imgUrl,status ");
-            strSql.Append(" FROM tbl_lineCategory ");
+            strSql.Append("select Id,lineCategory,categoryName,imgUrl,status,pattern ");
+            strSql.Append(" FROM tbl_lineCategory where 1=1 ");
             if (strWhere.Trim() != "")
             {
-                strSql.Append(" where " + strWhere);
+                strSql.Append(" and " + strWhere);
             }
             return DbHelperSQL.Query(strSql.ToString());
         }
@@ -227,7 +231,7 @@ namespace Trip.JinJiang.H5.DAL
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" Id,lineCategory,categoryName,imgUrl,status ");
+            strSql.Append(" Id,lineCategory,categoryName,imgUrl,status,pattern ");
             strSql.Append(" FROM tbl_lineCategory ");
             if (strWhere.Trim() != "")
             {
@@ -281,6 +285,16 @@ namespace Trip.JinJiang.H5.DAL
             }
             strSql.Append(" ) TT");
             strSql.AppendFormat(" WHERE TT.Row between {0} and {1}", startIndex, endIndex);
+            return DbHelperSQL.Query(strSql.ToString());
+        }
+
+        /// <summary>
+        /// 获得所有样式
+        /// </summary>
+        public DataSet GetPatterns()
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select distinct pattern from tbl_lineCategory ");
             return DbHelperSQL.Query(strSql.ToString());
         }
 

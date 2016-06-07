@@ -102,6 +102,7 @@
     <Content Include="modules\admin\functions\linecategory.aspx" />
     <Content Include="modules\admin\functions\linestore.aspx" />
     <Content Include="modules\admin\functions\searchtag.aspx" />
+    <Content Include="modules\admin\master\StyleSheet1.css" />
     <Content Include="modules\angular\js\angular-route.js" />
     <Content Include="modules\bootstrap\css\bootstrap.css" />
     <Content Include="modules\bootstrap\css\bootstrap.min.css" />

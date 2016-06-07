@@ -104,6 +104,7 @@
                 for (var i = 0 ; i < d.rows.length; i++) {
                     for (var j = 0 ; j < response.lines.length; j++) {
                         if (d.rows[i].lineId == response.lines[j].lineId) {
+                            //debugger
                             //往搜索结果中添加合集(1)
                             if (response.lines[j].imageUrls[0] === undefined || response.lines[j].imageUrls[0] === null || response.lines[j].imageUrls[0].indexOf('http') < 0)
                                 response.lines[j].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg';
@@ -130,6 +131,10 @@
     });
     $scope.listent = function () {
         setCookie('ent2detail', lineCategory, 1);
+    }
+    $scope.listhistorygoback = function () {
+        window.location.href = "#/app/index";
+        location.reload();
     }
 })
 

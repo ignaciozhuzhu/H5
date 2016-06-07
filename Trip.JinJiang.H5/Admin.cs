@@ -44,7 +44,7 @@ namespace Trip.JinJiang.H5
             string str = "";
             if (status != "" && status != null)
             {
-                str = " status='true' ";
+                str = " status='true' and pattern = 'S1'";
             }
             lineCategoryFac lineCategoryFac = new lineCategoryFac();
             DataSet ds = lineCategoryFac.GetList(str);
@@ -56,12 +56,13 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 线路类型添加
         /// </summary>
-        public static string addlinecategory(string categoryName, string lineCategory, string imgUrl)
+        public static string addlinecategory(string categoryName, string lineCategory, string imgUrl,string pattern)
         {
             lineCategoryMod model = new lineCategoryMod();
             model.lineCategory = lineCategory;
             model.categoryName = categoryName;
             model.imgUrl = imgUrl;
+            model.pattern = pattern;
             lineCategoryFac Fac = new lineCategoryFac();
             if (Fac.Add(model))
             {
@@ -108,6 +109,18 @@ namespace Trip.JinJiang.H5
             lineCategoryFac Fac = new lineCategoryFac();
             Fac.Delete(Id);
             return "";
+        }
+
+        /// <summary>
+        /// 获得所有样式
+        /// </summary>
+        public static string getpatterns()
+        {
+            lineCategoryFac lineCategoryFac = new lineCategoryFac();
+            DataSet ds = lineCategoryFac.GetPatterns();
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
         }
         //-----------------------------线路分类管理   ed
 
