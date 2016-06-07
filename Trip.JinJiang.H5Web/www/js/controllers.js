@@ -192,7 +192,7 @@
         setCookie('ent2detail', 'index', 1);
     }
     //城目的地选择
-    $scope.desSelect = function () {
+    $scope.desSelect=function() {
         $('#divcontent').hide();
         $('#bartitle').hide();
         $('#divdesselect').show();
@@ -219,7 +219,6 @@
         $(".searchtxt")[1].placeholder = "";
         searchLines();
     }
-
     var nghttp3 = "../../ajax/areaHandler.ashx?fn=getarealist";
     $http.get(nghttp3).success(function (response) {
         $scope.area = response.ds;

@@ -274,7 +274,6 @@ function finderrorMsgadmin(response) {
         return
     else {
         layermyui(responsearr.errorMsg, 3000);
-        return;
     }
 }
 
