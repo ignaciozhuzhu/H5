@@ -36,6 +36,19 @@ namespace Trip.JinJiang.H5
         }
 
         //-----------------------------线路分类管理 bg
+
+        /// <summary>
+        /// 获取线路类型
+        /// </summary>
+        public static string getlinecategorys0()
+        {
+            lineCategoryFac lineCategoryFac = new lineCategoryFac();
+            DataSet ds = lineCategoryFac.GetList0();
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
+        }
+
         /// <summary>
         /// 获取线路类型
         /// </summary>
@@ -48,6 +61,27 @@ namespace Trip.JinJiang.H5
             }
             lineCategoryFac lineCategoryFac = new lineCategoryFac();
             DataSet ds = lineCategoryFac.GetList(str);
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
+        }
+
+        /// <summary>
+        /// 获取线路类型
+        /// </summary>
+        public static string getlinecategorys2(string status, string pattern)
+        {
+            string str = "";
+            if (status != "" && status != null)
+            {
+                str += " and b.status='true'";
+            }
+            if (pattern != "" && pattern != null)
+            {
+                str += " and b.pattern = '" + pattern + "'";
+            }
+            lineCategoryFac lineCategoryFac = new lineCategoryFac();
+            DataSet ds = lineCategoryFac.GetList2(str);
             ConvertJson ConvertJson = new ConvertJson();
             string json = ConvertJson.ToJson(ds);
             return json;
@@ -118,6 +152,17 @@ namespace Trip.JinJiang.H5
         {
             lineCategoryFac lineCategoryFac = new lineCategoryFac();
             DataSet ds = lineCategoryFac.GetPatterns();
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
+        }
+        /// <summary>
+        /// 获得S2所有分类
+        /// </summary>
+        public static string getpatternss2()
+        {
+            lineCategoryFac lineCategoryFac = new lineCategoryFac();
+            DataSet ds = lineCategoryFac.GetPatternsS2();
             ConvertJson ConvertJson = new ConvertJson();
             string json = ConvertJson.ToJson(ds);
             return json;

@@ -208,6 +208,16 @@ namespace Trip.JinJiang.H5.DAL
         /// <summary>
         /// 获得数据列表
         /// </summary>
+        public DataSet GetList0()
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select Id,lineCategory,categoryName,imgUrl,status,pattern ");
+            strSql.Append(" FROM tbl_lineCategory ");
+            return DbHelperSQL.Query(strSql.ToString());
+        }
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
@@ -216,6 +226,21 @@ namespace Trip.JinJiang.H5.DAL
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" and " + strWhere);
+            }
+            return DbHelperSQL.Query(strSql.ToString());
+        }
+
+
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetList2(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select b.lineCategory,lineId,lineName,name,title,imageUrls,minPrice,originalPrice from tbl_lineLists a left join tbl_lineCategory b on a.lineCategory=b.lineCategory");
+            if (strWhere != null && strWhere.Trim() != "")
+            {
+                strSql.Append(" where 1=1 " + strWhere);
             }
             return DbHelperSQL.Query(strSql.ToString());
         }
@@ -295,6 +320,16 @@ namespace Trip.JinJiang.H5.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select distinct pattern from tbl_lineCategory ");
+            return DbHelperSQL.Query(strSql.ToString());
+        }
+
+        /// <summary>
+        /// 获得S2所有分类
+        /// </summary>
+        public DataSet GetPatternsS2()
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select * from tbl_lineCategory where pattern='S2'");
             return DbHelperSQL.Query(strSql.ToString());
         }
 

@@ -80,6 +80,14 @@ namespace Trip.JinJiang.H5Web.ajax
             HttpContext.Current.Response.Write(Admin.getpatterns());
         }
 
+        /// <summary>
+        /// 获得S2所有分类
+        /// </summary>
+        public void getpatternss2()
+        {
+            HttpContext.Current.Response.Write(Admin.getpatternss2());
+        }
+
         public bool IsReusable
         {
             get

@@ -69,12 +69,14 @@ namespace Trip.JinJiang.H5Web.ajax
 
         /// <summary>
         /// 促销路线(暂时理解为热门路线)
+        /// 新 修改为动态后台设置获取,S2样式归属
         /// </summary>
         public void getlinespromotion()
         {
             try
             {
-                HttpContext.Current.Response.Write(JJH5Api.FindPromotion());
+                string pattern = (HttpContext.Current.Request["pattern"]).ToString();
+                HttpContext.Current.Response.Write(JJH5Api.FindPromotion(pattern));
             }
             catch (Exception e)
             {
@@ -182,6 +184,13 @@ namespace Trip.JinJiang.H5Web.ajax
         /// <summary>
         /// 获取线路类型
         /// </summary>
+        public void getlinecategorys0()
+        {
+            HttpContext.Current.Response.Write(Admin.getlinecategorys0());
+        }
+        /// <summary>
+        /// 获取线路类型
+        /// </summary>
         public void getlinecategorys()
         {
             string status = "";
@@ -191,6 +200,22 @@ namespace Trip.JinJiang.H5Web.ajax
             }
             catch { }
             HttpContext.Current.Response.Write(Admin.getlinecategorys(status));
+        }
+        public void getlinecategorys2()
+        {
+            string status = "";
+            try
+            {
+                status = HttpContext.Current.Request["status"];
+            }
+            catch { }
+            string pattern = "";
+            try
+            {
+                pattern = HttpContext.Current.Request["pattern"];
+            }
+            catch { }
+            HttpContext.Current.Response.Write(Admin.getlinecategorys2(status, pattern));
         }
 
         /// <summary>

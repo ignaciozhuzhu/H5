@@ -124,8 +124,9 @@
         }
 
         .indexbox .contentpwp {
-            height: 393px;
+            /*height: 393px;*/
             margin: 1.5%;
+            overflow: hidden;
         }
 
         .indexbox .morefoot {
@@ -486,69 +487,46 @@
     <ion-content class="indexbox" id="divcontent" on-scroll="getScrollPosition()" delegate-handle="indexDelegate">
         <!--这段轮播图-->
         <div class="sliderContainer fullWidth clearfix">
-            <div ng-click="indexent()"  id="full-width-slider" class="royalSlider heroSlider rsMinW">
+            <div ng-click="indexent()" id="full-width-slider" class="royalSlider heroSlider rsMinW">
             </div>
         </div>
         <div>
             <div class="linecatebox">
                 <div class="linecategorys" ng-repeat="x in linecategorys"><div><a href="#/app/linelists/{{x.lineCategory}}"><img src={{x.imgUrl}}></a></div><div>{{x.categoryName}}</div></div>
             </div>
-            <!--框头部-->
-            <div>
-                <div class="heightgray1"></div>
-                <div class="heightgray5"></div>
-                <div class=morefont><div class="graytitleleft"></div><div>热门路线</div></div>
-            </div>
-            <!--框内容-->
-            <div class="contentpwp">
-                <div ng-repeat="playlist in linelistsP">
-                    <div class="contentpw">
-                        <a ng-click="indexent()" href="#/app/linedetail/{{playlist.lineId}}"><img class="contentimg" src="{{playlist.imageUrls[0]}}" /></a>
-                        <div class="contentboxdiv">
-                            {{ playlist.name.length > 9 ? playlist.name.substring(0,8)+'...':playlist.name}}
-                        </div>
-                        <div>
-                            <span class="amountbg">¥{{playlist.originalPrice}}</span><span class="mountfont">起</span>
+
+            <div class="categorys2" ng-repeat="x2 in linecategorys2">
+                <!--框头部-->
+                <div>
+                    <div class="heightgray1"></div>
+                    <div class="heightgray5"></div>
+                    <div class=morefont><div class="graytitleleft"></div><div>{{x2.categoryName}}</div></div>
+                </div>
+                <!--框内容-->
+                <div class="contentpwp">
+                    <div ng-repeat="playlist in linecategorys2detail| filter:x2.lineCategory| limitTo:4 ">
+                        <div class="contentpw">
+                            <a ng-click="indexent()" href="#/app/linedetail/{{playlist.lineId}}"><img class="contentimg" src="{{playlist.imageUrls}}" /></a>
+                            <div class="contentboxdiv">
+                                {{ playlist.name.length > 9 ? playlist.name.substring(0,8)+'...':playlist.name}}
+                            </div>
+                            <div>
+                                <span class="amountbg">¥{{playlist.originalPrice}}</span><span class="mountfont">起</span>
+                            </div>
                         </div>
                     </div>
+
                 </div>
+                <!--查看更多-->
+                <div>
+                    <div class="morehead"></div>
+                    <a class="amore" href="#/app/linelists/"><div class="aligncenter">更多{{x2.categoryName}}<img class="imgmore" src="img/更多.png" /></div></a>
 
-            </div>
-            <!--查看更多-->
-            <div>
-                <div class="morehead"></div>
-                <a class="amore" href="#/app/linelists/"><div class="aligncenter">更多线路<img class="imgmore" src="img/更多.png" /></div></a>
-
-                <div class="morefoot"></div>
-            </div>
-            <!--框头部-->
-            <div>
-                <div class="heightgray1"></div>
-                <div class="heightgray5"></div>
-                <div class="morefont"><div class="graytitleleft"></div>近期特惠</div>
-            </div>
-            <!--框内容-->
-            <div class="contentpwp">
-                <div ng-repeat="playlist in linelistsN">
-                    <div class="contentpw">
-                        <a href="#/app/linedetail/{{playlist.lineId}}"><img class="contentimg" src="{{playlist.imageUrls[0]}}"></a>
-                        <div class="contentboxdiv">
-                            {{ playlist.name.length > 9 ? playlist.name.substring(0,8)+'...':playlist.name}}
-                        </div>
-                        <div>
-                            <span class="amountbg">¥{{playlist.originalPrice}}</span><span class="mountfont">起</span>
-                        </div>
-                    </div>
+                    <div class="morefoot"></div>
                 </div>
-
             </div>
 
-            <!--查看更多-->
-            <div>
-                <div class="morehead"></div>
-                <a class="amore" href="#/app/linelists/"><div class="aligncenter">更多特惠<img class="imgmore" src="img/更多.png" /></div></a>
-            </div>
-            <div class="morefoot"></div>
+
         </div>
         <div id="teledown"><a href="tel:10101666" class="telea"><img src="img/tele3.png" class="teleimg" /></a></div>
 

@@ -84,21 +84,28 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 促销路线(暂时理解为热门路线)
         /// </summary>
-        public static string FindPromotion()
+        public static string FindPromotion(string pattern)
         {
-            var data = "{\"isPromotion\":1}";
-            data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":80,\"rows\":80,\"search\":false,\"startRow\":1,\"total\":80}}";
-            var response = HttpUtil.Post(data, urllinesearch, contentType: "application/json");
-            response = maps.mapAgencies(response);
+            lineListsFac lineListsFac = new lineListsFac();
+            DataSet ds = lineListsFac.GetListFront4(pattern);
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
 
-            if (response != null)
-            {
-                return response;
-            }
-            else
-            {
-                return null;
-            }
+            //lineListsFac lineListsFac=new lineListsFac();
+            //var data = "{\"isPromotion\":1}";
+            //data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":80,\"rows\":80,\"search\":false,\"startRow\":1,\"total\":80}}";
+            //var response = HttpUtil.Post(data, urllinesearch, contentType: "application/json");
+            //response = maps.mapAgencies(response);
+
+            //if (response != null)
+            //{
+            //    return response;
+            //}
+            //else
+            //{
+            //    return null;
+            //}
         }
 
         /// <summary>

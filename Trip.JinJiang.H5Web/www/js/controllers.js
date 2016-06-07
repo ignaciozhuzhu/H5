@@ -162,42 +162,62 @@
     }
 
     //分类图标
-    var nghttpcategory = "../../ajax/apihandler.ashx?fn=getlinecategorys&status=true";
+    var nghttpcategory = "../../ajax/apihandler.ashx?fn=getlinecategorys&status=true&pattern=S1";
     $http.get(nghttpcategory).success(function (response) {
         $scope.linecategorys = response.ds;
     })
 
-
-    var nghttp = "../../ajax/apihandler.ashx?fn=getlinespromotion";
-    $http.get(nghttp).success(function (response) {
+    var nghttp02 = "../../../ajax/lineCategoryHandler.ashx?fn=getpatternss2";
+    $http.get(nghttp02).success(function (response) {
+        // debugger
+        $scope.linecategorys2 = response.ds;
+    })
+    //分类样式S2
+    var nghttppattern = "../../ajax/apihandler.ashx?fn=getlinecategorys2&status=true&pattern=S2";
+    $http.get(nghttppattern).success(function (response) {
         //debugger
-        for (var i = 0; i < 8; i++) {
-            if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0] === null || response.lines[i].imageUrls[0].indexOf('http') < 0)
-                response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
+        var myimgurl;
+        for (var i = 0; i < response.ds.length; i++) {
+            myimgurl = response.ds[i].imageUrls;
+            if (myimgurl.indexOf('|') > 0) {
+                myimgurl = myimgurl.substring(0, myimgurl.indexOf('|'));
+                response.ds[i].imageUrls = myimgurl;
+            }
         }
-        var arrayLineP = new Array(0);
-        arrayLineP.push(response.lines[0]);
-        arrayLineP.push(response.lines[1]);
-        arrayLineP.push(response.lines[2]);
-        arrayLineP.push(response.lines[3]);
+        $scope.linecategorys2detail = response.ds;
+    })
 
-        var arrayLineN = new Array(0);
-        arrayLineN.push(response.lines[4]);
-        arrayLineN.push(response.lines[5]);
-        arrayLineN.push(response.lines[6]);
-        arrayLineN.push(response.lines[7]);
+    //var nghttp = "../../ajax/apihandler.ashx?fn=getlinespromotion&pattern=S2";
+    //$http.get(nghttp).success(function (response) {
 
-        $scope.linelistsP = arrayLineP;
-        $scope.linelistsN = arrayLineN;
-        $scope.agencies = response.agencies;
+    //  //  if ($scope.linecategorys2[0].categoryName == response.ds[0].lineCategory)
+    //    //for (var i = 0; i < 8; i++) {
+    //    //    if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0] === null || response.lines[i].imageUrls[0].indexOf('http') < 0)
+    //    //        response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
+    //    //}
+    //    //var arrayLineP = new Array(0);
+    //    //arrayLineP.push(response.lines[0]);
+    //    //arrayLineP.push(response.lines[1]);
+    //    //arrayLineP.push(response.lines[2]);
+    //    //arrayLineP.push(response.lines[3]);
 
-    });
+    //    //var arrayLineN = new Array(0);
+    //    //arrayLineN.push(response.lines[4]);
+    //    //arrayLineN.push(response.lines[5]);
+    //    //arrayLineN.push(response.lines[6]);
+    //    //arrayLineN.push(response.lines[7]);
+
+    //    $scope.linelistsP = arrayLineP;
+    //    $scope.linelistsN = arrayLineN;
+    //    $scope.agencies = response.agencies;
+
+    //});
 
     $scope.indexent = function () {
         setCookie('ent2detail', 'index', 1);
     }
     //城目的地选择
-    $scope.desSelect=function() {
+    $scope.desSelect = function () {
         $('#divcontent').hide();
         $('#bartitle').hide();
         $('#divdesselect').show();

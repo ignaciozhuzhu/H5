@@ -475,6 +475,23 @@ namespace Trip.JinJiang.H5.DAL
             return DbHelperSQL.Query(strSql.ToString());
         }
 
+
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetListFront4(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select lineId,lineName,name,title,destinationInfo,spotInfo,lineSubjectInfo,destination,spot,lineSubject,manualRecommend,imageNo,brand,agency,days,isPromotion,departureMonth,priceScope,point,imageUrls,b.categoryName as lineCategory,minPrice,productCode,priceScopeAndLine,lineDistrict,originalPrice,priceExplain,recommend,b.pattern ");
+            strSql.Append(" FROM tbl_lineLists a left join tbl_lineCategory b on a.lineCategory=b.lineCategory");
+            if (strWhere != null && strWhere.Trim() != "")
+            {
+                strWhere = " b.pattern='" + strWhere + "'";
+                strSql.Append(" where " + strWhere);
+            }
+            return DbHelperSQL.Query(strSql.ToString());
+        }
+
         /// <summary>
         /// 获得前几行数据
         /// </summary>
