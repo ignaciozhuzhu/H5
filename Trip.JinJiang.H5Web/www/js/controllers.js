@@ -146,6 +146,9 @@
             }
         });
     });
+    $scope.searchlines = function () {
+        searchLines();
+    }
 
     //滚动,下拉出电话
     $scope.getScrollPosition = function () {
@@ -189,7 +192,7 @@
         setCookie('ent2detail', 'index', 1);
     }
     //城目的地选择
-    $scope.desSelect=function() {
+    $scope.desSelect = function () {
         $('#divcontent').hide();
         $('#bartitle').hide();
         $('#divdesselect').show();
@@ -204,7 +207,7 @@
     //二级线路查询
     $scope.search0Dest = function (event) {
         //debugger
-         var aId = event.currentTarget.lastElementChild.innerText;
+        var aId = event.currentTarget.lastElementChild.innerText;
         var nghttp = "../../ajax/areaHandler.ashx?fn=getarea2list&aId=" + aId + "";
         $http.get(nghttp).success(function (response) {
             $scope.dest = response.ds;
@@ -213,6 +216,8 @@
     //二级线路的选择
     $scope.search1Dest = function (event) {
         $(".searchtxt")[1].value = event.currentTarget.innerText;
+        $(".searchtxt")[1].placeholder = "";
+        searchLines();
     }
 
     var nghttp3 = "../../ajax/areaHandler.ashx?fn=getarealist";
@@ -258,7 +263,18 @@
             getPro();
         })
 
+        //初始化二级目的地页面
+        var aId = 1;
+        var nghttp = "../../ajax/areaHandler.ashx?fn=getarea2list&aId=" + aId + "";
+        $http.get(nghttp).success(function (response) {
+            $scope.dest = response.ds;
+        })
 
+        //空搜关键词
+        var nghttp = "../../ajax/areaHandler.ashx?fn=getarea3list";
+        $http.get(nghttp).success(function (response) {
+            $("#divdesselect .searchtxt").attr('placeholder', response.ds[0].searchName)
+        })
 
     });
 
@@ -305,7 +321,7 @@
 
         //行程
         if (response.line === null) {
-            layermyui('此线路暂无详细数据!',1500);
+            layermyui('此线路暂无详细数据!', 1500);
             window.location.href = "#/app/index";
             return;
         }
@@ -843,7 +859,11 @@ function citySelect() {
 
 //线路查询传参,前台点击事件
 function searchLines() {
-    var searchParam = $(".searchtxt")[1].value;
+    var searchParam;
+    if ($(".searchtxt")[1].placeholder !== "")
+        searchParam = $(".searchtxt")[1].placeholder;
+    else
+        searchParam = $(".searchtxt")[1].value;
     window.location.href = '#/app/linelists?search=' + searchParam;
 }
 

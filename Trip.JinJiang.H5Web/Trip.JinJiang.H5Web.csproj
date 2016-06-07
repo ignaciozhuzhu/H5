@@ -197,6 +197,8 @@
     <Content Include="modules\img\edit.png" />
     <Content Include="modules\img\logo5.png" />
     <Content Include="modules\img\okbtn.png" />
+    <Content Include="modules\img\radiono.png" />
+    <Content Include="modules\img\radiook.png" />
     <Content Include="modules\img\取消标签.png" />
     <Content Include="modules\index.html" />
     <Content Include="modules\js\jquery-form.js" />
