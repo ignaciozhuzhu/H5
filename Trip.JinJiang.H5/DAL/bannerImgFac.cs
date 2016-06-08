@@ -37,17 +37,19 @@ namespace Trip.JinJiang.H5.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into tbl_bannerImg(");
-            strSql.Append("alt,imgUrl,lineId)");
+            strSql.Append("alt,imgUrl,lineId,[order])");
             strSql.Append(" values (");
-            strSql.Append("@alt,@imgUrl,@lineId)");
+            strSql.Append("@alt,@imgUrl,@lineId,@order)");
             strSql.Append(";select @@IDENTITY");
             SqlParameter[] parameters = {
                     new SqlParameter("@alt", SqlDbType.NVarChar,100),
                     new SqlParameter("@imgUrl", SqlDbType.NVarChar,200),
-                    new SqlParameter("@lineId", SqlDbType.Int,4)};
+                    new SqlParameter("@lineId", SqlDbType.Int,4),
+                    new SqlParameter("@order", SqlDbType.Int,4)};
             parameters[0].Value = model.alt;
             parameters[1].Value = model.imgUrl;
             parameters[2].Value = model.lineId;
+            parameters[3].Value = model.order;
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
             if (obj == null)
@@ -68,17 +70,20 @@ namespace Trip.JinJiang.H5.DAL
             strSql.Append("update tbl_bannerImg set ");
             strSql.Append("alt=@alt,");
             strSql.Append("imgUrl=@imgUrl, ");
-            strSql.Append("lineId=@lineId ");
+            strSql.Append("lineId=@lineId, ");
+            strSql.Append("[order]=@order ");
             strSql.Append(" where Id=@Id");
             SqlParameter[] parameters = {
                     new SqlParameter("@alt", SqlDbType.NVarChar,100),
                     new SqlParameter("@imgUrl", SqlDbType.NVarChar,200),
                     new SqlParameter("@lineId", SqlDbType.Int,4),
+                    new SqlParameter("@order", SqlDbType.Int,4),
                     new SqlParameter("@Id", SqlDbType.Int,4)};
             parameters[0].Value = model.alt;
             parameters[1].Value = model.imgUrl;
             parameters[2].Value = model.lineId;
-            parameters[3].Value = model.Id;
+            parameters[3].Value = model.order;
+            parameters[4].Value = model.Id;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -226,12 +231,13 @@ namespace Trip.JinJiang.H5.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select Id,alt,imgUrl,status,lineId ");
+            strSql.Append("select Id,alt,imgUrl,status,lineId,[order] ");
             strSql.Append(" FROM tbl_bannerImg ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
             }
+            strSql.Append(" order by [order] asc ");
             return DbHelperSQL.Query(strSql.ToString());
         }
 
@@ -246,13 +252,13 @@ namespace Trip.JinJiang.H5.DAL
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" Id,alt,imgUrl,status,lineId ");
+            strSql.Append(" Id,alt,imgUrl,status,lineId,[order] ");
             strSql.Append(" FROM tbl_bannerImg ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
             }
-            strSql.Append(" order by " + filedOrder);
+            strSql.Append(" order by [order] asc ");
             return DbHelperSQL.Query(strSql.ToString());
         }
 

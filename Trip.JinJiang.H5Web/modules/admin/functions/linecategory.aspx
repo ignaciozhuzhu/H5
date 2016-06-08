@@ -36,7 +36,7 @@
                             <option value="{{x.pattern}}" ng-repeat="x in patterns">{{x.pattern}}</option>
                         </select>
                     </div>
-                    <div>排序:(小的靠前)</div>
+                    <div>排序:</div>
                     <div>
                         <input id="order" type="number" style="height: 30px" />
                     </div>

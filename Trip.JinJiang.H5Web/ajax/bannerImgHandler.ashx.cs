@@ -61,7 +61,8 @@ namespace Trip.JinJiang.H5Web.ajax
                 string alt = HttpContext.Current.Request["alt"].ToString();
                 string imgUrl = "../../../modules/img/" + fileName;
                 int lineId = Convert.ToInt32(HttpContext.Current.Request["lineId"]);
-                HttpContext.Current.Response.Write(Admin.addbannerimg(alt, imgUrl, lineId));
+                int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
+                HttpContext.Current.Response.Write(Admin.addbannerimg(alt, imgUrl, lineId, order));
             }
         }
 
@@ -81,7 +82,8 @@ namespace Trip.JinJiang.H5Web.ajax
                 string imgUrl = "../../../modules/img/" + fileName;
                 int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
                 int lineId = Convert.ToInt32(HttpContext.Current.Request["lineId"]);
-                HttpContext.Current.Response.Write(Admin.editbannerimg(alt, imgUrl, Id, lineId));
+                int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
+                HttpContext.Current.Response.Write(Admin.editbannerimg(alt, imgUrl, Id, lineId, order));
             }
         }
 

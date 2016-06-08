@@ -169,6 +169,19 @@ namespace Trip.JinJiang.H5Web.ajax
             }
             catch { }
             HttpContext.Current.Response.Write(Admin.getlinesAd(category));
+        } 
+        /// <summary>
+          /// 后台线路库(带筛选)
+          /// </summary>
+        public void getlinesadsearch()
+        {
+            string search = "";
+            try
+            {
+                search = HttpContext.Current.Request["search"];
+            }
+            catch { }
+            HttpContext.Current.Response.Write(Admin.getlinesadsearch(search));
         }
         /// <summary>
         /// 更新线路的类型

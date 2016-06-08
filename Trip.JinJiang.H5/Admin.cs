@@ -20,7 +20,17 @@ namespace Trip.JinJiang.H5
             ConvertJson ConvertJson = new ConvertJson();
             string json = ConvertJson.ToJson(ds);
             return json;
-
+        }
+        /// <summary>
+        /// 获取后台线路库列表
+        /// </summary>
+        public static string getlinesadsearch(string search)
+        {
+            lineListsFac lineListsFac = new lineListsFac();
+            DataSet ds = lineListsFac.GetListsearch(search);
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
         }
         /// <summary>
         /// 更改线路的类型
@@ -90,7 +100,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 线路类型添加
         /// </summary>
-        public static string addlinecategory(string categoryName, string lineCategory, string imgUrl,string pattern,int order)
+        public static string addlinecategory(string categoryName, string lineCategory, string imgUrl, string pattern, int order)
         {
             lineCategoryMod model = new lineCategoryMod();
             model.lineCategory = lineCategory;
@@ -110,7 +120,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 线路类型编辑
         /// </summary>
-        public static string editlinecategory(string categoryName, string lineCategory, string imgUrl, int Id,int order)
+        public static string editlinecategory(string categoryName, string lineCategory, string imgUrl, int Id, int order)
         {
             lineCategoryMod model = new lineCategoryMod();
             model.lineCategory = lineCategory;
@@ -192,12 +202,13 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 轮播图添加
         /// </summary>
-        public static string addbannerimg(string alt, string imgUrl,int lineId)
+        public static string addbannerimg(string alt, string imgUrl, int lineId, int order)
         {
             bannerImgMod model = new bannerImgMod();
             model.alt = alt;
             model.imgUrl = imgUrl;
             model.lineId = lineId;
+            model.order = order;
             bannerImgFac Fac = new bannerImgFac();
             if (Fac.Add(model) > 0)
             {
@@ -210,13 +221,14 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 轮播图编辑
         /// </summary>
-        public static string editbannerimg(string alt, string imgUrl, int Id,int lineId)
+        public static string editbannerimg(string alt, string imgUrl, int Id, int lineId, int order)
         {
             bannerImgMod model = new bannerImgMod();
             model.alt = alt;
             model.imgUrl = imgUrl;
             model.Id = Id;
             model.lineId = lineId;
+            model.order = order;
             bannerImgFac Fac = new bannerImgFac();
             if (Fac.Update(model))
             {
@@ -398,7 +410,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 空搜关键词编辑
         /// </summary>
-        public static string editarea3(string searchName , int Id)
+        public static string editarea3(string searchName, int Id)
         {
             emptySearchMod model = new emptySearchMod();
             model.searchName = searchName;

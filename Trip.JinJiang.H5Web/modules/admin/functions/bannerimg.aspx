@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <style>
         #example.modal {
-            max-height: 600px;
+            max-height: 700px;
             max-width: 1300px;
             left: 30%;
             top: 30%;
@@ -21,46 +21,22 @@
             </ol>
         </section>
 
-        <form id="example" class="modal hide fade in" style="display: none; height: 600px; width: 1300px;">
+        <form id="example" class="modal hide fade in" style="display: none; height: 700px; width: 1300px;">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
                 <h3>编辑</h3>
             </div>
             <div class="modal-body">
-                <div class="col-xs-4">
-                    <div>
-                        <div>描述:</div>
-                        <div>
-                            <input id="alt" type="text" style="height: 30px" />
-                        </div>
-                    </div>
-                    <div>
-                        <div>选择线路:</div>
-                        <select ng-model="selectedcate" ng-options="x.categoryName for x in linecates">
-                        </select>
-                        <input ng-click="filtcategory()" type="button" value="筛选">
-                    </div>
-                    <div>
-                        <div>线路名称:</div>
-                        <div>
-                            <input id="linename" disabled type="text" style="height: 30px" />
-                            <input id="linenameid" type="text" style="height: 30px; display: none" />
-                        </div>
-                    </div>
-                    <div>
-                        <div>图片:</div>
-                        <input id="File1" name="File1" type="file" />
-                    </div>
-                    <input type="text" name="txt" id="txt" style="display: none">
-                    <input type="button" name="btn" value="btn" id="btn" style="display: none">
-                    <div class="modal-footer">
-                        <a href="#" class="btn btn-success" ng-click="reloadRoute()">保存</a>
-                        <a href="#" class="btn" data-dismiss="modal">关闭</a>
-                    </div>
-                </div>
 
                 <div class="col-xs-8">
-
+                    
+                    <div>
+                        <div>名称或类型或线路ID:</div>
+<%--                        <select ng-model="selectedcate" ng-options="x.categoryName for x in linecates">
+                        </select>--%>
+                        <input id="selectedcate" type="text" style="height: 30px" />
+                        <input ng-click="filtcategory()" type="button" value="查找">
+                    </div>
                     <div class="box">
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -95,6 +71,44 @@
                         <!-- /.box-body -->
                     </div>
                     <!-- /.box -->
+                </div>
+                
+                <div class="col-xs-4">
+                    <div>
+                        <div>描述:</div>
+                        <div>
+                            <input id="alt" type="text" style="height: 30px" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>线路名称:</div>
+                        <div>
+                            <input id="linename" disabled type="text" style="height: 30px" />
+                            <input id="linenameid" type="text" style="height: 30px; display: none" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>H5Url:</div>
+                        <div>
+                            <input id="H5Url" disabled type="text" style="height: 30px" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>排序:</div>
+                        <div>
+                            <input id="order" type="number" style="height: 30px" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>图片:尺寸建议(宽412px 高202px)</div>
+                        <input id="File1" name="File1" type="file" />
+                    </div>
+                    <input type="text" name="txt" id="txt" style="display: none">
+                    <input type="button" name="btn" value="btn" id="btn" style="display: none">
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-success" ng-click="reloadRoute()">保存</a>
+                        <a href="#" class="btn" data-dismiss="modal">关闭</a>
+                    </div>
                 </div>
             </div>
         </form>
@@ -138,7 +152,9 @@
                                         <th ng-hide="true">Id</th>
                                         <th>描述</th>
                                         <th>图片</th>
-                                        <th>状态</th>
+                                        <th style="width:10%">排序</th>
+                                        <th>H5Url</th>
+                                        <th style="width:10%">状态</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
@@ -148,6 +164,8 @@
                                         <td>{{x.alt}}</td>
                                         <td>
                                             <img src="{{x.imgUrl}}" style="width: 200px; height: 120px"></td>
+                                        <td>{{x.order}}</td>
+                                        <td>{{x.H5Url}}</td>
                                         <td>{{x.status===true?'可用':'禁用'}}</td>
                                         <td>
                                             <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#example">修改</a>
@@ -194,11 +212,15 @@
                 modalclass();
                 selectid = "";
                 $('#alt')[0].value = "";
+                $('#order')[0].value = "1";
+                //$('#selectedcate')[0].value = "";
             };
             $scope.edit = function ($event) {
                 modalclass();
                 selectid = $event.path[2].cells[0].innerText;
                 $('#alt')[0].value = $event.path[2].cells[1].innerText;
+                $('#order')[0].value = $event.path[2].cells[3].innerText;
+                $('#H5Url')[0].value = $event.path[2].cells[4].innerText;
             };
             $scope.changeen = function ($event) {
                 modalclass1();
@@ -246,9 +268,8 @@
             $scope.filtcategory = function () {
                 //线路列表bg
                 //debugger
-                var filtcate = $scope.selectedcate.categoryName;
-                // debugger
-                var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesad&category=" + filtcate + "";
+                var filtcate = $('#selectedcate').val(); //$scope.selectedcate.categoryName;
+                var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesadsearch&search=" + filtcate + "";
                 $http.get(nghttp).success(function (response) {
                     //  debugger
                     $scope.pageCount2 = Math.ceil(response.ds.length / percount);
@@ -349,7 +370,7 @@
                         error: function (error) { alert(error); },
                         url: '../../../ajax/bannerImgHandler.ashx?fn=addbannerimg',
                         type: "post",
-                        data: { alt: $('#alt')[0].value, lineId: linenameid },
+                        data: { alt: $('#alt')[0].value, lineId: linenameid, order: $('#order')[0].value },
                         dataType: "text"
                     });
 
@@ -372,7 +393,7 @@
                         error: function (error) { alert(error); },
                         url: '../../../ajax/bannerImgHandler.ashx?fn=editbannerimg',
                         type: "post",
-                        data: { alt: $('#alt')[0].value, Id: selectid, lineId: linenameid },
+                        data: { alt: $('#alt')[0].value, Id: selectid, lineId: linenameid, order: $('#order')[0].value },
                         dataType: "text"
                     });
 
