@@ -240,9 +240,19 @@
     }
     //二级线路的选择
     $scope.search1Dest = function (event) {
-        $(".searchtxt")[1].value = event.currentTarget.innerText;
-        $(".searchtxt")[1].placeholder = "";
-        searchLines();
+        //debugger
+        //如果有做过特殊关键词链接,则直接跳转不解释.否则就老老实实查询
+        if (!event.currentTarget.childNodes[1].innerText) {
+            $(".searchtxt")[1].value = event.currentTarget.innerText;
+            $(".searchtxt")[1].placeholder = "";
+            searchLines();
+            return;
+        }
+        else {
+            window.location.href = event.currentTarget.childNodes[1].innerText;
+            return;
+        }
+
     }
     var nghttp3 = "../../ajax/areaHandler.ashx?fn=getarealist";
     $http.get(nghttp3).success(function (response) {

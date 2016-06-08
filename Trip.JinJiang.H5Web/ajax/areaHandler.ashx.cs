@@ -85,7 +85,8 @@ namespace Trip.JinJiang.H5Web.ajax
             int aId = Convert.ToInt32(HttpContext.Current.Request["aId"]);
             string destName = HttpContext.Current.Request["destName"].ToString();
             int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
-            HttpContext.Current.Response.Write(Admin.addarea2(aId, destName, order));
+            string H5Url = HttpContext.Current.Request["H5Url"].ToString();
+            HttpContext.Current.Response.Write(Admin.addarea2(aId, destName, order,H5Url));
         }
         /// <summary>
         /// 目的地标签编辑
@@ -96,7 +97,8 @@ namespace Trip.JinJiang.H5Web.ajax
             string destName = HttpContext.Current.Request["destName"].ToString();
             int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
             int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-            HttpContext.Current.Response.Write(Admin.editarea2(aId, destName, order, Id));
+            string H5Url = HttpContext.Current.Request["H5Url"].ToString();
+            HttpContext.Current.Response.Write(Admin.editarea2(aId, destName, order, Id, H5Url));
         }
         /// <summary>
         /// 目的地标签管理禁用

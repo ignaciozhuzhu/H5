@@ -15,6 +15,7 @@ namespace Trip.JinJiang.H5.Model
         private string _destname;
         private bool _status = true;
         private int _order = 1;
+        private string _H5Url;
         /// <summary>
         /// 
         /// </summary>
@@ -54,6 +55,12 @@ namespace Trip.JinJiang.H5.Model
         {
             set { _order = value; }
             get { return _order; }
+        }
+
+        public string H5Url
+        {
+            set { _H5Url = value; }
+            get { return _H5Url; }
         }
         #endregion Model
 

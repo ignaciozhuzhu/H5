@@ -335,12 +335,13 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 目的地标签添加
         /// </summary>
-        public static string addarea2(int aId, string destName, int order)
+        public static string addarea2(int aId, string destName, int order,string H5Url)
         {
             destMod model = new destMod();
             model.A_Id = aId;
             model.destName = destName;
             model.order = order;
+            model.H5Url = H5Url;
             destFac Fac = new destFac();
             if (Fac.Add(model) > 0)
             {
@@ -353,13 +354,14 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 目的地标签编辑
         /// </summary>
-        public static string editarea2(int aId, string destName, int order, int Id)
+        public static string editarea2(int aId, string destName, int order, int Id, string H5Url)
         {
             destMod model = new destMod();
             model.A_Id = aId;
             model.destName = destName;
             model.order = order;
             model.Id = Id;
+            model.H5Url = H5Url;
             destFac Fac = new destFac();
             if (Fac.Update(model))
             {

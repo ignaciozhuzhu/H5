@@ -7,8 +7,8 @@
         <section class="content-header">
             <h1>目的地标签管理
                     <small>操作</small>
-                    <small><a href="" ng-click="ks1()">目的地标签</a></small>
-                    <small><a href="" ng-click="ks2()">空搜关键字</a></small>
+                <small><a href="" ng-click="ks1()">目的地标签</a></small>
+                <small><a href="" ng-click="ks2()">空搜关键字</a></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>H5</a></li>
@@ -19,8 +19,8 @@
 
         <!-- Main content -->
         <section class="content">
-            
-            <div class="row" id="row1" >
+
+            <div class="row" id="row1">
                 <div class="col-xs-6">
 
                     <!--弹出框编辑开始-->
@@ -67,7 +67,8 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div>
-                                <img src='../../img/add.png'><a ng-click="add()" data-toggle="modal" href="#editbox" style="margin-left: 1%">添加</a></div>
+                                <img src='../../img/add.png'><a ng-click="add()" data-toggle="modal" href="#editbox" style="margin-left: 1%">添加</a>
+                            </div>
 
                             <table class="table table-bordered table-striped">
                                 <thead>
@@ -119,6 +120,12 @@
                                     <input id="order2" type="number" style="height: 30px" />
                                 </div>
                             </div>
+                            <div>
+                                <div>关键词链接:(格式遵循http://)</div>
+                                <div>
+                                    <input id="H5Url2" type="text" style="height: 30px" />
+                                </div>
+                            </div>
                             <input type="text" name="txt" id="txt" style="display: none">
                             <input type="button" name="btn" value="btn" id="btn" style="display: none">
                         </div>
@@ -144,7 +151,8 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div>
-                                <img src='../../img/add.png'><a id="addtag" disabled ng-click="add()" data-toggle="modal" href="#editbox2" style="margin-left: 1%">添加</a></div>
+                                <img src='../../img/add.png'><a id="addtag" disabled ng-click="add()" data-toggle="modal" href="#editbox2" style="margin-left: 1%">添加</a>
+                            </div>
 
                             <table class="table table-bordered table-striped">
                                 <thead>
@@ -152,6 +160,7 @@
                                         <th ng-hide="true">Id</th>
                                         <th>二级标签</th>
                                         <th ng-hide="true">排序</th>
+                                        <th>链接</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
@@ -160,6 +169,7 @@
                                         <td ng-hide="true">{{x.Id}}</td>
                                         <td>{{x.destName}}</td>
                                         <td ng-hide="true">{{x.order}}</td>
+                                        <td>{{x.H5Url}}</td>
                                         <td>
                                             <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#editbox2">修改</a>
                                             <img style="margin-left: 5%" src='../../img/delete.png'><a ng-click="changeen($event)" data-toggle="modal" href="#confirmbox2">禁用</a>
@@ -177,9 +187,9 @@
                 <!-- /.col -->
             </div>
 
-            
+
             <!-- 空搜关键字-->
-            <div class="row" id="row3" ng-controller="thirdCtrl" style="display:none">
+            <div class="row" id="row3" ng-controller="thirdCtrl" style="display: none">
                 <div class="col-xs-6">
 
                     <!--弹出框编辑开始-->
@@ -198,7 +208,7 @@
                             <div>
                                 <div>关键词链接:(格式遵循http://)</div>
                                 <div>
-                                    <input id="H5Url" type="text" style="height: 30px" />
+                                    <input id="H5Url3" type="text" style="height: 30px" />
                                 </div>
                             </div>
                             <input type="text" name="txt" id="txt" style="display: none">
@@ -226,7 +236,8 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div>
-                                <img src='../../img/add.png'><a ng-click="add()" data-toggle="modal" href="#editbox3" style="margin-left: 1%">添加</a></div>
+                                <img src='../../img/add.png'><a ng-click="add()" data-toggle="modal" href="#editbox3" style="margin-left: 1%">添加</a>
+                            </div>
 
                             <table class="table table-bordered table-striped">
                                 <thead>
@@ -402,12 +413,14 @@
                 selectid = "";
                 $('#destName')[0].value = "";
                 $('#order2')[0].value = "1";
+                $('#H5Url')[0].value = "";
             };
             $scope.edit = function ($event) {
                 modalclass();
                 selectid = $event.path[2].cells[0].innerText;
                 $('#destName')[0].value = $event.path[2].cells[1].innerText;
                 $('#order2')[0].value = $event.path[2].cells[2].innerText;
+                $('#H5Url2')[0].value = $event.path[2].cells[3].innerText;
             };
             $scope.changeen = function ($event) {
                 modalclass();
@@ -427,11 +440,12 @@
             $scope.reloadRoute = function () {
                 var destName = $('#destName')[0].value;
                 var order = $('#order2')[0].value;
+                var H5Url = $('#H5Url2')[0].value;
                 if (selectid === null || selectid === undefined || selectid === "") {
                     $.ajax({
                         url: "../../../ajax/areaHandler.ashx?fn=addarea2",
                         type: "post",
-                        data: { aId: aid, destName: destName, order: order },
+                        data: { aId: aid, destName: destName, order: order, H5Url: H5Url },
                         success: function (text) {
                             setCookie('tagaid', aid, 1);
                             $window.location.reload();
@@ -442,7 +456,7 @@
                     $.ajax({
                         url: "../../../ajax/areaHandler.ashx?fn=editarea2",
                         type: "post",
-                        data: { aId: aid, Id: selectid, destName: destName, order: order },
+                        data: { aId: aid, Id: selectid, destName: destName, order: order, H5Url: H5Url },
                         success: function (text) {
                             setCookie('tagaid', aid, 1);
                             $window.location.reload();
@@ -465,13 +479,13 @@
                 modalclass();
                 selectid = $event.path[2].cells[0].innerText;
                 $('#searchName')[0].value = $event.path[2].cells[1].innerText;
-                $('#H5Url')[0].value = $event.path[2].cells[2].innerText;
+                $('#H5Url3')[0].value = $event.path[2].cells[2].innerText;
             };
             $scope.changeen = function ($event) {
                 modalclass();
                 selectid = $event.path[2].cells[0].innerText;
             };
-            var nghttp = "../../../ajax/areaHandler.ashx?fn=getarea3list"; 
+            var nghttp = "../../../ajax/areaHandler.ashx?fn=getarea3list";
             $http.get(nghttp).success(function (response) {
                 responseCache = response;
                 var arrayLine = new Array(0);
@@ -497,7 +511,7 @@
 
             $scope.reloadRoute = function () {
                 var searchName = $('#searchName')[0].value;
-                var H5Url = $('#H5Url')[0].value;
+                var H5Url = $('#H5Url3')[0].value;
                 if (selectid === null || selectid === undefined || selectid === "") {
                     $.ajax({
                         url: "../../../ajax/areaHandler.ashx?fn=addarea3",

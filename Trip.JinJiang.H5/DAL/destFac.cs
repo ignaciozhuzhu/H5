@@ -37,19 +37,21 @@ namespace Trip.JinJiang.H5.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into tbl_destination(");
-            strSql.Append("A_Id,destName,status,[order])");
+            strSql.Append("A_Id,destName,status,[order],H5Url)");
             strSql.Append(" values (");
-            strSql.Append("@A_Id,@destName,@status,@order)");
+            strSql.Append("@A_Id,@destName,@status,@order,@H5Url)");
             strSql.Append(";select @@IDENTITY");
             SqlParameter[] parameters = {
                     new SqlParameter("@A_Id", SqlDbType.Int,4),
                     new SqlParameter("@destName", SqlDbType.NVarChar,50),
                     new SqlParameter("@status", SqlDbType.Bit,1),
-                    new SqlParameter("@order", SqlDbType.Int,4)};
+                    new SqlParameter("@order", SqlDbType.Int,4),
+                    new SqlParameter("@H5Url", SqlDbType.NVarChar,50)};
             parameters[0].Value = model.A_Id;
             parameters[1].Value = model.destName;
             parameters[2].Value = model.status;
             parameters[3].Value = model.order;
+            parameters[4].Value = model.H5Url;
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
             if (obj == null)
@@ -92,21 +94,24 @@ namespace Trip.JinJiang.H5.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update tbl_destination set ");
-            strSql.Append("A_Id=@A_Id,");
+          //  strSql.Append("A_Id=@A_Id,");
             strSql.Append("destName=@destName,");
             strSql.Append("status=@status,");
-            strSql.Append("[order]=@order");
+            strSql.Append("[order]=@order,");
+            strSql.Append("H5Url=@H5Url");
             strSql.Append(" where Id=@Id");
             SqlParameter[] parameters = {
-                    new SqlParameter("@A_Id", SqlDbType.Int,4),
+                  //  new SqlParameter("@A_Id", SqlDbType.Int,4),
                     new SqlParameter("@destName", SqlDbType.NVarChar,50),
                     new SqlParameter("@status", SqlDbType.Bit,1),
                     new SqlParameter("@order", SqlDbType.Int,4),
+                    new SqlParameter("@H5Url", SqlDbType.NVarChar,50),
                     new SqlParameter("@Id", SqlDbType.Int,4)};
-            parameters[0].Value = model.A_Id;
-            parameters[1].Value = model.destName;
-            parameters[2].Value = model.status;
-            parameters[3].Value = model.order;
+           // parameters[0].Value = model.A_Id;
+            parameters[0].Value = model.destName;
+            parameters[1].Value = model.status;
+            parameters[2].Value = model.order;
+            parameters[3].Value = model.H5Url;
             parameters[4].Value = model.Id;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
@@ -236,7 +241,7 @@ namespace Trip.JinJiang.H5.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select Id,A_Id,destName,status,[order] ");
+            strSql.Append("select Id,A_Id,destName,status,[order],H5Url ");
             strSql.Append(" FROM tbl_destination where 1=1 ");
             if (strWhere.Trim() != "")
             {
