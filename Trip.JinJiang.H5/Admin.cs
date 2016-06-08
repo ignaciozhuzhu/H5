@@ -396,10 +396,11 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 空搜关键词添加
         /// </summary>
-        public static string addarea3(string searchName)
+        public static string addarea3(string searchName,string H5Url)
         {
             emptySearchMod model = new emptySearchMod();
             model.searchName = searchName;
+            model.H5Url = H5Url;
             emptySearchFac Fac = new emptySearchFac();
             if (Fac.Add(model) > 0)
             {
@@ -412,11 +413,12 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 空搜关键词编辑
         /// </summary>
-        public static string editarea3(string searchName, int Id)
+        public static string editarea3(string searchName, int Id,string H5Url)
         {
             emptySearchMod model = new emptySearchMod();
             model.searchName = searchName;
             model.Id = Id;
+            model.H5Url = H5Url;
             emptySearchFac Fac = new emptySearchFac();
             if (Fac.Update(model))
             {

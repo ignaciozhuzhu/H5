@@ -37,15 +37,17 @@ namespace Trip.JinJiang.H5.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into tbl_emptySearch(");
-            strSql.Append("searchName,status)");
+            strSql.Append("searchName,status,H5Url)");
             strSql.Append(" values (");
-            strSql.Append("@searchName,@status)");
+            strSql.Append("@searchName,@status,@H5Url)");
             strSql.Append(";select @@IDENTITY");
             SqlParameter[] parameters = {
                     new SqlParameter("@searchName", SqlDbType.NVarChar,50),
-                    new SqlParameter("@status", SqlDbType.Bit,1)};
+                    new SqlParameter("@status", SqlDbType.Bit,1),
+                    new SqlParameter("@H5Url", SqlDbType.NVarChar,50)};
             parameters[0].Value = model.searchName;
             parameters[1].Value = model.status;
+            parameters[2].Value = model.H5Url;
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
             if (obj == null)
@@ -85,18 +87,21 @@ namespace Trip.JinJiang.H5.DAL
         /// </summary>
         public bool Update(Trip.JinJiang.H5.Model.emptySearchMod model)
         {
-            StringBuilder strSql = new StringBuilder();
+               StringBuilder strSql = new StringBuilder();
             strSql.Append("update tbl_emptySearch set ");
             strSql.Append("searchName=@searchName,");
-            strSql.Append("status=@status");
+            strSql.Append("status=@status,");
+            strSql.Append("H5Url=@H5Url ");
             strSql.Append(" where Id=@Id");
             SqlParameter[] parameters = {
                     new SqlParameter("@searchName", SqlDbType.NVarChar,50),
                     new SqlParameter("@status", SqlDbType.Bit,1),
+                    new SqlParameter("@H5Url", SqlDbType.NVarChar,50),
                     new SqlParameter("@Id", SqlDbType.Int,4)};
             parameters[0].Value = model.searchName;
             parameters[1].Value = model.status;
-            parameters[2].Value = model.Id;
+            parameters[2].Value = model.H5Url;
+            parameters[3].Value = model.Id;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -217,7 +222,7 @@ namespace Trip.JinJiang.H5.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select Id,searchName,status ");
+            strSql.Append("select Id,searchName,status,H5Url ");
             strSql.Append(" FROM tbl_emptySearch where status='true'");
             if (strWhere.Trim() != "")
             {

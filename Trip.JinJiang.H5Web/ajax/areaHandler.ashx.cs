@@ -120,8 +120,9 @@ namespace Trip.JinJiang.H5Web.ajax
         /// </summary>
         public void addarea3()
         {
-            string searchName = HttpContext.Current.Request["searchName"].ToString();
-            HttpContext.Current.Response.Write(Admin.addarea3(searchName));
+            string searchName = HttpContext.Current.Request["searchName"].ToString(); 
+            string H5Url = HttpContext.Current.Request["H5Url"].ToString();
+            HttpContext.Current.Response.Write(Admin.addarea3(searchName, H5Url));
         }
         /// <summary>
         /// 空搜关键词编辑
@@ -129,8 +130,9 @@ namespace Trip.JinJiang.H5Web.ajax
         public void editarea3()
         {
             string searchName = HttpContext.Current.Request["searchName"].ToString();
-            int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-            HttpContext.Current.Response.Write(Admin.editarea3(searchName, Id));
+            int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]); 
+            string H5Url = HttpContext.Current.Request["H5Url"].ToString();
+            HttpContext.Current.Response.Write(Admin.editarea3(searchName, Id, H5Url));
         }
         /// <summary>
         /// 空搜关键词禁用

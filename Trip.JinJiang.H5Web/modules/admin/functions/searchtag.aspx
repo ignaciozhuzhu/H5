@@ -7,7 +7,8 @@
         <section class="content-header">
             <h1>目的地标签管理
                     <small>操作</small>
-                    <small><a href="" ng-click="ks()">空搜关键字</a></small>
+                    <small><a href="" ng-click="ks1()">目的地标签</a></small>
+                    <small><a href="" ng-click="ks2()">空搜关键字</a></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>H5</a></li>
@@ -182,7 +183,7 @@
                 <div class="col-xs-6">
 
                     <!--弹出框编辑开始-->
-                    <form id="editbox3" class="modal hide fade in" style="display: none; height: 230px; width: 270px;">
+                    <form id="editbox3" class="modal hide fade in" style="display: none; height: 270px; width: 270px;">
                         <div class="modal-header">
                             <a class="close" data-dismiss="modal">×</a>
                             <h3>关键词编辑</h3>
@@ -192,6 +193,12 @@
                                 <div>关键词名称:</div>
                                 <div>
                                     <input id="searchName" type="text" style="height: 30px" />
+                                </div>
+                            </div>
+                            <div>
+                                <div>关键词链接:(格式遵循http://)</div>
+                                <div>
+                                    <input id="H5Url" type="text" style="height: 30px" />
                                 </div>
                             </div>
                             <input type="text" name="txt" id="txt" style="display: none">
@@ -226,6 +233,7 @@
                                     <tr>
                                         <th ng-hide="true">Id</th>
                                         <th>关键字</th>
+                                        <th>链接</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
@@ -233,6 +241,7 @@
                                     <tr ng-repeat="x in emptyKey">
                                         <td ng-hide="true">{{x.Id}}</td>
                                         <td ng-click="showson($event)"><a href="#">{{x.searchName}}</a></td>
+                                        <td>{{x.H5Url}}</td>
                                         <td>
                                             <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#editbox3">修改</a>
                                             <img style="margin-left: 5%" src='../../img/delete.png'><a ng-click="changeen($event)" data-toggle="modal" href="#confirmbox3">禁用</a>
@@ -272,7 +281,11 @@
 
         app.controller('firstCtrl', function ($scope, $http, $window) {
 
-            $scope.ks = function () {
+            $scope.ks1 = function () {
+                $('#row3').hide();
+                $('#row1').show();
+            }
+            $scope.ks2 = function () {
                 $('#row1').hide();
                 $('#row3').show();
             }
@@ -452,6 +465,7 @@
                 modalclass();
                 selectid = $event.path[2].cells[0].innerText;
                 $('#searchName')[0].value = $event.path[2].cells[1].innerText;
+                $('#H5Url')[0].value = $event.path[2].cells[2].innerText;
             };
             $scope.changeen = function ($event) {
                 modalclass();
@@ -483,11 +497,12 @@
 
             $scope.reloadRoute = function () {
                 var searchName = $('#searchName')[0].value;
+                var H5Url = $('#H5Url')[0].value;
                 if (selectid === null || selectid === undefined || selectid === "") {
                     $.ajax({
                         url: "../../../ajax/areaHandler.ashx?fn=addarea3",
                         type: "post",
-                        data: { searchName: searchName},
+                        data: { searchName: searchName, H5Url: H5Url },
                         success: function (text) {
                             $window.location.reload();
                         }
@@ -497,7 +512,7 @@
                     $.ajax({
                         url: "../../../ajax/areaHandler.ashx?fn=editarea3",
                         type: "post",
-                        data: { Id: selectid, searchName: searchName },
+                        data: { Id: selectid, searchName: searchName, H5Url: H5Url },
                         success: function (text) {
                             $window.location.reload();
                         }

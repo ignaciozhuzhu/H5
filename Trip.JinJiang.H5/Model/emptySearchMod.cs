@@ -13,6 +13,7 @@ namespace Trip.JinJiang.H5.Model
         private int _id;
         private string _searchname;
         private bool _status = true;
+        private string _H5Url;
         /// <summary>
         /// 
         /// </summary>
@@ -37,6 +38,15 @@ namespace Trip.JinJiang.H5.Model
             set { _status = value; }
             get { return _status; }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string H5Url
+        {
+            set { _H5Url = value; }
+            get { return _H5Url; }
+        }
+        
         #endregion Model
 
     }
