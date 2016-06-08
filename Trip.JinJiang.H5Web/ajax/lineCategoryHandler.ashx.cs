@@ -60,19 +60,27 @@ namespace Trip.JinJiang.H5Web.ajax
         public void editlinecategory()
         {
             string fileName = commonHandler.uploadimg();
-            if (fileName == "0")
+            //if (fileName == "0")
+            //{
+            //    ResponseWriteEnd(HttpContext.Current, "4");//请选择要上传的文件  
+            //}
+            //else
+            //{
+            string imgUrl = "";
+            string path = HttpContext.Current.Request["path"];
+            if (path.IndexOf("/modules/img/") > -1)
             {
-                ResponseWriteEnd(HttpContext.Current, "4");//请选择要上传的文件  
+                imgUrl = "../../../modules/img" + path.Substring(path.LastIndexOf("/"));
             }
-            else
-            {
-                string categoryName = HttpContext.Current.Request["categoryName"].ToString();
-                string lineCategory = HttpContext.Current.Request["lineCategory"].ToString();
-                string imgUrl = "../../../modules/img/" + fileName;
-                int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-                int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
-                HttpContext.Current.Response.Write(Admin.editlinecategory(categoryName, lineCategory, imgUrl, Id, order));
+            else {
+                imgUrl = "../../../modules/img/" + fileName;
             }
+            string categoryName = HttpContext.Current.Request["categoryName"].ToString();
+            string lineCategory = HttpContext.Current.Request["lineCategory"].ToString();
+            int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
+            int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
+            HttpContext.Current.Response.Write(Admin.editlinecategory(categoryName, lineCategory, imgUrl, Id, order));
+            //}
         }
         /// <summary>
         /// 获得所有样式

@@ -202,13 +202,14 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 轮播图添加
         /// </summary>
-        public static string addbannerimg(string alt, string imgUrl, int lineId, int order)
+        public static string addbannerimg(string alt, string imgUrl, int lineId, int order,string H5Url)
         {
             bannerImgMod model = new bannerImgMod();
             model.alt = alt;
             model.imgUrl = imgUrl;
             model.lineId = lineId;
             model.order = order;
+            model.H5Url = H5Url;
             bannerImgFac Fac = new bannerImgFac();
             if (Fac.Add(model) > 0)
             {
@@ -221,7 +222,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 轮播图编辑
         /// </summary>
-        public static string editbannerimg(string alt, string imgUrl, int Id, int lineId, int order)
+        public static string editbannerimg(string alt, string imgUrl, int Id, int lineId, int order,string H5Url)
         {
             bannerImgMod model = new bannerImgMod();
             model.alt = alt;
@@ -229,6 +230,7 @@ namespace Trip.JinJiang.H5
             model.Id = Id;
             model.lineId = lineId;
             model.order = order;
+            model.H5Url = H5Url;
             bannerImgFac Fac = new bannerImgFac();
             if (Fac.Update(model))
             {

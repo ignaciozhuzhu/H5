@@ -255,9 +255,16 @@
         //轮播图
         var nghttpgg = "../../ajax/bannerImgHandler.ashx?fn=getbannerimglist&status=true";
         $http.get(nghttpgg).success(function (response) {
-            // debugger
+            //debugger
             for (var i = 0; i < 4; i++) { //response.ds.length
-                $('#full-width-slider').append('<div class="rsContent"><a href="#/app/linedetail/' + response.ds[i].lineId + '"><img class="rsImg" src=' + response.ds[i].imgUrl + ' /></a></div>');
+                var urls;
+                if (response.ds[i].lineId === 0) {
+                    urls = response.ds[i].H5Url;
+                }
+                else {
+                    urls = "#/app/linedetail/" + response.ds[i].lineId;
+                }
+                $('#full-width-slider').append('<div class="rsContent"><a href="' + urls + '"><img class="rsImg" src=' + response.ds[i].imgUrl + ' /></a></div>');
             }
             $('#full-width-slider').royalSlider({
                 arrowsNav: true,

@@ -8,6 +8,12 @@
             left: 30%;
             top: 30%;
         }
+        #example .modal-footer {
+            margin-top:200px;
+        }
+        #example .col-xs-4 {
+            margin-top:50px;
+        }
     </style>
     <div class="content-wrapper" ng-app="lhxApp" ng-controller="userCtrl">
         <!-- Content Header (Page header) -->
@@ -88,9 +94,9 @@
                         </div>
                     </div>
                     <div>
-                        <div>H5Url:</div>
+                        <div>H5Url:(格式遵循http://)</div>
                         <div>
-                            <input id="H5Url" disabled type="text" style="height: 30px" />
+                            <input id="H5Url" type="text" style="height: 30px" />
                         </div>
                     </div>
                     <div>
@@ -213,6 +219,7 @@
                 selectid = "";
                 $('#alt')[0].value = "";
                 $('#order')[0].value = "1";
+                $('#H5Url')[0].value = "";
                 //$('#selectedcate')[0].value = "";
             };
             $scope.edit = function ($event) {
@@ -346,8 +353,13 @@
                     return;
                 }
                 var linenameid = document.getElementById("linenameid").value;
-                if (!linenameid) {
-                    alert("请选择线路");
+                var H5Url = document.getElementById("H5Url").value;
+                if (!linenameid && !H5Url) {
+                    alert("请选择线路或填写H5Url");
+                    return;
+                }
+                if (linenameid && H5Url) {
+                    alert("不允许同时选择线路和填写H5Url");
                     return;
                 }
 
@@ -370,7 +382,7 @@
                         error: function (error) { alert(error); },
                         url: '../../../ajax/bannerImgHandler.ashx?fn=addbannerimg',
                         type: "post",
-                        data: { alt: $('#alt')[0].value, lineId: linenameid, order: $('#order')[0].value },
+                        data: { alt: $('#alt')[0].value, lineId: linenameid, order: $('#order')[0].value, H5Url: $('#H5Url')[0].value },
                         dataType: "text"
                     });
 
@@ -393,7 +405,7 @@
                         error: function (error) { alert(error); },
                         url: '../../../ajax/bannerImgHandler.ashx?fn=editbannerimg',
                         type: "post",
-                        data: { alt: $('#alt')[0].value, Id: selectid, lineId: linenameid, order: $('#order')[0].value },
+                        data: { alt: $('#alt')[0].value, Id: selectid, lineId: linenameid, order: $('#order')[0].value, H5Url: $('#H5Url')[0].value },
                         dataType: "text"
                     });
 

@@ -13,7 +13,7 @@
             </ol>
         </section>
 
-        <form id="example" class="modal hide fade in" style="display: none; height: 430px; width: 270px;">
+        <form id="example" class="modal hide fade in" style="display: none; height: 470px; width: 290px;">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
                 <h3>线路类型编辑</h3>
@@ -42,6 +42,8 @@
                     </div>
                     <div>图标:尺寸建议(宽150px 高150px)</div>
                     <input id="File1" name="File1" type="file" />
+                    <%--<input id="imgurl"  type="text" style="height: 30px" />--%>
+                    <img id="imgurl2" style="height: 30px" />
                 </div>
                 <input type="text" name="txt" id="txt" style="display: none">
                 <input type="button" name="btn" value="btn" id="btn" style="display: none">
@@ -164,6 +166,9 @@
                 selectid = $event.path[2].cells[0].innerText;
                 $('#categoryName')[0].value = $event.path[2].cells[1].innerText;
                 $('#lineCategory')[0].value = $event.path[2].cells[2].innerText;
+                //debugger
+                //$('#imgurl')[0].value = $event.path[2].cells[3].childNodes[1].src;
+                $('#imgurl2')[0].src = $event.path[2].cells[3].childNodes[1].src;
                 $('#lineCategory').attr("disabled", "disabled");
                 $('#pattern')[0].value = $event.path[2].cells[4].innerText;
                 $('#pattern').attr("disabled", "disabled");
@@ -217,15 +222,20 @@
                 $scope.lines = arrayLine;
             };
             $scope.reloadRoute = function () {
+                //debugger
                 var path = document.getElementById("File1").value;
                 var img = document.getElementById("img1");
                 if ($('#pattern')[0].value === "") {
                     alert("请选择样式归属");
                     return;
                 }
-                if ($.trim(path) == "" && $('#pattern')[0].value === "S1") {
+                if ($.trim(path) == "" && $('#pattern')[0].value === "S1" && $('#imgurl2')[0].src === "") {
                     alert("请选择要上传的文件");
                     return;
+                }
+                //如果本来有图且没有去置换该图,则不需要上传图片
+                if ($('#imgurl2')[0].src !== "" && $.trim(path) == "") {
+                    path = $('#imgurl2')[0].src;
                 }
 
                 //未选中行说明是新增.
@@ -247,7 +257,7 @@
                         error: function (error) { alert(error); },
                         url: '../../../ajax/lineCategoryHandler.ashx?fn=addcategory',
                         type: "post",
-                        data: { categoryName: $('#categoryName')[0].value, lineCategory: $('#lineCategory')[0].value, pattern: $('#pattern')[0].value, order: $('#order')[0].value },
+                        data: { categoryName: $('#categoryName')[0].value, lineCategory: $('#lineCategory')[0].value, pattern: $('#pattern')[0].value, order: $('#order')[0].value, path: path },
                         dataType: "text"
                     });
 
@@ -270,7 +280,7 @@
                         error: function (error) { alert(error); },
                         url: '../../../ajax/lineCategoryHandler.ashx?fn=editlinecategory',
                         type: "post",
-                        data: { categoryName: $('#categoryName')[0].value, lineCategory: $('#lineCategory')[0].value, Id: selectid, order: $('#order')[0].value },
+                        data: { categoryName: $('#categoryName')[0].value, lineCategory: $('#lineCategory')[0].value, Id: selectid, order: $('#order')[0].value, path: path },
                         dataType: "text"
                     });
 
