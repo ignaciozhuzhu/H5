@@ -49,7 +49,8 @@ namespace Trip.JinJiang.H5Web.ajax
             string lineCategory = HttpContext.Current.Request["lineCategory"].ToString();
             string imgUrl = "../../../modules/img/" + fileName;
             string pattern = HttpContext.Current.Request["pattern"].ToString();
-            HttpContext.Current.Response.Write(Admin.addlinecategory(categoryName, lineCategory, imgUrl, pattern));
+            int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
+            HttpContext.Current.Response.Write(Admin.addlinecategory(categoryName, lineCategory, imgUrl, pattern, order));
             //   }
         }
 
@@ -69,7 +70,8 @@ namespace Trip.JinJiang.H5Web.ajax
                 string lineCategory = HttpContext.Current.Request["lineCategory"].ToString();
                 string imgUrl = "../../../modules/img/" + fileName;
                 int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-                HttpContext.Current.Response.Write(Admin.editlinecategory(categoryName, lineCategory, imgUrl, Id));
+                int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
+                HttpContext.Current.Response.Write(Admin.editlinecategory(categoryName, lineCategory, imgUrl, Id, order));
             }
         }
         /// <summary>

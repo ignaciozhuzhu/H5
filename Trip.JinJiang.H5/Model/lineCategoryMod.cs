@@ -16,6 +16,7 @@ namespace Trip.JinJiang.H5.Model
         private bool _status;
         private int _Id;
         private string _pattern;
+        private int _order;
         /// <summary>
         /// 分类名称
         /// </summary>
@@ -57,12 +58,20 @@ namespace Trip.JinJiang.H5.Model
             get { return _Id; }
         }
         /// <summary>
-        /// 自增Id
+        /// 样式归属
         /// </summary>
         public string pattern
         {
             set { _pattern = value; }
             get { return _pattern; }
+        }
+        /// <summary>
+        /// 排序id
+        /// </summary>
+        public int order
+        {
+            set { _order = value; }
+            get { return _order; }
         }
         #endregion Model
 

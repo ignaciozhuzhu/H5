@@ -90,13 +90,14 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 线路类型添加
         /// </summary>
-        public static string addlinecategory(string categoryName, string lineCategory, string imgUrl,string pattern)
+        public static string addlinecategory(string categoryName, string lineCategory, string imgUrl,string pattern,int order)
         {
             lineCategoryMod model = new lineCategoryMod();
             model.lineCategory = lineCategory;
             model.categoryName = categoryName;
             model.imgUrl = imgUrl;
             model.pattern = pattern;
+            model.order = order;
             lineCategoryFac Fac = new lineCategoryFac();
             if (Fac.Add(model))
             {
@@ -109,13 +110,14 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 线路类型编辑
         /// </summary>
-        public static string editlinecategory(string categoryName, string lineCategory, string imgUrl, int Id)
+        public static string editlinecategory(string categoryName, string lineCategory, string imgUrl, int Id,int order)
         {
             lineCategoryMod model = new lineCategoryMod();
             model.lineCategory = lineCategory;
             model.categoryName = categoryName;
             model.imgUrl = imgUrl;
             model.Id = Id;
+            model.order = order;
             lineCategoryFac Fac = new lineCategoryFac();
             if (Fac.Update(model))
             {

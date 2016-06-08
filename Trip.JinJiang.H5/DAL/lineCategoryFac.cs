@@ -37,20 +37,22 @@ namespace Trip.JinJiang.H5.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into tbl_lineCategory(");
-            strSql.Append("categoryName,lineCategory,imgUrl,pattern )");
+            strSql.Append("categoryName,lineCategory,imgUrl,pattern,[order] )");
             strSql.Append(" values (");
-            strSql.Append("@categoryName,@lineCategory,@imgUrl,@pattern)");
+            strSql.Append("@categoryName,@lineCategory,@imgUrl,@pattern,@order)");
             SqlParameter[] parameters = {
                     new SqlParameter("@categoryName", SqlDbType.NVarChar,50),
                     new SqlParameter("@lineCategory", SqlDbType.NVarChar,50),
                     new SqlParameter("@imgUrl", SqlDbType.NVarChar,300),
-                    new SqlParameter("@pattern", SqlDbType.NVarChar,50)};
+                    new SqlParameter("@pattern", SqlDbType.NVarChar,50),
+                    new SqlParameter("@order", SqlDbType.Int,4)};
             parameters[0].Value = model.categoryName;
             parameters[1].Value = model.lineCategory;
             if (model.imgUrl == "../../../modules/img/0")
                 model.imgUrl = "";
             parameters[2].Value = model.imgUrl;
             parameters[3].Value = model.pattern;
+            parameters[4].Value = model.order;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -71,17 +73,20 @@ namespace Trip.JinJiang.H5.DAL
             strSql.Append("update tbl_lineCategory set ");
             strSql.Append("categoryName=@categoryName, ");
             strSql.Append("lineCategory=@lineCategory, ");
-            strSql.Append("imgUrl=@imgUrl");
+            strSql.Append("imgUrl=@imgUrl,");
+            strSql.Append("[order]=@order");
             strSql.Append(" where Id=@Id ");
             SqlParameter[] parameters = {
                     new SqlParameter("@categoryName", SqlDbType.NVarChar,50),
                     new SqlParameter("@lineCategory", SqlDbType.NVarChar,50),
                     new SqlParameter("@imgUrl", SqlDbType.NVarChar,200),
+                    new SqlParameter("@order", SqlDbType.Int,4),
                     new SqlParameter("@Id", SqlDbType.Int,4)};
             parameters[0].Value = model.categoryName;
             parameters[1].Value = model.lineCategory;
             parameters[2].Value = model.imgUrl;
-            parameters[3].Value = model.Id;
+            parameters[3].Value = model.order;
+            parameters[4].Value = model.Id;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -211,7 +216,7 @@ namespace Trip.JinJiang.H5.DAL
         public DataSet GetList0()
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select Id,lineCategory,categoryName,imgUrl,status,pattern ");
+            strSql.Append("select Id,lineCategory,categoryName,imgUrl,status,pattern,[order] ");
             strSql.Append(" FROM tbl_lineCategory ");
             return DbHelperSQL.Query(strSql.ToString());
         }
@@ -221,12 +226,13 @@ namespace Trip.JinJiang.H5.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select Id,lineCategory,categoryName,imgUrl,status,pattern ");
+            strSql.Append("select Id,lineCategory,categoryName,imgUrl,status,pattern,[order] ");
             strSql.Append(" FROM tbl_lineCategory where 1=1 ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" and " + strWhere);
             }
+            strSql.Append(" order by [order] asc ");
             return DbHelperSQL.Query(strSql.ToString());
         }
 
@@ -237,11 +243,12 @@ namespace Trip.JinJiang.H5.DAL
         public DataSet GetList2(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select b.lineCategory,lineId,lineName,name,title,imageUrls,minPrice,originalPrice from tbl_lineLists a left join tbl_lineCategory b on a.lineCategory=b.lineCategory");
+            strSql.Append("select b.lineCategory,lineId,lineName,name,title,imageUrls,minPrice,originalPrice,b.[order] from tbl_lineLists a left join tbl_lineCategory b on a.lineCategory=b.lineCategory");
             if (strWhere != null && strWhere.Trim() != "")
             {
                 strSql.Append(" where 1=1 " + strWhere);
             }
+            strSql.Append(" order by b.[order] asc ");
             return DbHelperSQL.Query(strSql.ToString());
         }
 
@@ -256,13 +263,13 @@ namespace Trip.JinJiang.H5.DAL
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" Id,lineCategory,categoryName,imgUrl,status,pattern ");
+            strSql.Append(" Id,lineCategory,categoryName,imgUrl,status,pattern,[order] ");
             strSql.Append(" FROM tbl_lineCategory ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
             }
-            strSql.Append(" order by " + filedOrder);
+            strSql.Append(" order by [order] asc");
             return DbHelperSQL.Query(strSql.ToString());
         }
 

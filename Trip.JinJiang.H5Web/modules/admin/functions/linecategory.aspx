@@ -9,11 +9,11 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>H5</a></li>
-                <li>轮播图管理</li>
+                <li>线路分类管理</li>
             </ol>
         </section>
 
-        <form id="example" class="modal hide fade in" style="display: none; height: 390px; width: 270px;">
+        <form id="example" class="modal hide fade in" style="display: none; height: 430px; width: 270px;">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
                 <h3>线路类型编辑</h3>
@@ -35,9 +35,12 @@
                         <select id="pattern">
                             <option value="{{x.pattern}}" ng-repeat="x in patterns">{{x.pattern}}</option>
                         </select>
-                        <%--<input id="pattern" type="text" style="height: 30px" />--%>
                     </div>
-                    <div>图标:</div>
+                    <div>排序:(小的靠前)</div>
+                    <div>
+                        <input id="order" type="number" style="height: 30px" />
+                    </div>
+                    <div>图标:尺寸建议(宽150px 高150px)</div>
                     <input id="File1" name="File1" type="file" />
                 </div>
                 <input type="text" name="txt" id="txt" style="display: none">
@@ -87,10 +90,11 @@
                                     <tr>
                                         <th ng-hide="true">Id</th>
                                         <th style="width: 15%">分类名称</th>
-                                        <th style="width: 20%">分类编码</th>
+                                        <th style="width: 15%">分类编码</th>
                                         <th style="width: 10%">图标</th>
                                         <th style="width: 10%">样式归属</th>
-                                        <th style="width: 15%">状态</th>
+                                        <th style="width: 10%">排序</th>
+                                        <th style="width: 10%">状态</th>
                                         <th style="width: 30%">操作</th>
                                     </tr>
                                 </thead>
@@ -102,6 +106,7 @@
                                         <td>
                                             <img src="{{x.imgUrl}}" style="width: 30px; height: 30px"></td>
                                         <td>{{x.pattern}}</td>
+                                        <td>{{x.order}}</td>
                                         <td>{{x.status===true?'可用':'禁用'}}</td>
                                         <td>
                                             <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#example">修改</a>
@@ -152,6 +157,7 @@
                 $('#lineCategory').removeAttr('disabled');
                 $('#pattern')[0].value = "";
                 $('#pattern').removeAttr('disabled');
+                $('#order')[0].value = "1";
             };
             $scope.edit = function ($event) {
                 modalclass();
@@ -161,6 +167,7 @@
                 $('#lineCategory').attr("disabled", "disabled");
                 $('#pattern')[0].value = $event.path[2].cells[4].innerText;
                 $('#pattern').attr("disabled", "disabled");
+                $('#order')[0].value = $event.path[2].cells[5].innerText;
             };
             $scope.changeen = function ($event) {
                 modalclass1();
@@ -240,7 +247,7 @@
                         error: function (error) { alert(error); },
                         url: '../../../ajax/lineCategoryHandler.ashx?fn=addcategory',
                         type: "post",
-                        data: { categoryName: $('#categoryName')[0].value, lineCategory: $('#lineCategory')[0].value, pattern: $('#pattern')[0].value },
+                        data: { categoryName: $('#categoryName')[0].value, lineCategory: $('#lineCategory')[0].value, pattern: $('#pattern')[0].value, order: $('#order')[0].value },
                         dataType: "text"
                     });
 
@@ -263,7 +270,7 @@
                         error: function (error) { alert(error); },
                         url: '../../../ajax/lineCategoryHandler.ashx?fn=editlinecategory',
                         type: "post",
-                        data: { categoryName: $('#categoryName')[0].value, lineCategory: $('#lineCategory')[0].value, Id: selectid },
+                        data: { categoryName: $('#categoryName')[0].value, lineCategory: $('#lineCategory')[0].value, Id: selectid, order: $('#order')[0].value },
                         dataType: "text"
                     });
 
