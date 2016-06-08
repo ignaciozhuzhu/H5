@@ -5,6 +5,7 @@ using System.Text;
 using Maticsoft.DBUtility;
 using Trip.JinJiang.H5.DAL;
 using Trip.JinJiang.H5.Model;
+using System;
 
 namespace Trip.JinJiang.H5
 {
@@ -190,7 +191,7 @@ namespace Trip.JinJiang.H5
             string str = "";
             if (status != "" && status != null)
             {
-                str = " status='true' ";
+                str = " status='true' and beginDate <= '" + DateTime.Now + "' and  endDate >= '"+ DateTime.Now + "'";
             }
             bannerImgFac Fac = new bannerImgFac();
             DataSet ds = Fac.GetList(str);
@@ -202,7 +203,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 轮播图添加
         /// </summary>
-        public static string addbannerimg(string alt, string imgUrl, int lineId, int order,string H5Url)
+        public static string addbannerimg(string alt, string imgUrl, int lineId, int order, string H5Url, string beginDate, string endDate)
         {
             bannerImgMod model = new bannerImgMod();
             model.alt = alt;
@@ -210,6 +211,8 @@ namespace Trip.JinJiang.H5
             model.lineId = lineId;
             model.order = order;
             model.H5Url = H5Url;
+            model.beginDate = beginDate;
+            model.endDate = endDate;
             bannerImgFac Fac = new bannerImgFac();
             if (Fac.Add(model) > 0)
             {
@@ -222,7 +225,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 轮播图编辑
         /// </summary>
-        public static string editbannerimg(string alt, string imgUrl, int Id, int lineId, int order,string H5Url)
+        public static string editbannerimg(string alt, string imgUrl, int Id, int lineId, int order, string H5Url,string beginDate,string endDate)
         {
             bannerImgMod model = new bannerImgMod();
             model.alt = alt;
@@ -231,6 +234,8 @@ namespace Trip.JinJiang.H5
             model.lineId = lineId;
             model.order = order;
             model.H5Url = H5Url;
+            model.beginDate = beginDate;
+            model.endDate = endDate;
             bannerImgFac Fac = new bannerImgFac();
             if (Fac.Update(model))
             {
@@ -335,7 +340,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 目的地标签添加
         /// </summary>
-        public static string addarea2(int aId, string destName, int order,string H5Url)
+        public static string addarea2(int aId, string destName, int order, string H5Url)
         {
             destMod model = new destMod();
             model.A_Id = aId;
@@ -398,7 +403,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 空搜关键词添加
         /// </summary>
-        public static string addarea3(string searchName,string H5Url)
+        public static string addarea3(string searchName, string H5Url)
         {
             emptySearchMod model = new emptySearchMod();
             model.searchName = searchName;
@@ -415,7 +420,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 空搜关键词编辑
         /// </summary>
-        public static string editarea3(string searchName, int Id,string H5Url)
+        public static string editarea3(string searchName, int Id, string H5Url)
         {
             emptySearchMod model = new emptySearchMod();
             model.searchName = searchName;

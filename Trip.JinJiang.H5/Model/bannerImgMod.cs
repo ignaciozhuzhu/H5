@@ -17,6 +17,8 @@ namespace Trip.JinJiang.H5.Model
         private int _lineid;
         private int _order;
         private string _h5Url;
+        private string _beginDate;
+        private string _endDate;
         /// <summary>
         /// 自增主键
         /// </summary>
@@ -63,6 +65,16 @@ namespace Trip.JinJiang.H5.Model
         {
             set { _h5Url = value; }
             get { return _h5Url; }
+        }
+        public string beginDate
+        {
+            set { _beginDate = value; }
+            get { return _beginDate; }
+        }
+        public string endDate
+        {
+            set { _endDate = value; }
+            get { return _endDate; }
         }
         #endregion Model
 

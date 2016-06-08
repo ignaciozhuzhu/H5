@@ -68,7 +68,9 @@ namespace Trip.JinJiang.H5Web.ajax
                 catch { }
                 int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
                 string H5Url = HttpContext.Current.Request["H5Url"].ToString();
-                HttpContext.Current.Response.Write(Admin.addbannerimg(alt, imgUrl, lineId, order, H5Url));
+                string beginDate = HttpContext.Current.Request["beginDate"].ToString();
+                string endDate = HttpContext.Current.Request["endDate"].ToString();
+                HttpContext.Current.Response.Write(Admin.addbannerimg(alt, imgUrl, lineId, order, H5Url,beginDate, endDate));
             }
         }
 
@@ -95,7 +97,9 @@ namespace Trip.JinJiang.H5Web.ajax
                 catch { }
                 int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
                 string H5Url = HttpContext.Current.Request["H5Url"];
-                HttpContext.Current.Response.Write(Admin.editbannerimg(alt, imgUrl, Id, lineId, order, H5Url));
+                string beginDate = HttpContext.Current.Request["beginDate"];
+                string endDate = HttpContext.Current.Request["endDate"];
+                HttpContext.Current.Response.Write(Admin.editbannerimg(alt, imgUrl, Id, lineId, order, H5Url, beginDate, endDate));
             }
         }
 

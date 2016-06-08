@@ -9,7 +9,7 @@
             top: 30%;
         }
         #example .modal-footer {
-            margin-top:200px;
+            margin-top:100px;
         }
         #example .col-xs-4 {
             margin-top:50px;
@@ -106,6 +106,18 @@
                         </div>
                     </div>
                     <div>
+                        <div>开始时间:</div>
+                        <div>
+                            <input id="beginDate" type="date" style="height: 30px" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>结束时间:</div>
+                        <div>
+                            <input id="endDate" type="date" style="height: 30px" />
+                        </div>
+                    </div>
+                    <div>
                         <div>图片:尺寸建议(宽412px 高202px)</div>
                         <input id="File1" name="File1" type="file" />
                     </div>
@@ -156,12 +168,14 @@
                                 <thead>
                                     <tr>
                                         <th ng-hide="true">Id</th>
-                                        <th>描述</th>
-                                        <th>图片</th>
+                                        <th style="width:10%">描述</th>
+                                        <th style="width:10%">图片</th>
                                         <th style="width:10%">排序</th>
-                                        <th>H5Url</th>
+                                        <th style="width:10%">H5Url</th>
+                                        <th style="width:10%">开始时间</th>
+                                        <th style="width:10%">结束时间</th>
                                         <th style="width:10%">状态</th>
-                                        <th>操作</th>
+                                        <th style="width:20%">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -172,6 +186,8 @@
                                             <img src="{{x.imgUrl}}" style="width: 200px; height: 120px"></td>
                                         <td>{{x.order}}</td>
                                         <td>{{x.H5Url}}</td>
+                                        <td>{{x.beginDate}}</td>
+                                        <td>{{x.endDate}}</td>
                                         <td>{{x.status===true?'可用':'禁用'}}</td>
                                         <td>
                                             <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#example">修改</a>
@@ -228,6 +244,9 @@
                 $('#alt')[0].value = $event.path[2].cells[1].innerText;
                 $('#order')[0].value = $event.path[2].cells[3].innerText;
                 $('#H5Url')[0].value = $event.path[2].cells[4].innerText;
+                //自带的这个日期控件暂时不知道怎么直接jquery去赋值!之后再做尝试.
+                //$('#beginDate')[0].value = $event.path[2].cells[5].innerText;
+                //$('#endDate')[0].value = $event.path[2].cells[6].innerText;
             };
             $scope.changeen = function ($event) {
                 modalclass1();
@@ -299,7 +318,7 @@
                 //线路列表ed
             }
             $scope.selectedline = function (event) {
-                debugger
+                //debugger
                 $("#linename")[0].value = event.target.parentNode.parentElement.cells[1].innerText;
                 $("#linenameid")[0].value = event.target.parentNode.parentElement.cells[0].innerText;
                 $(".myselectrarion").attr('src', "../../img/radiono.png");
@@ -382,7 +401,7 @@
                         error: function (error) { alert(error); },
                         url: '../../../ajax/bannerImgHandler.ashx?fn=addbannerimg',
                         type: "post",
-                        data: { alt: $('#alt')[0].value, lineId: linenameid, order: $('#order')[0].value, H5Url: $('#H5Url')[0].value },
+                        data: { alt: $('#alt')[0].value, lineId: linenameid, order: $('#order')[0].value, H5Url: $('#H5Url')[0].value, beginDate: $('#beginDate')[0].value, endDate: $('#endDate')[0].value },
                         dataType: "text"
                     });
 
@@ -405,7 +424,7 @@
                         error: function (error) { alert(error); },
                         url: '../../../ajax/bannerImgHandler.ashx?fn=editbannerimg',
                         type: "post",
-                        data: { alt: $('#alt')[0].value, Id: selectid, lineId: linenameid, order: $('#order')[0].value, H5Url: $('#H5Url')[0].value },
+                        data: { alt: $('#alt')[0].value, Id: selectid, lineId: linenameid, order: $('#order')[0].value, H5Url: $('#H5Url')[0].value, beginDate: $('#beginDate')[0].value, endDate: $('#endDate')[0].value },
                         dataType: "text"
                     });
 
