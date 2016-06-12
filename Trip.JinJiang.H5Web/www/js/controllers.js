@@ -83,9 +83,11 @@
 })
  //线路列表控制器2,唯独不一样的是路由
 .controller('LinelistsCtrl2', function ($scope, $http) {
+    //debugger
     var url = location.href;
     var lineCategory = url.substring(url.lastIndexOf('/') + 1, url.length);
     var searchParam = lineCategory;
+    //lineCategory = "SALELINE"
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinesbycategory&lineCategory=" + lineCategory + "";
     //loading层
     var mylayeruiwait = layer.load(1, {
@@ -104,7 +106,6 @@
                 for (var i = 0 ; i < d.rows.length; i++) {
                     for (var j = 0 ; j < response.lines.length; j++) {
                         if (d.rows[i].lineId == response.lines[j].lineId) {
-                            //debugger
                             //往搜索结果中添加合集(1)
                             if (response.lines[j].imageUrls[0] === undefined || response.lines[j].imageUrls[0] === null || response.lines[j].imageUrls[0].indexOf('http') < 0)
                                 response.lines[j].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg';
@@ -122,6 +123,7 @@
                 //        arrayLinemm.push(response.lines[i])
                 //}
                 //往搜索结果中添加合集(2)
+                //debugger
                 $scope.linelists = arrayLinemm;
                 $scope.agencies = response.agencies;
 
@@ -258,6 +260,14 @@
     $http.get(nghttp3).success(function (response) {
         $scope.area = response.ds;
     })
+
+    //查看更多
+    $scope.seemore = function (event) {
+        //debugger
+        var thislineCategory = event.currentTarget.childNodes[0].innerText;
+        $('.amore').href = "/app/linelists/" + thislineCategory;
+        window.location.href = "#/app/linelists/" + thislineCategory;
+    }
 
     //自加载运行
     $scope.$on("$ionicView.loaded", function () {
@@ -685,7 +695,8 @@
         var discountAmount = Math.floor(amount * (1 - Discount)) * pnum;
         //动态成人数.
         //debugger
-        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
+        var mcMemberCode = getCookie('mcMemberCode');
+        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\""+mcMemberCode+"\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
         //2人
         // json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"},{\"category\":\"" + guestsarr[1].category + "\",\"name\":\"" + guestsarr[1].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
         //1人

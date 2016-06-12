@@ -433,7 +433,8 @@
 })
 //我的订单控制器
 .controller('myorderCtrl', function ($scope, $http) {
-    var mcMemberCode = "";
+    //var mcMemberCode = "";
+    var mcMemberCode = getCookie('mcMemberCode');
     var orderStatus = "";
     var payStatus = "";
 

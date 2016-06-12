@@ -67,7 +67,7 @@ namespace Trip.JinJiang.H5
         public static string getlinesByCategory(string lineCategory)
         {
             var data = "{\"lineCategory\":\"" + lineCategory + "\"}";
-            data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":80,\"search\":false,\"startRow\":1,\"total\":8}}";
+            data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":180,\"search\":false,\"startRow\":1,\"total\":8}}";
             //先获取所有的线路,再与本地数据库做关联
             var response = HttpUtil.Post(data, urllinesearch, contentType: "application/json");
             response = maps.mapAgencies(response);
@@ -259,7 +259,7 @@ namespace Trip.JinJiang.H5
         //}
 
         //(3)line[0]的线路库line[]先全存好.
-        public static string cancelOrder44(string json)
+        public static string cancelOrder(string json)
         {
             var data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":80,\"search\":false,\"startRow\":1,\"total\":8}}";
             var response = HttpUtil.Post(data, urllinesearch, contentType: "application/json");
@@ -323,7 +323,7 @@ namespace Trip.JinJiang.H5
         }
 
         //(--)测支付报文.
-        public static string cancelOrder(string json)
+        public static string cancelOrder556(string json)
         {
             //11. 直接修改密码
             var data10 = "<memberDto><mcMemberCode>10059054</mcMemberCode><password>aa3f9313cab1c23764df04d831295c0f</password><sha1pwd>2ca9d3aa9dc4aaf65a2a6b7c054a0e3c58455b8b</sha1pwd></memberDto>";
