@@ -252,6 +252,8 @@
                 var linkbackpay = getCookie('linkbackpay');
                 if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
                     $('#account').empty().append('退出当前账户');
+                    var fullName = getCookie('fullName');
+                    $('#myinfofullName').empty().append(fullName);
                 }
                 //debugger
                 if (groupid > 0 && linkbackpay === 'true') {

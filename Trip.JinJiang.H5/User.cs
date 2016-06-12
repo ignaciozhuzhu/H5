@@ -84,8 +84,9 @@ namespace Trip.JinJiang.H5
         //查看我的订单
         public static string queryorder(string mcMemberCode, string orderStatus, string payStatus)
         {
-            string startBookingDate = "2016-01-01";
+            string startBookingDate = "2016-03-01";
             string endBookingDate = "2017-01-01";
+            mcMemberCode = "10059054";
             string json = "{\"endBookingDate\":\"" + endBookingDate + "\",\"mcMemberCode\":\"" + mcMemberCode + "\",\"orderCode\":\"\",\"orderStatus\":\"" + orderStatus + "\",\"pagination\":{ \"endRow\":10,\"page\":2,\"records\":0,\"rows\":10,\"search\":false,\"startRow\":1,\"total\":1},\"payStatus\":\"" + payStatus + "\",\"startBookingDate\":\"" + startBookingDate + "\"}";
 
             var response = HttpUtil.Post(json, urlqueryorder, contentType: "application/json");
