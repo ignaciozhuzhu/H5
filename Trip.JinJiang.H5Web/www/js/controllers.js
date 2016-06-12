@@ -352,7 +352,6 @@
         shade: [0.5, '#ababab'] //0.1透明度的白色背景
     });
     $http.get(nghttp).success(function (response) {
-        //debugger
         //$.unblockUI();
         find404admin(response);
         layer.close(mylayeruiwait);
@@ -368,9 +367,6 @@
         }
         $scope.linedetails = response.line;
         $scope.journeys = response.line.journeys.sort(sortbydayNumber);
-
-        // $scope.journeys2 = response.line.journeys.sort(sortbydayNumber);
-
         //行程明细
         //$sce 是 angularJS 自带的安全处理模块，$sce.trustAsHtml(str) 方法便是将数据内容以 html 的形式进行解析并返回。将此过滤器添加到 ng-bind-html 、data-ng-bind-html  所绑定的数据中，便实现了在数据加载时对于 html 标签的自动转义。
         if (response.line.lineFeature !== null)
@@ -438,10 +434,10 @@
         $('.linedetail .idexpense').hide();
         $(".linedetail .tunbl1").addClass("contentblue");
         $(".linedetail .tunbl4").addClass("lineblue");
+
     });
 
 })
-
 
 //日期选择控制器
 .controller('indexdateCtrl', function ($scope, $http) {

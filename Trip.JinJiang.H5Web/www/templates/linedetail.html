@@ -80,6 +80,24 @@
             color: white;
             width: 100%;
         }
+
+        .linedetail .distancetravelbox {
+            font-size: 13px;
+            position: relative;
+        }
+
+        .linedetail .distancetravelboxleft {
+            background-image: url(img/左边li图标2.png);
+            background-repeat: no-repeat;
+            float: left;
+            height: 100%;
+            width: 8%;
+            position: absolute;
+        }
+
+        .linedetail .distancetravelboxright {
+            margin-left: 10%;
+        }
 </style>
 <ion-view hide-nav-bar="true">
 </ion-view>
@@ -157,16 +175,14 @@
 
                 <div class="padding5px idline" id="idline" style="overflow:hidden">
                     <div class="smalltitle">行程介绍:</div>
-
-                    <div style="height:67px;font-size:13px" ng-repeat="x in journeys">
-                        <div style="float:left">
-                            <div><img src="img/路线行程.png" style="width:19px;height:19px; line-height: 25px;padding:3px;margin-top:3px" /></div>
-                            <div style="height:19px"><img src="img/路线行程2.png" style="width:19px;margin-top:-7px" /></div><div style="height:19px"><img src="img/路线行程2.png" style="width:19px;margin-top:-7px" /></div>
-                        </div>
-                        <div>
+                    <div class="distancetravelbox" ng-repeat="x in journeys">
+                        <div class="distancetravelboxleft"></div>
+                        <div class="distancetravelboxright">
                             <div class="smalltitle">第{{x.dayNumber}}天:{{x.departurePlace}}-{{x.destination}}</div>
-                            <div>项目:{{x.subject}}</div>
-                            <div>节目:{{x.journeyDetail[0].programName}}</div>
+                            <div ng-repeat="xx in x.journeyDetail">
+                                <div>{{xx.programType}}:{{xx.programName}}</div>
+                                <!--{{xx.programInfo}}-->
+                            </div>
                         </div>
                     </div>
 
