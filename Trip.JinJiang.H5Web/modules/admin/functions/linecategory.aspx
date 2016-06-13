@@ -13,7 +13,7 @@
             </ol>
         </section>
 
-        <form id="example" class="modal hide fade in" style="display: none; height: 470px; width: 290px;">
+        <form id="example" class="modal hide fade in" style="display: none; height: 470px; width: 330px;">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
                 <h3>线路类型编辑</h3>
@@ -57,7 +57,7 @@
         <form id="example0" class="modal hide fade in" style="display: none; height: 120px; width: 270px;">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
-                <h3>确认禁(可)用吗?</h3>
+                <h3>确认操作吗?</h3>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-success" ng-click="confirmEn()">确认</a>
@@ -166,7 +166,6 @@
                 selectid = $event.path[2].cells[0].innerText;
                 $('#categoryName')[0].value = $event.path[2].cells[1].innerText;
                 $('#lineCategory')[0].value = $event.path[2].cells[2].innerText;
-                //debugger
                 //$('#imgurl')[0].value = $event.path[2].cells[3].childNodes[1].src;
                 $('#imgurl2')[0].src = $event.path[2].cells[3].childNodes[1].src;
                 $('#lineCategory').attr("disabled", "disabled");

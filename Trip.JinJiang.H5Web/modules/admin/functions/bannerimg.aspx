@@ -110,13 +110,13 @@
                     <div>
                         <div>开始时间:</div>
                         <div>
-                            <input id="beginDate" type="date" style="height: 30px" />
+                            <input id="beginDate" type="date" style="height: 30px"  /><img ng-click="taketodate()" src='../../img/今2.png' style="width:30px;margin-left:10px">
                         </div>
                     </div>
                     <div>
                         <div>结束时间:</div>
                         <div>
-                            <input id="endDate" type="date" style="height: 30px" />
+                            <input id="endDate" type="date" style="height: 30px" /><img ng-click="takemaxdate()" src='../../img/无穷大.png' style="width:30px;margin-left:10px">
                         </div>
                     </div>
                     <div>
@@ -136,7 +136,7 @@
         <form id="example0" class="modal hide fade in" style="display: none; height: 120px; width: 270px;">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
-                <h3>确认禁(可)用吗?</h3>
+                <h3>确认操作吗?</h3>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-success" ng-click="confirmEn()">确认</a>
@@ -246,9 +246,9 @@
                 $('#alt')[0].value = $event.path[2].cells[1].innerText;
                 $('#order')[0].value = $event.path[2].cells[3].innerText;
                 $('#H5Url')[0].value = $event.path[2].cells[4].innerText;
-                //自带的这个日期控件暂时不知道怎么直接jquery去赋值!之后再做尝试.
-                //$('#beginDate')[0].value = $event.path[2].cells[5].innerText;
-                //$('#endDate')[0].value = $event.path[2].cells[6].innerText;
+                //自带的这个日期控件暂时不知道怎么直接jquery去赋值!之后再做尝试.已解
+                $('#beginDate')[0].value = $event.path[2].cells[5].innerText;
+                $('#endDate')[0].value = $event.path[2].cells[6].innerText;
             };
             $scope.changeen = function ($event) {
                 modalclass1();
@@ -366,6 +366,12 @@
                 }
                 $scope.lines = arrayLine;
             };
+            $scope.taketodate = function () {
+                $('#beginDate')[0].value = getNowFormatDateM();
+            }
+            $scope.takemaxdate = function () {
+                $('#endDate')[0].value = '2100-01-01';
+            }
             $scope.reloadRoute = function () {
                 var path = document.getElementById("File1").value;
                 var img = document.getElementById("img1");
