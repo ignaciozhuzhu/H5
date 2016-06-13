@@ -10,7 +10,7 @@
     <script src="../../angular/js/ng-pagination.min.js"></script>
     <script src="../../angular/js/angular-route.js"></script>
     <link href="../../angular/css/ng-pagination.min.css" rel="stylesheet" />
-    
+
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -321,7 +321,7 @@
                     </div>
                 </div>
                 <!-- search form -->
-                <form action="#" method="get" class="sidebar-form" style="visibility:hidden;height:10px">
+                <form action="#" method="get" class="sidebar-form" style="visibility: hidden; height: 10px">
                     <div class="input-group">
                         <input type="text" name="q" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
@@ -336,7 +336,7 @@
                 <ul class="sidebar-menu">
                     <%--<li class="header">MAIN NAVIGATION</li>--%>
                     <li class="treeview active">
-<%--                        <a href="#">
+                        <%--                        <a href="#">
                             <i class="fa fa-table"></i><span>二郎腿</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>--%>
@@ -353,17 +353,16 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        
 
-        
-    <div>
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
 
-        </asp:ContentPlaceHolder>
-    </div>
+
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
 
         <!-- /.content-wrapper -->
-<%--        <footer class="main-footer">
+        <%--        <footer class="main-footer">
             <div class="pull-right hidden-xs">
                 <b>Version</b> 2.3.3
             </div>
@@ -579,8 +578,8 @@
 
     <link href="../../bootstrap/css/bootstrap-modal.css" rel="stylesheet">
     <style type="text/css">
-        .treeview-menu li{
-        line-height:28px;
+        .treeview-menu li {
+            line-height: 28px;
         }
     </style>
 
@@ -588,16 +587,22 @@
     <script src="../../dist/js/app.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="../../dist/js/demo.js"></script>
-    
+
     <script type="text/javascript" src="../../../../www/js/jscommon.js"></script>
     <!-- page script -->
 
-     <div>
+    <script>
+        var useradmin = getCookie('useradmin');
+        if (useradmin !== "admin") {
+            window.location.href = "../login.html";
+        }
+    </script>
+    <div>
         <asp:ContentPlaceHolder ID="ContentPlaceHolderScripts" runat="server">
         </asp:ContentPlaceHolder>
     </div>
 
-  
+
 
 </body>
 </html>

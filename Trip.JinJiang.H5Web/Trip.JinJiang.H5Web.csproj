@@ -101,6 +101,7 @@
     <Content Include="modules\admin\functions\bannerimg.aspx" />
     <Content Include="modules\admin\functions\linecategory.aspx" />
     <Content Include="modules\admin\functions\linestore.aspx" />
+    <Content Include="modules\admin\login.html" />
     <Content Include="modules\admin\functions\searchtag.aspx" />
     <Content Include="modules\angular\js\angular-route.js" />
     <Content Include="modules\bootstrap\css\bootstrap.css" />
@@ -1448,6 +1449,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="modules\admin\images\" />
+    <Folder Include="modules\admin\js\" />
     <Folder Include="modules\css\" />
     <Folder Include="www\js\css\" />
   </ItemGroup>

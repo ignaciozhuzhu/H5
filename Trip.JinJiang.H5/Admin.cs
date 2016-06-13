@@ -445,5 +445,24 @@ namespace Trip.JinJiang.H5
             return "";
         }
         //-----------------------------空搜关键词管理 ed
+        
+        /// <summary>
+        /// 登录
+        /// </summary>
+        public static string login(string name, string password)
+        {
+            string strSql = "";
+            strSql = "select count(*) from useradmin where name='" + name + "' and password='" + password + "' ";
+            DataSet ds = DbHelperSQL.Query(strSql);
+            int i = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
+            if (i > 0)
+            {
+                return "true";
+            }
+            else
+            {
+                return "false";
+            }
+        }
     }
 }

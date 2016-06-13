@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Web;
 using System.Web.SessionState;
+using Trip.JinJiang.H5;
 
 namespace Trip.JinJiang.H5Web.ajax
 {
@@ -55,6 +56,18 @@ namespace Trip.JinJiang.H5Web.ajax
 
                 _upfile.SaveAs(HttpContext.Current.Server.MapPath("~/modules/img/" + fileName));//保存图片 
                 return fileName;
+            }
+        }
+        public void login()
+        {
+            try
+            {
+                string name = (HttpContext.Current.Request["name"]).ToString();
+                string password = (HttpContext.Current.Request["password"]).ToString();
+                HttpContext.Current.Response.Write(Admin.login(name,password));
+            }
+            catch (Exception e)
+            {
             }
         }
 
