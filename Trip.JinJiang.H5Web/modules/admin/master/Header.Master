@@ -39,6 +39,10 @@
         .box-body table thead tr th {
             width: 18%;
         }
+        .fa-circle-o:before{
+            /*content:"\f10c";*/
+            /*src:url('../../img/add.png');*/
+        }
     </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

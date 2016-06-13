@@ -8,11 +8,13 @@
             left: 30%;
             top: 30%;
         }
+
         #example .modal-footer {
-            margin-top:100px;
+            margin-top: 100px;
         }
+
         #example .col-xs-4 {
-            margin-top:50px;
+            margin-top: 50px;
         }
     </style>
     <div class="content-wrapper" ng-app="lhxApp" ng-controller="userCtrl">
@@ -35,10 +37,10 @@
             <div class="modal-body">
 
                 <div class="col-xs-8">
-                    
+
                     <div>
                         <div>名称或类型或线路ID:</div>
-<%--                        <select ng-model="selectedcate" ng-options="x.categoryName for x in linecates">
+                        <%--                        <select ng-model="selectedcate" ng-options="x.categoryName for x in linecates">
                         </select>--%>
                         <input id="selectedcate" type="text" style="height: 30px" />
                         <input ng-click="filtcategory()" type="button" value="查找">
@@ -78,7 +80,7 @@
                     </div>
                     <!-- /.box -->
                 </div>
-                
+
                 <div class="col-xs-4">
                     <div>
                         <div>描述:</div>
@@ -168,14 +170,14 @@
                                 <thead>
                                     <tr>
                                         <th ng-hide="true">Id</th>
-                                        <th style="width:10%">描述</th>
-                                        <th style="width:10%">图片</th>
-                                        <th style="width:10%">排序</th>
-                                        <th style="width:10%">H5Url</th>
-                                        <th style="width:10%">开始时间</th>
-                                        <th style="width:10%">结束时间</th>
-                                        <th style="width:10%">状态</th>
-                                        <th style="width:20%">操作</th>
+                                        <th style="width: 10%">描述</th>
+                                        <th style="width: 10%">图片</th>
+                                        <th style="width: 10%">排序</th>
+                                        <th style="width: 10%">H5Url</th>
+                                        <th style="width: 10%">开始时间</th>
+                                        <th style="width: 10%">结束时间</th>
+                                        <%--<th style="width: 10%">状态</th>--%> 
+                                        <th style="width: 20%">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -188,10 +190,10 @@
                                         <td>{{x.H5Url}}</td>
                                         <td>{{x.beginDate}}</td>
                                         <td>{{x.endDate}}</td>
-                                        <td>{{x.status===true?'可用':'禁用'}}</td>
+                                        <%--<td>{{x.status===true?'可用':'禁用'}}</td>--%>
                                         <td>
                                             <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#example">修改</a>
-                                            <img style="margin-left: 5%" src='../../img/disable.png'><a ng-click="changeen($event)" data-toggle="modal" href="#example0">禁(可)用</a>
+                                           <%-- <img style="margin-left: 5%" src='../../img/disable.png'><a ng-click="changeen($event)" data-toggle="modal" href="#example0">禁(可)用</a>--%>
                                             <img style="margin-left: 5%" src='../../img/delete.png'><a ng-click="delete($event)" data-toggle="modal" href="#example2">删除</a>
                                         </td>
                                     </tr>
@@ -381,6 +383,35 @@
                     alert("不允许同时选择线路和填写H5Url");
                     return;
                 }
+
+                //日期时间限制bg
+                if (!$('#beginDate')[0].value) {
+                    alert("请选择开始时间");
+                    return;
+                }
+                if (!$('#endDate')[0].value) {
+                    alert("请选择结束时间");
+                    return;
+                }
+                var datenow = new Date();
+
+                var mybeginDate = new Date();
+                mybeginDate.setFullYear($('#beginDate')[0].value.split("-")[0], $('#beginDate')[0].value.split("-")[1] - 1, $('#beginDate')[0].value.split("-")[2]);
+                var myendDate = new Date();
+                myendDate.setFullYear($('#endDate')[0].value.split("-")[0], $('#endDate')[0].value.split("-")[1] - 1, $('#endDate')[0].value.split("-")[2]);
+                if (mybeginDate < datenow) {
+                    alert("开始时间不能早于今天");
+                    return;
+                }
+                if (myendDate < datenow) {
+                    alert("结束时间不能早于今天");
+                    return;
+                }
+                if (mybeginDate > myendDate) {
+                    alert("开始时间不能早于结束时间");
+                    return;
+                }
+                //日期时间限制ed
 
                 //未选中行说明是新增.
                 if (selectid === null || selectid === undefined || selectid === "") {

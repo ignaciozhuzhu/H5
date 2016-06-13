@@ -193,6 +193,7 @@
     <Content Include="modules\documentation\style.css" />
     <Content Include="modules\Gruntfile.js" />
     <Content Include="modules\img\add.png" />
+    <Content Include="modules\img\circle.png" />
     <Content Include="modules\img\delete.png" />
     <Content Include="modules\img\disable.png" />
     <Content Include="modules\img\edit.png" />
@@ -1057,6 +1058,7 @@
     <Content Include="www\css\royalslider.css" />
     <Content Include="www\css\rs-minimal-white.css" />
     <Content Include="www\css\style.css" />
+    <Content Include="www\css\userstyle.min.css" />
     <Content Include="www\demos\down.html" />
     <Content Include="www\demos\extend.html" />
     <Content Include="www\demos\localdb.html" />
@@ -1316,6 +1318,7 @@
     <Content Include="www\templates\user\login.html" />
     <Content Include="www\templates\user\quickregister.html" />
     <Content Include="www\templates\user\register.html" />
+    <Content Include="www\css\userstyle.css" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="scripts\ai.0.15.0-build58334.js" />

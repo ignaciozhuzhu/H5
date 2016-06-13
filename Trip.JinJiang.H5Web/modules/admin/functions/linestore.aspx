@@ -36,7 +36,9 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div>线路筛选: <span style="padding-left: 10px">
-                        <input type="text" style="height: 30px" ng-model="test"></span></div>
+                        <input id="selectedcate" type="text" style="height: 30px" ng-model="test"></span>
+                        <input ng-click="filtcategory()" type="button" value="查找">
+                    </div>
                     <div class="box">
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -53,7 +55,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="x in lines | filter:test">
+                                    <tr ng-repeat="x in lines">
                                         <td ng-hide="true">{{x.lineId}}</td>
                                         <td>{{x.name}}</td>
                                         <td>{{x.title}}</td>
@@ -134,8 +136,33 @@
                 });
 
             }
-
+            $scope.filtcategory = function () {
+                //线路列表bg
+                var filtcate = $('#selectedcate').val(); //$scope.selectedcate.categoryName;
+                var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesadsearch&search=" + filtcate + "";
+                $http.get(nghttp).success(function (response) {
+                    //  debugger
+                    $scope.pageCount = Math.ceil(response.ds.length / percount);
+                    responseCache2 = response;
+                    var arrayLine = new Array(0);
+                    var mypercount = percount > responseCache2.ds.length ? responseCache2.ds.length : percount;
+                    for (var i = 0; i < mypercount; i++) {
+                        arrayLine.push(responseCache2.ds[i]);
+                    }
+                    $scope.lines = arrayLine;
+                });
+                $scope.onPageChange = function () {
+                    var arrayLine = new Array(0);
+                    var pagec = responseCache2.ds.length - (percount * ($scope.currentPage - 1)) >= percount ? percount * $scope.currentPage : responseCache2.ds.length;
+                    for (var i = percount * ($scope.currentPage - 1) ; i < pagec; i++) {
+                        arrayLine.push(responseCache2.ds[i]);
+                    }
+                    $scope.lines = arrayLine;
+                };
+                //线路列表ed
+            }
         });
+
 
         function getlinecategorys() {
             $.ajax({

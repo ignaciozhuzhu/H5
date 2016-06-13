@@ -54,7 +54,7 @@
                     <form id="confirmbox" class="modal hide fade in" style="display: none; height: 120px; width: 270px;">
                         <div class="modal-header">
                             <a class="close" data-dismiss="modal">×</a>
-                            <h3>确认禁用吗?</h3>
+                            <h3>确认删除吗?</h3>
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-success" ng-click="confirmEn()">确认</a>
@@ -75,7 +75,7 @@
                                     <tr>
                                         <th ng-hide="true">Id</th>
                                         <th>一级标签</th>
-                                        <th ng-hide="true">排序</th>
+                                        <th ng-hide="false">排序</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
@@ -83,10 +83,10 @@
                                     <tr ng-repeat="x in lines">
                                         <td ng-hide="true">{{x.Id}}</td>
                                         <td ng-click="showson($event)"><a href="#">{{x.areaName}}</a></td>
-                                        <td ng-hide="true">{{x.order}}</td>
+                                        <td ng-hide="false">{{x.order}}</td>
                                         <td>
                                             <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#editbox">修改</a>
-                                            <img style="margin-left: 5%" src='../../img/delete.png'><a ng-click="changeen($event)" data-toggle="modal" href="#confirmbox">禁用</a>
+                                            <img style="margin-left: 5%" src='../../img/delete.png'><a ng-click="changeen($event)" data-toggle="modal" href="#confirmbox">删除</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -138,7 +138,7 @@
                     <form id="confirmbox2" class="modal hide fade in" style="display: none; height: 120px; width: 270px;">
                         <div class="modal-header">
                             <a class="close" data-dismiss="modal">×</a>
-                            <h3>确认禁用吗?</h3>
+                            <h3>确认删除吗?</h3>
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-success" ng-click="confirmEn()">确认</a>
@@ -172,7 +172,7 @@
                                         <td>{{x.H5Url}}</td>
                                         <td>
                                             <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#editbox2">修改</a>
-                                            <img style="margin-left: 5%" src='../../img/delete.png'><a ng-click="changeen($event)" data-toggle="modal" href="#confirmbox2">禁用</a>
+                                            <img style="margin-left: 5%" src='../../img/delete.png'><a ng-click="changeen($event)" data-toggle="modal" href="#confirmbox2">删除</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -223,7 +223,7 @@
                     <form id="confirmbox3" class="modal hide fade in" style="display: none; height: 120px; width: 270px;">
                         <div class="modal-header">
                             <a class="close" data-dismiss="modal">×</a>
-                            <h3>确认禁用吗?</h3>
+                            <h3>确认删除吗?</h3>
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-success" ng-click="confirmEn()">确认</a>
@@ -255,7 +255,7 @@
                                         <td>{{x.H5Url}}</td>
                                         <td>
                                             <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#editbox3">修改</a>
-                                            <img style="margin-left: 5%" src='../../img/delete.png'><a ng-click="changeen($event)" data-toggle="modal" href="#confirmbox3">禁用</a>
+                                            <img style="margin-left: 5%" src='../../img/delete.png'><a ng-click="changeen($event)" data-toggle="modal" href="#confirmbox3">删除</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -386,6 +386,10 @@
                         type: "post",
                         data: { areaName: areaName, order: order },
                         success: function (text) {
+                            if (text != "操作成功!") {
+                                alert(text);
+                                return;
+                            }
                             $window.location.reload();
                         }
                     });
@@ -396,6 +400,10 @@
                         type: "post",
                         data: { Id: selectid, areaName: areaName, order: order },
                         success: function (text) {
+                            if (text != "操作成功!") {
+                                alert(text);
+                                return;
+                            }
                             setCookie('tagaid', selectid, 1);
                             $window.location.reload();
                         }

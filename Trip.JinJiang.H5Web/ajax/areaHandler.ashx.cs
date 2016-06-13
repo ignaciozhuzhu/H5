@@ -24,7 +24,7 @@ namespace Trip.JinJiang.H5Web.ajax
             }
             catch (Exception e)
             {
-                HttpContext.Current.Response.Write("接口出错!");
+                HttpContext.Current.Response.Write(e.InnerException.Message);
             }
         }
         private void ResponseWriteEnd(HttpContext context, string msg)

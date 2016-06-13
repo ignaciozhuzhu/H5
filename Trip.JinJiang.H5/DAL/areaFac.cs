@@ -104,8 +104,15 @@ namespace Trip.JinJiang.H5.DAL
             parameters[1].Value = model.status;
             parameters[2].Value = model.order;
             parameters[3].Value = model.Id;
-
-            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            int rows = 0;
+            try
+            {
+                rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
             if (rows > 0)
             {
                 return true;

@@ -250,9 +250,9 @@
                                 else if (str == "2") { alert("只能上传jpg或png格式的图片"); }
                                 else if (str == "3") { alert("图片不能大于1M"); }
                                 else if (str == "4") { alert("请选择要上传的文件!!"); }
-                                else { alert('操作失败！'); }
+                                else { alert('操作失败！检查是否重复排序'); }
                             }
-                            else alert('操作失败！');
+                            else alert('操作失败！检查是否重复排序');
                         },
                         error: function (error) { alert(error); },
                         url: '../../../ajax/lineCategoryHandler.ashx?fn=addcategory',
@@ -273,9 +273,9 @@
                                 else if (str == "2") { alert("只能上传jpg或png格式的图片"); }
                                 else if (str == "3") { alert("图片不能大于1M"); }
                                 else if (str == "4") { alert("请选择要上传的文件!!"); }
-                                else { alert('操作失败！'); }
+                                else { alert('操作失败！检查是否重复排序'); }
                             }
-                            else alert('操作失败！');
+                            else alert('操作失败！检查是否重复排序');
                         },
                         error: function (error) { alert(error); },
                         url: '../../../ajax/lineCategoryHandler.ashx?fn=editlinecategory',
