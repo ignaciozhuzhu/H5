@@ -675,16 +675,23 @@
             this.name = name;
         }
         var p = new CGuest();
-        p = new CGuest('ADULT', 'guest1');
+        p = new CGuest('ADULT', $('.inname:first')[0].value);
         guestsarr.push(p);
-        p = new CGuest('ADULT', 'guest2');
-        guestsarr.push(p);
-        p = new CGuest('ADULT', 'guest3');
-        guestsarr.push(p);
-        p = new CGuest('ADULT', 'guest4');
-        guestsarr.push(p);
-        p = new CGuest('ADULT', 'guest5');
-        guestsarr.push(p);
+        //debugger
+        for (var i = 1 ; i < pnum; i++) {
+            try {
+                p = new CGuest('ADULT', $('.inname')[i].value);
+                guestsarr.push(p);
+            }
+            catch (e) { }
+        }
+
+        //p = new CGuest('ADULT', 'guest3');
+        //guestsarr.push(p);
+        //p = new CGuest('ADULT', 'guest4');
+        //guestsarr.push(p);
+        //p = new CGuest('ADULT', 'guest5');
+        //guestsarr.push(p);
 
         var gueststring = "";
         for (var i = 0; i < pnum; i++) {
@@ -692,13 +699,14 @@
         }
         gueststring = gueststring.substring(0, gueststring.length - 1);
 
-        var discountAmount = Math.floor(amount * (1 - Discount)) * pnum;
+        var discountAmount = Math.floor(amount * (1 - Discount));
         //动态成人数.
         //debugger
         var mcMemberCode = getCookie('mcMemberCode');
-        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\""+mcMemberCode+"\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
+        //debugger
+        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"" + mcMemberCode + "\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
         //2人
-        // json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"},{\"category\":\"" + guestsarr[1].category + "\",\"name\":\"" + guestsarr[1].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
+        //json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"},{\"category\":\"" + guestsarr[1].category + "\",\"name\":\"" + guestsarr[1].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
         //1人
         //json = "{\"adultNum\":1,\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":1,\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount + "}],\"scorePay\":false}";
 
@@ -711,7 +719,10 @@
             url: "../../ajax/apihandler.ashx?fn=createorder&json=" + json + "",
             type: "post",
             success: function (text) {
+                //debugger
                 layer.close(mylayeruiwait);
+                if (finderrorMsgadmin(text))
+                    return;
                 //出行人只显示成人,有几人就设置几个cookiename
                 for (var i = 0; i < pnum; i++) {
                     setCookie('inname' + i, $('.inname')[i].value, 1);

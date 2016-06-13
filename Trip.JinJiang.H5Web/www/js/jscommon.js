@@ -271,9 +271,10 @@ function find404admin(response) {
 function finderrorMsgadmin(response) {
     var responsearr = eval("(" + response + ")");
     if (responsearr.errorMsg === null)
-        return
+        return false;
     else {
         layermyui(responsearr.errorMsg, 3000);
+        return true;
     }
 }
 
