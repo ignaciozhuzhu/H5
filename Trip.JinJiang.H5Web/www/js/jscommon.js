@@ -273,8 +273,7 @@ function finderrorMsgadmin(response) {
     if (responsearr.errorMsg === null)
         return false;
     else {
-        layermyui(responsearr.errorMsg, 3000);
-        return true;
+        return responsearr.errorMsg;
     }
 }
 

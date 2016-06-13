@@ -258,7 +258,7 @@
                 //debugger
                 if (groupid > 0 && linkbackpay === 'true') {
                     setCookie('linkbackpay', '', 1);
-                    window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
+                    window.location.href = '#/app/fillorder/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
                 }
                 else {
                     window.location.href = '#/app/index';

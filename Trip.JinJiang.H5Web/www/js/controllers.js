@@ -721,8 +721,27 @@
             success: function (text) {
                 //debugger
                 layer.close(mylayeruiwait);
-                if (finderrorMsgadmin(text))
-                    return;
+                var errormsg = finderrorMsgadmin(text);
+                if (errormsg) {
+                    if (errormsg == "mcMemberCode不能为空!") {
+                        //把参数存入cookie
+                        setCookie('amount', amount, 1);
+                        setCookie('cnum', cnum, 1);
+                        setCookie('pnum', pnum, 1);
+                        setCookie('groupid', groupid, 1);
+                        setCookie('secureamount', secureamount, 1);
+                        //将跳回支付该产品的cookie
+                        //debugger
+                        setCookie('linkbackpay', 'true', 1);
+                        //跳转至登录页
+                        window.location.href = '#/app/user/login';
+                        return;
+                    }
+                    else {
+                        layermyui(errormsg, 3000);
+                        return;
+                    }
+                }
                 //出行人只显示成人,有几人就设置几个cookiename
                 for (var i = 0; i < pnum; i++) {
                     setCookie('inname' + i, $('.inname')[i].value, 1);
@@ -809,7 +828,8 @@
                     window.location.href = response;
                 })
             }
-            else {//把参数存入cookie
+            else {
+                //把参数存入cookie
                 setCookie('amount', amount, 1);
                 setCookie('cnum', cnum, 1);
                 setCookie('pnum', pnum, 1);
