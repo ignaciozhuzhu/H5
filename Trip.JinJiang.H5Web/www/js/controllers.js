@@ -332,7 +332,7 @@
 })
 
 //线路详情控制器
-.controller('lineDetailCtrl', function ($scope, $http, $sce) {
+.controller('lineDetailCtrl', function ($scope, $http, $sce, $ionicScrollDelegate) {
     var url = location.href;
     var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
     $('.linedetail .ordernow').attr('href', '#/app/indexdate/' + lineid);
@@ -447,6 +447,35 @@
 
     });
 
+    $scope.lineCl = function() {
+        $('.linedetail .idfeature').hide();
+        $('.linedetail .idline').show();
+        $('.linedetail .idexpense').hide();
+        removeclassblue();
+        $('.tunbl1').addClass("contentblue");
+        $('.tunbl4').addClass("lineblue");
+        $ionicScrollDelegate.resize();
+    }
+
+    $scope.featureCl = function() {
+        $('.linedetail .idfeature').show();
+        $('.linedetail .idline').hide();
+        $('.linedetail .idexpense').hide();
+        removeclassblue();
+        $('.tunbl2').addClass("contentblue");
+        $('.tunbl5').addClass("lineblue");
+        $ionicScrollDelegate.resize();
+    }
+
+    $scope.expenseCl = function () {
+        $('.linedetail .idfeature').hide();
+        $('.linedetail .idline').hide();
+        $('.linedetail .idexpense').show();
+        removeclassblue();
+        $('.tunbl3').addClass("contentblue");
+        $('.tunbl6').addClass("lineblue");
+        $ionicScrollDelegate.resize();
+    }
 })
 
 //日期选择控制器
@@ -922,19 +951,6 @@ function citySelect() {
         }
     })
 }
-////城市选择框
-//function desSelect() {
-//    $('#divcontent').hide();
-//    $('#bartitle').hide();
-//    $('#divdesselect').show();
-
-//    $('#divdesselect').click(function (event) {
-//        if (event.target.className === 'searchDest') {
-//            $(".searchtxt")[1].value = event.target.innerText;
-//        }
-//    })
-//}
-
 
 //线路查询传参,前台点击事件
 function searchLines() {
@@ -954,42 +970,3 @@ function addclassblue(q, i) {
     $('.thirdCenter:eq(' + q + ')').addClass("contentblue");
     $('.thirdCenter:eq(' + i + ')').addClass("lineblue");
 }
-
-function lineCl() {
-    $('.linedetail .idfeature').hide();
-    $('.linedetail .idline').show();
-    $('.linedetail .idexpense').hide();
-    removeclassblue();
-    //  addclassblue(0, 3);
-    $('.tunbl1').addClass("contentblue");
-    $('.tunbl4').addClass("lineblue");
-}
-
-function featureCl() {
-    $('.linedetail .idfeature').show();
-    $('.linedetail .idline').hide();
-    $('.linedetail .idexpense').hide();
-    removeclassblue();
-    //addclassblue(1, 4);
-    $('.tunbl2').addClass("contentblue");
-    $('.tunbl5').addClass("lineblue");
-}
-
-function expenseCl() {
-    $('.linedetail .idfeature').hide();
-    $('.linedetail .idline').hide();
-    $('.linedetail .idexpense').show();
-    removeclassblue();
-    //addclassblue(2, 5);
-    $('.tunbl3').addClass("contentblue");
-    $('.tunbl6').addClass("lineblue");
-}
-
-
-function sortbydepartDate(a, b) {
-    return a.departDate - b.departDate;
-}
-function sortbydayNumber(a, b) {
-    return a.dayNumber - b.dayNumber;
-}
-

@@ -201,7 +201,10 @@
     <Content Include="modules\img\okbtn.png" />
     <Content Include="modules\img\radiono.png" />
     <Content Include="modules\img\radiook.png" />
+    <Content Include="modules\img\今.png" />
+    <Content Include="modules\img\今2.png" />
     <Content Include="modules\img\取消标签.png" />
+    <Content Include="modules\img\无穷大.png" />
     <Content Include="modules\index.html" />
     <Content Include="modules\js\jquery-form.js" />
     <Content Include="modules\miniui\boot.js" />

@@ -353,3 +353,11 @@ function request(paras) {
         return returnValue;
     }
 }
+
+
+function sortbydepartDate(a, b) {
+    return a.departDate - b.departDate;
+}
+function sortbydayNumber(a, b) {
+    return a.dayNumber - b.dayNumber;
+}

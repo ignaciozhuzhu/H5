@@ -125,7 +125,7 @@
                     <span>{{groupcode}}</span>
                 </div>
             </div>
-            <div>
+            <div class="mylinedetailbox" style="overflow:hidden">
                 <div class="padding5px">
                     <div class="smalltitle">
                         {{linedetails.name}}
@@ -158,13 +158,13 @@
                 <div class="height_1px"></div>
                 <div class="height_5px"></div>
                 <div class="padding5px" style="height:38px;line-height:28px">
-                    <div class="thirdCenter smallcontent2 tunbl1" onclick="lineCl()">
+                    <div class="thirdCenter smallcontent2 tunbl1" ng-click="lineCl()">
                         行程介绍
                     </div>
-                    <div class="thirdCenter smallcontent2 tunbl2" onclick="featureCl()">
+                    <div class="thirdCenter smallcontent2 tunbl2" ng-click="featureCl()">
                         行程特色
                     </div>
-                    <div class="thirdCenter smallcontent2 tunbl3" onclick="expenseCl()">
+                    <div class="thirdCenter smallcontent2 tunbl3" ng-click="expenseCl()">
                         费用详情
                     </div>
 
@@ -204,6 +204,7 @@
                 </div>
 
                 <a class="ordernow" href=""><div class="bottombutton">立即预订</div></a>
+                <!--<button ng-click="scrollSmallToTop()">滚动到顶部!</button>-->
             </div>
         </div>
     </ion-content>
