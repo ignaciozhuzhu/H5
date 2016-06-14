@@ -445,6 +445,7 @@
 
     function getorders(mynghttp) {
         $http.get(mynghttp).success(function (response) {
+            //debugger
             find404admin(response);
             $scope.orders = response.orders;
         })

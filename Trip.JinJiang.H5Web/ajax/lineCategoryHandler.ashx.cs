@@ -79,7 +79,8 @@ namespace Trip.JinJiang.H5Web.ajax
             string lineCategory = HttpContext.Current.Request["lineCategory"].ToString();
             int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
             int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
-            HttpContext.Current.Response.Write(Admin.editlinecategory(categoryName, lineCategory, imgUrl, Id, order));
+            string pattern = HttpContext.Current.Request["pattern"].ToString();
+            HttpContext.Current.Response.Write(Admin.editlinecategory(categoryName, lineCategory, imgUrl, Id, order, pattern));
             //}
         }
         /// <summary>

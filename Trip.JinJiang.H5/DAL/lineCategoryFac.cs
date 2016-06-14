@@ -74,19 +74,22 @@ namespace Trip.JinJiang.H5.DAL
             strSql.Append("categoryName=@categoryName, ");
             strSql.Append("lineCategory=@lineCategory, ");
             strSql.Append("imgUrl=@imgUrl,");
-            strSql.Append("[order]=@order");
+            strSql.Append("[order]=@order,");
+            strSql.Append("pattern=@pattern");
             strSql.Append(" where Id=@Id ");
             SqlParameter[] parameters = {
                     new SqlParameter("@categoryName", SqlDbType.NVarChar,50),
                     new SqlParameter("@lineCategory", SqlDbType.NVarChar,50),
                     new SqlParameter("@imgUrl", SqlDbType.NVarChar,200),
                     new SqlParameter("@order", SqlDbType.Int,4),
+                    new SqlParameter("@pattern", SqlDbType.NVarChar,50),
                     new SqlParameter("@Id", SqlDbType.Int,4)};
             parameters[0].Value = model.categoryName;
             parameters[1].Value = model.lineCategory;
             parameters[2].Value = model.imgUrl;
             parameters[3].Value = model.order;
-            parameters[4].Value = model.Id;
+            parameters[4].Value = model.pattern;
+            parameters[5].Value = model.Id;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)

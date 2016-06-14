@@ -121,7 +121,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 线路类型编辑
         /// </summary>
-        public static string editlinecategory(string categoryName, string lineCategory, string imgUrl, int Id, int order)
+        public static string editlinecategory(string categoryName, string lineCategory, string imgUrl, int Id, int order,string pattern)
         {
             lineCategoryMod model = new lineCategoryMod();
             model.lineCategory = lineCategory;
@@ -129,6 +129,7 @@ namespace Trip.JinJiang.H5
             model.imgUrl = imgUrl;
             model.Id = Id;
             model.order = order;
+            model.pattern = pattern;
             lineCategoryFac Fac = new lineCategoryFac();
             if (Fac.Update(model))
             {

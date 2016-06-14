@@ -158,7 +158,7 @@
                 $('#lineCategory')[0].value = "";
                 $('#lineCategory').removeAttr('disabled');
                 $('#pattern')[0].value = "";
-                $('#pattern').removeAttr('disabled');
+                //$('#pattern').removeAttr('disabled');
                 $('#order')[0].value = "1";
             };
             $scope.edit = function ($event) {
@@ -170,7 +170,7 @@
                 $('#imgurl2')[0].src = $event.path[2].cells[3].childNodes[1].src;
                 $('#lineCategory').attr("disabled", "disabled");
                 $('#pattern')[0].value = $event.path[2].cells[4].innerText;
-                $('#pattern').attr("disabled", "disabled");
+                //$('#pattern').attr("disabled", "disabled");
                 $('#order')[0].value = $event.path[2].cells[5].innerText;
             };
             $scope.changeen = function ($event) {
@@ -279,7 +279,7 @@
                         error: function (error) { alert(error); },
                         url: '../../../ajax/lineCategoryHandler.ashx?fn=editlinecategory',
                         type: "post",
-                        data: { categoryName: $('#categoryName')[0].value, lineCategory: $('#lineCategory')[0].value, Id: selectid, order: $('#order')[0].value, path: path },
+                        data: { categoryName: $('#categoryName')[0].value, lineCategory: $('#lineCategory')[0].value, Id: selectid, order: $('#order')[0].value, path: path, pattern: $('#pattern')[0].value },
                         dataType: "text"
                     });
 
