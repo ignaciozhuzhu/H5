@@ -438,6 +438,13 @@
     var orderStatus = "";
     var payStatus = "";
 
+    //debugger
+    //45
+    //var a = $(".header0")[0].offsetTop;
+    //if (a < 45) {
+      //  $(".header0")[0].offset({ top: 45, left: 0 });
+    //}
+
     removeclassyellow();
     addclassyellow(0);
     var nghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
@@ -452,10 +459,10 @@
     }
 
     function addclassyellow(q) {
-        $('.header div:eq(' + q + ')').css("color", "#f59609");
+        $('.header0 div:eq(' + q + ')').css("color", "#f59609");
     }
     function removeclassyellow(q) {
-        $('.header div').css("color", "#beb9c0");
+        $('.header0 div').css("color", "#beb9c0");
     }
 
     $scope.seedetail = function ($event) {

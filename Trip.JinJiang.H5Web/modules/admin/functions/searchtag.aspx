@@ -1,7 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/modules/admin/master/Header.Master" AutoEventWireup="true" CodeBehind="searchtag.aspx.cs" Inherits="Trip.JinJiang.H5Web.modules.admin.functions.searchtag" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+        <style>
+        .box {
+        border:1px solid #ccc
+        }
+    </style>
     <div class="content-wrapper" ng-app="lhxApp" ng-controller="firstCtrl">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -330,6 +334,9 @@
                 });
             };
             //默认显示之前选择修改或添加过的二级标签.
+            if (getCookie('tagaid') == "undefined") {
+                setCookie('tagaid', 1, 1);
+            }
             if (getCookie('tagaid') > 0) {
                 selectid = getCookie('tagaid');
                 var nghttp = "../../../ajax/areaHandler.ashx?fn=getarea2list&aId=" + selectid + "";

@@ -52,26 +52,28 @@ namespace Trip.JinJiang.H5Web.ajax
         public void addbannerimg()
         {
             string fileName = commonHandler.uploadimg();
-            if (fileName == "0")
+            //if (fileName == "0")
+            //{
+            //    ResponseWriteEnd(HttpContext.Current, "4");//请选择要上传的文件  
+            //}
+            //else
+            //{
+
+            string imgUrl = "../../../modules/img/" + fileName;
+            string alt = HttpContext.Current.Request["alt"].ToString();
+            //string imgUrl = "../../../modules/img/" + fileName;
+            int lineId = 0;
+            try
             {
-                ResponseWriteEnd(HttpContext.Current, "4");//请选择要上传的文件  
+                lineId = Convert.ToInt32(HttpContext.Current.Request["lineId"]);
             }
-            else
-            {
-                string alt = HttpContext.Current.Request["alt"].ToString();
-                string imgUrl = "../../../modules/img/" + fileName;
-                int lineId = 0;
-                try
-                {
-                    lineId = Convert.ToInt32(HttpContext.Current.Request["lineId"]);
-                }
-                catch { }
-                int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
-                string H5Url = HttpContext.Current.Request["H5Url"].ToString();
-                string beginDate = HttpContext.Current.Request["beginDate"].ToString();
-                string endDate = HttpContext.Current.Request["endDate"].ToString();
-                HttpContext.Current.Response.Write(Admin.addbannerimg(alt, imgUrl, lineId, order, H5Url,beginDate, endDate));
-            }
+            catch { }
+            int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
+            string H5Url = HttpContext.Current.Request["H5Url"].ToString();
+            string beginDate = HttpContext.Current.Request["beginDate"].ToString();
+            string endDate = HttpContext.Current.Request["endDate"].ToString();
+            HttpContext.Current.Response.Write(Admin.addbannerimg(alt, imgUrl, lineId, order, H5Url, beginDate, endDate));
+            //}
         }
 
         /// <summary>
@@ -80,27 +82,36 @@ namespace Trip.JinJiang.H5Web.ajax
         public void editbannerimg()
         {
             string fileName = commonHandler.uploadimg();
-            if (fileName == "0")
+            //if (fileName == "0")
+            //{
+            //    ResponseWriteEnd(HttpContext.Current, "4");//请选择要上传的文件  
+            //}
+            //else
+            //{
+            string imgUrl = "";
+            string path = HttpContext.Current.Request["path"];
+            if (path.IndexOf("/modules/img/") > -1)
             {
-                ResponseWriteEnd(HttpContext.Current, "4");//请选择要上传的文件  
+                imgUrl = "../../../modules/img" + path.Substring(path.LastIndexOf("/"));
             }
-            else
+            else {
+                imgUrl = "../../../modules/img/" + fileName;
+            }
+            string alt = HttpContext.Current.Request["alt"].ToString();
+            //string imgUrl = "../../../modules/img/" + fileName;
+            int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
+            int lineId = 0;
+            try
             {
-                string alt = HttpContext.Current.Request["alt"].ToString();
-                string imgUrl = "../../../modules/img/" + fileName;
-                int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
-                int lineId = 0;
-                try
-                {
-                    lineId = Convert.ToInt32(HttpContext.Current.Request["lineId"]);
-                }
-                catch { }
-                int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
-                string H5Url = HttpContext.Current.Request["H5Url"];
-                string beginDate = HttpContext.Current.Request["beginDate"];
-                string endDate = HttpContext.Current.Request["endDate"];
-                HttpContext.Current.Response.Write(Admin.editbannerimg(alt, imgUrl, Id, lineId, order, H5Url, beginDate, endDate));
+                lineId = Convert.ToInt32(HttpContext.Current.Request["lineId"]);
             }
+            catch { }
+            int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
+            string H5Url = HttpContext.Current.Request["H5Url"];
+            string beginDate = HttpContext.Current.Request["beginDate"];
+            string endDate = HttpContext.Current.Request["endDate"];
+            HttpContext.Current.Response.Write(Admin.editbannerimg(alt, imgUrl, Id, lineId, order, H5Url, beginDate, endDate));
+            //}
         }
 
         /// <summary>

@@ -4,18 +4,26 @@
     <style>
         #example.modal {
             max-height: 700px;
-            max-width: 1300px;
+            max-width: 1200px;
             left: 30%;
             top: 30%;
         }
 
         #example .modal-footer {
-            margin-top: 100px;
+            /*margin-top: 50px;*/
+            width:240px;
+            background-color:#fff;
+            border-top:0;
+            margin-left:25px;
         }
 
         #example .col-xs-4 {
             margin-top: 50px;
         }
+        .box {
+        border:1px solid #ccc
+        }
+
     </style>
     <div class="content-wrapper" ng-app="lhxApp" ng-controller="userCtrl">
         <!-- Content Header (Page header) -->
@@ -29,7 +37,7 @@
             </ol>
         </section>
 
-        <form id="example" class="modal hide fade in" style="display: none; height: 700px; width: 1300px;">
+        <form id="example" class="modal hide fade in" style="display: none; height: 700px; width: 1200px;">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
                 <h3>编辑</h3>
@@ -122,6 +130,7 @@
                     <div>
                         <div>图片:尺寸建议(宽412px 高202px)</div>
                         <input id="File1" name="File1" type="file" />
+                        <img id="imgurl2" style="height: 80px" />
                     </div>
                     <input type="text" name="txt" id="txt" style="display: none">
                     <input type="button" name="btn" value="btn" id="btn" style="display: none">
@@ -176,6 +185,8 @@
                                         <th style="width: 10%">H5Url</th>
                                         <th style="width: 10%">开始时间</th>
                                         <th style="width: 10%">结束时间</th>
+                                        <th ng-hide="true">线路ID</th> 
+                                        <th style="width: 10%">线路名称</th> 
                                         <%--<th style="width: 10%">状态</th>--%> 
                                         <th style="width: 20%">操作</th>
                                     </tr>
@@ -190,6 +201,8 @@
                                         <td>{{x.H5Url}}</td>
                                         <td>{{x.beginDate}}</td>
                                         <td>{{x.endDate}}</td>
+                                        <td ng-hide="true">{{x.lineId}}</td>
+                                        <td>{{x.name}}</td>
                                         <%--<td>{{x.status===true?'可用':'禁用'}}</td>--%>
                                         <td>
                                             <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#example">修改</a>
@@ -249,6 +262,13 @@
                 //自带的这个日期控件暂时不知道怎么直接jquery去赋值!之后再做尝试.已解
                 $('#beginDate')[0].value = $event.path[2].cells[5].innerText;
                 $('#endDate')[0].value = $event.path[2].cells[6].innerText;
+                $('#imgurl2')[0].src = $event.path[2].cells[2].childNodes[1].src;
+
+                $('#linenameid')[0].value = $event.path[2].cells[7].innerText;
+                $('#linename')[0].value = $event.path[2].cells[8].innerText;
+
+                //$('#linename')[0].value = $event.path[2].cells[1].innerText;
+                //$('#linenameid')[0].value = $event.path[2].cells[0].innerText;
             };
             $scope.changeen = function ($event) {
                 modalclass1();
@@ -375,9 +395,13 @@
             $scope.reloadRoute = function () {
                 var path = document.getElementById("File1").value;
                 var img = document.getElementById("img1");
-                if ($.trim(path) == "") {
+                if ($.trim(path) == "" && $('#imgurl2')[0].src === "") {
                     alert("请选择要上传的文件");
                     return;
+                }
+                //如果本来有图且没有去置换该图,则不需要上传图片
+                if ($('#imgurl2')[0].src !== "" && $.trim(path) == "") {
+                    path = $('#imgurl2')[0].src;
                 }
                 var linenameid = document.getElementById("linenameid").value;
                 var H5Url = document.getElementById("H5Url").value;
@@ -431,14 +455,14 @@
                                 else if (str == "2") { alert("只能上传jpg或png格式的图片"); }
                                 else if (str == "3") { alert("图片不能大于1M"); }
                                 else if (str == "4") { alert("请选择要上传的文件!!"); }
-                                else { alert('操作失败！'); }
+                                else { alert('操作失败！检查是否重复排序'); }
                             }
-                            else alert('操作失败！');
+                            else alert('操作失败！检查是否重复排序');
                         },
                         error: function (error) { alert(error); },
                         url: '../../../ajax/bannerImgHandler.ashx?fn=addbannerimg',
                         type: "post",
-                        data: { alt: $('#alt')[0].value, lineId: linenameid, order: $('#order')[0].value, H5Url: $('#H5Url')[0].value, beginDate: $('#beginDate')[0].value, endDate: $('#endDate')[0].value },
+                        data: { alt: $('#alt')[0].value, lineId: linenameid, order: $('#order')[0].value, H5Url: $('#H5Url')[0].value, beginDate: $('#beginDate')[0].value, endDate: $('#endDate')[0].value, path: path },
                         dataType: "text"
                     });
 
@@ -454,14 +478,14 @@
                                 else if (str == "2") { alert("只能上传jpg或png格式的图片"); }
                                 else if (str == "3") { alert("图片不能大于1M"); }
                                 else if (str == "4") { alert("请选择要上传的文件!!"); }
-                                else { alert('操作失败！'); }
+                                else { alert('操作失败！检查是否重复排序'); }
                             }
-                            else alert('操作失败！');
+                            else alert('操作失败！检查是否重复排序');
                         },
                         error: function (error) { alert(error); },
                         url: '../../../ajax/bannerImgHandler.ashx?fn=editbannerimg',
                         type: "post",
-                        data: { alt: $('#alt')[0].value, Id: selectid, lineId: linenameid, order: $('#order')[0].value, H5Url: $('#H5Url')[0].value, beginDate: $('#beginDate')[0].value, endDate: $('#endDate')[0].value },
+                        data: { alt: $('#alt')[0].value, Id: selectid, lineId: linenameid, order: $('#order')[0].value, H5Url: $('#H5Url')[0].value, beginDate: $('#beginDate')[0].value, endDate: $('#endDate')[0].value, path: path },
                         dataType: "text"
                     });
 

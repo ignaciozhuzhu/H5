@@ -100,7 +100,7 @@
             type: "post",
             success: function (text) {
                 layer.close(mylayeruiwait);
-                  // debugger
+               //    debugger
                 var d = eval("(" + text + ")");
                 var arrayLinemm = new Array(0);
                 for (var i = 0 ; i < d.rows.length; i++) {

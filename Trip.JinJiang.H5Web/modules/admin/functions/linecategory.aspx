@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/modules/admin/master/Header.Master" AutoEventWireup="true" CodeBehind="linecategory.aspx.cs" Inherits="Trip.JinJiang.H5Web.modules.admin.functions.linecategory" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <style>
+        .box {
+        border:1px solid #ccc
+        }
+    </style>
     <div class="content-wrapper" ng-app="lhxApp" ng-controller="userCtrl">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -41,9 +46,13 @@
                         <input id="order" type="number" style="height: 30px" />
                     </div>
                     <div>图标:尺寸建议(宽150px 高150px)</div>
-                    <input id="File1" name="File1" type="file" />
+                    <input id="File1" name="File1" type="file" style="" />
                     <%--<input id="imgurl"  type="text" style="height: 30px" />--%>
                     <img id="imgurl2" style="height: 30px" />
+<%--                    <div class="div1">
+    <div class="div2">选择文件</div>
+    <input type="file" class="inputstyle">
+</div>--%>
                 </div>
                 <input type="text" name="txt" id="txt" style="display: none">
                 <input type="button" name="btn" value="btn" id="btn" style="display: none">
@@ -109,10 +118,10 @@
                                             <img src="{{x.imgUrl}}" style="width: 30px; height: 30px"></td>
                                         <td>{{x.pattern}}</td>
                                         <td>{{x.order}}</td>
-                                        <td>{{x.status===true?'可用':'禁用'}}</td>
+                                        <td><a ng-click="changeen($event)" data-toggle="modal" href="#example0">{{x.status===true?'可用':'禁用'}}</a></td>
                                         <td>
                                             <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#example">修改</a>
-                                            <img style="margin-left: 5%" src='../../img/disable.png'><a ng-click="changeen($event)" data-toggle="modal" href="#example0">禁(可)用</a>
+                                            <%--<img style="margin-left: 5%" src='../../img/disable.png'><a ng-click="changeen($event)" data-toggle="modal" href="#example0">禁(可)用</a>--%>
                                             <img style="margin-left: 5%" src='../../img/delete.png'><a ng-click="delete($event)" data-toggle="modal" href="#example2">删除</a>
                                         </td>
                                     </tr>

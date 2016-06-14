@@ -246,8 +246,8 @@ namespace Trip.JinJiang.H5.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select Id,alt,imgUrl,status,lineId,[order],H5Url,CONVERT(varchar(100), beginDate, 23) as beginDate ,CONVERT(varchar(100), endDate, 23) as endDate ");
-            strSql.Append(" FROM tbl_bannerImg ");
+            strSql.Append("select Id,alt,imgUrl,status,a.lineId,[order],H5Url,CONVERT(varchar(100), beginDate, 23) as beginDate ,CONVERT(varchar(100), endDate, 23) as endDate,b.name,b.title ");
+            strSql.Append(" FROM tbl_bannerImg a left join tbl_lineLists b on a.lineId=b.lineId ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" where " + strWhere);
