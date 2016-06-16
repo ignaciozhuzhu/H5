@@ -285,14 +285,14 @@
         margin: 0 2px;
     }
 
-        .myorderh .header {
+        .myorderh .header0 {
             color: #beb9c0;
             height: 25px;
-            margin: 5px 0px;
-            width: 100%;
+            margin: 0px -10px;
+            width: 110%;
         }
 
-        .myorderh .header div {
+        .myorderh .header0 div {
              float: left;
              color: #beb9c0;
              width: 20%;
@@ -367,6 +367,10 @@
         }
 
         .myorder .detailbox2 div:nth-child(3) {
+            float: right;
+            color: #e69245;
+        }
+        .myorder .detailbox2 div:nth-child(4) {
             float: right;
             color: #e69245;
         }
@@ -585,6 +589,8 @@
             font-size: 12px;
             margin-left: 10px;
             z-index: 4;
+            border:0;
+            width:35px;
         }
 
         .registerbox .item-tip-focus {

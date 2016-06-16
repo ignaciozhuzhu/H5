@@ -1084,6 +1084,7 @@
     <Content Include="www\images\spinner2.png" />
     <Content Include="www\img\applepay.png" />
     <Content Include="www\img\左边li图标2.png" />
+    <Content Include="www\img\左边li图标3.png" />
     <Content Include="www\img\返回3.png" />
     <Content Include="www\img\checkbox.png" />
     <Content Include="www\img\checkboxg.png" />
@@ -1314,6 +1315,7 @@
     <Content Include="www\lib\sha1.js" />
     <Content Include="www\js\om_code.js" />
     <Content Include="www\templates\siteflow\demo.html" />
+    <Content Include="www\templates\siteflow\om_code.js" />
     <Content Include="www\templates\user\myinfo.html" />
     <Content Include="www\templates\user\orderdetail.html" />
     <Content Include="www\templates\user\myorder.html" />

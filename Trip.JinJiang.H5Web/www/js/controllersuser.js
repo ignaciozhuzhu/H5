@@ -439,12 +439,14 @@
     var payStatus = "";
 
     //debugger
-    //45
-    //var a = $(".header0")[0].offsetTop;
-    //if (a < 45) {
-      //  $(".header0")[0].offset({ top: 45, left: 0 });
-    //}
-
+    //40
+    var a = $(".header0")[0].offsetTop;
+    if (a < 40) {
+        $(".header0").css({ "margin-top": "35px" });
+    }
+    else {
+        $(".header0").css({ "margin-top": "0px" });
+    }
     removeclassyellow();
     addclassyellow(0);
     var nghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
@@ -468,6 +470,37 @@
     $scope.seedetail = function ($event) {
         var ordercode = event.currentTarget.lastElementChild.innerText;
         window.location.href = '#/app/user/orderdetail/' + ordercode + '';
+    }
+
+    $scope.cancelorder = function ($event) {
+        var ordercode = event.currentTarget.lastElementChild.innerText;
+        var mcMemberCode = getCookie('mcMemberCode');
+        if (event.currentTarget.parentNode.previousElementSibling.previousElementSibling.innerText.indexOf("待支付") > -1) {
+            var mylayeruiwait = layer.load(1, {
+                shade: [0.5, '#ababab'] //0.1透明度的白色背景
+            });
+            $.ajax({
+                url: "../../ajax/userHandler.ashx?fn=cancelorder&orderCode=" + ordercode + "&mcMemberCode=" + mcMemberCode,
+                type: 'post',
+                success: function (response) {
+                    //debugger
+                    layer.close(mylayeruiwait);
+                    var d = eval("(" + response + ")");
+                    if (!d.errorCode) {
+                        alert("取消成功");
+                        location.reload();
+                        return;
+                    }
+                    else {
+                        alert(d.errorMsg);
+                        return;
+                    }
+                }
+            });
+        }
+        else {
+            layermyui('您的订单为已支付订单，需确认退款金额，请及时与客服联系，客服电话10101666*3，客服工作时间：8点至21·点。');
+        }
     }
 
     $scope.li0 = function () {

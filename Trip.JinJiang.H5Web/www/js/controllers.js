@@ -41,16 +41,6 @@
     };
 })
 
-.controller('PlaylistsCtrl', function ($scope) {
-    $scope.playlists = [
-      { title: 'Reggae', id: 1 },
-      { title: 'Chill', id: 2 },
-      { title: 'Dubstep', id: 3 },
-      { title: 'Indie', id: 4 },
-      { title: 'Rap', id: 5 },
-      { title: 'Cowbell', id: 6 }
-    ];
-})
 
 //线路列表控制器
 .controller('LinelistsCtrl', function ($scope, $http) {
@@ -83,54 +73,49 @@
 })
  //线路列表控制器2,唯独不一样的是路由
 .controller('LinelistsCtrl2', function ($scope, $http) {
-    //debugger
     var url = location.href;
     var lineCategory = url.substring(url.lastIndexOf('/') + 1, url.length);
-    var searchParam = lineCategory;
-    //lineCategory = "SALELINE"
-    var nghttp = "../../ajax/apihandler.ashx?fn=getlinesbycategory&lineCategory=" + lineCategory + "";
+    var my2data = "";
+    if (lineCategory === "nearby") {
+        my2data = { fn: "getnearby" };
+    }
+    else {
+        my2data = { fn: "getlinecategoriecrm", category: lineCategory };
+    }
+    var nghttp = "../../ajax/apihandler.ashx?fn=getlinesbycategory";
     //loading层
     var mylayeruiwait = layer.load(1, {
         shade: [0.5, '#ababab'] //0.1透明度的白色背景
     });
     $http.get(nghttp).success(function (response) {
+        var responsemine = response;
         $.ajax({
             url: "../../ajax/apihandler.ashx",
-            data: { fn: "getlinecategoriecrm", category: lineCategory },
+            data: my2data,
             type: "post",
             success: function (text) {
                 layer.close(mylayeruiwait);
-               //    debugger
                 var d = eval("(" + text + ")");
                 var arrayLinemm = new Array(0);
                 for (var i = 0 ; i < d.rows.length; i++) {
-                    for (var j = 0 ; j < response.lines.length; j++) {
-                        if (d.rows[i].lineId == response.lines[j].lineId) {
+                    for (var j = 0 ; j < responsemine.lines.length; j++) {
+                        if (d.rows[i].lineId == responsemine.lines[j].lineId) {
                             //往搜索结果中添加合集(1)
-                            if (response.lines[j].imageUrls[0] === undefined || response.lines[j].imageUrls[0] === null || response.lines[j].imageUrls[0].indexOf('http') < 0)
-                                response.lines[j].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg';
-                            response.lines[j].lineCategory = d.rows[i].lineCategory;
-                            arrayLinemm.push(response.lines[j]);
+                            if (responsemine.lines[j].imageUrls[0] === undefined || responsemine.lines[j].imageUrls[0] === null || responsemine.lines[j].imageUrls[0].indexOf('http') < 0)
+                                responsemine.lines[j].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg';
+                            responsemine.lines[j].lineCategory = d.rows[i].lineCategory;
+                            arrayLinemm.push(responsemine.lines[j]);
                         }
                     }
                 }
-
-                //for (var i = 0; i < response.lines.length; i++) {
-                //    if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0] === null || response.lines[i].imageUrls[0].indexOf('http') < 0)
-                //        response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
-                //    //往搜索结果中添加合集(1)
-                //    if (response.lines[i].lineCategory == searchParam)
-                //        arrayLinemm.push(response.lines[i])
-                //}
                 //往搜索结果中添加合集(2)
-                //debugger
+                $scope.agencies = responsemine.agencies;
                 $scope.linelists = arrayLinemm;
-                $scope.agencies = response.agencies;
-
             }
         })
 
     });
+
     $scope.listent = function () {
         setCookie('ent2detail', lineCategory, 1);
     }
@@ -162,7 +147,6 @@
         var scrolltop = $ionicScrollDelegate.$getByHandle('indexDelegate').getScrollPosition().top;
         $('#teledown').css('top', scrolltop + document.documentElement.childNodes[2].scrollHeight - 120);
     }
-
     //分类图标
     var nghttpcategory = "../../ajax/apihandler.ashx?fn=getlinecategorys&status=true&pattern=S1";
     $http.get(nghttpcategory).success(function (response) {
@@ -177,7 +161,6 @@
     //分类样式S2
     var nghttppattern = "../../ajax/apihandler.ashx?fn=getlinecategorys2&status=true&pattern=S2";
     $http.get(nghttppattern).success(function (response) {
-        //debugger
         var myimgurl;
         for (var i = 0; i < response.ds.length; i++) {
             myimgurl = response.ds[i].imageUrls;
@@ -185,35 +168,12 @@
                 myimgurl = myimgurl.substring(0, myimgurl.indexOf('|'));
                 response.ds[i].imageUrls = myimgurl;
             }
+            else
+                response.ds[i].imageUrls = "";
         }
+        //debugger
         $scope.linecategorys2detail = response.ds;
     })
-
-    //var nghttp = "../../ajax/apihandler.ashx?fn=getlinespromotion&pattern=S2";
-    //$http.get(nghttp).success(function (response) {
-
-    //  //  if ($scope.linecategorys2[0].categoryName == response.ds[0].lineCategory)
-    //    //for (var i = 0; i < 8; i++) {
-    //    //    if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0] === null || response.lines[i].imageUrls[0].indexOf('http') < 0)
-    //    //        response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
-    //    //}
-    //    //var arrayLineP = new Array(0);
-    //    //arrayLineP.push(response.lines[0]);
-    //    //arrayLineP.push(response.lines[1]);
-    //    //arrayLineP.push(response.lines[2]);
-    //    //arrayLineP.push(response.lines[3]);
-
-    //    //var arrayLineN = new Array(0);
-    //    //arrayLineN.push(response.lines[4]);
-    //    //arrayLineN.push(response.lines[5]);
-    //    //arrayLineN.push(response.lines[6]);
-    //    //arrayLineN.push(response.lines[7]);
-
-    //    $scope.linelistsP = arrayLineP;
-    //    $scope.linelistsN = arrayLineN;
-    //    $scope.agencies = response.agencies;
-
-    //});
 
     $scope.indexent = function () {
         setCookie('ent2detail', 'index', 1);
@@ -376,6 +336,7 @@
             return;
         }
         $scope.linedetails = response.line;
+        //debugger
         $scope.journeys = response.line.journeys.sort(sortbydayNumber);
         //行程明细
         //$sce 是 angularJS 自带的安全处理模块，$sce.trustAsHtml(str) 方法便是将数据内容以 html 的形式进行解析并返回。将此过滤器添加到 ng-bind-html 、data-ng-bind-html  所绑定的数据中，便实现了在数据加载时对于 html 标签的自动转义。
@@ -447,7 +408,7 @@
 
     });
 
-    $scope.lineCl = function() {
+    $scope.lineCl = function () {
         $('.linedetail .idfeature').hide();
         $('.linedetail .idline').show();
         $('.linedetail .idexpense').hide();
@@ -457,7 +418,7 @@
         $ionicScrollDelegate.resize();
     }
 
-    $scope.featureCl = function() {
+    $scope.featureCl = function () {
         $('.linedetail .idfeature').show();
         $('.linedetail .idline').hide();
         $('.linedetail .idexpense').hide();
@@ -688,14 +649,14 @@
             layermyui('请输入手机号');
             return;
         }
-        if (ConnectEmail == "" || ConnectEmail == undefined || ConnectEmail == null) {
-            layermyui('请输入邮箱');
-            return;
-        }
-        if (!isEmail(ConnectEmail)) {
-            layermyui('邮箱格式不正确');
-            return;
-        }
+        //if (ConnectEmail == "" || ConnectEmail == undefined || ConnectEmail == null) {
+        //    layermyui('请输入邮箱');
+        //    return;
+        //}
+        //if (!isEmail(ConnectEmail)) {
+        //    layermyui('邮箱格式不正确');
+        //    return;
+        //}
 
         $('.inname:first')[0].value = ConnectName;
 
@@ -714,13 +675,6 @@
             }
             catch (e) { }
         }
-
-        //p = new CGuest('ADULT', 'guest3');
-        //guestsarr.push(p);
-        //p = new CGuest('ADULT', 'guest4');
-        //guestsarr.push(p);
-        //p = new CGuest('ADULT', 'guest5');
-        //guestsarr.push(p);
 
         var gueststring = "";
         for (var i = 0; i < pnum; i++) {

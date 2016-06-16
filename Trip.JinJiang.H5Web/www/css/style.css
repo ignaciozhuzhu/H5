@@ -31,3 +31,246 @@ input[type="checkbox"] {
     margin:auto 0;
     font-family: "Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu;
 }
+
+
+    .background_size {
+        background-repeat: no-repeat;
+        background-size: contain;
+        border-style: ridge;
+    }
+
+    .imglineCategory img {
+        width: 15%;
+        margin: 4% 2% 2% 2%;
+        text-align: center;
+    }
+
+    .qq_size span {
+        width: 19.9%;
+        display: inline-block;
+        text-align: center;
+        margin: 2% 0 4% 0;
+        font-size: 13px;
+        color: gray;
+    }
+
+    div .gay span {
+        width: 18%;
+        display: inline-block;
+        margin: 10px 0 10px 0;
+        height: 20px;
+        text-align: center;
+    }
+
+    .grayback {
+        background-color: #f5f5f5;
+        padding-left: 10px;
+        line-height: 30px;
+    }
+
+    .graytitleleft {
+        height: 15px;
+        width: 5px;
+        background-color: gray;
+        float: left;
+        margin-top: 2px;
+        margin-right: 10px;
+    }
+
+    #teledown {
+        width: 40px;
+        height: 35px;
+        position: absolute;
+        right: 10px;
+        bottom: 0;
+    }
+
+    .linecatebox {
+        margin: 3% 0 2% 0;
+        overflow: hidden;
+        height: 100%;
+    }
+
+        .linecatebox .linecategorys {
+            width: 20%;
+            float: left;
+            text-align: center;
+            margin: 2% 0;
+        }
+
+            .linecatebox .linecategorys img {
+                width: 62%;
+                height: 62%;
+            }
+
+            .linecatebox .linecategorys div {
+                font-size: 13px;
+                color: #7a7a7a;
+            }
+
+    .indexbox {
+        padding-top: 60px;
+    }
+
+        .indexbox .imgmore {
+            width: 20px;
+            padding: 0px 0 2px 6px;
+            vertical-align: middle;
+        }
+
+        .indexbox .amore {
+            font-size: 14px;
+            color: #a8a8a8;
+        }
+
+        .indexbox .aligncenter {
+            text-align: center;
+        }
+
+        .indexbox .amountbg {
+            font-size: 15px;
+            color: #fd7204;
+            font-weight: 400;
+        }
+
+        .indexbox .contentboxdiv {
+            padding-bottom: 8px;
+            font-size: 14px;
+            line-height: 20px;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        .indexbox .contentimg {
+            width: 100%;
+            height: 119px;
+        }
+
+        .indexbox .morefont {
+            font-size: 16px;
+            margin: 8px 10px 0px 10px;
+        }
+
+        .indexbox .contentpw {
+            float: left;
+            width: 50%;
+            padding: 1%;
+        }
+
+        .indexbox .contentpwp {
+            /*height: 393px;*/
+            margin: 1.5%;
+            overflow: hidden;
+        }
+
+        .indexbox .morefoot {
+            margin-top: 8px;
+        }
+
+        .indexbox .morehead {
+            height: 1px;
+            background-color: #ddd;
+            margin-bottom: 8px;
+        }
+
+        .indexbox .teleimg {
+            width: 56px;
+        }
+
+    .indebox .telea {
+        float: right;
+    }
+
+    .indexbox .mountfont {
+        padding-left: 7px;
+        font-size: 12px;
+        color: #a4a4a4;
+    }
+
+    .indexbox .heightgray1 {
+        height: 1px;
+        background-color: #ddd;
+    }
+
+    .indexbox .heightgray5 {
+        height: 8px;
+        background-color: #f3f3f3;
+    }
+
+    .indexheader .headertitle {
+        height: 48px;
+        padding: 6px 5px;
+        border: 0;
+    }
+
+    .indexheader .button-bar .divh {
+        width: 25%;
+        text-align: center;
+    }
+
+    .indexheader .button-bar .imgh {
+        width: 56%;
+        height: 56%;
+        max-width: 40px;
+        max-height: 40px;
+    }
+
+    .indexheader .button-bar .imgo {
+        width: 50%;
+        height: 50%;
+        /*padding: 5px 2px;
+        margin: 0px 5px;*/
+        max-width: 40px;
+        max-height: 40px;
+        padding: 6%;
+    }
+
+    .indexheader .button-bar .inputbg {
+        width: 35%;
+        height: 32px;
+        background-image: url(../img/定位图标3.png);
+        padding-left: 7.5%;
+        padding-top: 0;
+        border-right: aliceblue;
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border: 1px solid #b3b3b3;
+        margin: 0 0 0 3px;
+        line-height: 39px;
+    }
+
+    .indexheader .button-bar .inputsc {
+        width: 80%;
+        height: 32px;
+        background-image: url(../img/放大镜2.png);
+        padding-left: 10.5%;
+        padding-top: 0;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border: 1px solid #b3b3b3;
+        /*border-left: 0px;*/
+        margin: 0 3px 0 0;
+        line-height: 39px;
+    }
+
+    .cityselectbox {
+        text-align: center;
+        font-size: 14px;
+        display: none;
+    }
+
+    .indexheader .bar-stable div {
+        margin: auto;
+        font-size: 18px;
+    }
+
+    .sliderContainer {
+        padding-top: 48px;
+    }
+    .indexheader #bartitle.headertitle {
+        border: 0;
+    }

@@ -97,6 +97,22 @@ namespace Trip.JinJiang.H5Web.ajax
             HttpContext.Current.Response.Write(User.queryorderdetail(code));
         }
 
+        /// <summary>
+        /// 取消订单
+        /// </summary>
+        public void cancelorder()
+        {
+            string orderCode = HttpContext.Current.Request["ordercode"];
+            string mcMemberCode = HttpContext.Current.Request["mcMemberCode"];
+            try
+            {
+                HttpContext.Current.Response.Write(User.cancelOrder(orderCode, mcMemberCode));
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
         public bool IsReusable
         {
             get

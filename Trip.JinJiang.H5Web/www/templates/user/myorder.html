@@ -48,14 +48,23 @@
                         <div>
                             {{x.departrueDate}}出发
                         </div>
-                        <div>
+                        <!--<div>
                             {{x.orderStatusName}}|{{x.payStatusName}}
-                        </div>
+                        </div>-->
+                        <div ng-bind="x.orderStatusName"></div>
+                        <div ng-bind="x.payStatusName+'|'"></div>
                     </div>
                 </div>
                 <div class="heightgray"></div>
                 <div class="seebutton">
-                    <div class="orderbutton" ng-click="seedetail($event)"> 查看订单<div ng-show="false">{{x.code}}</div></div>
+                    <div class="orderbutton" ng-click="cancelorder($event)">
+                        取消订单
+                        <div ng-show="false">{{x.code}}</div>
+                    </div>
+                    <div class="orderbutton" ng-click="seedetail($event)">
+                        查看订单
+                        <div ng-show="false">{{x.code}}</div>
+                    </div>
                 </div>
                 <div class="heightgray"></div>
                 <div class="heightgray5"></div>

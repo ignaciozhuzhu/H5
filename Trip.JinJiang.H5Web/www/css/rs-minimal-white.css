@@ -25,7 +25,7 @@
 	margin-left: 3px;
 	position: absolute;
 	cursor: pointer;
-	background: url('../img/rs-minimal-white.png') transparent;
+	/*background: url('../img/rs-minimal-white.png') transparent;*/
 	border-radius: 2px;
 }
 .rsMinW .rsArrowIcn:hover {
@@ -359,7 +359,7 @@
 .rsMinW .rsPreloader {
 	width:20px;
 	height:20px;
-	background-image:url(../img/preloader-white.gif);
+	/*background-image:url(../img/preloader-white.gif);*/
 	left:50%;
 	top:50%;
 	margin-left:-10px;

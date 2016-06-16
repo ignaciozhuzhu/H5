@@ -257,6 +257,13 @@ namespace Trip.JinJiang.H5Web.ajax
             string accountName = HttpContext.Current.Request["accountName"].ToString();
             HttpContext.Current.Response.Write(JJH5Api.pbppayorder(orderNo, payAmount, accountName));
         }
+        /// <summary>
+        /// 周边游查询
+        /// </summary>
+        public void getnearby()
+        {
+            HttpContext.Current.Response.Write(JJH5Api.GetNearBy());
+        }
 
         public bool IsReusable
         {

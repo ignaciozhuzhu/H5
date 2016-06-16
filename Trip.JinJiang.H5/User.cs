@@ -30,6 +30,8 @@ namespace Trip.JinJiang.H5
         private static string urlqueryorder = jjh5Bserver + "/travel/order/queryOrderList";
         private static string urlqueryorderdetail = jjh5Bserver + "/travel/order/orderDetail/";
 
+        private static string urlcancelorder = jjh5Bserver + "/travel/order/cancel";    //取消订单接口
+
         //注册2(完整注册)
         public static string regist(string xml)
         {
@@ -120,6 +122,22 @@ namespace Trip.JinJiang.H5
             long lTime = long.Parse(timeStamp + "0000");
             TimeSpan toNow = new TimeSpan(lTime);
             return dtStart.Add(toNow);
+        }
+        /// <summary>
+        /// 取消订单
+        /// </summary>
+        public static string cancelOrder(string orderCode, string mcMemberCode)
+        {
+            string data = "{\"mcMemberCode\":\"" + mcMemberCode + "\",\"orderNo\":\"" + orderCode + "\",\"reson\":\"客户取消\"}";
+            var response = HttpUtil.Post(data, urlcancelorder, contentType: "application/json");
+            if (response != null)
+            {
+                return response;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 

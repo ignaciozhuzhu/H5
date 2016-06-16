@@ -87,7 +87,7 @@
         }
 
         .linedetail .distancetravelboxleft {
-            background-image: url(img/左边li图标2.png);
+            background-image: url(img/左边li图标3.png);
             background-repeat: no-repeat;
             float: left;
             height: 100%;
@@ -181,7 +181,7 @@
                             <div class="smalltitle">第{{x.dayNumber}}天:{{x.departurePlace}}-{{x.destination}}</div>
                             <div ng-repeat="xx in x.journeyDetail">
                                 <div>{{xx.programType}}:{{xx.programName}}</div>
-                                <!--{{xx.programInfo}}-->
+                                {{xx.programInfo}}
                             </div>
                         </div>
                     </div>
@@ -204,7 +204,6 @@
                 </div>
 
                 <a class="ordernow" href=""><div class="bottombutton">立即预订</div></a>
-                <!--<button ng-click="scrollSmallToTop()">滚动到顶部!</button>-->
             </div>
         </div>
     </ion-content>

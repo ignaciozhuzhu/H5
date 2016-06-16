@@ -163,38 +163,6 @@ namespace Trip.JinJiang.H5
         }
 
         /// <summary>
-        /// 取消订单
-        /// </summary>
-        public static string cancelOrder2(string orderCode)
-        {
-            // var data = "{\"lineCategory\":\"" + lineCategory + "\"}";
-            //   if(lineCategory=="")
-            var data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":25,\"search\":false,\"startRow\":1,\"total\":1}}";
-
-            //先获取所有的线路,再与本地数据库做关联
-            var json3 = HttpUtil.Post(data, urllinesearch, contentType: "application/json");
-
-            var result3 = JsonConvert.DeserializeObject<LineListModel>(json3);
-
-            //  string a = "insert into tbl_lineLists(lineId,lineName)";
-
-            return null;
-
-            //取消订单业务
-            //string data = "{\"mcMemberCode\":\"1231234\",\"orderNo\":\""+ orderCode + "\",\"reson\":\"名额不足\"}";
-            //var response = HttpUtil.Post(data, urlcancelorder, contentType: "application/json");
-            //if (response != null)
-            //{
-            //    return response;
-            //}
-            //else
-            //{
-            //    return null;
-            //}
-        }
-
-
-        /// <summary>
         /// 
         /// </summary>
         public static string cancelOrder67(string userid)
@@ -417,6 +385,16 @@ namespace Trip.JinJiang.H5
             //return "";
         }
 
-
+        /// <summary>
+        /// 周边游查询
+        /// </summary>
+        public static string GetNearBy()
+        {
+            string str = "select * from tbl_lineLists where lineDistrict in('上海','江苏','浙江','安徽','江西') and days<=3";
+            DataSet ds = DbHelperSQL.Query(str);
+            string json = ConvertJson.DataTable2Array(ds.Tables[0]);
+            json = "{\"rows\":" + json.Replace("'", "\"") + "}";
+            return json;
+        }
     }
 }
