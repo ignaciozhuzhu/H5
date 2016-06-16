@@ -169,10 +169,10 @@ namespace Trip.JinJiang.H5Web.ajax
             }
             catch { }
             HttpContext.Current.Response.Write(Admin.getlinesAd(category));
-        } 
+        }
         /// <summary>
-          /// 后台线路库(带筛选)
-          /// </summary>
+        /// 后台线路库(带筛选)
+        /// </summary>
         public void getlinesadsearch()
         {
             string search = "";
@@ -182,6 +182,27 @@ namespace Trip.JinJiang.H5Web.ajax
             }
             catch { }
             HttpContext.Current.Response.Write(Admin.getlinesadsearch(search));
+        }
+        /// <summary>
+        /// 后台线路库(带筛选(推荐产品查询区))
+        /// </summary>
+        public void getlinesadsearch2()
+        {
+            var linenamesc = "";
+            var agencysc = "";
+            var lineidsc = "";
+            var categorysc = "";
+            var agencysc2 = "";
+            try
+            {
+                linenamesc = HttpContext.Current.Request["linenamesc"];
+                agencysc = HttpContext.Current.Request["agencysc"];
+                lineidsc = HttpContext.Current.Request["lineidsc"];
+                categorysc = HttpContext.Current.Request["categorysc"];
+                agencysc2 = HttpContext.Current.Request["agencysc2"];
+            }
+            catch { }
+            HttpContext.Current.Response.Write(Admin.getlinesadsearch2(linenamesc, agencysc, lineidsc, categorysc, agencysc2));
         }
         /// <summary>
         /// 更新线路的类型

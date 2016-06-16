@@ -61,6 +61,7 @@
     <Compile Include="DAL\emptySearchFac.cs" />
     <Compile Include="DAL\lineCategoryFac.cs" />
     <Compile Include="DAL\lineListsFac.cs" />
+    <Compile Include="DAL\recommendFac.cs" />
     <Compile Include="DAL\tagsFac.cs" />
     <Compile Include="DAL\esGroupsFac.cs" />
     <Compile Include="JJH5Api.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Model\LineLists\Spot.cs" />
     <Compile Include="Model\LineLists\Tag.cs" />
     <Compile Include="Model\OrderdetailMod.cs" />
+    <Compile Include="Model\recommendMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>

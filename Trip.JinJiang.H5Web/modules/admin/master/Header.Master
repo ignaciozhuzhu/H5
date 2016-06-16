@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>锦江H5 | 后台</title>
-    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <%--<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>--%>
+    <script src="../../angular/js/angular1.4.6.min.js"></script>
     <script src="../../angular/js/ng-pagination.min.js"></script>
     <script src="../../angular/js/angular-route.js"></script>
     <link href="../../angular/css/ng-pagination.min.css" rel="stylesheet" />
@@ -39,7 +40,8 @@
         .box-body table thead tr th {
             width: 18%;
         }
-        .fa-circle-o:before{
+
+        .fa-circle-o:before {
             /*content:"\f10c";*/
             /*src:url('../../img/add.png');*/
         }
@@ -338,17 +340,14 @@
                 <!-- /.search form -->
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
-                    <%--<li class="header">MAIN NAVIGATION</li>--%>
                     <li class="treeview active">
-                        <%--                        <a href="#">
-                            <i class="fa fa-table"></i><span>二郎腿</span>
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </a>--%>
                         <ul class="treeview-menu">
                             <li class="treeviewli1"><a href="linestore.aspx"><i class="fa fa-circle-o"></i>线路库</a></li>
                             <li class="treeviewli2"><a href="linecategory.aspx"><i class="fa fa-circle-o"></i>线路分类管理</a></li>
                             <li class="treeviewli3"><a href="bannerimg.aspx"><i class="fa fa-circle-o"></i>轮播图管理</a></li>
                             <li class="treeviewli4"><a href="searchtag.aspx"><i class="fa fa-circle-o"></i>目的地标签管理</a></li>
+                            <li class="treeviewli5"><a href="linerecommend.aspx"><i class="fa fa-circle-o"></i>已推荐产品</a></li>
+                            <li class="treeviewli6"><a href="recommendstorage.aspx"><i class="fa fa-circle-o"></i>推荐产品查询区</a></li>
                         </ul>
                     </li>
                 </ul>

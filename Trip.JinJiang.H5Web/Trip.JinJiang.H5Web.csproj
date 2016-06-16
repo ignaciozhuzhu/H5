@@ -100,10 +100,13 @@
     <Content Include="modules\.gitignore" />
     <Content Include="modules\admin\functions\bannerimg.aspx" />
     <Content Include="modules\admin\functions\linecategory.aspx" />
+    <Content Include="modules\admin\functions\linerecommend.aspx" />
+    <Content Include="modules\admin\functions\recommendstorage.aspx" />
     <Content Include="modules\admin\functions\linestore.aspx" />
     <Content Include="modules\admin\login.html" />
     <Content Include="modules\admin\functions\searchtag.aspx" />
     <Content Include="modules\angular\js\angular-route.js" />
+    <Content Include="modules\angular\js\angular1.4.6.min.js" />
     <Content Include="modules\bootstrap\css\bootstrap.css" />
     <Content Include="modules\bootstrap\css\bootstrap.min.css" />
     <Content Include="modules\bootstrap\css\bootstrap-modal.css" />
@@ -1321,6 +1324,7 @@
     <Content Include="www\templates\user\myorder.html" />
     <Content Include="www\templates\user\forgetpwd.html" />
     <Content Include="www\templates\user\login.html" />
+    <Content Include="www\templates\user\quickregister0.html" />
     <Content Include="www\templates\user\quickregister.html" />
     <Content Include="www\templates\user\register.html" />
     <Content Include="www\css\userstyle.css" />
@@ -1378,6 +1382,9 @@
     <Compile Include="ajax\lineCategoryHandler.ashx.cs">
       <DependentUpon>lineCategoryHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="ajax\recommendHandler.ashx.cs">
+      <DependentUpon>recommendHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="ajax\userHandler.ashx.cs">
       <DependentUpon>userHandler.ashx</DependentUpon>
     </Compile>
@@ -1387,6 +1394,20 @@
     </Compile>
     <Compile Include="modules\admin\functions\linecategory.aspx.designer.cs">
       <DependentUpon>linecategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="modules\admin\functions\linerecommend.aspx.cs">
+      <DependentUpon>linerecommend.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="modules\admin\functions\linerecommend.aspx.designer.cs">
+      <DependentUpon>linerecommend.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="modules\admin\functions\recommendstorage.aspx.cs">
+      <DependentUpon>recommendstorage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="modules\admin\functions\recommendstorage.aspx.designer.cs">
+      <DependentUpon>recommendstorage.aspx</DependentUpon>
     </Compile>
     <Compile Include="modules\admin\functions\linestore.aspx.cs">
       <DependentUpon>linestore.aspx</DependentUpon>
@@ -1449,6 +1470,7 @@
     <Content Include="modules\pages\tables\Header.Master" />
     <Content Include="modules\admin\master\Header.Master" />
     <Content Include="ajax\userHandler.ashx" />
+    <Content Include="ajax\recommendHandler.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

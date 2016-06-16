@@ -11,6 +11,8 @@ namespace Trip.JinJiang.H5
 {
     public class Admin
     {
+        private static string jjh5Sserver = System.Configuration.ConfigurationManager.AppSettings["jjh5Sserver"];
+        private static string urllinesearch = jjh5Sserver + "/travel/search/searchTravel";   //线路列表接口
         /// <summary>
         /// 获取后台线路库列表
         /// </summary>
@@ -32,6 +34,41 @@ namespace Trip.JinJiang.H5
             ConvertJson ConvertJson = new ConvertJson();
             string json = ConvertJson.ToJson(ds);
             return json;
+        }/// <summary>
+         /// 后台线路库(带筛选(推荐产品查询区))
+         /// </summary>
+        public static string getlinesadsearch2(string linenamesc, string agencysc, string lineidsc, string categorysc, string agencysc2)
+        {
+            //lineListsFac lineListsFac = new lineListsFac();
+            //DataSet ds = lineListsFac.GetListsearch2(linenamesc, agencysc, lineidsc, categorysc, agencysc2);
+            //ConvertJson ConvertJson = new ConvertJson();
+            //string json = ConvertJson.ToJson(ds);
+            //return json;
+            string str = "";
+            if (linenamesc != "")
+            {
+                str += ",\"lineName\":\"" + linenamesc + "\"";
+            }
+            if (agencysc != "")
+            {
+                str += ",\"brand\":\"" + agencysc + "\"";
+            }
+            if (lineidsc != "")
+            {
+                str += ",\"lineId\":\"" + lineidsc + "\"";
+            }
+            if (categorysc != "")
+            {
+                str += ",\"lineCategory\":\"" + categorysc + "\"";
+            }
+            if (agencysc2 != "")
+            {
+                str += ",\"agencies\":\"" + agencysc2 + "\"";
+            }
+            var data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":80,\"search\":false,\"startRow\":1,\"total\":8}" + str + "}";
+            var response = HttpUtil.Post(data, urllinesearch, contentType: "application/json");
+            //var result3 = JsonConvert.DeserializeObject<LineListModel>(response);
+            return response;
         }
         /// <summary>
         /// 更改线路的类型
@@ -121,7 +158,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 线路类型编辑
         /// </summary>
-        public static string editlinecategory(string categoryName, string lineCategory, string imgUrl, int Id, int order,string pattern)
+        public static string editlinecategory(string categoryName, string lineCategory, string imgUrl, int Id, int order, string pattern)
         {
             lineCategoryMod model = new lineCategoryMod();
             model.lineCategory = lineCategory;
@@ -192,7 +229,7 @@ namespace Trip.JinJiang.H5
             string str = "";
             if (status != "" && status != null)
             {
-                str = " status='true' and beginDate <= '" + DateTime.Now + "' and  endDate >= '"+ DateTime.Now + "'";
+                str = " status='true' and beginDate <= '" + DateTime.Now + "' and  endDate >= '" + DateTime.Now + "'";
             }
             bannerImgFac Fac = new bannerImgFac();
             DataSet ds = Fac.GetList(str);
@@ -226,7 +263,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 轮播图编辑
         /// </summary>
-        public static string editbannerimg(string alt, string imgUrl, int Id, int lineId, int order, string H5Url,string beginDate,string endDate)
+        public static string editbannerimg(string alt, string imgUrl, int Id, int lineId, int order, string H5Url, string beginDate, string endDate)
         {
             bannerImgMod model = new bannerImgMod();
             model.alt = alt;
@@ -446,7 +483,7 @@ namespace Trip.JinJiang.H5
             return "";
         }
         //-----------------------------空搜关键词管理 ed
-        
+
         /// <summary>
         /// 登录
         /// </summary>
@@ -463,6 +500,27 @@ namespace Trip.JinJiang.H5
             else
             {
                 return "false";
+            }
+        }
+
+        /// <summary>
+        /// 获取线路类型
+        /// </summary>
+        public static string addrecommend(string imgUrl, string lineTitle, int order, int lineId, string agency)
+        {
+            recommendMod model = new recommendMod();
+            model.imgUrl = imgUrl;
+            model.lineTitle = lineTitle;
+            model.order = order;
+            model.lineId = lineId;
+            model.travelAgency = agency;
+            recommendFac Fac = new recommendFac();
+            if (Fac.Add(model) > 0)
+            {
+                return "操作成功!";
+            }
+            else {
+                return "操作失败!";
             }
         }
     }
