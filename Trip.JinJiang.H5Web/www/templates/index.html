@@ -245,9 +245,9 @@
                 <div class="contentpwp">
                     <div ng-repeat="boxlist in linecategorys2detail| filter:x2.lineCategory| limitTo:4 ">
                         <div class="contentpw">
-                            <a ng-click="indexent()" href="#/app/linedetail/{{boxlist.lineId}}"><img class="contentimg" ng-src="{{boxlist.imageUrls}}" /></a>
+                            <a ng-click="indexent()" href="#/app/linedetail/{{boxlist.lineId}}"><img class="contentimg" ng-src="{{boxlist.imgUrl}}" /></a>
                             <div class="contentboxdiv">
-                                {{ boxlist.name.length > 9 ? boxlist.name.substring(0,8)+'...':boxlist.name}}
+                                {{ boxlist.lineTitle.length > 9 ? boxlist.lineTitle.substring(0,8)+'...':boxlist.lineTitle}}
                             </div>
                             <div>
                                 <span class="amountbg">¥{{boxlist.originalPrice}}</span><span class="mountfont">起</span>

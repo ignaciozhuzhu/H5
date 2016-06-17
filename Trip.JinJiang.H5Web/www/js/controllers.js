@@ -161,6 +161,7 @@
     //分类样式S2
     var nghttppattern = "../../ajax/apihandler.ashx?fn=getlinecategorys2&status=true&pattern=S2";
     $http.get(nghttppattern).success(function (response) {
+        //debugger
         var myimgurl;
         for (var i = 0; i < response.ds.length; i++) {
             myimgurl = response.ds[i].imageUrls;
@@ -338,6 +339,9 @@
         $scope.linedetails = response.line;
         //debugger
         $scope.journeys = response.line.journeys.sort(sortbydayNumber);
+
+        setTimeout(settypepng, 500);
+
         //行程明细
         //$sce 是 angularJS 自带的安全处理模块，$sce.trustAsHtml(str) 方法便是将数据内容以 html 的形式进行解析并返回。将此过滤器添加到 ng-bind-html 、data-ng-bind-html  所绑定的数据中，便实现了在数据加载时对于 html 标签的自动转义。
         if (response.line.lineFeature !== null)
@@ -406,7 +410,38 @@
         $(".linedetail .tunbl1").addClass("contentblue");
         $(".linedetail .tunbl4").addClass("lineblue");
 
+        
     });
+    //设置行程类型图标样式
+    function settypepng() {
+        for (var i = 0; i < $(".linedetail .cltypetxt").length ; i++) {
+            if ($(".linedetail .cltypetxt")[i].innerText == "酒店") {
+                $(".linedetail .cltypeimg")[i].className = "cltypeimg trip_eat";
+            }
+            if ($(".linedetail .cltypetxt")[i].innerText == "景点") {
+                $(".linedetail .cltypeimg")[i].className = "cltypeimg trip_spots";
+            }
+            if ($(".linedetail .cltypetxt")[i].innerText == "航班") {
+                $(".linedetail .cltypeimg")[i].className = "cltypeimg trip_air";
+            }
+            if ($(".linedetail .cltypetxt")[i].innerText == "自由活动") {
+                $(".linedetail .cltypeimg")[i].className = "cltypeimg trip_free";
+            }
+            if ($(".linedetail .cltypetxt")[i].innerText == "用餐") {
+                $(".linedetail .cltypeimg")[i].className = "cltypeimg trip_eat";
+            }
+            if ($(".linedetail .cltypetxt")[i].innerText == "交通") {
+                $(".linedetail .cltypeimg")[i].className = "cltypeimg trip_car";
+            }
+            if ($(".linedetail .cltypetxt")[i].innerText == "其他") {
+                $(".linedetail .cltypeimg")[i].className = "cltypeimg trip_other";
+            }
+            if ($(".linedetail .cltypetxt")[i].innerText == "购物") {
+                $(".linedetail .cltypeimg")[i].className = "cltypeimg trip_shop";
+            }
+            
+        }
+    }
 
     $scope.lineCl = function () {
         $('.linedetail .idfeature').hide();

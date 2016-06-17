@@ -54,6 +54,9 @@ namespace Trip.JinJiang.H5
 
         public static string Getlinecategoriecrm(string category)
         {
+            //string str = @"select lineId,lineCategory from dbo.tbl_lineLists where lineCategory='" + category
+            //    + @"' union 
+            //    select a.lineId,b.lineCategory from tbl_recommend a inner join tbl_lineCategory b on a.lineCategory=b.categoryName";
             string str = "select lineId,lineCategory from dbo.tbl_lineLists where lineCategory='" + category + "'";
             DataSet ds = DbHelperSQL.Query(str);
             string json = ConvertJson.DataTable2Array(ds.Tables[0]);
@@ -270,7 +273,7 @@ namespace Trip.JinJiang.H5
             string paymentPlatform = "";
             if (pbppaypre(orderNo, payAmount))
             {
-                
+
                 var url = "";
                 if (accountName == "INNS_APP_CLIENT_ALI_WAP_PAY")
                 {

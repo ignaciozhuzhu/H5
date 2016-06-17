@@ -29,15 +29,15 @@ namespace Trip.JinJiang.H5
         public int[] departureMonth { get; set; }
         public int[] priceScope { get; set; }
         public EsGroup[] esGroup { get; set; }
-        public double point { get; set; }
+        public double? point { get; set; }
         public string[] imageUrls { get; set; }
         public string lineCategory { get; set; }
-        public int minPrice { get; set; }
+        public int? minPrice { get; set; }
         public Tag[] tags { get; set; }
         public string productCode { get; set; }
         public string[] priceScopeAndLine { get; set; }
         public string lineDistrict { get; set; }
-        public int originalPrice { get; set; }
+        public int? originalPrice { get; set; }
         public string priceExplain { get; set; }
         public string recommend { get; set; }
     }

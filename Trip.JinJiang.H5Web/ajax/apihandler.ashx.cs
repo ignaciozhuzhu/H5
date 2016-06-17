@@ -251,6 +251,22 @@ namespace Trip.JinJiang.H5Web.ajax
             catch { }
             HttpContext.Current.Response.Write(Admin.getlinecategorys2(status, pattern));
         }
+        public void getlinecategorys3()
+        {
+            string status = "";
+            try
+            {
+                status = HttpContext.Current.Request["status"];
+            }
+            catch { }
+            string pattern = "";
+            try
+            {
+                pattern = HttpContext.Current.Request["pattern"];
+            }
+            catch { }
+            HttpContext.Current.Response.Write(Admin.getlinecategorys3(status, pattern));
+        }
 
         /// <summary>
         /// 线路类型禁(可)用

@@ -25,7 +25,7 @@ namespace Trip.JinJiang.H5Web.ajax
             }
             catch (Exception e)
             {
-                HttpContext.Current.Response.Write("接口出错!");
+                HttpContext.Current.Response.Write(e.InnerException.Message);
             }
         }
         private void ResponseWriteEnd(HttpContext context, string msg)
@@ -44,9 +44,25 @@ namespace Trip.JinJiang.H5Web.ajax
             int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
             int lineId = Convert.ToInt32(HttpContext.Current.Request["lineId"]);
             string agency = HttpContext.Current.Request["travelAgency"].ToString();
+            string lineCategory = HttpContext.Current.Request["lineCategory"].ToString();
 
-            HttpContext.Current.Response.Write(Admin.addrecommend(imgUrl, lineTitle, order, lineId, agency));
+            HttpContext.Current.Response.Write(Admin.addrecommend(imgUrl, lineTitle, order, lineId, agency,lineCategory));
         }
+
+        /// <summary>
+        /// 获取
+        /// </summary>
+        public void getrecommendlist()
+        {
+            string search = "";
+            try
+            {
+                search = HttpContext.Current.Request["search"];
+            }
+            catch { }
+            HttpContext.Current.Response.Write(Admin.getrecommendlist(search));
+        }
+
 
         public bool IsReusable
         {

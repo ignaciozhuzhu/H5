@@ -16,6 +16,7 @@ namespace Trip.JinJiang.H5.Model
         private string _travelagency;
         private int _order;
         private string _imgurl;
+        private string _lineCategory;
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +64,14 @@ namespace Trip.JinJiang.H5.Model
         {
             set { _imgurl = value; }
             get { return _imgurl; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string lineCategory
+        {
+            set { _lineCategory = value; }
+            get { return _lineCategory; }
         }
         #endregion Model
 

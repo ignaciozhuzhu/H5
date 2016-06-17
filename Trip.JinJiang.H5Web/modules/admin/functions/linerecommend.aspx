@@ -9,12 +9,11 @@
     <div class="content-wrapper" ng-app="lhxApp" ng-controller="userCtrl">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>产品推荐
-                    <small>操作</small>
+            <h1>已推荐产品
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i>H5</a></li>
-                <li>线路库</li>
+                <li>已推荐产品</li>
             </ol>
         </section>
 
@@ -40,8 +39,8 @@
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
-                    <div>线路筛选: <span style="padding-left: 10px">
-                        <input id="selectedcate" type="text" style="height: 30px" ng-model="test"></span>
+                    <div>分类名称: <span style="padding-left: 10px">
+                        <input id="selectedcate" type="text" style="height: 30px"></span>
                         <input ng-click="filtcategory()" type="button" value="查找">
                     </div>
                     <div class="box">
@@ -51,24 +50,25 @@
                                 <thead>
                                     <tr>
                                         <th ng-hide="true">ID</th>
-                                        <th>名称</th>
-                                        <th>标题</th>
-                                        <th>目的地</th>
-                                        <th>线路类型</th>
-                                        <th>最低价</th>
+                                        <th>产品id</th>
+                                        <th>产品标题</th>
+                                        <th>分类</th>
+                                        <th>所属旅行社</th>
+                                        <th>排序</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="x in lines">
-                                        <td ng-hide="true">{{x.lineId}}</td>
-                                        <td>{{x.name}}</td>
-                                        <td>{{x.title}}</td>
-                                        <td>{{x.destinationInfo}}</td>
+                                        <td ng-hide="true">{{x.Id}}</td>
+                                        <td>{{x.lineId}}</td>
+                                        <td>{{x.lineTitle}}</td>
                                         <td>{{x.lineCategory}}</td>
-                                        <td>{{x.originalPrice}}</td>
+                                        <td>{{x.travelAgency}}</td>
+                                        <td>{{x.order}}</td>
                                         <td>
-                                            <img src='../../img/edit.png'><a ng-click="toggle($event)" data-toggle="modal" href="#example">修改</a></td>
+                                            <img src='../../img/edit.png'><a ng-click="toggle($event)" data-toggle="modal" href="#example">修改</a>
+                                            <img src='../../img/delete.png'><a ng-click="del($event)" data-toggle="modal" href="#example">删除</a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -111,25 +111,26 @@
                 $scope.linecates = arrayLine;
             });
 
-            var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesad";
-            $http.get(nghttp).success(function (response) {
-              //  debugger
-                $scope.pageCount = Math.ceil(response.ds.length / percount);
-                responseCache = response;
-                var arrayLine = new Array(0);
-                for (var i = 0; i < percount; i++) {
-                    arrayLine.push(responseCache.ds[i]);
-                }
-                $scope.lines = arrayLine;
-            });
-            $scope.onPageChange = function () {
-                var arrayLine = new Array(0);
-                var pagec = responseCache.ds.length - (percount * ($scope.currentPage - 1)) >= percount ? percount * $scope.currentPage : responseCache.ds.length;
-                for (var i = percount * ($scope.currentPage - 1) ; i < pagec; i++) {
-                    arrayLine.push(responseCache.ds[i]);
-                }
-                $scope.lines = arrayLine;
-            };
+            //var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesad";
+            //$http.get(nghttp).success(function (response) {
+            //  //  debugger
+            //    $scope.pageCount = Math.ceil(response.ds.length / percount);
+            //    responseCache = response;
+            //    var arrayLine = new Array(0);
+            //    for (var i = 0; i < percount; i++) {
+            //        arrayLine.push(responseCache.ds[i]);
+            //    }
+            //    $scope.lines = arrayLine;
+            //});
+            //$scope.onPageChange = function () {
+            //    var arrayLine = new Array(0);
+            //    var pagec = responseCache.ds.length - (percount * ($scope.currentPage - 1)) >= percount ? percount * $scope.currentPage : responseCache.ds.length;
+            //    for (var i = percount * ($scope.currentPage - 1) ; i < pagec; i++) {
+            //        arrayLine.push(responseCache.ds[i]);
+            //    }
+            //    $scope.lines = arrayLine;
+            //};
+
             $scope.reloadRoute = function () {
                 $.ajax({
                     url: "../../../ajax/apihandler.ashx?fn=updatelinesad",
@@ -144,7 +145,7 @@
             $scope.filtcategory = function () {
                 //线路列表bg
                 var filtcate = $('#selectedcate').val(); //$scope.selectedcate.categoryName;
-                var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesadsearch&search=" + filtcate + "";
+                var nghttp = "../../../ajax/recommendHandler.ashx?fn=getrecommendlist&search=" + filtcate + "";
                 $http.get(nghttp).success(function (response) {
                     //  debugger
                     $scope.pageCount = Math.ceil(response.ds.length / percount);

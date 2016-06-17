@@ -120,16 +120,37 @@ namespace Trip.JinJiang.H5
         public static string getlinecategorys2(string status, string pattern)
         {
             string str = "";
+            //if (status != "" && status != null)
+            //{
+            //    str += " and b.status='true'";
+            //}
+            //if (pattern != "" && pattern != null)
+            //{
+            //    str += " and b.pattern = '" + pattern + "'";
+            //}
+            lineCategoryFac lineCategoryFac = new lineCategoryFac();
+            DataSet ds = lineCategoryFac.GetList2(str);
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
+        }
+
+        /// <summary>
+        /// 获取线路类型
+        /// </summary>
+        public static string getlinecategorys3(string status, string pattern)
+        {
+            string str = "";
             if (status != "" && status != null)
             {
-                str += " and b.status='true'";
+                str += " and status='true'";
             }
             if (pattern != "" && pattern != null)
             {
-                str += " and b.pattern = '" + pattern + "'";
+                str += " and pattern = '" + pattern + "'";
             }
             lineCategoryFac lineCategoryFac = new lineCategoryFac();
-            DataSet ds = lineCategoryFac.GetList2(str);
+            DataSet ds = lineCategoryFac.GetList3(str);
             ConvertJson ConvertJson = new ConvertJson();
             string json = ConvertJson.ToJson(ds);
             return json;
@@ -503,10 +524,11 @@ namespace Trip.JinJiang.H5
             }
         }
 
+        //-----------------------------产品推荐管理 bg
         /// <summary>
-        /// 获取线路类型
+        /// 增加产品推荐
         /// </summary>
-        public static string addrecommend(string imgUrl, string lineTitle, int order, int lineId, string agency)
+        public static string addrecommend(string imgUrl, string lineTitle, int order, int lineId, string agency, string lineCategory)
         {
             recommendMod model = new recommendMod();
             model.imgUrl = imgUrl;
@@ -514,6 +536,7 @@ namespace Trip.JinJiang.H5
             model.order = order;
             model.lineId = lineId;
             model.travelAgency = agency;
+            model.lineCategory = lineCategory;
             recommendFac Fac = new recommendFac();
             if (Fac.Add(model) > 0)
             {
@@ -523,5 +546,19 @@ namespace Trip.JinJiang.H5
                 return "操作失败!";
             }
         }
+
+        /// <summary>
+        /// 获取
+        /// </summary>
+        public static string getrecommendlist(string search)
+        {
+            recommendFac Fac = new recommendFac();
+            DataSet ds = Fac.GetList("");
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
+        }
+
+        //-----------------------------产品推荐管理 ed
     }
 }

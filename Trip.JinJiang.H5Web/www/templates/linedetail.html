@@ -87,16 +87,67 @@
         }
 
         .linedetail .distancetravelboxleft {
-            background-image: url(img/左边li图标3.png);
+            background-image: url(img/左边li图标4.png);
             background-repeat: no-repeat;
             float: left;
             height: 100%;
-            width: 8%;
+            width: 7%;
             position: absolute;
+            margin-top: 1.5%;
         }
 
         .linedetail .distancetravelboxright {
-            margin-left: 10%;
+            margin-left: 8%;
+            line-height: 26px;
+        }
+
+        .linedetail .cltypeimg {
+            background-image: url(img/锦江旅游图标.jpg);
+            width: 24px;
+            height: 26px;
+            float: left;
+        }
+        .linedetail .cltypeimg2 {
+            background-image: url(img/锦江旅游图标.jpg);
+            width: 24px;
+            height: 26px;
+            float: left;
+        }
+        /*飞机*/
+        .linedetail .trip_air {
+            background-position: -283px -295px;
+        }
+        /*吃饭*/
+        .linedetail .trip_eat {
+            background-position: -281px -318px;
+        }
+        /*坐车*/
+        .linedetail .trip_car {
+            background-position: -283px -341px;
+        }
+        /*睡觉*/
+        .linedetail .trip_bed {
+            background-position: -283px -361px;
+        }
+        /*景点*/
+        .linedetail .trip_spots {
+            background-position: -282px -380px;
+        }
+        /*自由活动*/
+        .linedetail .trip_free {
+            background-position: -284px -402px;
+        }
+        /*购物*/
+        .linedetail .trip_shop {
+            background-position: -304px -319px;
+        }
+        /*自费*/
+        .linedetail .trip_cost {
+            background-position: -282px -446px;
+        }
+        /*其他*/
+        .linedetail .trip_other {
+            background-position: -280px -425px;
         }
 </style>
 <ion-view hide-nav-bar="true">
@@ -180,8 +231,10 @@
                         <div class="distancetravelboxright">
                             <div class="smalltitle">第{{x.dayNumber}}天:{{x.departurePlace}}-{{x.destination}}</div>
                             <div ng-repeat="xx in x.journeyDetail">
-                                <div>{{xx.programType}}:{{xx.programName}}</div>
-                                {{xx.programInfo}}
+                                <div><div class="cltypeimg"></div><span class="cltypetxt">{{xx.programType}}</span>:{{xx.programName}}</div>
+                                <div class="cltypeimg2 trip_other">
+                                </div>
+                                    {{xx.programInfo}}
                             </div>
                         </div>
                     </div>

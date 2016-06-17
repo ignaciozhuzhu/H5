@@ -21,21 +21,23 @@ namespace Trip.JinJiang.H5.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into tbl_recommend(");
-            strSql.Append("lineId,lineTitle,travelAgency,order,imgUrl)");
+            strSql.Append("lineId,lineTitle,travelAgency,[order],imgUrl,lineCategory)");
             strSql.Append(" values (");
-            strSql.Append("@lineId,@lineTitle,@travelAgency,@order,@imgUrl)");
+            strSql.Append("@lineId,@lineTitle,@travelAgency,@order,@imgUrl,@lineCategory)");
             strSql.Append(";select @@IDENTITY");
             SqlParameter[] parameters = {
                     new SqlParameter("@lineId", SqlDbType.Int,4),
                     new SqlParameter("@lineTitle", SqlDbType.NVarChar,50),
                     new SqlParameter("@travelAgency", SqlDbType.NVarChar,50),
                     new SqlParameter("@order", SqlDbType.Int,4),
-                    new SqlParameter("@imgUrl", SqlDbType.NVarChar,200)};
+                    new SqlParameter("@imgUrl", SqlDbType.NVarChar,200),
+                    new SqlParameter("@lineCategory", SqlDbType.NVarChar,200)};
             parameters[0].Value = model.lineId;
             parameters[1].Value = model.lineTitle;
             parameters[2].Value = model.travelAgency;
             parameters[3].Value = model.order;
             parameters[4].Value = model.imgUrl;
+            parameters[5].Value = model.lineCategory;
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
             if (obj == null)
@@ -57,8 +59,9 @@ namespace Trip.JinJiang.H5.DAL
             strSql.Append("lineId=@lineId,");
             strSql.Append("lineTitle=@lineTitle,");
             strSql.Append("travelAgency=@travelAgency,");
-            strSql.Append("order=@order,");
-            strSql.Append("imgUrl=@imgUrl");
+            strSql.Append("[order]=@order,");
+            strSql.Append("imgUrl=@imgUrl,");
+            strSql.Append("lineCategory=@lineCategory");
             strSql.Append(" where Id=@Id");
             SqlParameter[] parameters = {
                     new SqlParameter("@lineId", SqlDbType.Int,4),
@@ -66,13 +69,15 @@ namespace Trip.JinJiang.H5.DAL
                     new SqlParameter("@travelAgency", SqlDbType.NVarChar,50),
                     new SqlParameter("@order", SqlDbType.Int,4),
                     new SqlParameter("@imgUrl", SqlDbType.NVarChar,200),
+                    new SqlParameter("@lineCategory", SqlDbType.NVarChar,200),
                     new SqlParameter("@Id", SqlDbType.Int,4)};
             parameters[0].Value = model.lineId;
             parameters[1].Value = model.lineTitle;
             parameters[2].Value = model.travelAgency;
             parameters[3].Value = model.order;
             parameters[4].Value = model.imgUrl;
-            parameters[5].Value = model.Id;
+            parameters[5].Value = model.lineCategory;
+            parameters[6].Value = model.Id;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -126,6 +131,21 @@ namespace Trip.JinJiang.H5.DAL
             {
                 return false;
             }
+        }
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetList(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select Id,lineId,lineTitle,travelAgency,[order],imgUrl,lineCategory ");
+            strSql.Append(" FROM tbl_recommend ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+            strSql.Append(" order by [order] asc ");
+            return DbHelperSQL.Query(strSql.ToString());
         }
 
         #endregion  BasicMethod

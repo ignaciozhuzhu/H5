@@ -77,7 +77,7 @@
                                         <td>{{x.brand}}</td>
                                         <td>{{x.originalPrice}}</td>
                                         <td>
-                                            <img src='../../img/edit.png'><a ng-click="toggle($event)" data-toggle="modal" href="#example">修改</a></td>
+                                            <img src='../../img/edit.png'><a ng-click="toggle($event)" data-toggle="modal" href="#example">添加</a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -93,8 +93,8 @@
             <!-- /.row -->
         </section>
         <!-- /.content -->
-
-        <div id="example" class="modal hide fade in" style="display: none; height: 380px; width: 600px;">
+        <form id="example" class="modal hide fade in" style="display: none; height: 380px; width: 600px;">
+        <div>
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
                 <h3>推荐/修改旅游营销产品</h3>
@@ -104,11 +104,14 @@
                 <div><input type="text" style="display:none" id="agency"></div>
                 <div>线路:<input type="text" style="height: 30px;margin-left:30px;width:400px;" disabled name="txt" id="linetitle"></div>
                 <div>标题:<input type="text" style="height: 30px;margin-left:30px;width:400px" name="txt" id="title"></div>
-                <div>排序:<input type="number" style="height: 30px;margin-left:30px;width:161px" name="txt" id="order"></div>
+                <div>分类:
+                        <select ng-model="selectedcate" style="margin-left:25px;width:160px" ng-options="x.categoryName for x in linecates">
+                        </select>
+                </div>
+                <div>排序:<input type="number" style="height: 30px;margin-left:30px;width:160px" name="txt" id="order"></div>
                 <div>
                     <div><p style="float:left">图片:</p><p style="margin-left:60px">尺寸建议(宽412px 高202px)</p></div>
                     <input id="File1" name="File1" type="file" />
-                    <img id="imgurl2" style="height: 22px" />
                 </div>
             </div>
             <div class="modal-footer">
@@ -116,6 +119,7 @@
                 <a href="#" class="btn" data-dismiss="modal">关闭</a>
             </div>
         </div>
+        </form>
 
     </div>
 </asp:Content>
@@ -133,9 +137,11 @@
                 $("#example").attr("class", "modal fade in");
                 lineid = $event.path[2].cells[1].innerText;
                 travelagency = $event.path[2].cells[3].innerText;
+                $('#linetitle')[0].value = $event.path[2].cells[2].innerText;
             };
 
-            var nghttp0 = "../../../ajax/apihandler.ashx?fn=getlinecategorys0";
+            //线路分类下拉框bg
+            var nghttp0 = "../../../ajax/apihandler.ashx?fn=getlinecategorys3&status=true&pattern=S2";
             $http.get(nghttp0).success(function (response) {
                 //  debugger
                 var responseCache0 = response;
@@ -145,6 +151,7 @@
                 }
                 $scope.linecates = arrayLine;
             });
+            //线路分类下拉框ed
 
             var linenamesc = $('#linenamesc').val();
             var agencysc = $('#agencysc').val();
@@ -154,7 +161,8 @@
             var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesadsearch2&linenamesc=" + linenamesc + "&agencysc=" + agencysc + "&lineidsc=" + lineidsc + "&categorysc=" + categorysc + "&agencysc2=" + agencysc2 + "";
             $http.get(nghttp).success(function (response) {
                 //替换旅行社名字
-                for (var i = 0; i < response.lines.length;i++){
+                for (var i = 0; i < response.lines.length; i++) {
+                    if (response.lines[i].agency!==null)
                     response.lines[i].agency = replaceAgency(response.lines[i].agency);
                 }
                 $scope.pageCount = Math.ceil(response.lines.length / percount);
@@ -175,19 +183,50 @@
                 $scope.lines = arrayLine;
             };
             $scope.reloadRoute = function () {
-                $.ajax({
-                    url: "../../../ajax/recommendHandler.ashx?fn=addrecommend",
+                $("#example").ajaxSubmit({
+                    success: function (str) {
+                        if (str != null && str != "undefined") {
+                            if (str == "操作成功!") {
+                                alert(str);
+                                $window.location.reload();
+                            }
+                            else if (str == "2") { alert("只能上传jpg或png格式的图片"); }
+                            else if (str == "3") { alert("图片不能大于1M"); }
+                            else if (str == "4") { alert("请选择要上传的文件!!"); }
+                            else { alert(str); }
+                        }
+                        else alert(str);
+                    },
+                    error: function (error) { alert(error); },
+                    url: '../../../ajax/recommendHandler.ashx?fn=addrecommend',
                     type: "post",
                     data: {
                         lineTitle: $('#title')[0].value,
                         travelAgency: travelagency,
                         lineId: lineid,
-                        order: $('#order')[0].value
+                        order: $('#order')[0].value,
+                        lineCategory: $scope.selectedcate.categoryName
                     },
-                    success: function (text) {
-                        $window.location.reload();
-                    }
+                    dataType: "text"
                 });
+
+                //$.ajax({
+                //    url: "../../../ajax/recommendHandler.ashx?fn=addrecommend",
+                //    type: "post",
+                //    data: {
+                //        lineTitle: $('#title')[0].value,
+                //        travelAgency: travelagency,
+                //        lineId: lineid,
+                //        order: $('#order')[0].value,
+                //        lineCategory: $scope.selectedcate.categoryName
+                //    },
+                //    success: function (text) {
+                //        if (text=="操作成功!"){
+                //            alert(text);
+                //            $window.location.reload();}
+                //        else alert(text);
+                //    }
+                //});
 
             }
             $scope.filtcategory = function () {
@@ -199,7 +238,7 @@
                 var agencysc2 = $('#agencysc2').val();
                 var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesadsearch2&linenamesc=" + linenamesc + "&agencysc=" + agencysc + "&lineidsc=" + lineidsc + "&categorysc=" + categorysc + "&agencysc2=" + agencysc2 + "";
                 $http.get(nghttp).success(function (response) {
-                    //debugger
+                    debugger
                     //替换旅行社名字
                     for (var i = 0; i < response.lines.length; i++) {
                         response.lines[i].agency = replaceAgency(response.lines[i].agency);
@@ -236,8 +275,6 @@
             });
         }
         function replaceAgency(agencycode) {
-            //var agencycode;
-            //debugger
             agencycode = agencycode.replace("SHT", "上海华亭海外旅游有限公司");
             agencycode = agencycode.replace("STD", "旅游事业部");
             agencycode = agencycode.replace("SWD", "上海锦江国际旅游股份有限公司网点分公司");

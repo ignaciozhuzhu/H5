@@ -239,19 +239,36 @@ namespace Trip.JinJiang.H5.DAL
             return DbHelperSQL.Query(strSql.ToString());
         }
 
-
         /// <summary>
         /// 获得数据列表
         /// </summary>
         public DataSet GetList2(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select b.lineCategory,lineId,lineName,name,title,imageUrls,minPrice,originalPrice,b.[order] from tbl_lineLists a left join tbl_lineCategory b on a.lineCategory=b.lineCategory");
+            strSql.Append(@"select b.lineCategory,c.lineTitle,c.lineCategory,c.imgUrl,c.[order], a.lineId,a.lineName,a.name,a.title,a.imageUrls,a.minPrice,a.originalPrice from tbl_lineLists a 
+inner join tbl_recommend c on c.lineId = a.lineId
+inner join tbl_lineCategory b on c.lineCategory = b.categoryName
+where 1 = 1 and b.status = 'true' and b.pattern = 'S2'");
             if (strWhere != null && strWhere.Trim() != "")
             {
                 strSql.Append(" where 1=1 " + strWhere);
             }
-            strSql.Append(" order by b.[order] asc ");
+            strSql.Append(" order by c.[order] asc ");
+            return DbHelperSQL.Query(strSql.ToString());
+        }
+        
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetList3(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select Id,lineCategory,categoryName,imgUrl,status,pattern,[order] from tbl_lineCategory");
+            if (strWhere != null && strWhere.Trim() != "")
+            {
+                strSql.Append(" where 1=1 " + strWhere);
+            }
+            strSql.Append(" order by [order] asc ");
             return DbHelperSQL.Query(strSql.ToString());
         }
 
