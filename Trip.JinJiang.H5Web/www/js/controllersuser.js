@@ -166,7 +166,7 @@
                 //setCookie('cdsId', jsonObj.memberMergeDto.cdsId, 1);
 
                 if (groupid > 0) {
-                    layermyui('注册成功!将自动为您跳转回支付页面...');
+                    layermyui('注册成功!将自动为您跳转...');
                     window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
                 }
                 else {
@@ -653,22 +653,30 @@
 })
 //短注册
 .controller('shortregistCtrl', function ($scope, $http) {
-    //判断是否已经登录帐号,获取membercode 的cookie
-    //var ckmcMemberCode = getCookie('mcMemberCode');
-    //$scope.fullName = getCookie('fullName');
-    //if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
-    //    $('#account').empty().append('注销');
-    //}
-    //$scope.seemyorder = function () {
-    //    var ckmcMemberCode = getCookie('mcMemberCode');
-    //    if (ckmcMemberCode == "" || ckmcMemberCode == undefined || ckmcMemberCode == null) {
-    //        layermyui('请先登录');
-    //        return;
-    //    }
-    //    else {
-    //        window.location.href = '#/app/user/myorder';
-    //    }
-    //}
+    $scope.checkvalidate = function () {
+        var phone = $(".checkpwd0 #phone")[0].value;
+        var code = $(".checkpwd0 #code")[0].value;
+        var nghttp = "../../ajax/userHandler.ashx?fn=checkvalidatecode4reg&phone=" + phone + "&code=" + code + "";
+        //loading层
+        var mylayeruiwait = layer.load(1, {
+            shade: [0.5, '#ababab'] //0.1透明度的白色背景
+        });
+        $http.get(nghttp).success(function (response) {
+            //debugger
+            find404admin(response);
+            layer.close(mylayeruiwait);
+            var x2js = new X2JS();
+            var xmlText = response;
+            var jsonObj = x2js.xml_str2json(xmlText);
+            if (jsonObj.validateCodeVerifyRespDto.rtcode == "success") {
+                window.location.href = '#/app/user/quickregister2';
+            }
+            else {
+                layermyui(jsonObj.validateCodeVerifyRespDto.errorMsg);
+            }
+        })
+
+    }
 
 })
 
@@ -748,7 +756,7 @@
                 //setCookie('fullName', jsonObj.memberMergeDto.fullName, 1);
                 //setCookie('cdsId', jsonObj.memberMergeDto.cdsId, 1);
 
-                layermyui('注册成功!将自动为您跳转回支付页面...');
+                layermyui('注册成功!将自动为您跳转...');
                 if (groupid > 0) {
                     window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
                 }
@@ -771,7 +779,7 @@ var sends = {
     checked: 1,
     send: function () {
         var numbers = /^1\d{10}$/;
-        var val = $('.forgetpwd0 #phone').val().replace(/\s+/g, ""); //获取输入手机号码
+        var val = $('.forgetpwd0,.checkpwd0 #phone').val().replace(/\s+/g, ""); //获取输入手机号码
         if ($('.div-phone').find('span').length == 0 && $('.div-phone a').attr('class') == 'send1 activated') {
             if (!numbers.test(val) || val.length == 0) {
                 $('.div-phone').append('<span class="error">手机格式错误</span>');
@@ -796,13 +804,12 @@ var sends = {
             $('.div-phone a').addClass('send0').removeClass('send1');
             timeCountDown();
             var timer = setInterval(timeCountDown, 1000);
-            //debugger
             //传入后台操作
             $.ajax({
                 url: "../../ajax/userHandler.ashx?fn=sendvalidatecode4reg&phone=" + $('#phone').val(),
                 type: 'post',
                 success: function (response) {
-                    debugger
+                    //debugger
                     //验证码已发送
                     //debugger
                     //var x2js = new X2JS();

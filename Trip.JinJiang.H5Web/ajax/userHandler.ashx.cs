@@ -122,6 +122,15 @@ namespace Trip.JinJiang.H5Web.ajax
             string phone = HttpContext.Current.Request["phone"].ToString();
             HttpContext.Current.Response.Write(User.sendvalidatecode4reg(phone));
         }
+        /// <summary>
+        /// 核对验证码
+        /// </summary>
+        public void checkvalidatecode4reg()
+        {
+            string phone = HttpContext.Current.Request["phone"].ToString();
+            string validate = HttpContext.Current.Request["code"].ToString();
+            HttpContext.Current.Response.Write(User.checkvalidatecode4reg(phone, validate));
+        }
 
         public bool IsReusable
         {
