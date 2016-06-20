@@ -553,11 +553,44 @@ namespace Trip.JinJiang.H5
         public static string getrecommendlist(string search)
         {
             recommendFac Fac = new recommendFac();
-            DataSet ds = Fac.GetList("");
+            DataSet ds = Fac.GetList(search);
             ConvertJson ConvertJson = new ConvertJson();
             string json = ConvertJson.ToJson(ds);
             return json;
         }
+
+        /// <summary>
+        /// 推荐产品删除
+        /// </summary>
+        public static string delrecommend(int Id)
+        {
+            recommendFac Fac = new recommendFac();
+            if (Fac.Delete(Id))
+                return "操作成功";
+            else
+                return "操作失败";
+        }
+
+        /// <summary>
+        /// 线路类型编辑
+        /// </summary>
+        public static string editrecommend(string lineTitle, string imgUrl, int Id, int order)
+        {
+            recommendMod model = new recommendMod();
+            model.lineTitle = lineTitle;
+            model.imgUrl = imgUrl;
+            model.Id = Id;
+            model.order = order;
+            recommendFac Fac = new recommendFac();
+            if (Fac.Update(model))
+            {
+                return "操作成功!";
+            }
+            else {
+                return "操作失败!";
+            }
+        }
+
 
         //-----------------------------产品推荐管理 ed
     }

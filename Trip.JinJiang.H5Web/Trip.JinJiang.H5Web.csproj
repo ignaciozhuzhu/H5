@@ -1088,6 +1088,7 @@
     <Content Include="www\img\applepay.png" />
     <Content Include="www\img\左边li图标2.png" />
     <Content Include="www\img\左边li图标3.png" />
+    <Content Include="www\img\左边li图标4.png" />
     <Content Include="www\img\返回3.png" />
     <Content Include="www\img\checkbox.png" />
     <Content Include="www\img\checkboxg.png" />
@@ -1124,6 +1125,7 @@
     <Content Include="www\img\路线行程2.png" />
     <Content Include="www\img\轮船游.png" />
     <Content Include="www\img\返回.png" />
+    <Content Include="www\img\锦江旅游图标.jpg" />
     <Content Include="www\img\锯齿划线.png" />
     <Content Include="www\js\angular-1.4.6.min.js" />
     <Content Include="www\js\controllersuser.js" />
@@ -1324,7 +1326,8 @@
     <Content Include="www\templates\user\myorder.html" />
     <Content Include="www\templates\user\forgetpwd.html" />
     <Content Include="www\templates\user\login.html" />
-    <Content Include="www\templates\user\quickregister0.html" />
+    <Content Include="www\templates\user\quickregister2.html" />
+    <Content Include="www\templates\user\shortregist.html" />
     <Content Include="www\templates\user\quickregister.html" />
     <Content Include="www\templates\user\register.html" />
     <Content Include="www\css\userstyle.css" />

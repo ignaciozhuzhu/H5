@@ -232,7 +232,7 @@
             $scope.reloadRoute = function () {
                 //debugger
                 var path = document.getElementById("File1").value;
-                var img = document.getElementById("img1");
+                //var img = document.getElementById("img1");
                 if ($('#pattern')[0].value === "") {
                     alert("请选择样式归属");
                     return;

@@ -113,6 +113,16 @@ namespace Trip.JinJiang.H5Web.ajax
             }
         }
 
+        //以下短注册,1 获取验证码 2 核对验证码 3 允许快速注册.
+        /// <summary>
+        /// 获取验证码
+        /// </summary>
+        public void sendvalidatecode4reg()
+        {
+            string phone = HttpContext.Current.Request["phone"].ToString();
+            HttpContext.Current.Response.Write(User.sendvalidatecode4reg(phone));
+        }
+
         public bool IsReusable
         {
             get

@@ -193,6 +193,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
                 }
             }
         })
+        //个人中心
+        .state('app.shortregist', {
+            url: '/user/shortregist',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/user/shortregist.html',
+                    controller: 'shortregistCtrl'
+                }
+            }
+        })
+     .state('app.quickregister2', {
+         url: '/user/quickregister2',
+         views: {
+             'menuContent': {
+                 templateUrl: 'templates/user/quickregister2.html',
+                 controller: 'quickregister2Ctrl'
+             }
+         }
+     })
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/index');///app/playlists

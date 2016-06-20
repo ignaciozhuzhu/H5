@@ -1,14 +1,10 @@
-﻿<ion-view view-title="会员快速注册">
+﻿<ion-view view-title="注册">
     <ion-content>
         <div class="quickregister">
             <div class="quickregisterbox">
                 <div class="form-item">
                     <input class="item-tip" readonly onfocus="myfocust(this)" onblur="myblurt(this)" value="手机">
                     <input id="phone" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="text" required>
-                </div>
-                <div class="form-item">
-                    <input class="item-tip" readonly onfocus="myfocust(this)" onblur="myblurt(this)" value="邮箱">
-                    <input id="email" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="email">
                 </div>
                 <div class="form-item">
                     <input class="item-tip" readonly onfocus="myfocust(this)" onblur="myblurt(this)" value="密码">
@@ -19,7 +15,6 @@
                     <input id="password2" class="form-input" onfocus="myfocus(this)" onblur="myblur(this)" type="password">
                 </div>
             </div>
-            <div style="margin:0px 20px 10px"><a href="#/app/user/register">转至完整注册</a><a href="#/app/user/login" style="float:right">直接登录</a></div>
             <div ng-click="regist()" class="bottombutton">注册</div>
         </div>
     </ion-content>

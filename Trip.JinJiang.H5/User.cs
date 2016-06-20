@@ -139,6 +139,15 @@ namespace Trip.JinJiang.H5
                 return null;
             }
         }
+
+        public static string sendvalidatecode4reg(string phone)
+        {
+            //测试时暂时没加发送短信限制,后需要将 periodTimes 从-1 改为3
+            string xml = "<validateCodeDto>       <channel>website</channel>       <interval>-1</interval>       <ip></ip>       <ipCheck></ipCheck>       <ipPeriod></ipPeriod>       <ipTimes></ipTimes>       <memberInfoId></memberInfoId>       <period></period>       <periodTimes>-1</periodTimes>       <receiver>" + phone + "</receiver>       <target>会员注册获取验证码</target>      <type>SMS</type>      <json>{pwd}</json>    <jsonCode>pwd</jsonCode>    <templateNo>validateCodeTemplate2</templateNo></validateCodeDto>";
+            var response = HttpUtil.Post(xml, urlsendValidateCode, contentType: "application/xml");
+            return response;
+        }
+        
     }
 
 

@@ -183,6 +183,18 @@
                 $scope.lines = arrayLine;
             };
             $scope.reloadRoute = function () {
+                if (!$('#title')[0].value) {
+                    alert("请输入标题");
+                    return;
+                }
+                if (!travelagency) {
+                    alert("请选择分类");
+                    return;
+                }
+                if (!$('#order')[0].value) {
+                    alert("请输入排序");
+                    return;
+                }
                 $("#example").ajaxSubmit({
                     success: function (str) {
                         if (str != null && str != "undefined") {

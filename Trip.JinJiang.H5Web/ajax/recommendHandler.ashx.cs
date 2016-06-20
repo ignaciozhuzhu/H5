@@ -46,7 +46,36 @@ namespace Trip.JinJiang.H5Web.ajax
             string agency = HttpContext.Current.Request["travelAgency"].ToString();
             string lineCategory = HttpContext.Current.Request["lineCategory"].ToString();
 
-            HttpContext.Current.Response.Write(Admin.addrecommend(imgUrl, lineTitle, order, lineId, agency,lineCategory));
+            HttpContext.Current.Response.Write(Admin.addrecommend(imgUrl, lineTitle, order, lineId, agency, lineCategory));
+        }
+        /// <summary>
+        /// 推荐产品删除
+        /// </summary>
+        public void delrecommend()
+        {
+            int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
+            HttpContext.Current.Response.Write(Admin.delrecommend(Id));
+        }
+
+        /// <summary>
+        /// 推荐产品编辑
+        /// </summary>
+        public void editrecommend()
+        {
+            string fileName = commonHandler.uploadimg();
+            string imgUrl = "";
+            string path = HttpContext.Current.Request["path"];
+            if (path.IndexOf("/modules/img/") > -1)
+            {
+                imgUrl = "../../../modules/img" + path.Substring(path.LastIndexOf("/"));
+            }
+            else {
+                imgUrl = "../../../modules/img/" + fileName;
+            }
+            string lineTitle = HttpContext.Current.Request["lineTitle"].ToString();
+            int Id = Convert.ToInt32(HttpContext.Current.Request["Id"]);
+            int order = Convert.ToInt32(HttpContext.Current.Request["order"]);
+            HttpContext.Current.Response.Write(Admin.editrecommend(lineTitle, imgUrl, Id, order));
         }
 
         /// <summary>

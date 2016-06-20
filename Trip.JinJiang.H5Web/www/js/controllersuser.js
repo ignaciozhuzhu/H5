@@ -651,6 +651,119 @@
     }
 
 })
+//短注册
+.controller('shortregistCtrl', function ($scope, $http) {
+    //判断是否已经登录帐号,获取membercode 的cookie
+    //var ckmcMemberCode = getCookie('mcMemberCode');
+    //$scope.fullName = getCookie('fullName');
+    //if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
+    //    $('#account').empty().append('注销');
+    //}
+    //$scope.seemyorder = function () {
+    //    var ckmcMemberCode = getCookie('mcMemberCode');
+    //    if (ckmcMemberCode == "" || ckmcMemberCode == undefined || ckmcMemberCode == null) {
+    //        layermyui('请先登录');
+    //        return;
+    //    }
+    //    else {
+    //        window.location.href = '#/app/user/myorder';
+    //    }
+    //}
+
+})
+
+
+//快速注册控制器2
+.controller('quickregister2Ctrl', function ($scope, $http) {
+    $scope.regist = function () {
+        //debugger
+        //需要传递到后台的XML报文串:
+        var passwordPlain = $('.quickregister #password')[0].value;  //明文密码
+        //passwordPlain = 'xtsb1';
+        var mh5pw = hex_md5(passwordPlain); //MD5密码
+        var sha = hex_sha1(passwordPlain);
+        var mobile = $('.quickregister #phone')[0].value; //手机
+
+        //前端数据验证
+        if ($('.quickregister #phone')[0].value === "") {
+            layermyui('请输入手机号');
+            return;
+        }
+        if ($('.quickregister #password')[0].value === "") {
+            layermyui('请输入密码');
+            return;
+        }
+        if (!isPassword($('.quickregister #password')[0].value)) {
+            layermyui('密码过于简单,不能少于六位数');
+            return;
+        }
+        if ($('.quickregister #password2')[0].value === "") {
+            layermyui('请输入确认密码');
+            return;
+        }
+        if ($('.quickregister #password2')[0].value !== $('.quickregister #password')[0].value) {
+            layermyui('两次密码不一致');
+            return;
+        }
+
+        var xml = "<webMemberDto>";
+        xml += "<email></email>";
+        xml += "<phone>" + mobile + "</phone>";
+        xml += "<pwd>" + mh5pw + "</pwd>";
+        xml += "<sha1pwd>" + sha + "</sha1pwd>";
+        xml += "<registChannel>Website</registChannel>";
+        xml += "<registTag>IOS|JJTRAVEL_IOS_1|JinJiang</registTag>";
+        xml += "</webMemberDto>";
+        var nghttp = "../../ajax/userHandler.ashx?fn=quickregist&xml=" + xml + "";
+        //alert('正在提交,请稍后...');
+        //loading层
+        var mylayeruiwait = layer.load(1, {
+            shade: [0.5, '#ababab'] //0.1透明度的白色背景
+        });
+        $http.get(nghttp).success(function (response) {
+            //$.unblockUI();
+            find404admin(response);
+            layer.close(mylayeruiwait);
+            //debugger
+            var x2js = new X2JS();
+            var xmlText = response;
+            var jsonObj = x2js.xml_str2json(xmlText);
+            var mcMemberCode;
+            try {
+                mcMemberCode = jsonObj.webMemberRegisterReturnDto.mcMemberCode;
+            }
+            catch (err) {
+                mcMemberCode = "";
+            }
+
+            if (mcMemberCode !== "" && mcMemberCode !== undefined) {
+                var amount = getCookie('amount');
+                var cnum = getCookie('cnum');
+                var pnum = getCookie('pnum');
+                var groupid = getCookie('groupid');
+                var secureamount = getCookie('secureamount');
+
+                //设置客户cookie信息.
+                setCookie('mcMemberCode', jsonObj.webMemberRegisterReturnDto.mcMemberCode, 1);
+                //setCookie('fullName', jsonObj.memberMergeDto.fullName, 1);
+                //setCookie('cdsId', jsonObj.memberMergeDto.cdsId, 1);
+
+                layermyui('注册成功!将自动为您跳转回支付页面...');
+                if (groupid > 0) {
+                    window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
+                }
+                else {
+                    window.location.href = '#/app/index';
+                }
+            }
+            else {
+                layermyui(jsonObj.webMemberRegisterReturnDto.message);
+                return;
+            }
+        })
+    }
+
+})
 
 
 //发送短信验证码
@@ -686,9 +799,10 @@ var sends = {
             //debugger
             //传入后台操作
             $.ajax({
-                url: "../../ajax/userHandler.ashx?fn=sendvalidatecode&loginName=" + $('#phone').val(),
+                url: "../../ajax/userHandler.ashx?fn=sendvalidatecode4reg&phone=" + $('#phone').val(),
                 type: 'post',
                 success: function (response) {
+                    debugger
                     //验证码已发送
                     //debugger
                     //var x2js = new X2JS();
