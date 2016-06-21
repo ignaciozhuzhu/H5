@@ -129,7 +129,7 @@
         }
         app.controller('userCtrl', function ($scope, $http, $window) {
             // $scope.pageCount = 100;
-            percount = 10;
+            percount = 6;
 
             $scope.edit = function ($event) {
                 modalclass();

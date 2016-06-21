@@ -54,10 +54,10 @@ namespace Trip.JinJiang.H5
 
         public static string Getlinecategoriecrm(string category)
         {
-            //string str = @"select lineId,lineCategory from dbo.tbl_lineLists where lineCategory='" + category
-            //    + @"' union 
-            //    select a.lineId,b.lineCategory from tbl_recommend a inner join tbl_lineCategory b on a.lineCategory=b.categoryName";
-            string str = "select lineId,lineCategory from dbo.tbl_lineLists where lineCategory='" + category + "'";
+            string str = @"select lineId,lineCategory from dbo.tbl_lineLists where lineCategory='" + category
+                + @"' union 
+                select a.lineId,b.lineCategory from tbl_recommend a inner join tbl_lineCategory b on a.lineCategory=b.categoryName  where b.lineCategory='" + category + "'";
+            // string str = "select lineId,lineCategory from dbo.tbl_lineLists where lineCategory='" + category + "'";
             DataSet ds = DbHelperSQL.Query(str);
             string json = ConvertJson.DataTable2Array(ds.Tables[0]);
             json = "{\"rows\":" + json.Replace("'", "\"") + "}";

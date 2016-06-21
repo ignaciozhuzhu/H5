@@ -186,6 +186,10 @@
                 }
             });
         }
+        document.onkeydown = function (e) {
+            if ((e || event).keyCode == 13)
+                login();
+        };
     </SCRIPT>
 
     <META name="GENERATOR" content="MSHTML 11.00.9600.17496">
@@ -215,7 +219,8 @@
                     <A style="color: rgb(204, 204, 204); margin-right: 10px;"
                        href="#"></A>
                     <A style="background: rgb(0, 142, 173); padding: 7px 10px; border-radius: 4px; border: 1px solid rgb(26, 117, 152); border-image: none; color: rgb(255, 255, 255); font-weight: bold;"
-                       href="#" onclick="login()">登录</A>
+                       href="#" onclick="login()" >登录</A>
+
                 </SPAN>
             </P>
         </DIV>

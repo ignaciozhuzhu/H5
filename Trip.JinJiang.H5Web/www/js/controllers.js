@@ -94,6 +94,7 @@
             data: my2data,
             type: "post",
             success: function (text) {
+                //debugger
                 layer.close(mylayeruiwait);
                 var d = eval("(" + text + ")");
                 var arrayLinemm = new Array(0);
@@ -226,6 +227,7 @@
     $scope.seemore = function (event) {
         //debugger
         var thislineCategory = event.currentTarget.childNodes[0].innerText;
+        thislineCategory = thislineCategory.toLowerCase();
         $('.amore').href = "/app/linelists/" + thislineCategory;
         window.location.href = "#/app/linelists/" + thislineCategory;
     }
