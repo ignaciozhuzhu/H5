@@ -101,6 +101,7 @@
     <Content Include="modules\admin\functions\bannerimg.aspx" />
     <Content Include="modules\admin\functions\linecategory.aspx" />
     <Content Include="modules\admin\functions\linerecommend.aspx" />
+    <Content Include="modules\admin\functions\linerefresh.html" />
     <Content Include="modules\admin\functions\recommendstorage.aspx" />
     <Content Include="modules\admin\functions\linestore.aspx" />
     <Content Include="modules\admin\login.html" />

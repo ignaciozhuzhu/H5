@@ -146,7 +146,14 @@ namespace Trip.JinJiang.H5Web.ajax
         /// </summary>
         public void cancelorder()
         {
-            string orderCode = HttpContext.Current.Request["ordercode"];
+            string orderCode = "";
+            try
+            {
+                orderCode= HttpContext.Current.Request["ordercode"];
+            }
+            catch (Exception e)
+            {
+            }
             try
             {
                 HttpContext.Current.Response.Write(JJH5Api.cancelOrder(orderCode));

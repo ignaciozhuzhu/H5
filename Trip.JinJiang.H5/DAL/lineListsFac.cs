@@ -39,6 +39,20 @@ namespace Trip.JinJiang.H5.DAL
             return DbHelperSQL.Exists(strSql.ToString(), parameters);
         }
 
+        public bool Truncate() {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("truncate table tbl_lineLists ");
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString());
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         /// <summary>
         /// 增加一条数据

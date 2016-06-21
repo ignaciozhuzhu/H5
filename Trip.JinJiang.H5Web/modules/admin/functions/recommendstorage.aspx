@@ -250,9 +250,10 @@
                 var agencysc2 = $('#agencysc2').val();
                 var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesadsearch2&linenamesc=" + linenamesc + "&agencysc=" + agencysc + "&lineidsc=" + lineidsc + "&categorysc=" + categorysc + "&agencysc2=" + agencysc2 + "";
                 $http.get(nghttp).success(function (response) {
-                    debugger
+                    //debugger
                     //替换旅行社名字
                     for (var i = 0; i < response.lines.length; i++) {
+                        if (response.lines[i].agency !== null)
                         response.lines[i].agency = replaceAgency(response.lines[i].agency);
                     }
                     $scope.pageCount = Math.ceil(response.lines.length / percount);
@@ -261,6 +262,42 @@
                     var mypercount = percount > responseCache2.lines.length ? responseCache2.lines.length : percount;
                     for (var i = 0; i < mypercount; i++) {
                         arrayLine.push(responseCache2.lines[i]);
+                    }
+                    //线路id
+                    if (lineidsc) {
+                        $scope.pageCount = 1;
+                        arrayLine = new Array(0);
+                        for (var i = 0; i < responseCache2.lines.length; i++) {
+                            if (responseCache2.lines[i].lineId == lineidsc)
+                            arrayLine.push(responseCache2.lines[i]);
+                        }
+                    }
+                    //线路名称
+                    if (linenamesc) {
+                        arrayLine = new Array(0);
+                        for (var i = 0; i < responseCache2.lines.length; i++) {
+                            if (responseCache2.lines[i].lineName.indexOf(linenamesc) > -1)
+                                arrayLine.push(responseCache2.lines[i]);
+                        }
+                        $scope.pageCount = Math.ceil(arrayLine.length / percount);
+                    }
+                    //旅行社品牌
+                    if (agencysc) {
+                        arrayLine = new Array(0);
+                        for (var i = 0; i < responseCache2.lines.length; i++) {
+                            if (responseCache2.lines[i].brand == agencysc)
+                                arrayLine.push(responseCache2.lines[i]);
+                        }
+                        $scope.pageCount = Math.ceil(arrayLine.length / percount);
+                    }
+                    //所属旅行社
+                    if (agencysc2) {
+                        arrayLine = new Array(0);
+                        for (var i = 0; i < responseCache2.lines.length; i++) {
+                            if (responseCache2.lines[i].agency == agencysc2)
+                                arrayLine.push(responseCache2.lines[i]);
+                        }
+                        $scope.pageCount = Math.ceil(arrayLine.length / percount);
                     }
                     $scope.lines = arrayLine;
                 });

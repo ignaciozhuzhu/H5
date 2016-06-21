@@ -232,21 +232,22 @@ namespace Trip.JinJiang.H5
         //(3)line[0]的线路库line[]先全存好.
         public static string cancelOrder(string json)
         {
-            var data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":80,\"search\":false,\"startRow\":1,\"total\":8}}";
+            var data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":9999,\"search\":false,\"startRow\":1,\"total\":1}}";
             var response = HttpUtil.Post(data, urllinesearch, contentType: "application/json");
-            var result3 = JsonConvert.DeserializeObject<LineListModel>(response);
+            var result = JsonConvert.DeserializeObject<LineListModel>(response);
             lineListsFac lineListsFac = new lineListsFac();
+            lineListsFac.Truncate();
             Line table = new Line();
-            for (var i = 0; i < result3.lines.Length; i++)
+            for (var i = 0; i < result.lines.Length; i++)
             {
-                table = result3.lines[i];
+                table = result.lines[i];
                 try
                 {
                     lineListsFac.Add(table);
                 }
                 catch { }
             }
-            return "";
+            return "操作完成";
         }
 
         /// <summary>
