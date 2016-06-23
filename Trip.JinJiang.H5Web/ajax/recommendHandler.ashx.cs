@@ -91,6 +91,14 @@ namespace Trip.JinJiang.H5Web.ajax
             catch { }
             HttpContext.Current.Response.Write(Admin.getrecommendlist(search));
         }
+        /// <summary>
+        /// 后台线路cms查询
+        /// </summary>
+        public void getlinescmssearch()
+        {
+            string json = HttpContext.Current.Request["json"];
+            HttpContext.Current.Response.Write(Admin.getlinescmssearch(json));
+        }
 
 
         public bool IsReusable

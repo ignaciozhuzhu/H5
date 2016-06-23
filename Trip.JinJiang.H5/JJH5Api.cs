@@ -400,5 +400,19 @@ namespace Trip.JinJiang.H5
             json = "{\"rows\":" + json.Replace("'", "\"") + "}";
             return json;
         }
+        /// <summary>
+        /// 旅行社列表
+        /// </summary>
+        public static string getagencies()
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(@"select '' as agency,'' as code 
+             union all
+             select agency,code from tbl_agencies");
+            DataSet ds = DbHelperSQL.Query(strSql.ToString());
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
+        }
     }
 }

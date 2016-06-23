@@ -12,7 +12,9 @@ namespace Trip.JinJiang.H5
     public class Admin
     {
         private static string jjh5Sserver = System.Configuration.ConfigurationManager.AppSettings["jjh5Sserver"];
+        private static string jjh5Bserver = System.Configuration.ConfigurationManager.AppSettings["jjh5Bserver"];
         private static string urllinesearch = jjh5Sserver + "/travel/search/searchTravel";   //线路列表接口
+        private static string urlcmslinesearch = jjh5Bserver + "/travel/line/queryLinesForCMS";   //CMS线路列表接口
         /// <summary>
         /// 获取后台线路库列表
         /// </summary>
@@ -34,16 +36,12 @@ namespace Trip.JinJiang.H5
             ConvertJson ConvertJson = new ConvertJson();
             string json = ConvertJson.ToJson(ds);
             return json;
-        }/// <summary>
+        }
+        /// <summary>
          /// 后台线路库(带筛选(推荐产品查询区))
          /// </summary>
         public static string getlinesadsearch2(string linenamesc, string agencysc, string lineidsc, string categorysc, string agencysc2)
         {
-            //lineListsFac lineListsFac = new lineListsFac();
-            //DataSet ds = lineListsFac.GetListsearch2(linenamesc, agencysc, lineidsc, categorysc, agencysc2);
-            //ConvertJson ConvertJson = new ConvertJson();
-            //string json = ConvertJson.ToJson(ds);
-            //return json;
             string str = "";
             if (linenamesc != "")
             {
@@ -593,5 +591,14 @@ namespace Trip.JinJiang.H5
 
 
         //-----------------------------产品推荐管理 ed
+
+        /// <summary>
+        /// 后台线路cms查询
+        /// </summary>
+        public static string getlinescmssearch(string json)
+        {
+            var response = HttpUtil.Post(json, urlcmslinesearch, contentType: "application/json");
+            return response;
+        }
     }
 }

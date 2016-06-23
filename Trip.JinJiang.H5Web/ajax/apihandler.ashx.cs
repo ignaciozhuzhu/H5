@@ -309,6 +309,15 @@ namespace Trip.JinJiang.H5Web.ajax
             HttpContext.Current.Response.Write(JJH5Api.GetNearBy());
         }
 
+
+        /// <summary>
+        /// 旅行社列表
+        /// </summary>
+        public void getagencies()
+        {
+            HttpContext.Current.Response.Write(JJH5Api.getagencies());
+        }
+
         public bool IsReusable
         {
             get

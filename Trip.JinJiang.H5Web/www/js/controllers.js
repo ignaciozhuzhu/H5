@@ -73,6 +73,7 @@
 })
  //线路列表控制器2,唯独不一样的是路由
 .controller('LinelistsCtrl2', function ($scope, $http) {
+
     var url = location.href;
     var lineCategory = url.substring(url.lastIndexOf('/') + 1, url.length);
     var my2data = "";
@@ -82,6 +83,8 @@
     else {
         my2data = { fn: "getlinecategoriecrm", category: lineCategory };
     }
+    var mylineCategoryName = replaceCategory(lineCategory);
+    $(".title").empty().append(mylineCategoryName);
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinesbycategory";
     //loading层
     var mylayeruiwait = layer.load(1, {
@@ -141,6 +144,22 @@
     });
     $scope.searchlines = function () {
         searchLines();
+    }
+    var ua = navigator.userAgent.toLowerCase();
+    if (navigator.userAgent.indexOf('UCBrowser') > -1) {
+        $(".imgh").css({ "max-height": "70px", "max-width": "70px" })
+        $(".imgo").css({ "max-height": "45px", "max-width": "45px", "margin-top": "10%" })
+        $(".borderlefty").css({ "margin-left": "-5%" })
+    }
+    else {
+        $(".borderlefty").css({ "margin-left": "3%" })
+        $(".imgo").css({ "max-height": "45px", "max-width": "45px" })
+        $(".borderlefty").css({ "width": "70%" })
+    }
+    if (/iphone|ipad|ipod/.test(ua) && navigator.userAgent.indexOf('UCBrowser') > -1) {
+        $(".imgh").css({ "max-height": "35px", "max-width": "35px" })
+        $(".imgo").css({ "max-height": "45px", "max-width": "45px", "margin-top": "10%" })
+        $(".borderlefty").css({ "margin-left": "5%" });
     }
 
     //滚动,下拉出电话
@@ -335,6 +354,7 @@
         //行程
         if (response.line === null) {
             layermyui('此线路暂无详细数据!', 1500);
+            $(".title").empty().append("锦江旅游");
             window.location.href = "#/app/index";
             return;
         }
@@ -412,7 +432,7 @@
         $(".linedetail .tunbl1").addClass("contentblue");
         $(".linedetail .tunbl4").addClass("lineblue");
 
-        
+
     });
     //设置行程类型图标样式
     function settypepng() {
@@ -441,7 +461,7 @@
             if ($(".linedetail .cltypetxt")[i].innerText == "购物") {
                 $(".linedetail .cltypeimg")[i].className = "cltypeimg trip_shop";
             }
-            
+
         }
     }
 

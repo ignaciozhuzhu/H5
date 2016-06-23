@@ -361,3 +361,17 @@ function sortbydepartDate(a, b) {
 function sortbydayNumber(a, b) {
     return a.dayNumber - b.dayNumber;
 }
+
+function replaceCategory(lineCategory) {
+    lineCategory = lineCategory.toUpperCase();
+    lineCategory = lineCategory.replace("FREETRIP", "自由行");
+    lineCategory = lineCategory.replace("GROUPTRIP", "跟团游");
+    lineCategory = lineCategory.replace("NEARBY", "周边游");
+    lineCategory = lineCategory.replace("DOMESTIC", "国内游");
+    lineCategory = lineCategory.replace("OUTBOUND", "出境游");
+    lineCategory = lineCategory.replace("SALES", "特价游");
+    lineCategory = lineCategory.replace("SHIP", "邮轮");
+    lineCategory = lineCategory.replace("HOT", "热门推荐");
+    lineCategory = lineCategory.replace("SALE", "特价推荐");
+    return lineCategory;
+}

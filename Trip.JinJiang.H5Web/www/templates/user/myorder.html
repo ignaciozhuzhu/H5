@@ -20,7 +20,7 @@
             <div ng-click="li4()">预定成功</div>
         </div>
     </ion-header-bar>
-    <ion-content>
+    <ion-content on-scroll="getScrollPosition()" delegate-handle="indexDelegate">
         <div class="myorder">
             <div class="orders" ng-repeat="x in orders">
                 <div class="timeorder">
