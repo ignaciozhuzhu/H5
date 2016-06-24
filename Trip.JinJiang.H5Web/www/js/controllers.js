@@ -510,7 +510,6 @@
         var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
         var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
         $http.get(nghttp).success(function (response) {
-            //debugger
             intoCalendarTime();
             adn = 1;
             crn = 0;
