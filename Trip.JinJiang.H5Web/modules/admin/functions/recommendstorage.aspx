@@ -34,8 +34,8 @@
                         <span style="padding-left: 10px">
                             <input id="agencysc" type="text" style="height: 30px">
                         </span>
-                        <div style="display: none">线路CODE: </div>
-                        <span style="padding-left: 10px; display: none">
+                        线路ID:
+                        <span style="padding-left: 10px; ">
                             <input id="lineidsc" type="text" style="height: 30px">
                         </span>
                         <input style="margin-left: 100px; width: 100px" ng-click="filtcategory()" type="button" value="查询">
@@ -58,6 +58,13 @@
                             <option value="GROUPTRIP">跟团游</option>
                             <option value="SHIP">邮轮</option>
                         </select>
+<%--                        <span style="margin-right: 38px">线路业务类型: </span>
+                        <select id="businesscategory" style="padding-left: 10px">
+                            <option value=""></option>
+                            <option value="DOMESTIC">国内</option>
+                            <option value="OUTBOUND">出境</option>
+                            <option value="INBOUND">入境</option>
+                        </select>--%>
                         <%--                        产品区域: 
                         <span style="padding-left: 10px">
                             <input id="selectedcate" type="text" style="height: 30px">
@@ -232,8 +239,9 @@
                 var lineidsc = $('#lineidsc').val();
                 var categorysc = $('#categorysc').val();
                 var agencysc2 = $('#agencysc2').val();
-                agencysc2 = "";
-                var json = '{"lineCategory":"' + categorysc + '","lineName":"' + linenamesc + '","travelAgency":"' + agencysc2 + '","travelBrand":"' + agencysc + '","code":"' + lineidsc + '"}';
+                if (agencysc2 == null)
+                    agencysc2 = "";
+                var json = '{"lineCategory":"' + categorysc + '","lineName":"' + linenamesc + '","travelAgency":"' + agencysc2 + '","travelBrand":"' + agencysc + '","lineId":"' + lineidsc + '"}';
                 var nghttp = "../../../ajax/recommendHandler.ashx?fn=getlinescmssearch&json=" + json + "";
                 $http.get(nghttp).success(function (response) {
                     //debugger

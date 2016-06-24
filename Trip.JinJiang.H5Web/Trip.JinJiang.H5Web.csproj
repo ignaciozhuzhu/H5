@@ -1320,6 +1320,7 @@
     <Content Include="www\lib\md5.js" />
     <Content Include="www\lib\sha1.js" />
     <Content Include="www\js\om_code.js" />
+    <Content Include="www\templates\demo\scroll.html" />
     <Content Include="www\templates\siteflow\demo.html" />
     <Content Include="www\templates\siteflow\om_code.js" />
     <Content Include="www\templates\user\myinfo.html" />

@@ -40,6 +40,8 @@ namespace Trip.JinJiang.H5
         public int? originalPrice { get; set; }
         public string priceExplain { get; set; }
         public string recommend { get; set; }
+        //V1.0.9新增
+        public string businessCategory { get; set; }
     }
 
 }

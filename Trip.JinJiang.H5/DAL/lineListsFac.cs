@@ -61,9 +61,9 @@ namespace Trip.JinJiang.H5.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into tbl_lineLists(");
-            strSql.Append("lineId,lineName,name,title,destinationInfo,spotInfo,lineSubjectInfo,destination,spot,lineSubject,manualRecommend,imageNo,brand,agency,days,isPromotion,departureMonth,priceScope,point,imageUrls,lineCategory,minPrice,productCode,priceScopeAndLine,lineDistrict,originalPrice,priceExplain,recommend)");
+            strSql.Append("lineId,lineName,name,title,destinationInfo,spotInfo,lineSubjectInfo,destination,spot,lineSubject,manualRecommend,imageNo,brand,agency,days,isPromotion,departureMonth,priceScope,point,imageUrls,lineCategory,minPrice,productCode,priceScopeAndLine,lineDistrict,originalPrice,priceExplain,recommend,businessCategory)");
             strSql.Append(" values (");
-            strSql.Append("@lineId,@lineName,@name,@title,@destinationInfo,@spotInfo,@lineSubjectInfo,@destination,@spot,@lineSubject,@manualRecommend,@imageNo,@brand,@agency,@days,@isPromotion,@departureMonth,@priceScope,@point,@imageUrls,@lineCategory,@minPrice,@productCode,@priceScopeAndLine,@lineDistrict,@originalPrice,@priceExplain,@recommend)");
+            strSql.Append("@lineId,@lineName,@name,@title,@destinationInfo,@spotInfo,@lineSubjectInfo,@destination,@spot,@lineSubject,@manualRecommend,@imageNo,@brand,@agency,@days,@isPromotion,@departureMonth,@priceScope,@point,@imageUrls,@lineCategory,@minPrice,@productCode,@priceScopeAndLine,@lineDistrict,@originalPrice,@priceExplain,@recommend,@businessCategory)");
             SqlParameter[] parameters = {
                     new SqlParameter("@lineId", SqlDbType.Int,4),
                     new SqlParameter("@lineName", SqlDbType.NVarChar,100),
@@ -92,7 +92,8 @@ namespace Trip.JinJiang.H5.DAL
                     new SqlParameter("@lineDistrict", SqlDbType.NVarChar,100),
                     new SqlParameter("@originalPrice", SqlDbType.Decimal,9),
                     new SqlParameter("@priceExplain", SqlDbType.NVarChar,-1),
-                    new SqlParameter("@recommend", SqlDbType.NVarChar,-1)};
+                    new SqlParameter("@recommend", SqlDbType.NVarChar,-1),
+                    new SqlParameter("@businessCategory", SqlDbType.NVarChar,100)};
             parameters[0].Value = model.lineId;
             parameters[1].Value = model.lineName;
             parameters[2].Value = model.name;
@@ -121,6 +122,7 @@ namespace Trip.JinJiang.H5.DAL
             parameters[25].Value = model.originalPrice;
             parameters[26].Value = model.priceExplain;
             parameters[27].Value = model.recommend;
+            parameters[28].Value = model.businessCategory;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)

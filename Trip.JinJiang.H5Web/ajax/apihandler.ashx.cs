@@ -94,6 +94,17 @@ namespace Trip.JinJiang.H5Web.ajax
             {
             }
         }
+        public void getlinecategoriecrm2()
+        {
+            try
+            {
+                string category = (HttpContext.Current.Request["category"]).ToString();
+                HttpContext.Current.Response.Write(JJH5Api.Getlinecategoriecrm2(category));
+            }
+            catch (Exception e)
+            {
+            }
+        }
 
         /// <summary>
         /// 线路详情

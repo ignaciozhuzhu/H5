@@ -80,6 +80,9 @@
     if (lineCategory === "nearby") {
         my2data = { fn: "getnearby" };
     }
+    else if (lineCategory === "domestic" || lineCategory === "outbound" || lineCategory === "inbound") {
+        my2data = { fn: "getlinecategoriecrm2", category: lineCategory };
+    }
     else {
         my2data = { fn: "getlinecategoriecrm", category: lineCategory };
     }
@@ -99,6 +102,7 @@
             success: function (text) {
                 //debugger
                 layer.close(mylayeruiwait);
+                //debugger
                 var d = eval("(" + text + ")");
                 var arrayLinemm = new Array(0);
                 for (var i = 0 ; i < d.rows.length; i++) {
@@ -352,6 +356,7 @@
         $(".linedetail .groupsinheight").height(16);
 
         //行程
+        //debugger
         if (response.line === null) {
             layermyui('此线路暂无详细数据!', 1500);
             $(".title").empty().append("锦江旅游");

@@ -24,7 +24,6 @@ namespace Trip.JinJiang.H5
         private static string urlsearchorder = jjh5Bserver + "/travel/order/queryOrderList";    //订单查询接口
         private static string urlcreateorder = jjh5Bserver + "/travel/order/create";    //创建订单接口
         private static string urlinventory = jjh5Bserver + "/travel/group/queryRealTimeRefresh/";   //查询库存 ,实时价格接口
-        private static string urlcancelorder = jjh5Bserver + "/travel/order/cancel";    //取消订单接口
 
         private static string urlcurlcreateorder = xhserver + "/pbp/payment/createOrUpdatePayPreInfo";   //创建订单(预支付)
         private static string urlcurlpc = xhserver + "/pbp/ali/default/pay/";     //网页端支付
@@ -57,7 +56,19 @@ namespace Trip.JinJiang.H5
             string str = @"select lineId,lineCategory from dbo.tbl_lineLists where lineCategory='" + category
                 + @"' union 
                 select a.lineId,b.lineCategory from tbl_recommend a inner join tbl_lineCategory b on a.lineCategory=b.categoryName  where b.lineCategory='" + category + "'";
-            // string str = "select lineId,lineCategory from dbo.tbl_lineLists where lineCategory='" + category + "'";
+            DataSet ds = DbHelperSQL.Query(str);
+            string json = ConvertJson.DataTable2Array(ds.Tables[0]);
+            json = "{\"rows\":" + json.Replace("'", "\"") + "}";
+            return json;
+        }
+        /// <summary>
+        /// 查询线路业务类型
+        /// </summary>
+        public static string Getlinecategoriecrm2(string category)
+        {
+            string str = @"select lineId,businessCategory as lineCategory from dbo.tbl_lineLists where businessCategory='" + category
+                + @"' union 
+                select a.lineId,b.lineCategory from tbl_recommend a inner join tbl_lineCategory b on a.lineCategory=b.categoryName  where b.lineCategory='" + category + "'";
             DataSet ds = DbHelperSQL.Query(str);
             string json = ConvertJson.DataTable2Array(ds.Tables[0]);
             json = "{\"rows\":" + json.Replace("'", "\"") + "}";
