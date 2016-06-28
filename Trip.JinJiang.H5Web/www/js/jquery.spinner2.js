@@ -16,6 +16,7 @@
                   else if (e.keyCode == keyCodes.down) changeValue(-1)
                   else if (getValue(field) != container.data('lastValidValue')) validateAndTrigger(field)
               })
+
             textField.wrap(container)
 
             var increaseButton = $('<button class="increase">+</button>').click(function () { changeValue(1) })

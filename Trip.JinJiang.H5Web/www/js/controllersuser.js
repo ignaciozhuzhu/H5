@@ -609,7 +609,7 @@
 })
 //个人中心控制器
 .controller('myinfoCtrl', function ($scope, $http) {
-
+    //debugger
     //判断是否已经登录帐号,获取membercode 的cookie
     var ckmcMemberCode = getCookie('mcMemberCode');
     $scope.fullName = getCookie('fullName');
@@ -870,11 +870,14 @@ function myfocust(ob) {
     if ($(ob)[0].value == "") {
         $(ob)[0].previousElementSibling.className = 'item-tip item-tip-focus';
         $(ob)[0].className = ('form-input form-input-focus');
-
     }
     //$(ob)[0].focus();
     // document.getElementById("loginname").focus();
 }
+//function process(targetId) {
+//    var me = document.getElementById(targetId);
+//    setTimeout(function () { $(me).focus(); }, 1);
+//}
 
 function myblurt(ob) {
     ob = ob.nextElementSibling;

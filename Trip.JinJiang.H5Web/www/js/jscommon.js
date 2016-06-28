@@ -97,7 +97,7 @@ function getPro() {
             pro = "石家庄"
         if (pro === "美地")
             pro = "杭州"
-        $("#beginProtxt")[0].placeholder = pro + '出发';
+        //$("#beginProtxt")[0].placeholder = pro + '出发';
         $("#nowPro").append(pro);
     });
 
@@ -374,4 +374,11 @@ function replaceCategory(lineCategory) {
     lineCategory = lineCategory.replace("HOT", "热门推荐");
     lineCategory = lineCategory.replace("SALE", "特价推荐");
     return lineCategory;
+}
+
+//tdk seo
+function tkdfunc(title,keywords,description) {
+    $("title")[0].innerText = title;
+    $('[name=keywords]')[0].content = keywords;
+    $('[name=description]')[0].content = description;
 }

@@ -52,6 +52,13 @@
         location.reload();
     }
 
+    //tdk seo
+    tkdfunc(
+        "" + searchParam + "旅游线路_" + searchParam + "线路报价_" + searchParam + "旅游攻略-锦江旅游",
+        "" + searchParam + "旅游线路," + searchParam + "旅游报价," + searchParam + "旅游攻略,锦江旅游",
+        "上海到" + searchParam + "旅游线路，锦江旅游提供上海到" + searchParam + "旅游线路价格,汇集上海旅行社品牌旅游线路,为您提供优质的旅游服务。"
+        )
+
     $http.get(nghttp).success(function (response) {
         //debugger
         var arrayLinemm = new Array(0);
@@ -73,7 +80,6 @@
 })
  //线路列表控制器2,唯独不一样的是路由
 .controller('LinelistsCtrl2', function ($scope, $http) {
-
     var url = location.href;
     var lineCategory = url.substring(url.lastIndexOf('/') + 1, url.length);
     var my2data = "";
@@ -88,6 +94,15 @@
     }
     var mylineCategoryName = replaceCategory(lineCategory);
     $(".title").empty().append(mylineCategoryName);
+
+
+    //tdk seo
+    tkdfunc(
+        "" + mylineCategoryName + "旅游线路_" + mylineCategoryName + "线路报价_" + mylineCategoryName + "旅游攻略-锦江旅游",
+        "" + mylineCategoryName + "旅游线路," + mylineCategoryName + "旅游报价," + mylineCategoryName + "旅游攻略,锦江旅游",
+        "锦江旅游提供包括上海" + mylineCategoryName + "、" + mylineCategoryName + "线路报价，出国旅游景点等多样化旅行服务。锦江旅游是中国最优质的旅游线路和自助游一站式服务提供商。"
+        )
+
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinesbycategory";
     //loading层
     var mylayeruiwait = layer.load(1, {
@@ -102,7 +117,6 @@
             success: function (text) {
                 //debugger
                 layer.close(mylayeruiwait);
-                //debugger
                 var d = eval("(" + text + ")");
                 var arrayLinemm = new Array(0);
                 for (var i = 0 ; i < d.rows.length; i++) {
@@ -136,6 +150,11 @@
 
 //主页控制器
 .controller('indexCtrl', function ($scope, $http, $ionicScrollDelegate) {
+
+    tkdfunc(
+        "锦江旅游度假_旅行社旅游线路_旅游景点攻略-锦江旅游",
+        "锦江旅游,旅游网站,出境游,境内游,周边游,自由行,锦江国际",
+        "锦江旅游提供包括旅游线路咨询预订,旅游酒店预订,旅游线路查询，旅游车辆租赁等多样化旅行服务。")
 
     //实现自带搜索按钮跳转并失去焦点关闭键盘.
     $(function () {
@@ -364,6 +383,14 @@
             return;
         }
         $scope.linedetails = response.line;
+        var titlename = response.line.name;
+        //tdk seo
+        tkdfunc(
+            "" + titlename + "-锦江旅游",
+            "" + titlename + ",锦江旅游",
+            "上海出发" + titlename + ", 锦江旅游是中国最优质的旅游线路和自助游一站式服务提供商。"
+            );
+        //$(".title").empty().append("" + titlename + "-锦江旅游");
         //debugger
         $scope.journeys = response.line.journeys.sort(sortbydayNumber);
 
