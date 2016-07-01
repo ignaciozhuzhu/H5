@@ -389,7 +389,7 @@
             window.location.href = "#/app/index";
             location.reload();
             layermyui('此线路暂无详细数据!', 1500);
-           // setTimeout(function () {  }, 500);
+            // setTimeout(function () {  }, 500);
             return;
         }
         $scope.linedetails = response.line;
@@ -547,6 +547,8 @@
         var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
         var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
         $http.get(nghttp).success(function (response) {
+            var preBookingDays = response.line.preBookingDays;
+            var datenow = getNowFormatDate();
             intoCalendarTime();
             adn = 1;
             crn = 0;
@@ -558,14 +560,12 @@
                 crn = this.children[0].children[1].value;
                 $('#nextpick').attr('href', nextpickhref + '/' + adn + '/' + crn);
             });
-
             function intoCalendarTime() {
                 data = "[";
                 for (var i = 0; i < response.line.groups.length; i++) {
-                    //   debugger
-                    // if (response.line.groups[i])
+                    var date1 = FormatDateYear(response.line.groups[i].departDate);
+                    if (daysBetween(datenow, date1) > preBookingDays)
                     {
-                        var date1 = FormatDateYear(response.line.groups[i].departDate);
                         var groupid = response.line.groups[i].id;
                         for (var j = 0; j < response.line.groups[i].prices.length; j++) {
                             if (response.line.groups[i].prices[j].offerType == '基本价')

@@ -382,3 +382,31 @@ function tkdfunc(title,keywords,description) {
     $('[name=keywords]')[0].content = keywords;
     $('[name=description]')[0].content = description;
 }
+
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+}
+function daysBetween(DateOne, DateTwo) {
+    var OneMonth = DateOne.substring(5, DateOne.lastIndexOf('-'));
+    var OneDay = DateOne.substring(DateOne.length, DateOne.lastIndexOf('-') + 1);
+    var OneYear = DateOne.substring(0, DateOne.indexOf('-'));
+
+    var TwoMonth = DateTwo.substring(5, DateTwo.lastIndexOf('-'));
+    var TwoDay = DateTwo.substring(DateTwo.length, DateTwo.lastIndexOf('-') + 1);
+    var TwoYear = DateTwo.substring(0, DateTwo.indexOf('-'));
+
+    var cha = ((Date.parse(OneMonth + '/' + OneDay + '/' + OneYear) - Date.parse(TwoMonth + '/' + TwoDay + '/' + TwoYear)) / 86400000);
+    return Math.abs(cha);
+}
