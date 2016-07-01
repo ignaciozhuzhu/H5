@@ -466,6 +466,7 @@
             //debugger
             find404admin(response);
             $scope.orders = response.orders;
+            setTimeout(settypepng, 0);
         })
     }
 
@@ -480,6 +481,7 @@
         var ordercode = event.currentTarget.lastElementChild.innerText;
         window.location.href = '#/app/user/orderdetail/' + ordercode + '';
     }
+
 
     $scope.cancelorder = function ($event) {
         var ordercode = event.currentTarget.lastElementChild.innerText;
@@ -513,14 +515,18 @@
     }
 
     $scope.li0 = function () {
+        //debugger
         removeclassyellow();
         addclassyellow(0);
+        var orderStatus = "";
+        var payStatus = "";
         var mynghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
         getorders(mynghttp);
     }
     $scope.li1 = function () {
         removeclassyellow();
         addclassyellow(1);
+        var orderStatus = "";
         var payStatus = "PAY_WAITING";
         var mynghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
         getorders(mynghttp);
@@ -528,6 +534,7 @@
     $scope.li2 = function () {
         removeclassyellow();
         addclassyellow(2);
+        var orderStatus = "";
         var payStatus = "PAYED";
         var mynghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
         getorders(mynghttp);
@@ -535,14 +542,16 @@
     $scope.li3 = function () {
         removeclassyellow();
         addclassyellow(3);
-        orderStatus = "CANCELED";
+        var orderStatus = "CANCELED";
+        var payStatus=""
         var mynghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
         getorders(mynghttp);
     }
     $scope.li4 = function () {
         removeclassyellow();
         addclassyellow(4);
-        orderStatus = "CONFIRMED";
+        var orderStatus = "FAILED";
+        var payStatus = ""
         var mynghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
         getorders(mynghttp);
 
@@ -898,3 +907,10 @@ function myblurt(ob) {
     //  document.getElementById("loginname").focus();
 }
 
+function settypepng() {
+    for (var i = 0; i < $(".seebutton .cancel").length ; i++) {
+        if ($(".seebutton .cancel")[i].parentNode.previousElementSibling.previousElementSibling.innerText.indexOf("已取消") > -1) {
+            $(".seebutton .cancel")[i].className = "seebutton cancel displaynone";
+        }
+    }
+}
