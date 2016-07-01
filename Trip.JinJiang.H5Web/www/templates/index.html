@@ -6,6 +6,9 @@
         text-align: center;
         color: black;
     }
+    .bar-stable .title {
+    left:0 !important
+    }
 </style>
 <ion-view hide-nav-bar="true">
 </ion-view>
@@ -33,7 +36,15 @@
         </ion-header-bar>
 
         <ion-header-bar align-title="left" class="bar-stable">
-            <h1 class="title">锦江旅游</h1>
+            <!--<h1 class="title">锦江旅s游</h1>-->
+            <!--我来组成头部bg-->
+                <a id="indexheadback" style="display:none" class="headleftback" ng-click="goback()">
+                    <div class="button back-button">
+                        <img src="img/返回.png">
+                    </div>
+                </a>
+                <h1 class="title">锦江旅游</h1>
+            <!--我来组成头部ed-->
         </ion-header-bar>
 
         <ion-content>

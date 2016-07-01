@@ -287,6 +287,7 @@ var commonUtil = {
                 var leftNum = d.leftNum == null ? 0 : d.leftNum;
                 $('.numpera').empty().append(' ' + leftNum + ' ');
                 nextpickhref = '#/app/pickresource/' + groupid;
+
                 if (leftNum > 0) {
                     $('#nextpick').attr('href', nextpickhref + '/1/0');
                     $('.indexdate .bottombutton').css('background-color', '#3399ff');

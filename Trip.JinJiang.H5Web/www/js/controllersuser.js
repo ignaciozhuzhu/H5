@@ -218,6 +218,15 @@
         //懒得写入作为测试用例填入后台.
         //loginname = '18505793685';
 
+        if (!loginname) {
+            layermyui('请输入手机号/邮箱');
+            return;
+        }
+        if (!passwordPlain) {
+            layermyui('请输入密码');
+            return;
+        }
+
         var xml = "<mergeLoginDto>";
         xml += "<loginName>" + loginname + "</loginName>";
         xml += "<md5>" + mh5pw + "</md5>";

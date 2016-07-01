@@ -4055,7 +4055,7 @@ a.subdued {
       white-space: nowrap;
       font-weight: 400; }
     .bar .button.back-button.active, .bar .button.back-button.activated, .bar button.back-button.active, .bar button.back-button.activated {
-      opacity: 0.2; }
+      opacity: 0; }/*原来是0.2*/
   .bar .button-bar > .button,
   .bar .buttons > .button {
     min-height: 31px;

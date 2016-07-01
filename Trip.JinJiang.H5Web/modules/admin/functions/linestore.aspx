@@ -100,9 +100,8 @@
                 selectid = $event.path[2].cells[0].innerText;
             };
 
-            var nghttp0 = "../../../ajax/apihandler.ashx?fn=getlinecategorys0";
+            var nghttp0 = "../../../ajax/apihandler.ashx?fn=getlinecategorys&status=true";
             $http.get(nghttp0).success(function (response) {
-                //  debugger
                 var responseCache0 = response;
                 var arrayLine = new Array(0);
                 for (var i = 0; i < responseCache0.ds.length; i++) {

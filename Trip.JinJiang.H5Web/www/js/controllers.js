@@ -115,7 +115,6 @@
             data: my2data,
             type: "post",
             success: function (text) {
-                //debugger
                 layer.close(mylayeruiwait);
                 var d = eval("(" + text + ")");
                 var arrayLinemm = new Array(0);
@@ -165,6 +164,14 @@
             }
         });
     });
+
+    $scope.goback = function () {
+        $('#divcontent').show();
+        $('#bartitle').show();
+        $('#divdesselect').hide();
+
+        $('#indexheadback').hide();
+    }
     $scope.searchlines = function () {
         searchLines();
     }
@@ -224,6 +231,8 @@
     }
     //城目的地选择
     $scope.desSelect = function () {
+
+        $('#indexheadback').show();
         $('#divcontent').hide();
         $('#bartitle').hide();
         $('#divdesselect').show();
@@ -246,7 +255,6 @@
     }
     //二级线路的选择
     $scope.search1Dest = function (event) {
-        //debugger
         //如果有做过特殊关键词链接,则直接跳转不解释.否则就老老实实查询
         if (!event.currentTarget.childNodes[1].innerText) {
             $(".searchtxt")[1].value = event.currentTarget.innerText;
@@ -377,9 +385,11 @@
         //行程
         //debugger
         if (response.line === null) {
-            layermyui('此线路暂无详细数据!', 1500);
             $(".title").empty().append("锦江旅游");
             window.location.href = "#/app/index";
+            location.reload();
+            layermyui('此线路暂无详细数据!', 1500);
+           // setTimeout(function () {  }, 500);
             return;
         }
         $scope.linedetails = response.line;
@@ -552,14 +562,18 @@
             function intoCalendarTime() {
                 data = "[";
                 for (var i = 0; i < response.line.groups.length; i++) {
-                    var date1 = FormatDateYear(response.line.groups[i].departDate);
-                    var groupid = response.line.groups[i].id;
-                    for (var j = 0; j < response.line.groups[i].prices.length; j++) {
-                        if (response.line.groups[i].prices[j].offerType == '基本价')
-                            minprice = response.line.groups[i].prices[j].salePrice;
+                    //   debugger
+                    // if (response.line.groups[i])
+                    {
+                        var date1 = FormatDateYear(response.line.groups[i].departDate);
+                        var groupid = response.line.groups[i].id;
+                        for (var j = 0; j < response.line.groups[i].prices.length; j++) {
+                            if (response.line.groups[i].prices[j].offerType == '基本价')
+                                minprice = response.line.groups[i].prices[j].salePrice;
+                        }
+                        var price1 = "¥" + minprice;
+                        data += '{"Date":"' + date1 + '","Price":"' + price1 + '","groupid":"' + groupid + '"},';
                     }
-                    var price1 = "¥" + minprice;
-                    data += '{"Date":"' + date1 + '","Price":"' + price1 + '","groupid":"' + groupid + '"},';
                 }
                 data += "]";
                 pickerEvent.setPriceArr(eval("(" + data + ")"));
@@ -997,10 +1011,12 @@ function citySelect() {
 //线路查询传参,前台点击事件
 function searchLines() {
     var searchParam;
-    if ($(".searchtxt")[1].placeholder !== "")
+    if ($(".searchtxt")[1].value !== "")
+        searchParam = $(".searchtxt")[1].value;
+    else if ($(".searchtxt")[1].placeholder !== "")
         searchParam = $(".searchtxt")[1].placeholder;
     else
-        searchParam = $(".searchtxt")[1].value;
+        searchParam = "";
     window.location.href = '#/app/linelists?search=' + searchParam;
 }
 

@@ -266,7 +266,7 @@ namespace Trip.JinJiang.H5
         /// </summary>
         public static bool pbppaypre(string orderNo, int payAmount)
         {
-            var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payPreInfoDto>    <bgUrl></bgUrl>    <callPart>TRAVEL</callPart>    <cardNo></cardNo>    <csId></csId>    <csName></csName><orderNo>" + orderNo + "</orderNo><orderPageUrlFroAdmin></orderPageUrlFroAdmin><pageUrl></pageUrl>    <payAmount>" + payAmount + "</payAmount>    <payMethod>MONEY</payMethod>    <payType>ONLINE</payType>    <productTitle>锦江手机官网</productTitle>    <scoreAmount>0</scoreAmount>    <sign></sign>    <userId></userId>    <userName></userName>  </payPreInfoDto>";
+            var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payPreInfoDto>    <bgUrl>http://gatewayqa.jje.com</bgUrl>    <callPart>TRAVEL</callPart>    <cardNo></cardNo>    <csId></csId>    <csName></csName><orderNo>" + orderNo + "</orderNo><orderPageUrlFroAdmin></orderPageUrlFroAdmin><pageUrl></pageUrl>    <payAmount>" + payAmount + "</payAmount>    <payMethod>MONEY</payMethod>    <payType>ONLINE</payType>    <productTitle>锦江手机官网</productTitle>    <scoreAmount>0</scoreAmount>    <sign></sign>    <userId></userId>    <userName></userName>  </payPreInfoDto>";
             var response = HttpUtil.Post(data, urlcurlcreateorder, contentType: "application/xml");
 
             if (response == "")
@@ -297,7 +297,7 @@ namespace Trip.JinJiang.H5
                     url = urlcurlh5;
                     paymentPlatform = "WEIXIN";
                 }
-                var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl>http://travel.jinjiang.com/</bgUrl>  <buyerId></buyerId>  <buyerIp></buyerIp>  <buyerName></buyerName>  <callPart>TRAVEL</callPart>  <description>锦江手机官网</description>  <orderNo>" + orderNo + "</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl>  <payMethod>MONEY</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>" + paymentPlatform + "</paymentPlatform>  <price>" + payAmount + "</price>  <score>0</score>  <subject>锦江手机官网</subject></payRequest> ";
+                var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl>http://gatewayqa.jje.com</bgUrl>  <buyerId></buyerId>  <buyerIp></buyerIp>  <buyerName></buyerName>  <callPart>TRAVEL</callPart>  <description>锦江手机官网</description>  <orderNo>" + orderNo + "</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl>  <payMethod>MONEY</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>" + paymentPlatform + "</paymentPlatform>  <price>" + payAmount + "</price>  <score>0</score>  <subject>锦江手机官网</subject></payRequest> ";
                 var response = HttpUtil.Post(data, url, contentType: "application/xml");
                 return response;
             }
