@@ -486,7 +486,8 @@
     $scope.cancelorder = function ($event) {
         var ordercode = event.currentTarget.lastElementChild.innerText;
         var mcMemberCode = getCookie('mcMemberCode');
-        if (event.currentTarget.parentNode.previousElementSibling.previousElementSibling.innerText.indexOf("待支付") > -1) {
+        if (event.currentTarget.parentNode.previousElementSibling.previousElementSibling.childNodes[1].children[3].innerText=="待支付")
+        {
             var mylayeruiwait = layer.load(1, {
                 shade: [0.5, '#ababab'] //0.1透明度的白色背景
             });
@@ -509,7 +510,7 @@
                 }
             });
         }
-        else {
+        else if (event.currentTarget.parentNode.previousElementSibling.previousElementSibling.childNodes[1].children[3].innerText == "已支付") {
             layermyui('您的订单为已支付订单，需确认退款金额，请及时与客服联系，客服电话10101666*3，客服工作时间：8点至21·点。');
         }
     }
@@ -526,7 +527,7 @@
     $scope.li1 = function () {
         removeclassyellow();
         addclassyellow(1);
-        var orderStatus = "";
+        var orderStatus = "CONFIRMED";
         var payStatus = "PAY_WAITING";
         var mynghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
         getorders(mynghttp);

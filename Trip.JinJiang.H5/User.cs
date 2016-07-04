@@ -91,7 +91,7 @@ namespace Trip.JinJiang.H5
             string startBookingDate = "2016-03-01";
             string endBookingDate = "2017-01-01";
             //mcMemberCode = "10059054";
-            string json = "{\"endBookingDate\":\"" + endBookingDate + "\",\"mcMemberCode\":\"" + mcMemberCode + "\",\"orderCode\":\"\",\"orderStatus\":\"" + orderStatus + "\",\"pagination\":{ \"endRow\":10,\"page\":2,\"records\":0,\"rows\":10,\"search\":false,\"startRow\":1,\"total\":1},\"payStatus\":\"" + payStatus + "\",\"startBookingDate\":\"" + startBookingDate + "\"}";
+            string json = "{\"endBookingDate\":\"" + endBookingDate + "\",\"mcMemberCode\":\"" + mcMemberCode + "\",\"orderCode\":\"\",\"orderStatus\":\"" + orderStatus + "\",\"pagination\":{ \"endRow\":10,\"page\":1,\"records\":0,\"rows\":10,\"search\":false,\"startRow\":1,\"total\":999},\"payStatus\":\"" + payStatus + "\",\"startBookingDate\":\"" + startBookingDate + "\"}";
 
             var response = HttpUtil.Post(json, urlqueryorder, contentType: "application/json");
             var result = JsonConvert.DeserializeObject<OrderdetailMod>(response);

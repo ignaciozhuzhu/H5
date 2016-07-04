@@ -272,7 +272,7 @@
                             <div class="contentpw">
                                 <a ng-click="indexent()" href="#/app/linedetail/{{boxlist.lineId}}"><img class="contentimg" ng-src="{{boxlist.imgUrl}}" /></a>
                                 <div class="contentboxdiv">
-                                    {{ boxlist.lineTitle.length > 9 ? boxlist.lineTitle.substring(0,8)+'...':boxlist.lineTitle}}
+                                    {{ boxlist.lineTitle.length > 20 ? boxlist.lineTitle.substring(0,19)+'...':boxlist.lineTitle}}
                                 </div>
                                 <div>
                                     <span class="amountbg">¥{{boxlist.originalPrice}}</span><span class="mountfont">起</span>

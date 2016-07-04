@@ -164,6 +164,7 @@
             }
         });
     });
+   // refresh();
 
     $scope.goback = function () {
         $('#divcontent').show();
@@ -282,14 +283,24 @@
         window.location.href = "#/app/linelists/" + thislineCategory;
     }
 
+   
+    function refresh() {
+        $.ajax({
+            url: "../../../ajax/apihandler.ashx?fn=cancelorder",
+            type: "post",
+            success: function (text) {
+                //alert(text)
+            }
+        })
+    }
+
     //自加载运行
     $scope.$on("$ionicView.loaded", function () {
         //自动加载播放滚动图片
         //轮播图
         var nghttpgg = "../../ajax/bannerImgHandler.ashx?fn=getbannerimglist&status=true";
         $http.get(nghttpgg).success(function (response) {
-            //debugger
-            for (var i = 0; i < 4; i++) { //response.ds.length
+            for (var i = 0; i < (response.ds.length > 6 ? 6 : response.ds.length); i++) { //response.ds.length
                 var urls;
                 if (response.ds[i].lineId === 0) {
                     urls = response.ds[i].H5Url;
