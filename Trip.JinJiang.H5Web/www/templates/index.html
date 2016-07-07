@@ -14,7 +14,7 @@
 </ion-view>
 
 <ion-view view-title="锦江旅游">
-    <div class="indexion">
+    <div class="indexion" >
 
         <ion-header-bar>
             <div class="indexheader">
@@ -234,7 +234,7 @@
             <!--目的地选择框-->
             <div id="divdesselect" class="cityselectbox">
                 <div style="margin-top:10px;height:60px;">
-                    <input style="margin:auto;height:37px;width:60%;border:solid 1px #ddd;padding-left:12%;background-image: url(img/放大镜2.png);float:left;border-radius:0;border-bottom-left-radius: 5px;border-top-left-radius: 5px;" class="background_size inputsc searchtxt" type="search" placeholder="路线/目的地/景点">
+                    <input style="margin:auto;height:37px;width:60%;border:solid 1px #ddd;padding-left:12%;background-image: url(img/放大镜2.png);float:left;border-radius:0;border-bottom-left-radius: 5px;border-top-left-radius: 5px;" class="background_size inputsc searchtxt" type="search" placeholder="路线/目的地/景点"><div ng-show="false" class=searchtxturl></div>
                     <input type="button" value="搜索" style="width:24%;height:45px;border-radius:0;border:solid 1px #ddd;border-bottom-right-radius: 5px;border-top-right-radius: 5px;" ng-click="searchlines()">
                 </div>
                 <div style="float:left;width:24%;">
@@ -248,7 +248,7 @@
                 </div>
             </div>
         </ion-content>
-        <ion-content class="indexbox" id="divcontent">
+        <ion-content class="indexbox" id="divcontent" on-scroll="getScrollPosition()" delegate-handle="indexDelegate">
             <!--这段轮播图-->
             <div class="sliderContainer fullWidth clearfix">
                 <div ng-click="indexent()" id="full-width-slider" class="royalSlider heroSlider rsMinW">

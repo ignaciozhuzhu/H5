@@ -78,6 +78,11 @@
             layermyui('请输入邮箱');
             return;
         }
+
+        if (!checkMobile($('.register #phone')[0].value)) {
+            layermyui('手机号格式不正确');
+            return;
+        }
         if (!isEmail($('.register #email')[0].value)) {
             layermyui('邮箱格式不正确');
             return;
@@ -304,6 +309,10 @@
             layermyui('请输入邮箱');
             return;
         }
+        if (!checkMobile($('.quickregister #phone')[0].value)) {
+            layermyui('手机号格式不正确');
+            return;
+        }
         if (!isEmail($('.quickregister #email')[0].value)) {
             layermyui('邮箱格式不正确');
             return;
@@ -441,13 +450,12 @@
 
 })
 //我的订单控制器
-.controller('myorderCtrl', function ($scope, $http) {
+.controller('myorderCtrl', function ($scope, $http, $ionicScrollDelegate) {
     //var mcMemberCode = "";
     var mcMemberCode = getCookie('mcMemberCode');
     var orderStatus = "";
     var payStatus = "";
 
-    //debugger
     //40
     var a = $(".header0")[0].offsetTop;
     if (a < 40) {
@@ -462,10 +470,18 @@
     getorders(nghttp);
 
     function getorders(mynghttp) {
+        var mylayeruiwait = layer.load(1, {
+            shade: [0.5, '#ababab'] //0.1透明度的白色背景
+        });
         $http.get(mynghttp).success(function (response) {
             //debugger
+            layer.close(mylayeruiwait);
             find404admin(response);
             $scope.orders = response.orders;
+            for (var i = 0; i < response.orders.length; i++) {
+                $scope.orders[i].discountafterAmount = Math.floor(response.orders[i].amount * 0.98);
+            }
+
             setTimeout(settypepng, 0);
         })
     }
@@ -517,6 +533,8 @@
 
     $scope.li0 = function () {
         //debugger
+        //自动滚动到头部
+        $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
         removeclassyellow();
         addclassyellow(0);
         var orderStatus = "";
@@ -525,6 +543,8 @@
         getorders(mynghttp);
     }
     $scope.li1 = function () {
+        //自动滚动到头部
+        $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
         removeclassyellow();
         addclassyellow(1);
         var orderStatus = "CONFIRMED";
@@ -533,6 +553,8 @@
         getorders(mynghttp);
     }
     $scope.li2 = function () {
+        //自动滚动到头部
+        $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
         removeclassyellow();
         addclassyellow(2);
         var orderStatus = "";
@@ -541,6 +563,8 @@
         getorders(mynghttp);
     }
     $scope.li3 = function () {
+        //自动滚动到头部
+        $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
         removeclassyellow();
         addclassyellow(3);
         var orderStatus = "CANCELED";
@@ -549,6 +573,8 @@
         getorders(mynghttp);
     }
     $scope.li4 = function () {
+        //自动滚动到头部
+        $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
         removeclassyellow();
         addclassyellow(4);
         var orderStatus = "FAILED";
@@ -571,6 +597,12 @@
 
         find404admin(response);
         $scope.status = response.payStatus == "PAYED" ? "已支付" : "待支付";
+
+        //如果是已支付或者是已取消的订单,则不显示去支付按钮
+        if ($scope.status == "已支付" || response.orderStatus == "CANCELED") {
+            $(".orderdetail .seebutton").css("display", "none");
+            $scope.status = "已取消"
+        }
 
         $scope.lineName = response.lineName;
         //订单信息
@@ -720,6 +752,10 @@
             layermyui('请输入密码');
             return;
         }
+        if (!checkMobile($('.quickregister #phone')[0].value)) {
+            layermyui('手机号格式不正确');
+            return;
+        }
         if (!isPassword($('.quickregister #password')[0].value)) {
             layermyui('密码过于简单,不能少于六位数');
             return;
@@ -793,12 +829,60 @@
 })
 
 
+//发送短信验证码2
+var sends2 = {
+    checked: 1,
+    send: function () {
+        var numbers = /^1\d{10}$/;
+        var val = $('.forgetpwd0 #phone').val().replace(/\s+/g, ""); //获取输入手机号码
+        if ($('.div-phone').find('span').length == 0 && $('.div-phone a').attr('class') == 'send1 activated') {
+            if (!numbers.test(val) || val.length == 0) {
+                $('.div-phone').append('<span class="error">手机格式错误</span>');
+                return false;
+            }
+        }
+        if (numbers.test(val)) {
+            var time = 30;
+            $('.div-phone span').remove();
+            function timeCountDown() {
+                if (time == 0) {
+                    clearInterval(timer);
+                    $('.div-phone a').addClass('send1').removeClass('send0').html("发送验证码");
+                    sends.checked = 1;
+                    return true;
+                }
+                $('.div-phone a').html(time + "秒后再次发送");
+                time--;
+                return false;
+                sends.checked = 0;
+            }
+            $('.div-phone a').addClass('send0').removeClass('send1');
+            timeCountDown();
+            var timer = setInterval(timeCountDown, 1000);
+            //传入后台操作
+            $.ajax({
+                url: "../../ajax/userHandler.ashx?fn=sendvalidatecode4reg&phone=" + $('#phone').val(),
+                type: 'post',
+                success: function (response) {
+                    //debugger
+                    //验证码已发送
+                    //debugger
+                    //var x2js = new X2JS();
+                    //var xmlText = response;
+                    //var jsonObj = x2js.xml_str2json(xmlText);
+                    // if(jsonObj.rtcode=="success")
+                }
+            });
+        }
+    }
+}
+
 //发送短信验证码
 var sends = {
     checked: 1,
     send: function () {
         var numbers = /^1\d{10}$/;
-        var val = $('.forgetpwd0,.checkpwd0 #phone').val().replace(/\s+/g, ""); //获取输入手机号码
+        var val = $('.checkpwd0 #phone').val().replace(/\s+/g, ""); //获取输入手机号码
         if ($('.div-phone').find('span').length == 0 && $('.div-phone a').attr('class') == 'send1 activated') {
             if (!numbers.test(val) || val.length == 0) {
                 $('.div-phone').append('<span class="error">手机格式错误</span>');

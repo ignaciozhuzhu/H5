@@ -125,7 +125,7 @@
                                 </div>
                             </div>
                             <div>
-                                <div>关键词链接:(格式遵循http://)</div>
+                                <div>关键词链接:(格式遵循http://www.xxx)</div>
                                 <div>
                                     <input id="H5Url2" type="text" style="height: 30px" />
                                 </div>
@@ -210,7 +210,7 @@
                                 </div>
                             </div>
                             <div>
-                                <div>关键词链接:(格式遵循http://)</div>
+                                <div>关键词链接:(格式遵循http://www.xxx)</div>
                                 <div>
                                     <input id="H5Url3" type="text" style="height: 30px" />
                                 </div>

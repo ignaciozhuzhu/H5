@@ -169,6 +169,8 @@
                 $('#pattern')[0].value = "";
                 //$('#pattern').removeAttr('disabled');
                 $('#order')[0].value = "1";
+
+                $('#imgurl2')[0].src = "";
             };
             $scope.edit = function ($event) {
                 modalclass();

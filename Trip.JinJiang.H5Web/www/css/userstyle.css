@@ -14,18 +14,18 @@
     border-radius: 10px;
 }
 
-    .forgetpwd0,.checkpwd0 div {
+    .forgetpwd0 div,.checkpwd0 div {
         padding: 5px 0;
         overflow: hidden;
     }
 
-    .forgetpwd0,.checkpwd0 label {
+    .forgetpwd0 label,.checkpwd0 label {
         width: 90px;
         display: block;
         float: left;
     }
 
-    .forgetpwd0,.checkpwd0 .infos {
+    .forgetpwd0 .infos ,.checkpwd0 .infos {
         width: 95%;
         height: 44px;
         line-height: 44px;
@@ -35,7 +35,7 @@
         float: left;
     }
 
-    .forgetpwd0,.checkpwd0 .div-phone a.send1 {
+    .forgetpwd0 .div-phone a.send1,.checkpwd0 .div-phone a.send1 {
         height: 44px;
         text-decoration: none;
         line-height: 44px;
@@ -57,7 +57,7 @@
         transition: all 0.2s linear;
     }
 
-        .forgetpwd0,.checkpwd0 .div-phone a.send1:hover {
+        .forgetpwd0 .div-phone a.send1:hover,.checkpwd0 .div-phone a.send1:hover {
             text-decoration: none;
             background: #866c1b;
             -webkit-transition: all 0.2s linear;
@@ -67,7 +67,7 @@
             transition: all 0.2s linear;
         }
 
-    .forgetpwd0,.checkpwd0 .div-phone a.send0 {
+    .forgetpwd0 .div-phone a.send0,.checkpwd0 .div-phone a.send0 {
         height: 44px;
         text-decoration: none;
         line-height: 44px;
@@ -84,7 +84,7 @@
         margin-left: 2px;
     }
 
-        .forgetpwd0,.checkpwd0 .div-phone a.send0:hover {
+        .forgetpwd0 .div-phone a.send0:hover,.checkpwd0 .div-phone a.send0:hover {
             background: #A1A1A1;
             font-family: '宋体';
             color: #fff;
@@ -92,7 +92,7 @@
             text-decoration: none;
         }
 
-    .forgetpwd0,.checkpwd0 span.error {
+    .forgetpwd0 span.error,.checkpwd0 span.error {
         height: 24px;
         line-height: 24px;
         padding: 2px;
@@ -107,15 +107,15 @@
         /*background: url(../images/error.png) no-repeat left center;*/
     }
 
-    .forgetpwd0,.checkpwd0 #phone {
+    .forgetpwd0 #phone,.checkpwd0 #phone {
         width: 50%;
     }
 
-    .forgetpwd0,.checkpwd0 .div-conform {
+    .forgetpwd0 .div-conform,.checkpwd0 .div-conform {
         padding-right: 153px;
     }
 
-        .forgetpwd0,.checkpwd0 .div-conform a.conform {
+        .forgetpwd0 .div-conform a.conform,.checkpwd0 .div-conform a.conform {
             width: 136px;
             height: 4px;
             display: block;
@@ -126,7 +126,7 @@
             text-indent: -1000px;
         }
 
-    .forgetpwd0,.checkpwd0 .bottombutton {
+    .forgetpwd0 .bottombutton,.checkpwd0 .bottombutton {
         font-weight: bold;
         height: 50px;
         background-color: #ff7200;

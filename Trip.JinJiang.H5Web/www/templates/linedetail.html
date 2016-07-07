@@ -190,10 +190,10 @@
                 </div>
                 <div class="height_1px"></div>
                 <div class="height_5px"></div>
-                <div id="groupsheight" class="padding5px groupsheight" style="margin:5px 0">
-                    <div style="float:left;width:8%"><img src="img/出团日期.png" style="width:19px;padding-left:3px" onclick="moredays()" /></div>
-                    <div id="groupsinheight" class="smallcontent2 groupsinheight" style="float:left;width:23%" onclick="moredays()">出团日期</div>
-                    <div style="float:right;width:3.8%"><img src="img/更多.png" style="width:15px" onclick="moredays()" /></div>
+                <div id="groupsheight" class="padding5px groupsheight" style="margin:5px 0" onclick="moredays()">
+                    <div style="float:left;width:8%"><img src="img/出团日期.png" style="width:19px;padding-left:3px"  /></div>
+                    <div id="groupsinheight" class="smallcontent2 groupsinheight" style="float:left;width:23%">出团日期</div>
+                    <div style="float:right;width:3.8%"><img src="img/更多.png" style="width:15px" /></div>
                     <div class="smallcontent2" style="float:left;width:16.3%" ng-repeat="playlist in group1">
                         {{playlist.departDate}}
                     </div>

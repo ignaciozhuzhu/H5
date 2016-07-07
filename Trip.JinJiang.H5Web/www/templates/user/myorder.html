@@ -26,7 +26,7 @@
             <div ng-click="li4()">预定失败</div>
         </div>
     </ion-header-bar>
-    <ion-content on-scroll="getScrollPosition()" delegate-handle="indexDelegate">
+    <ion-content delegate-handle="mainScroll">
         <div class="myorder">
             <div class="orders" ng-repeat="x in orders">
                 <div class="timeorder">
@@ -43,7 +43,7 @@
                         {{x.lineName}}
                     </div>
                     <div>
-                        ¥ {{x.amount}}
+                        ¥ {{x.discountafterAmount}}
                     </div>
                 </div>
                 <div class="clear">

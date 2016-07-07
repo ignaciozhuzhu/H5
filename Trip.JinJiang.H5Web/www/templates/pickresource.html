@@ -89,7 +89,8 @@
                         <div class="textgray">出发城市:{{departurePlace}}</div>
                     </div>
                     <div class="backdarkblue">
-                        <div style="float:left;width:50%;">
+
+                        <div id="groupdatebox" style="float:left;width:33%;">
                             <div style="padding:4px 4px 2px 4px">
                                 团期
                             </div>
@@ -97,15 +98,25 @@
                                 {{date}}
                             </div>
                         </div>
-                        <div style="padding:4px 4px 2px 4px">
-                            成人
+                        <div id="adultpricebox" style="float:left;width:33%;">
+                            <div style="padding:4px 4px 2px 4px">
+                                成人
+                            </div>
+                            <div style="padding:2px 4px 4px 4px">
+                                ¥ {{minprice}} × {{pnum}}
+                            </div>
                         </div>
-                        <div style="padding:2px 4px 4px 4px">
-                            ¥ {{minprice}} × {{pnum}}
+                        <div id="childpricebox" style="float:left;width:33%;">
+                            <div style="padding:4px 4px 2px 4px">
+                                儿童
+                            </div>
+                            <div style="padding:2px 4px 4px 4px">
+                                ¥ {{cprice}} × {{cnum}}
+                            </div>
                         </div>
                     </div>
                     <div class="border5"></div>
-                    <div id="divdiff"> 
+                    <div id="divdiff">
                         <div class="textbold textp10" style="height:40px">
                             <div style="float:left;width:45%;height:20px">单人房差</div>
                             <div style="float:left;">¥{{dprice}} × </div>
@@ -115,64 +126,64 @@
                         <div class="border5"></div>
                     </div>
                     <div id="divchild">
-                        <div class="textbold textp10" style="height:40px">
+                        <div class="textbold textp10" style="height:40px;display:none">
                             <div style="float:left;width:45%;height:20px">儿童占床/加床</div>
-                            <div style="float:left;">¥{{cprice}} × </div>
+                            <div style="float:left;">¥{{caddprice}} × </div>
                             <div style="float:right;padding-left:5px">人</div>
                             <div id="sp2" style="float:right"><input type="text" class="spinner" /></div>
                         </div>
                         <div class="border5"></div>
                     </div>
-                        <div class="textbold textp7" style="height:35px;display:none">
-                            <div style="float:left">取消险</div>
-                            <div style="float:left;padding-left:10px"><img src="img/info.png" style="width:12px;" /></div>
-                            <div style="float:right;padding-left:5px"><input id="checkcancel" type="checkbox" /></div>
-                            <div style="float:right;padding-left:5px">¥50/人</div>
-                        </div>
-                        <!--<div class="border1a"></div>-->
-                        <div class="textbold textp7" style="height:35px;display:none">
-                            <div style="float:left">意外险</div>
-                            <div style="float:left;padding-left:10px"><img src="img/info.png" style="width:12px;" /></div>
-                            <div style="float:right;padding-left:5px"><input id="checkaccident" type="checkbox" /></div>
-                            <div style="float:right;padding-left:5px">¥80/人</div>
-                        </div>
-                        <!--<div class="border1"></div>-->
-                        <!--<div class="border5"></div>-->
-
-                        <div class="textbold textp7" style="height:35px;visibility:hidden">
-                            <div style="float:left">使用优惠</div>
-                            <div style="float:left;padding:3px 0 0 10px"><img src="img/立减.png" style="width:26px;" /></div>
-
-                            <div style="float:right;padding-left:5px;color:gray">请选择<img src="img/更多2.png" style="width: 7px;margin-left: 5px;" /></div>
-                        </div>
-
-                        <div class="border1"></div>
-                        <div style="height:10px"></div>
-                        <div id="costdetail" style="display:none" onclick="costdetailnone(this)">
-                            <div class="textbold textp7" style="height:35px">
-                                <div style="float:left">出团费用</div>
-                                <div style="float:right;padding-left:5px;color:#ff7200">¥<span id="amountct"></span></div>
-                            </div>
-                            <div class="textp7 textgray fonts12" style="height:35px">
-                                <div style="float:left">成人×{{pnum}}</div>
-                                <div style="float:right;padding-left:5px">¥{{minprice}}×{{pnum}}</div>
-                            </div>
-                            <div class="border1"></div>
-                            <div class="textp7 textgray fonts12" style="height:35px">
-                                <div style="float:left">保险费用</div>
-                                <div style="float:right;padding-left:5px;color:#ff7200">+ ¥<span id="secureamount"></span></div>
-                            </div>
-                        </div>
-
-                        <div class="textbold textp7" style="height:35px">
-                            <div style="float:left">
-                                费用总额
-                            </div>
-                            <div style="float:right"><a href="javascript:void(0)" onclick="costdetail(this)">费用明细</a></div>
-                            <div style="float:right;padding-right:10px;color:#ff7200">¥<span id="amount"></span></div>
-                        </div>
-                        <a id="nextfill" href=""><div class="bottombutton">下一步，填写订单</div></a>
+                    <div class="textbold textp7" style="height:35px;display:none">
+                        <div style="float:left">取消险</div>
+                        <div style="float:left;padding-left:10px"><img src="img/info.png" style="width:12px;" /></div>
+                        <div style="float:right;padding-left:5px"><input id="checkcancel" type="checkbox" /></div>
+                        <div style="float:right;padding-left:5px">¥50/人</div>
                     </div>
+                    <!--<div class="border1a"></div>-->
+                    <div class="textbold textp7" style="height:35px;display:none">
+                        <div style="float:left">意外险</div>
+                        <div style="float:left;padding-left:10px"><img src="img/info.png" style="width:12px;" /></div>
+                        <div style="float:right;padding-left:5px"><input id="checkaccident" type="checkbox" /></div>
+                        <div style="float:right;padding-left:5px">¥80/人</div>
+                    </div>
+                    <!--<div class="border1"></div>-->
+                    <!--<div class="border5"></div>-->
+
+                    <div class="textbold textp7" style="height:35px;visibility:hidden">
+                        <div style="float:left">使用优惠</div>
+                        <div style="float:left;padding:3px 0 0 10px"><img src="img/立减.png" style="width:26px;" /></div>
+
+                        <div style="float:right;padding-left:5px;color:gray">请选择<img src="img/更多2.png" style="width: 7px;margin-left: 5px;" /></div>
+                    </div>
+
+                    <div class="border1"></div>
+                    <div style="height:10px"></div>
+                    <div id="costdetail" style="display:none" onclick="costdetailnone(this)">
+                        <div class="textbold textp7" style="height:35px">
+                            <div style="float:left">出团费用</div>
+                            <div style="float:right;padding-left:5px;color:#ff7200">¥<span id="amountct"></span></div>
+                        </div>
+                        <div class="textp7 textgray fonts12" style="height:35px">
+                            <div style="float:left">成人×{{pnum}}</div>
+                            <div style="float:right;padding-left:5px">¥{{minprice}}×{{pnum}}</div>
+                        </div>
+                        <div class="border1"></div>
+                        <div class="textp7 textgray fonts12" style="height:35px;display:none">
+                            <div style="float:left">保险费用</div>
+                            <div style="float:right;padding-left:5px;color:#ff7200">+ ¥<span id="secureamount"></span></div>
+                        </div>
+                    </div>
+
+                    <div class="textbold textp7" style="height:35px">
+                        <div style="float:left">
+                            费用总额
+                        </div>
+                        <div style="float:right;display:none"><a href="javascript:void(0)" onclick="costdetail(this)">费用明细</a></div>
+                        <div style="float:right;padding-right:10px;color:#ff7200">¥<span id="amount"></span></div>
+                    </div>
+                    <a id="nextfill" href=""><div class="bottombutton">下一步，填写订单</div></a>
+                </div>
             </div>
         </ion-content>
     </ion-view>

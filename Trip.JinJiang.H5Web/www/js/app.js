@@ -23,6 +23,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
 })
 
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    $ionicConfigProvider.views.maxCache(0);
     $ionicConfigProvider.backButton.text("");
     $ionicConfigProvider.backButton.previousTitleText(false);
     $stateProvider

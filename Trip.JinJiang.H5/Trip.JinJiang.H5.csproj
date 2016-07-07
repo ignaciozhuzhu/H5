@@ -78,8 +78,10 @@
     <Compile Include="Model\LineLists\Day.cs" />
     <Compile Include="Model\LineLists\DepartureMonth.cs" />
     <Compile Include="Model\LineLists\EsGroup.cs" />
+    <Compile Include="Model\LineLists\Line2.cs" />
     <Compile Include="Model\LineLists\Line.cs" />
     <Compile Include="Model\LineLists\LineCategory.cs" />
+    <Compile Include="Model\LineLists\LineListModel2.cs" />
     <Compile Include="Model\LineLists\LineListModel.cs" />
     <Compile Include="Model\LineLists\Page.cs" />
     <Compile Include="Model\LineLists\PriceScope.cs" />

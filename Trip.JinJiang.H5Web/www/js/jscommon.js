@@ -295,6 +295,14 @@ function finderrorMsgadmin(response) {
     }
 }
 
+function checkMobile(s) {
+    var length = s.length;
+    if (length == 11 && /^(((1[0-9]{1})|)+\d{9})$/.test(s)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 function isEmail(str) {
     var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
     return reg.test(str);

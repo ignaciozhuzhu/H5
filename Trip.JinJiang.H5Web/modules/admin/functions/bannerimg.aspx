@@ -11,19 +11,19 @@
 
         #example .modal-footer {
             /*margin-top: 50px;*/
-            width:240px;
-            background-color:#fff;
-            border-top:0;
-            margin-left:25px;
+            width: 240px;
+            background-color: #fff;
+            border-top: 0;
+            margin-left: 25px;
         }
 
         #example .col-xs-4 {
             margin-top: 50px;
         }
-        .box {
-        border:1px solid #ccc
-        }
 
+        .box {
+            border: 1px solid #ccc;
+        }
     </style>
     <div class="content-wrapper" ng-app="lhxApp" ng-controller="userCtrl">
         <!-- Content Header (Page header) -->
@@ -37,7 +37,7 @@
             </ol>
         </section>
 
-        <form id="example" class="modal hide fade in" style="display: none; height: 700px; width: 1200px;">
+        <form name="myForm" id="example" class="modal hide fade in" style="display: none; height: 700px; width: 1200px;">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
                 <h3>编辑</h3>
@@ -104,9 +104,11 @@
                         </div>
                     </div>
                     <div>
-                        <div>H5Url:(格式遵循http://)</div>
+                        <div>H5Url:(格式遵循http://www.xxx)</div>
                         <div>
-                            <input id="H5Url" type="text" style="height: 30px" />
+                            <input id="H5Url" type="text" style="height: 30px" name="fpassWord" ng-model="fpassWord" pattern="^http://([\w-]+\.)+[\w-]+(/[\w-./?%&=]*)?$" />
+                            <span style="font-size: 10px; color: red !important; background-color: #fff !important; border: none;" class="alert alert-danger" ng-show="myForm.fpassWord.$error.pattern" ng-cloak>注意填写格式
+                            </span>
                         </div>
                     </div>
                     <div>
@@ -118,13 +120,13 @@
                     <div>
                         <div>开始时间:</div>
                         <div>
-                            <input id="beginDate" type="date" style="height: 30px"  /><img ng-click="taketodate()" src='../../img/今2.png' style="width:30px;margin-left:10px">
+                            <input id="beginDate" type="date" style="height: 30px" /><img ng-click="taketodate()" src='../../img/今2.png' style="width: 30px; margin-left: 10px">
                         </div>
                     </div>
                     <div>
                         <div>结束时间:</div>
                         <div>
-                            <input id="endDate" type="date" style="height: 30px" /><img ng-click="takemaxdate()" src='../../img/无穷大.png' style="width:30px;margin-left:10px">
+                            <input id="endDate" type="date" style="height: 30px" /><img ng-click="takemaxdate()" src='../../img/无穷大.png' style="width: 30px; margin-left: 10px">
                         </div>
                     </div>
                     <div>
@@ -135,7 +137,7 @@
                     <input type="text" name="txt" id="txt" style="display: none">
                     <input type="button" name="btn" value="btn" id="btn" style="display: none">
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-success" ng-click="reloadRoute()">保存</a>
+                        <a href="#" class="btn btn-success" ng-click="myForm.fpassWord.$error.pattern||reloadRoute()" ng-disabled="myForm.fpassWord.$error.pattern">保存</a>
                         <a href="#" class="btn" data-dismiss="modal">关闭</a>
                     </div>
                 </div>
@@ -185,9 +187,9 @@
                                         <th style="width: 10%">H5Url</th>
                                         <th style="width: 10%">开始时间</th>
                                         <th style="width: 10%">结束时间</th>
-                                        <th ng-hide="true">线路ID</th> 
-                                        <th style="width: 10%">线路名称</th> 
-                                        <%--<th style="width: 10%">状态</th>--%> 
+                                        <th ng-hide="true">线路ID</th>
+                                        <th style="width: 10%">线路名称</th>
+                                        <%--<th style="width: 10%">状态</th>--%>
                                         <th style="width: 20%">操作</th>
                                     </tr>
                                 </thead>
@@ -206,7 +208,7 @@
                                         <%--<td>{{x.status===true?'可用':'禁用'}}</td>--%>
                                         <td>
                                             <img src='../../img/edit.png'><a ng-click="edit($event)" data-toggle="modal" href="#example">修改</a>
-                                           <%-- <img style="margin-left: 5%" src='../../img/disable.png'><a ng-click="changeen($event)" data-toggle="modal" href="#example0">禁(可)用</a>--%>
+                                            <%-- <img style="margin-left: 5%" src='../../img/disable.png'><a ng-click="changeen($event)" data-toggle="modal" href="#example0">禁(可)用</a>--%>
                                             <img style="margin-left: 5%" src='../../img/delete.png'><a ng-click="delete($event)" data-toggle="modal" href="#example2">删除</a>
                                         </td>
                                     </tr>
@@ -252,6 +254,13 @@
                 $('#order')[0].value = "1";
                 $('#H5Url')[0].value = "";
                 //$('#selectedcate')[0].value = "";
+
+                //bug fix:在当前界面修改过，未刷新情况下点击添加就会有历史数据遗留问题出现
+                $('#beginDate')[0].value = "";
+                $('#endDate')[0].value = "";
+                $('#imgurl2')[0].src = ""
+                $('#linenameid')[0].value = "";
+                $('#linename')[0].value = "";
             };
             $scope.edit = function ($event) {
                 modalclass();

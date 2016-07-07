@@ -6,7 +6,9 @@
 .calendar ul, menu, dir{display: block;list-style-type: disc;-webkit-margin-before: 1em;-webkit-margin-after: 1em;-webkit-margin-start: 0px;-webkit-margin-end: 0px;-webkit-padding-start: 40px;}
 .calendar ul li, ol li{list-style: none;}
 .calendar .calendar_left{position: relative;float: left;width: 12.5%;height:230px;overflow:hidden;text-align: center;color: #1a477e;font-weight: bold;}
-.calendar .pkg_double_month .date_text{padding:0;height:30px;width:40px;position:absolute;top:50%;left:50%;margin-left:-20px;margin-top:-20px;}
+.calendar .pkg_double_month .date_text{padding:0;height:30px;width:40px;position:absolute;top:50%;left:28%;/*margin-left:-20px;margin-top:-20px;*/line-height: 30px;
+    width: 17px;
+    margin-top: -70px;}
 .calendar .calendar_left .border{border-bottom: 1px solid #eaeaea;}
 .calendar p{display: block;-webkit-margin-before: 1em;-webkit-margin-after: 1em;-webkit-margin-start: 0px;-webkit-margin-end: 0px;}
 .calendar .pkg_circle_top, .pkg_circle_bottom{background: url(../images/bg_calendar.png) no-repeat;}

@@ -39,7 +39,8 @@ namespace Trip.JinJiang.H5.DAL
             return DbHelperSQL.Exists(strSql.ToString(), parameters);
         }
 
-        public bool Truncate() {
+        public bool Truncate()
+        {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("truncate table tbl_lineLists ");
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString());
@@ -123,6 +124,59 @@ namespace Trip.JinJiang.H5.DAL
             parameters[26].Value = model.priceExplain;
             parameters[27].Value = model.recommend;
             parameters[28].Value = model.businessCategory;
+
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 增加一条数据
+        /// </summary>
+        public bool Add2(Trip.JinJiang.H5.Line2 model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into tbl_lineLists(");
+            strSql.Append("lineId,lineName,name,title,originalPrice,minPrice,agency,lineCategory,brand)");
+            strSql.Append(" values (");
+            strSql.Append("@id,@name+@title,@name,@title,@minPrice,@minPrice,@travelAgency,@lineCategory,@travelBrand)");
+            SqlParameter[] parameters = {
+                    new SqlParameter("@id", SqlDbType.Int,4),
+                    new SqlParameter("@code", SqlDbType.NVarChar,100),
+                    new SqlParameter("@name", SqlDbType.NVarChar,100),
+                    new SqlParameter("@title", SqlDbType.NVarChar,100),
+                    new SqlParameter("@lineCategory", SqlDbType.NVarChar,100),
+                    new SqlParameter("@travelBrand", SqlDbType.NVarChar,100),
+                    new SqlParameter("@travelAgency", SqlDbType.NVarChar,-1),
+                    new SqlParameter("@imageUrl", SqlDbType.NVarChar,-1),
+                    new SqlParameter("@tagName", SqlDbType.NVarChar,100),
+                    new SqlParameter("@departDate", SqlDbType.NVarChar,-1),
+                    new SqlParameter("@minPrice", SqlDbType.Decimal,9),
+                    new SqlParameter("@minPrimePrice", SqlDbType.Decimal,9),
+                    new SqlParameter("@updateTime", SqlDbType.NVarChar,100),
+                    new SqlParameter("@productCode", SqlDbType.NVarChar,100),
+                    new SqlParameter("@soldoutFlag", SqlDbType.NVarChar,100)};
+            parameters[0].Value = model.id;
+            parameters[1].Value = model.code;
+            parameters[2].Value = model.name;
+            parameters[3].Value = model.title;
+            parameters[4].Value = model.lineCategory;
+            parameters[5].Value = model.travelBrand;
+            parameters[6].Value = model.travelAgency;
+            parameters[7].Value = model.imageUrl;
+            parameters[8].Value = arr2string(model.tagName);
+            parameters[9].Value = arr2string(model.departDate);
+            parameters[10].Value = model.minPrice;
+            parameters[11].Value = model.minPrimePrice;
+            parameters[12].Value = model.updateTime;
+            parameters[13].Value = model.productCode;
+            parameters[14].Value = model.soldoutFlag;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)

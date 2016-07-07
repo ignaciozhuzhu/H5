@@ -80,10 +80,20 @@ namespace Trip.JinJiang.H5
         /// </summary>
         public static string getlinesByCategory(string lineCategory)
         {
+            //string str = @"select * from dbo.tbl_lineLists ";
+            //DataSet ds = DbHelperSQL.Query(str);
+            //string json = ConvertJson.DataTable2Array(ds.Tables[0]);
+            //json = "{\"rows\":" + json.Replace("'", "\"") + "}";
+            //return json;
+
+            //   var data = "{\"lineCategory\":\"\",\"lineName\":\"\",\"travelAgency\":\"\",\"travelBrand\":\"\",\"lineId\":\"\"}";
+            //   var response = HttpUtil.Post(data, urlcrmlinesearch, contentType: "application/json");
+
             var data = "{\"lineCategory\":\"" + lineCategory + "\"}";
-            data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":180,\"search\":false,\"startRow\":1,\"total\":8}}";
+            data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":9999,\"search\":false,\"startRow\":1,\"total\":1}}";
             //先获取所有的线路,再与本地数据库做关联
             var response = HttpUtil.Post(data, urllinesearch, contentType: "application/json");
+
             response = maps.mapAgencies(response);
             if (response != null)
             {
@@ -258,6 +268,24 @@ namespace Trip.JinJiang.H5
                 }
                 catch { }
             }
+
+            var data2 = "{\"lineCategory\":\"\",\"lineName\":\"\",\"travelAgency\":\"\",\"travelBrand\":\"\",\"lineId\":\"\"}";
+            var response2 = HttpUtil.Post(data2, urlcrmlinesearch, contentType: "application/json");
+
+            response2 = "{\"page\":{\"page\":1,\"rows\":9999,\"records\":4,\"total\":1,\"sidx\":null,\"sord\":null,\"search\":false,\"startRow\":1,\"endRow\":4},\"lines\":" + response2 + "}";
+            var result2 = JsonConvert.DeserializeObject<LineListModel2>(response2);
+
+            Line2 table2 = new Line2();
+            for (var i = 0; i < result2.lines.Length; i++)
+            {
+                table2 = result2.lines[i];
+                try
+                {
+                    lineListsFac.Add2(table2);
+                }
+                catch { }
+            }
+
             return "操作完成";
         }
 

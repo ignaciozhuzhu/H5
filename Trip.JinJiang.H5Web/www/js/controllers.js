@@ -109,12 +109,14 @@
         shade: [0.5, '#ababab'] //0.1透明度的白色背景
     });
     $http.get(nghttp).success(function (response) {
+        // debugger
         var responsemine = response;
         $.ajax({
             url: "../../ajax/apihandler.ashx",
             data: my2data,
             type: "post",
             success: function (text) {
+                // debugger
                 layer.close(mylayeruiwait);
                 var d = eval("(" + text + ")");
                 var arrayLinemm = new Array(0);
@@ -164,7 +166,7 @@
             }
         });
     });
-   // refresh();
+    // refresh();
 
     $scope.goback = function () {
         $('#divcontent').show();
@@ -247,7 +249,6 @@
 
     //二级线路查询
     $scope.search0Dest = function (event) {
-        //debugger
         var aId = event.currentTarget.lastElementChild.innerText;
         var nghttp = "../../ajax/areaHandler.ashx?fn=getarea2list&aId=" + aId + "";
         $http.get(nghttp).success(function (response) {
@@ -283,7 +284,7 @@
         window.location.href = "#/app/linelists/" + thislineCategory;
     }
 
-   
+
     function refresh() {
         $.ajax({
             url: "../../../ajax/apihandler.ashx?fn=cancelorder",
@@ -300,7 +301,7 @@
         //轮播图
         var nghttpgg = "../../ajax/bannerImgHandler.ashx?fn=getbannerimglist&status=true";
         $http.get(nghttpgg).success(function (response) {
-            for (var i = 0; i < (response.ds.length > 6 ? 6 : response.ds.length); i++) { //response.ds.length
+            for (var i = 0; i < (response.ds.length > 6 ? 6 : response.ds.length) ; i++) { //response.ds.length
                 var urls;
                 if (response.ds[i].lineId === 0) {
                     urls = response.ds[i].H5Url;
@@ -348,7 +349,8 @@
         //空搜关键词
         var nghttp = "../../ajax/areaHandler.ashx?fn=getarea3list";
         $http.get(nghttp).success(function (response) {
-            $("#divdesselect .searchtxt").attr('placeholder', response.ds[0].searchName)
+            $("#divdesselect .searchtxt").attr('placeholder', response.ds[0].searchName);
+            $("#divdesselect .searchtxturl")[0].value = response.ds[0].H5Url;
         })
 
     });
@@ -412,7 +414,7 @@
             "上海出发" + titlename + ", 锦江旅游是中国最优质的旅游线路和自助游一站式服务提供商。"
             );
         //$(".title").empty().append("" + titlename + "-锦江旅游");
-        //debugger
+
         $scope.journeys = response.line.journeys.sort(sortbydayNumber);
 
         setTimeout(settypepng, 500);
@@ -552,8 +554,6 @@
 //日期选择控制器
 .controller('indexdateCtrl', function ($scope, $http) {
     $scope.$on("$ionicView.loaded", function () {
-        $('.spinner').spinner({});
-        $('.spinner2').spinner2({});
         var url = location.href;
         var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
         var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
@@ -561,6 +561,10 @@
             var preBookingDays = response.line.preBookingDays;
             var datenow = getNowFormatDate();
             intoCalendarTime();
+
+            //var nummaxa = (totnum > 10 ? 10 : totnum), nummaxb = (totnum > 10 ? 10 : totnum);
+            $('.spinner').spinner({ max: 10 });
+            $('.spinner2').spinner2({ max: 10 });
             adn = 1;
             crn = 0;
             $("#sp01").click(function () {
@@ -575,8 +579,7 @@
                 data = "[";
                 for (var i = 0; i < response.line.groups.length; i++) {
                     var date1 = FormatDateYear(response.line.groups[i].departDate);
-                    if (daysBetween(datenow, date1) > preBookingDays)
-                    {
+                    if (daysBetween(datenow, date1) > preBookingDays) {
                         var groupid = response.line.groups[i].id;
                         for (var j = 0; j < response.line.groups[i].prices.length; j++) {
                             if (response.line.groups[i].prices[j].offerType == '基本价')
@@ -591,6 +594,19 @@
                 pickerEvent.Init("calendar");
             }
         })
+        $scope.next = function () {
+            var totnum = $('.numpera')[0].innerText;
+            if (totnum < parseInt(adn) + parseInt(crn)) {
+                layermyui('余位不足');
+                $('#nextpick').attr('href', '');
+            }
+            else if (10 < parseInt(adn) + parseInt(crn)) {
+                layermyui('成人+儿童最多支持10人');
+                $('#nextpick').attr('href', '');
+            }
+            else
+                $('#nextpick').attr('href', nextpickhref + '/' + adn + '/' + crn);
+        }
     });
 })
 
@@ -601,10 +617,19 @@
     var groupid = getpbyurl(3);
 
     $scope.pnum = pnum;
-    $('.spinner').spinner({});
+    $scope.cnum = cnum;
+    if (cnum > 0) {
+        $('#childpricebox').css('display', 'block');
+    }
+    else {
+        $('#childpricebox').css('display', 'none');
+        $('#adultpricebox').css("width", "50%");
+        $('#groupdatebox').css("width", "50%");
+    }
+    $('#secureamount').empty().append('0');
+    $('.spinner').spinner({ max: parseInt(cnum) + parseInt(pnum) });
     var amount = 0;
     var secureamount = 0;
-    $('#secureamount').empty().append('0');
 
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
     $http.get(nghttp).success(function (response) {
@@ -620,6 +645,7 @@
         }
         $scope.minprice = minprice;
         if (cprice > 0) {
+            $scope.caddprice = minprice - cprice;
             $scope.cprice = cprice;
             $('#divchild').css('display', 'block');
         }
@@ -689,8 +715,8 @@
             subamount();
         });
         function subamount() {
-            roomdiff = dprice * roomdiffp1 + cprice * roomdiffp2 + samount1 * pnum + samount2 * pnum;
-            amountall = minprice * pnum + roomdiff;
+            roomdiff = dprice * roomdiffp1 + (minprice - cprice) * roomdiffp2 + samount1 * pnum + samount2 * pnum;
+            amountall = minprice * pnum + roomdiff + cprice * cnum;
             $('#amount').empty().append(amountall);
             $('#amountct').empty().append(minprice * pnum);
             $('#nextfill').attr('href', '#/app/fillorder/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amountall);
@@ -720,7 +746,11 @@
     var Discount;
     $scope.amount = amount;
     $scope.pnum = pnum;
-
+    $scope.cnum = cnum;
+    if (cnum > 0)
+        $('#childnumspan').css('display', 'inline');
+    else
+        $('#childnumspan').css('display', 'none');
 
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
     //loading层
@@ -762,6 +792,10 @@
             layermyui('请输入手机号');
             return;
         }
+        if (!checkMobile(ConnectMobile)) {
+            layermyui('手机号格式不正确');
+            return;
+        }
         //if (ConnectEmail == "" || ConnectEmail == undefined || ConnectEmail == null) {
         //    layermyui('请输入邮箱');
         //    return;
@@ -780,7 +814,6 @@
         var p = new CGuest();
         p = new CGuest('ADULT', $('.inname:first')[0].value);
         guestsarr.push(p);
-        //debugger
         for (var i = 1 ; i < pnum; i++) {
             try {
                 p = new CGuest('ADULT', $('.inname')[i].value);
@@ -794,7 +827,6 @@
             gueststring += "{\"category\":\"" + guestsarr[i].category + "\",\"name\":\"" + guestsarr[i].name + "\"},";
         }
         gueststring = gueststring.substring(0, gueststring.length - 1);
-
         var discountAmount = Math.floor(amount * (1 - Discount));
         //动态成人数.
         //debugger
@@ -846,6 +878,7 @@
                 var d = eval("(" + text + ")");
                 //debugger
                 setCookie('orderNo', d.orderNo, 1);
+                amount = amount - discountAmount;
                 window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
             }
         });
@@ -1021,14 +1054,25 @@ function citySelect() {
 
 //线路查询传参,前台点击事件
 function searchLines() {
-    var searchParam;
-    if ($(".searchtxt")[1].value !== "")
-        searchParam = $(".searchtxt")[1].value;
-    else if ($(".searchtxt")[1].placeholder !== "")
-        searchParam = $(".searchtxt")[1].placeholder;
+    // debugger
+    //如果填充了则用填充的内容做筛选条件,若文字与空搜结果一致,按文字为标准来操作
+    if ($("#divdesselect .searchtxt")[0].value) {
+        var searchParam;
+        if ($(".searchtxt")[1].value !== "")
+            searchParam = $(".searchtxt")[1].value;
+        else if ($(".searchtxt")[1].placeholder !== "")
+            searchParam = $(".searchtxt")[1].placeholder;
+        else
+            searchParam = "";
+
+        //if ($("#divdesselect .searchtxt")[0].value == $("#divdesselect .searchtxt")[0].placeholder &&  $("#divdesselect .searchtxturl")[0].value) {
+        //    window.location.href = '#/app/linelists?search=' + searchParam;
+        //}
+        window.location.href = '#/app/linelists?search=' + searchParam;
+    }
+    //否则直接空搜
     else
-        searchParam = "";
-    window.location.href = '#/app/linelists?search=' + searchParam;
+        window.location.href = $("#divdesselect .searchtxturl")[0].value;
 }
 
 function removeclassblue() {

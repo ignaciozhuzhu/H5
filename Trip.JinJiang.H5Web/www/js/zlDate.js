@@ -44,6 +44,7 @@ var pickerEvent = {
         html += '<div style="clear: both;"></div>';
         html += "</div></div>";
         elemId = elemid;
+        //debugger
         var elemObj = document.getElementById(elemid);
         $('.calend').empty().append(html);
         document.getElementById("picker_last").onclick = pickerEvent.getLast;
@@ -79,6 +80,10 @@ var pickerEvent = {
     },
     setPriceArr: function (arr) {
         obj.priceArr = arr;
+    },
+
+    setEndMonth: function (month) {
+        obj.EndMonth = month;
     },
     remove: function () {
         //  alert('5')
@@ -287,6 +292,9 @@ var commonUtil = {
                 var leftNum = d.leftNum == null ? 0 : d.leftNum;
                 $('.numpera').empty().append(' ' + leftNum + ' ');
                 nextpickhref = '#/app/pickresource/' + groupid;
+
+                //设置人数可选最大值
+              //  var nummaxa = (leftNum > 10 ? 10 : leftNum), nummaxb = (leftNum > 10 ? 10 : leftNum);
 
                 if (leftNum > 0) {
                     $('#nextpick').attr('href', nextpickhref + '/1/0');
