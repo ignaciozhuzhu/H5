@@ -44,11 +44,17 @@ var pickerEvent = {
         html += '<div style="clear: both;"></div>';
         html += "</div></div>";
         elemId = elemid;
-        //debugger
+
         var elemObj = document.getElementById(elemid);
         $('.calend').empty().append(html);
-        document.getElementById("picker_last").onclick = pickerEvent.getLast;
-        document.getElementById("picker_next").onclick = pickerEvent.getNext;
+
+        if (obj.BeginMonth < obj.month) {
+            document.getElementById("picker_last").onclick = pickerEvent.getLast;
+        }
+        if (obj.EndMonth > obj.month) {
+            document.getElementById("picker_next").onclick = pickerEvent.getNext;
+        }
+
         document.getElementById("picker_today").onclick = pickerEvent.getToday;
         //  document.getElementById("calendar_choose").style.left = getAbsoluteLeft(elemid)+"px";
         //   document.getElementById("calendar_choose").style.top  = getAbsoluteTop(elemid)+"px";
@@ -82,8 +88,13 @@ var pickerEvent = {
         obj.priceArr = arr;
     },
 
+    //最大月份
     setEndMonth: function (month) {
         obj.EndMonth = month;
+    },
+    //最小月份
+    setBeginMonth: function (month) {
+        obj.BeginMonth = month;
     },
     remove: function () {
         //  alert('5')
@@ -294,7 +305,7 @@ var commonUtil = {
                 nextpickhref = '#/app/pickresource/' + groupid;
 
                 //设置人数可选最大值
-              //  var nummaxa = (leftNum > 10 ? 10 : leftNum), nummaxb = (leftNum > 10 ? 10 : leftNum);
+                //  var nummaxa = (leftNum > 10 ? 10 : leftNum), nummaxb = (leftNum > 10 ? 10 : leftNum);
 
                 if (leftNum > 0) {
                     $('#nextpick').attr('href', nextpickhref + '/1/0');

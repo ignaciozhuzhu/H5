@@ -576,6 +576,8 @@
                 $('#nextpick').attr('href', nextpickhref + '/' + adn + '/' + crn);
             });
             function intoCalendarTime() {
+                var mindate = "2018-01-01";
+                var maxdate="2016-01-01";
                 data = "[";
                 for (var i = 0; i < response.line.groups.length; i++) {
                     var date1 = FormatDateYear(response.line.groups[i].departDate);
@@ -587,10 +589,25 @@
                         }
                         var price1 = "¥" + minprice;
                         data += '{"Date":"' + date1 + '","Price":"' + price1 + '","groupid":"' + groupid + '"},';
+                        //选择最大月份
+                        if (date1 > maxdate) {
+                            maxdate = date1;
+                        }
+                        //选择最小月份
+                        if (date1 < mindate) {
+                            mindate = date1;
+                        }
                     }
                 }
                 data += "]";
                 pickerEvent.setPriceArr(eval("(" + data + ")"));
+
+                //选择最大月份,选择最小月份
+                var maxmonth = maxdate.substr(maxdate.indexOf("-") + 1, 2);
+                var minmonth = mindate.substr(mindate.indexOf("-") + 1, 2);
+                pickerEvent.setEndMonth(maxmonth);
+                pickerEvent.setBeginMonth(minmonth);
+
                 pickerEvent.Init("calendar");
             }
         })

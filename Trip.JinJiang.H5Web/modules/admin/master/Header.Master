@@ -348,6 +348,7 @@
                             <li class="treeviewli4"><a href="searchtag.aspx"><i class="fa fa-circle-o"></i>目的地标签管理</a></li>
                             <li class="treeviewli5"><a href="linerecommend.aspx"><i class="fa fa-circle-o"></i>已推荐产品</a></li>
                             <li class="treeviewli6"><a href="recommendstorage.aspx"><i class="fa fa-circle-o"></i>推荐产品查询区</a></li>
+                            <li class="treeviewli7"><a href="linerefresh.html"><i class="fa fa-circle-o"></i>同步线路库</a></li>
                         </ul>
                     </li>
                 </ul>
