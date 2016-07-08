@@ -245,7 +245,7 @@ namespace Trip.JinJiang.H5.DAL
         public DataSet GetList2(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append(@"select b.lineCategory,c.lineTitle,c.lineCategory,c.imgUrl,c.[order], a.lineId,a.lineName,a.name,a.title,a.imageUrls,a.minPrice,a.originalPrice from tbl_lineLists a 
+            strSql.Append(@"select b.lineCategory,c.lineTitle,c.lineCategory,c.imgUrl,c.[order], a.lineId,a.lineName,a.name,a.title,a.imageUrls,a.minPrice,a.originalPrice from tbl_lineListsCRM a 
 inner join tbl_recommend c on c.lineId = a.lineId
 inner join tbl_lineCategory b on c.lineCategory = b.categoryName
 where 1 = 1 and b.status = 'true' and b.pattern = 'S2'");

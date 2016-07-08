@@ -5,6 +5,20 @@
         .box {
         border:1px solid #ccc
         }
+        
+        .buttonmine {
+            background-color: #ccc;
+            border: none;
+            color: black;
+            padding: 5px 5px;
+            border-radius:3px;
+            text-align: center;
+            text-decoration: none !important;
+            display: inline-block;
+            font-size: 12px;
+            float:right;
+            margin-right:10px;
+        }
     </style>
     <div class="content-wrapper" ng-app="lhxApp" ng-controller="userCtrl">
         <!-- Content Header (Page header) -->
@@ -43,6 +57,7 @@
                     <div>线路筛选: <span style="padding-left: 10px">
                         <input id="selectedcate" type="text" style="height: 30px" ng-model="test"></span>
                         <input ng-click="filtcategory()" type="button" value="查找">
+                        <a href="#" style="margin-left:30px" class="buttonmine" onclick="refresh()">同步线路库</a>
                     </div>
                     <div class="box">
                         <!-- /.box-header -->
@@ -109,14 +124,14 @@
                 }
                 $scope.linecates = arrayLine;
             });
-
-            var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesad";
+            var filtcate = "";
+            var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesadsearch&search=" + filtcate + "";
             $http.get(nghttp).success(function (response) {
-              //  debugger
                 $scope.pageCount = Math.ceil(response.ds.length / percount);
                 responseCache = response;
                 var arrayLine = new Array(0);
-                for (var i = 0; i < percount; i++) {
+                var mypercount = percount > responseCache.ds.length ? responseCache.ds.length : percount;
+                for (var i = 0; i < mypercount; i++) {
                     arrayLine.push(responseCache.ds[i]);
                 }
                 $scope.lines = arrayLine;
@@ -176,6 +191,16 @@
                     var d = eval("(" + text + ")");
                 }
             });
+        }
+
+        function refresh() {
+            $.ajax({
+                url: "../../../ajax/apihandler.ashx?fn=cancelorder",
+                type: "post",
+                success: function (text) {
+                    alert(text)
+                }
+            })
         }
 
     </script>

@@ -142,7 +142,7 @@ namespace Trip.JinJiang.H5.DAL
         public bool Add2(Trip.JinJiang.H5.Line2 model)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("insert into tbl_lineLists(");
+            strSql.Append("insert into tbl_lineListsCRM(");
             strSql.Append("lineId,lineName,name,title,originalPrice,minPrice,agency,lineCategory,brand)");
             strSql.Append(" values (");
             strSql.Append("@id,@name+@title,@name,@title,@minPrice,@minPrice,@travelAgency,@lineCategory,@travelBrand)");

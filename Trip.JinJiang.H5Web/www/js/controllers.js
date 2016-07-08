@@ -166,7 +166,6 @@
             }
         });
     });
-    // refresh();
 
     $scope.goback = function () {
         $('#divcontent').show();
@@ -282,17 +281,6 @@
         thislineCategory = thislineCategory.toLowerCase();
         $('.amore').href = "/app/linelists/" + thislineCategory;
         window.location.href = "#/app/linelists/" + thislineCategory;
-    }
-
-
-    function refresh() {
-        $.ajax({
-            url: "../../../ajax/apihandler.ashx?fn=cancelorder",
-            type: "post",
-            success: function (text) {
-                //alert(text)
-            }
-        })
     }
 
     //自加载运行
