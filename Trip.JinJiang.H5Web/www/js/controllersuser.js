@@ -479,7 +479,10 @@
             find404admin(response);
             $scope.orders = response.orders;
             for (var i = 0; i < response.orders.length; i++) {
-                $scope.orders[i].discountafterAmount = Math.floor(response.orders[i].amount * 0.98);
+                $scope.orders[i].discountafterAmount = Math.ceil(response.orders[i].amount * 0.98);
+                if ($scope.orders[i].payStatusName == "已支付") {
+                    $scope.orders[i].orderStatusName = "已支付";
+                }
             }
 
             setTimeout(settypepng, 0);
@@ -502,8 +505,7 @@
     $scope.cancelorder = function ($event) {
         var ordercode = event.currentTarget.lastElementChild.innerText;
         var mcMemberCode = getCookie('mcMemberCode');
-        if (event.currentTarget.parentNode.previousElementSibling.previousElementSibling.childNodes[1].children[3].innerText=="待支付")
-        {
+        if (event.currentTarget.parentNode.previousElementSibling.previousElementSibling.childNodes[1].children[3].innerText == "待支付") {
             var mylayeruiwait = layer.load(1, {
                 shade: [0.5, '#ababab'] //0.1透明度的白色背景
             });
@@ -568,7 +570,7 @@
         removeclassyellow();
         addclassyellow(3);
         var orderStatus = "CANCELED";
-        var payStatus=""
+        var payStatus = ""
         var mynghttp = "../../ajax/userHandler.ashx?fn=queryorder&mcMemberCode=" + mcMemberCode + "&orderStatus=" + orderStatus + "&payStatus=" + payStatus + "";
         getorders(mynghttp);
     }
@@ -601,9 +603,10 @@
         //如果是已支付或者是已取消的订单,则不显示去支付按钮
         if ($scope.status == "已支付" || response.orderStatus == "CANCELED") {
             $(".orderdetail .seebutton").css("display", "none");
-            $scope.status = "已取消"
-        }
 
+            if (response.orderStatus == "CANCELED")
+                $scope.status = "已取消"
+        }
         $scope.lineName = response.lineName;
         //订单信息
         $scope.orderCode = response.orderCode;

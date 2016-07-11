@@ -297,7 +297,6 @@ var commonUtil = {
             url: "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "",
             type: "post",
             success: function (text) {
-                //debugger
                 finderrorMsgadmin(text);
                 var d = eval("(" + text + ")");
                 var leftNum = d.leftNum == null ? 0 : d.leftNum;
@@ -306,7 +305,6 @@ var commonUtil = {
 
                 //设置人数可选最大值
                 //  var nummaxa = (leftNum > 10 ? 10 : leftNum), nummaxb = (leftNum > 10 ? 10 : leftNum);
-
                 if (leftNum > 0) {
                     $('#nextpick').attr('href', nextpickhref + '/1/0');
                     $('.indexdate .bottombutton').css('background-color', '#3399ff');

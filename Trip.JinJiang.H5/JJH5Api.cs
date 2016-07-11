@@ -31,6 +31,11 @@ namespace Trip.JinJiang.H5
 
         private static string urlcurlh5 = xhserver + "/pbp/wechat/jsapi/pay/JJE_APP_WECHAT_PAY";    //WAP H5 微信
 
+        private static string urlqueryCMSLineInfo = jjh5Bserver + "/travel/line/queryCMSLineInfo";    //获取线路群的价格
+
+        private static string urlpaycallback = jjh5Bserver + "/travel/order/payCallBack";  //支付回调接口
+
+
         /// <summary>
         /// 查询路线
         /// </summary>
@@ -294,7 +299,7 @@ namespace Trip.JinJiang.H5
         /// </summary>
         public static bool pbppaypre(string orderNo, int payAmount)
         {
-            var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payPreInfoDto>    <bgUrl>http://gatewayqa.jje.com</bgUrl>    <callPart>TRAVEL</callPart>    <cardNo></cardNo>    <csId></csId>    <csName></csName><orderNo>" + orderNo + "</orderNo><orderPageUrlFroAdmin></orderPageUrlFroAdmin><pageUrl></pageUrl>    <payAmount>" + payAmount + "</payAmount>    <payMethod>MONEY</payMethod>    <payType>ONLINE</payType>    <productTitle>锦江手机官网</productTitle>    <scoreAmount>0</scoreAmount>    <sign></sign>    <userId></userId>    <userName></userName>  </payPreInfoDto>";
+            var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payPreInfoDto>    <bgUrl>http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/payCallBack</bgUrl>    <callPart>TRAVEL</callPart>    <cardNo></cardNo>    <csId></csId>    <csName></csName><orderNo>" + orderNo + "</orderNo><orderPageUrlFroAdmin></orderPageUrlFroAdmin><pageUrl></pageUrl>    <payAmount>" + payAmount + "</payAmount>    <payMethod>MONEY</payMethod>    <payType>ONLINE</payType>    <productTitle>锦江手机官网</productTitle>    <scoreAmount>0</scoreAmount>    <sign></sign>    <userId></userId>    <userName></userName>  </payPreInfoDto>";
             var response = HttpUtil.Post(data, urlcurlcreateorder, contentType: "application/xml");
 
             if (response == "")
@@ -309,7 +314,7 @@ namespace Trip.JinJiang.H5
         public static string pbppayorder(string orderNo, int payAmount, string accountName)
         {
             //测试,将订单金额改为0.
-            //payAmount = 0;
+            payAmount = 1;
             string paymentPlatform = "";
             if (pbppaypre(orderNo, payAmount))
             {
@@ -325,7 +330,7 @@ namespace Trip.JinJiang.H5
                     url = urlcurlh5;
                     paymentPlatform = "WEIXIN";
                 }
-                var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl>http://gatewayqa.jje.com</bgUrl>  <buyerId></buyerId>  <buyerIp></buyerIp>  <buyerName></buyerName>  <callPart>TRAVEL</callPart>  <description>锦江手机官网</description>  <orderNo>" + orderNo + "</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl>  <payMethod>MONEY</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>" + paymentPlatform + "</paymentPlatform>  <price>" + payAmount + "</price>  <score>0</score>  <subject>锦江手机官网</subject></payRequest> ";
+                var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>  <bgUrl></bgUrl>  <buyerId></buyerId>  <buyerIp></buyerIp>  <buyerName></buyerName>  <callPart>TRAVEL</callPart>  <description>锦江手机官网</description>  <orderNo>" + orderNo + "</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl>  <payMethod>MONEY</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>" + paymentPlatform + "</paymentPlatform>  <price>" + payAmount + "</price>  <score>0</score>  <subject>锦江手机官网</subject></payRequest> ";
                 var response = HttpUtil.Post(data, url, contentType: "application/xml");
                 return response;
             }
@@ -394,9 +399,6 @@ namespace Trip.JinJiang.H5
 
 
 
-
-
-
             var orderNo = "";
             var payAmount = 0;
 
@@ -453,5 +455,36 @@ namespace Trip.JinJiang.H5
             string json = ConvertJson.ToJson(ds);
             return json;
         }
+        /// <summary>
+        /// 取线路价格
+        /// </summary>
+        public static string getlinesprice(string lineArr)
+        {
+            var json = "{\"lineIds\":[" + lineArr + "]}";
+            var response = HttpUtil.Post(json, urlqueryCMSLineInfo, contentType: "application/json");
+
+            if (response == "")
+                return "false";
+            else
+                return response;
+        }
+        /// <summary>
+        /// 支付回调
+        /// </summary>
+        public static string funpaycallback(string ordercode, string payamount)
+        {
+            string datenow = System.DateTime.Now.ToString("yyyy-MM-dd");
+            var xmlstr = "<payResultForBizDto>	<orderNo>" + ordercode + "</orderNo>	<payAmount>" + payamount + "</payAmount>	<payTime>" + datenow + "</payTime>	<payType>ONLINE</payType>	<paymentSerialNumber>" + ordercode + "</paymentSerialNumber>	<paymentType>ALIPAY</paymentType>	</payResultForBizDto>";
+            var response = HttpUtil.Post(xmlstr, urlpaycallback, contentType: "application/xml");
+
+            if (response.IndexOf("SUCCESS") > -1)
+                return "true";
+            else
+                return "false";
+        }
+
+
+
+
     }
 }

@@ -44,12 +44,18 @@
 
 //线路列表控制器
 .controller('LinelistsCtrl', function ($scope, $http) {
+
     var searchParam = request("search");
     var nghttp = "../../ajax/apihandler.ashx?fn=getlines";
 
     $scope.listhistorygoback = function () {
         window.location.href = "#/app/index";
-        location.reload();
+        // debugger
+        //  location.reload();
+
+        $('#divcontent').hide();
+        $('#bartitle').hide();
+        $('#divdesselect').show();
     }
 
     //tdk seo
@@ -75,8 +81,10 @@
 
     });
     $scope.listent = function () {
-        setCookie('ent2detail', 'index', 1);
+        // debugger
+        setCookie('ent2detail', 'search=' + searchParam + '', 1);
     }
+
 })
  //线路列表控制器2,唯独不一样的是路由
 .controller('LinelistsCtrl2', function ($scope, $http) {
@@ -139,12 +147,20 @@
 
     });
 
+
     $scope.listent = function () {
         setCookie('ent2detail', lineCategory, 1);
     }
     $scope.listhistorygoback = function () {
         window.location.href = "#/app/index";
         location.reload();
+    }
+
+    $scope.change1 = function (x) {
+        $scope.orderByDay = "";
+    }
+    $scope.change2 = function (x) {
+        $scope.orderByPrice = "";
     }
 })
 
@@ -207,16 +223,16 @@
 
     var nghttp02 = "../../../ajax/lineCategoryHandler.ashx?fn=getpatternss2";
     $http.get(nghttp02).success(function (response) {
-        // debugger
         $scope.linecategorys2 = response.ds;
     })
     //分类样式S2
     var nghttppattern = "../../ajax/apihandler.ashx?fn=getlinecategorys2&status=true&pattern=S2";
     $http.get(nghttppattern).success(function (response) {
-        //debugger
         var myimgurl;
+        var linearr = "";
         for (var i = 0; i < response.ds.length; i++) {
             myimgurl = response.ds[i].imageUrls;
+            linearr += response.ds[i].lineId + ",";
             if (myimgurl.indexOf('|') > 0) {
                 myimgurl = myimgurl.substring(0, myimgurl.indexOf('|'));
                 response.ds[i].imageUrls = myimgurl;
@@ -224,13 +240,23 @@
             else
                 response.ds[i].imageUrls = "";
         }
-        //debugger
+        linearr = linearr.substr(0, linearr.length - 1);
         $scope.linecategorys2detail = response.ds;
+
+        //取价格
+        var nghttppattern10 = "../../ajax/apihandler.ashx?fn=getlinesprice&linearr=" + linearr + "";
+        $http.get(nghttppattern10).success(function (response) {
+            for (var i = 0; i < response.length; i++) {
+                $scope.linecategorys2detail[i].minPrice = response[i].minPrice;
+            }
+        })
+
     })
 
     $scope.indexent = function () {
         setCookie('ent2detail', 'index', 1);
     }
+    setCookie('ent2detail', 'index', 1);
     //城目的地选择
     $scope.desSelect = function () {
 
@@ -282,6 +308,7 @@
         $('.amore').href = "/app/linelists/" + thislineCategory;
         window.location.href = "#/app/linelists/" + thislineCategory;
     }
+
 
     //自加载运行
     $scope.$on("$ionicView.loaded", function () {
@@ -354,13 +381,16 @@
     //页面详情页分两种情况返回,三个入口
     $scope.historygoback = function () {
         var ent2detail = getCookie('ent2detail');
-        if (ent2detail == "index") {
-            window.location.href = "#/app/index";
+        if (ent2detail.indexOf("search=") > -1) {
+            window.location.href = "#/app/linelists?" + ent2detail + "";
+            location.reload();
+        }
+        else if (ent2detail!="index") {
+            window.location.href = "#/app/linelists/" + ent2detail;
             location.reload();
         }
         else {
-            window.location.href = "#/app/linelists/" + ent2detail;
-            //window.location.reload();
+            window.location.href = "#/app/index";
             location.reload();
         }
     }
@@ -451,6 +481,12 @@
 
         //团日列表数量
         dayslength = response.line.groups.length;
+        if (dayslength <= 4) {
+            $(".linedetail .gengduoimg").css("display", "none");
+        }
+        else {
+            $(".linedetail .gengduoimg").css("display", "block");
+        }
 
         //取团号
         $scope.groupcode = '团号:' + response.line.groups[0].groupCode.substring(response.line.groups[0].groupCode.length - 14, response.line.groups[0].groupCode.length);
@@ -565,7 +601,7 @@
             });
             function intoCalendarTime() {
                 var mindate = "2018-01-01";
-                var maxdate="2016-01-01";
+                var maxdate = "2016-01-01";
                 data = "[";
                 for (var i = 0; i < response.line.groups.length; i++) {
                     var date1 = FormatDateYear(response.line.groups[i].departDate);
@@ -833,11 +869,13 @@
         }
         gueststring = gueststring.substring(0, gueststring.length - 1);
         var discountAmount = Math.floor(amount * (1 - Discount));
+        //Math.floor(or.getSinglePrice().multiply(new BigDecimal(1 - group.getOnlineDiscount())).doubleValue());
+
         //动态成人数.
         //debugger
         var mcMemberCode = getCookie('mcMemberCode');
         //debugger
-        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"" + mcMemberCode + "\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
+        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":" + cnum + ",\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"" + mcMemberCode + "\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + (parseInt(pnum) + parseInt(cnum)) + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / (parseInt(pnum) + parseInt(cnum)) + "}],\"scorePay\":false}";
         //2人
         //json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"},{\"category\":\"" + guestsarr[1].category + "\",\"name\":\"" + guestsarr[1].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
         //1人
@@ -1018,10 +1056,12 @@ var dayslength;
 var counting = 0;
 //更多团日期
 function moredays() {
+    // $(".linedetail .gengduoimg").css("display", "block");
     counting++;
     if (counting % 2 == 1) {
         var moha = dayslength / 4;
         if (moha <= 1) {
+            //$(".linedetail .gengduoimg").css("display", "none");
             $(".linedetail .groupsheight").height(16);
             $(".linedetail .groupsinheight").height(16);
             $(".daysgroup2").slideToggle();
@@ -1032,7 +1072,6 @@ function moredays() {
             $(".linedetail .groupsinheight").height(5 + 20 * moha);
             $(".daysgroup2").slideToggle();
         }
-
     }
     else {
         $(".linedetail .groupsheight").height(16);
@@ -1075,9 +1114,14 @@ function searchLines() {
         //}
         window.location.href = '#/app/linelists?search=' + searchParam;
     }
-    //否则直接空搜
+        //否则直接空搜
     else
-        window.location.href = $("#divdesselect .searchtxturl")[0].value;
+        if ($("#divdesselect .searchtxturl")[0].value)
+            window.location.href = $("#divdesselect .searchtxturl")[0].value;
+        else {
+            searchParam = $(".searchtxt")[1].placeholder;
+            window.location.href = '#/app/linelists?search=' + searchParam;
+        }
 }
 
 function removeclassblue() {

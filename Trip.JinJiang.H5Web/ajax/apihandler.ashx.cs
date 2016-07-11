@@ -160,7 +160,7 @@ namespace Trip.JinJiang.H5Web.ajax
             string orderCode = "";
             try
             {
-                orderCode= HttpContext.Current.Request["ordercode"];
+                orderCode = HttpContext.Current.Request["ordercode"];
             }
             catch (Exception e)
             {
@@ -328,6 +328,27 @@ namespace Trip.JinJiang.H5Web.ajax
         {
             HttpContext.Current.Response.Write(JJH5Api.getagencies());
         }
+
+        /// <summary>
+        /// 取线路价格
+        /// </summary>
+        public void getlinesprice()
+        {
+            string lineArr = (HttpContext.Current.Request["linearr"]).ToString();
+            HttpContext.Current.Response.Write(JJH5Api.getlinesprice(lineArr));
+        }
+        /// <summary>
+        /// 支付回调
+        /// </summary>
+        public void funpaycallback()
+        {
+            string ordercode = (HttpContext.Current.Request["ordercode"]).ToString();
+            string payamount = (HttpContext.Current.Request["payamount"]).ToString();
+
+            HttpContext.Current.Response.Write(JJH5Api.funpaycallback(ordercode, payamount));
+        }
+
+
 
         public bool IsReusable
         {
