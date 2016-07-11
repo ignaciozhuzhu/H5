@@ -668,7 +668,7 @@
         $('#groupdatebox').css("width", "50%");
     }
     $('#secureamount').empty().append('0');
-    $('.spinner').spinner({ max: parseInt(cnum) + parseInt(pnum) });
+    $('.spinner3').spinner3({ max: parseInt(cnum) + parseInt(pnum) });
     var amount = 0;
     var secureamount = 0;
 

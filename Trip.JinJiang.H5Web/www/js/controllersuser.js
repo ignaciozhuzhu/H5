@@ -529,7 +529,7 @@
             });
         }
         else if (event.currentTarget.parentNode.previousElementSibling.previousElementSibling.childNodes[1].children[3].innerText == "已支付") {
-            layermyui('您的订单为已支付订单，需确认退款金额，请及时与客服联系，客服电话10101666*3，客服工作时间：8点至21·点。');
+            layermyui('您的订单为已支付订单，需确认退款金额，请及时与客服联系，客服电话10101666*3，客服工作时间：8点至21点。');
         }
     }
 

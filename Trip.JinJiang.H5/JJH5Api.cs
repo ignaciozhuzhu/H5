@@ -299,7 +299,7 @@ namespace Trip.JinJiang.H5
         /// </summary>
         public static bool pbppaypre(string orderNo, int payAmount)
         {
-            var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payPreInfoDto>    <bgUrl>http://travelbaseservice.jinjiang.uat/travelbaseservice/travel/order/payCallBack</bgUrl>    <callPart>TRAVEL</callPart>    <cardNo></cardNo>    <csId></csId>    <csName></csName><orderNo>" + orderNo + "</orderNo><orderPageUrlFroAdmin></orderPageUrlFroAdmin><pageUrl></pageUrl>    <payAmount>" + payAmount + "</payAmount>    <payMethod>MONEY</payMethod>    <payType>ONLINE</payType>    <productTitle>锦江手机官网</productTitle>    <scoreAmount>0</scoreAmount>    <sign></sign>    <userId></userId>    <userName></userName>  </payPreInfoDto>";
+            var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payPreInfoDto>    <bgUrl>http://172.24.61.1:30001/travelbaseservice/travel/order/payCallBack</bgUrl>    <callPart>TRAVEL</callPart>    <cardNo></cardNo>    <csId></csId>    <csName></csName><orderNo>" + orderNo + "</orderNo><orderPageUrlFroAdmin></orderPageUrlFroAdmin><pageUrl></pageUrl>    <payAmount>" + payAmount + "</payAmount>    <payMethod>MONEY</payMethod>    <payType>ONLINE</payType>    <productTitle>锦江手机官网</productTitle>    <scoreAmount>0</scoreAmount>    <sign></sign>    <userId></userId>    <userName></userName>  </payPreInfoDto>";
             var response = HttpUtil.Post(data, urlcurlcreateorder, contentType: "application/xml");
 
             if (response == "")
@@ -314,7 +314,7 @@ namespace Trip.JinJiang.H5
         public static string pbppayorder(string orderNo, int payAmount, string accountName)
         {
             //测试,将订单金额改为0.
-            payAmount = 1;
+            //  payAmount = 1;
             string paymentPlatform = "";
             if (pbppaypre(orderNo, payAmount))
             {

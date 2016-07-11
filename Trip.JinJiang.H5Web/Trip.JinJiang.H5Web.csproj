@@ -1261,6 +1261,7 @@
     <Content Include="modules\plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="modules\plugins\input-mask\phone-codes\phone-codes.json" />
     <Content Include="modules\README.md" />
+    <Content Include="www\js\jquery.spinner3.js" />
     <Content Include="www\js\jquery.spinner2.js" />
     <Content Include="www\js\jquery.spinner.js" />
     <Content Include="www\js\Jquerybui.js" />
