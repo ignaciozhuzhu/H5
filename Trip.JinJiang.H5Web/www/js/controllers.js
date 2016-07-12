@@ -581,7 +581,13 @@
         var url = location.href;
         var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
         var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
+
+        var mylayeruiwait = layer.load(1, {
+            shade: [0.5, '#ababab'] //0.1透明度的白色背景
+        });
         $http.get(nghttp).success(function (response) {
+            layer.close(mylayeruiwait);
+
             var preBookingDays = response.line.preBookingDays;
             var datenow = getNowFormatDate();
             intoCalendarTime();
@@ -672,8 +678,12 @@
     var amount = 0;
     var secureamount = 0;
 
+    var mylayeruiwait = layer.load(1, {
+        shade: [0.5, '#ababab'] //0.1透明度的白色背景
+    });
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
     $http.get(nghttp).success(function (response) {
+        layer.close(mylayeruiwait);
         var cprice;
         var dprice;
         for (var j = 0; j < response.prices.length; j++) {

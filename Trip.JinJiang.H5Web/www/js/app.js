@@ -67,6 +67,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
       })
         //线路列表---------------------------------------------
       .state('app.linedetail', {
+          cache: false,
           url: '/linedetail/:lineId',
           views: {
               'menuContent': {
@@ -167,6 +168,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
         })
         //我的订单
         .state('app.myorder', {
+            cache: false,
             url: '/user/myorder',
             views: {
                 'menuContent': {
