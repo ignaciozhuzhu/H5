@@ -479,7 +479,8 @@
             find404admin(response);
             $scope.orders = response.orders;
             for (var i = 0; i < response.orders.length; i++) {
-                $scope.orders[i].discountafterAmount = Math.ceil(response.orders[i].amount * 0.98);
+
+                $scope.orders[i].discountafterAmount = Math.ceil(response.orders[i].amount / response.orders[i].adultNum * 0.98) * response.orders[i].adultNum;
                 if ($scope.orders[i].payStatusName == "已支付") {
                     $scope.orders[i].orderStatusName = "已支付";
                 }

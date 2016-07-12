@@ -168,7 +168,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
         })
         //我的订单
         .state('app.myorder', {
-            cache: false,
+            //cache: false,
             url: '/user/myorder',
             views: {
                 'menuContent': {

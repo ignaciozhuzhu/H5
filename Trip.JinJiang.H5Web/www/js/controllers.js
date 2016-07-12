@@ -246,8 +246,12 @@
         //取价格
         var nghttppattern10 = "../../ajax/apihandler.ashx?fn=getlinesprice&linearr=" + linearr + "";
         $http.get(nghttppattern10).success(function (response) {
-            for (var i = 0; i < response.length; i++) {
-                $scope.linecategorys2detail[i].minPrice = response[i].minPrice;
+            for (var i = 0; i < $scope.linecategorys2detail.length; i++) {
+                for (var j = 0; j < response.length; j++) {
+                    if ($scope.linecategorys2detail[i].lineId == response[j].id) {
+                        $scope.linecategorys2detail[i].minPrice = response[j].minPrice;
+                    }
+                }
             }
         })
 
@@ -385,7 +389,7 @@
             window.location.href = "#/app/linelists?" + ent2detail + "";
             location.reload();
         }
-        else if (ent2detail!="index") {
+        else if (ent2detail != "index") {
             window.location.href = "#/app/linelists/" + ent2detail;
             location.reload();
         }
@@ -767,6 +771,7 @@
         });
         function subamount() {
             roomdiff = dprice * roomdiffp1 + (minprice - cprice) * roomdiffp2 + samount1 * pnum + samount2 * pnum;
+            setCookie('roomdiff', roomdiffp1, 1);
             amountall = minprice * pnum + roomdiff + cprice * cnum;
             $('#amount').empty().append(amountall);
             $('#amountct').empty().append(minprice * pnum);
@@ -795,6 +800,10 @@
 
     var priceid;
     var Discount;
+    var salePrice = 0;
+    var childPrice = 0;
+    var roomdifPrice = 0;
+    var roomdifPriceid = 0;
     $scope.amount = amount;
     $scope.pnum = pnum;
     $scope.cnum = cnum;
@@ -814,8 +823,17 @@
         $scope.lineTitle = response.lineTitle;
         $scope.date = FormatDateYear(response.departDate);
         for (var j = 0; j < response.prices.length; j++) {
-            if (response.prices[j].offerType == '基本价')
+            if (response.prices[j].offerType == '基本价') {
                 priceid = response.prices[j].id;
+                salePrice = response.prices[j].salePrice;
+            }
+            else if (response.prices[j].offerType == '儿童价') {
+                childPrice = response.prices[j].salePrice;
+            }
+            else if (response.prices[j].offerType == '单房差') {
+                roomdifPrice = response.prices[j].salePrice;
+                roomdifPriceid = response.prices[j].id;
+            }
         }
         Discount = response.onlineDiscount;
 
@@ -831,6 +849,9 @@
 
     var guestsarr = new Array(0);
     $scope.createorder = function () {
+        var roomdiff = 0;
+        if (getCookie('roomdiff')>0)
+            roomdiff = getCookie('roomdiff');
         //blockmyui('正在加载,请稍后...');
         var ConnectName = $scope.Connect.name;
         var ConnectMobile = $scope.Connect.mobile;
@@ -878,14 +899,27 @@
             gueststring += "{\"category\":\"" + guestsarr[i].category + "\",\"name\":\"" + guestsarr[i].name + "\"},";
         }
         gueststring = gueststring.substring(0, gueststring.length - 1);
-        var discountAmount = Math.floor(amount * (1 - Discount));
-        //Math.floor(or.getSinglePrice().multiply(new BigDecimal(1 - group.getOnlineDiscount())).doubleValue());
+
+        //var discountAmount = Math.floor(amount * (1 - Discount));
+
+        /*打折逻辑如下：
+        disAmount = Math.floor(or.getSinglePrice().multiply(new BigDecimal(1 - group.getOnlineDiscount())).doubleValue());
+        disAmount = disAmount * or.getCopies();*/
+        //只有成人享受折扣价
+        var discountAmount = Math.floor(salePrice * (1 - Discount)) * pnum;//+ Math.floor(childPrice * (1 - Discount)) * cnum;
 
         //动态成人数.
         //debugger
         var mcMemberCode = getCookie('mcMemberCode');
         //debugger
-        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":" + cnum + ",\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"" + mcMemberCode + "\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + (parseInt(pnum) + parseInt(cnum)) + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / (parseInt(pnum) + parseInt(cnum)) + "}],\"scorePay\":false}";
+        var strcopyroom = "";
+        if(roomdiff>0){
+            strcopyroom += ",{ \"copies\": " + roomdiff + ", \"discountAmount\": 0, \"priceId\": " + roomdifPriceid + ", \"singlePrice\": " + roomdifPrice + " }"
+        }
+        if (cnum > 0) {
+            strcopyroom += ",{ \"copies\": " + cnum + ", \"discountAmount\": 0, \"priceId\": " + priceid + ", \"singlePrice\": " + childPrice + " }"
+        }
+        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":" + cnum + ",\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"" + mcMemberCode + "\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + salePrice + "}" + strcopyroom + "],\"scorePay\":false}";
         //2人
         //json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"},{\"category\":\"" + guestsarr[1].category + "\",\"name\":\"" + guestsarr[1].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
         //1人
@@ -932,6 +966,7 @@
                 //debugger
                 setCookie('orderNo', d.orderNo, 1);
                 amount = amount - discountAmount;
+                setCookie('roomdiff', "", 1);
                 window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
             }
         });
@@ -960,15 +995,28 @@
         find404admin(response);
         layer.close(mylayeruiwait);
         var minprice;
+        var childprice = 0;
         for (var j = 0; j < response.prices.length; j++) {
             if (response.prices[j].offerType == '基本价')
                 minprice = response.prices[j].salePrice;
+            else if (response.prices[j].offerType == '儿童价')
+                childprice = response.prices[j].salePrice;
         }
         $scope.minprice = minprice;
+        $scope.childprice = childprice;
         $scope.secureamount = secureamount;
         $scope.groupCode = response.groupCode;
         $scope.lineTitle = response.lineTitle;
         $scope.pnum = pnum;
+        $scope.cnum = cnum;
+        if (cnum > 0) {
+            $(".childgogo").css("display", "inline")
+            $(".childgogo2").css("display", "block")
+        }
+        else {
+            $(".childgogo").css("display", "none")
+            $(".childgogo2").css("display", "none")
+        }
         $scope.departDate = FormatDateYear(response.departDate);
         $scope.timepay = FormatDateTimeDiff(3600000);
 
