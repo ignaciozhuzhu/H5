@@ -12,6 +12,7 @@ namespace Trip.JinJiang.H5.Model
         public int adultNum { get; set; }
         public string departrueDate { get; set; }
         public string createTime { get; set; }
+        public int paymentAmount { get; set; }
 
         public class Orders
         {
@@ -26,6 +27,7 @@ namespace Trip.JinJiang.H5.Model
             public string channelCodeName { get; set; }
             public string lineName { get; set; }
             public int amount { get; set; }
+            public int paymentAmount { get; set; }
             public bool canOnlinePay { get; set; }
             public bool canCancel { get; set; }
             public int adultNum { get; set; }

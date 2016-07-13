@@ -104,6 +104,7 @@ namespace Trip.JinJiang.H5
                 result.orders[i].adultNum = result2.adultNum;
                 result.orders[i].departrueDate = GetTime(result2.departrueDate).ToString("yyyy-MM-dd");
                 result.orders[i].createTime = result2.createTime;
+                result.orders[i].paymentAmount = result2.paymentAmount;
             }
             response = ConvertJson.ToJSON(result);
             return response;

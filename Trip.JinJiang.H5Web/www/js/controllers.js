@@ -50,7 +50,6 @@
 
     $scope.listhistorygoback = function () {
         window.location.href = "#/app/index";
-        // debugger
         //  location.reload();
 
         $('#divcontent').hide();
@@ -877,16 +876,16 @@
         //    return;
         //}
 
-        $('.inname:first')[0].value = ConnectName;
+   //     $('.inname:first')[0].value = ConnectName;
 
         function CGuest(category, name) {
             this.category = category;
             this.name = name;
         }
         var p = new CGuest();
-        p = new CGuest('ADULT', $('.inname:first')[0].value);
-        guestsarr.push(p);
-        for (var i = 1 ; i < pnum; i++) {
+      //  p = new CGuest('ADULT', $('.inname:first')[0].value);
+     //   guestsarr.push(p);
+        for (var i = 0 ; i < pnum; i++) {
             try {
                 p = new CGuest('ADULT', $('.inname')[i].value);
                 guestsarr.push(p);
@@ -1075,11 +1074,11 @@
         }
         $scope.paywaySelect = function ($event) {
             if ($event.target.parentNode.previousElementSibling.innerText == '支付宝')
-                accountName = 'INNS_APP_CLIENT_ALI_WAP_PAY';
+                accountName = 'JJE_APP_CLIENT_ALI_WAP_PAY';
             else if ($event.target.parentNode.previousElementSibling.innerText == '微信支付')
                 accountName = 'JJE_APP_WECHAT_PAY';
             else
-                accountName = 'INNS_APP_CLIENT_ALI_WAP_PAY';
+                accountName = 'JJE_APP_CLIENT_ALI_WAP_PAY';
         }
 
     })

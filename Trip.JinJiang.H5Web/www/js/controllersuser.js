@@ -479,8 +479,7 @@
             find404admin(response);
             $scope.orders = response.orders;
             for (var i = 0; i < response.orders.length; i++) {
-
-                $scope.orders[i].discountafterAmount = Math.ceil(response.orders[i].amount / response.orders[i].adultNum * 0.98) * response.orders[i].adultNum;
+                $scope.orders[i].discountafterAmount = response.orders[i].paymentAmount //Math.ceil(response.orders[i].amount / response.orders[i].adultNum * 0.98) * response.orders[i].adultNum;
                 if ($scope.orders[i].payStatusName == "已支付") {
                     $scope.orders[i].orderStatusName = "已支付";
                 }
@@ -628,7 +627,7 @@
 
     })
 
-    var accountName = 'INNS_APP_CLIENT_ALI_WAP_PAY';
+    var accountName = 'JJE_APP_CLIENT_ALI_WAP_PAY';
     $scope.pay = function () {
         //首先做身份认证,判断是否已经登录,没有帐号的客户先注册.
         var mcMemberCode = getCookie('mcMemberCode');

@@ -320,7 +320,7 @@ namespace Trip.JinJiang.H5
             {
 
                 var url = "";
-                if (accountName == "INNS_APP_CLIENT_ALI_WAP_PAY")
+                if (accountName == "JJE_APP_CLIENT_ALI_WAP_PAY")
                 {
                     url = urlcurlwap + accountName;
                     paymentPlatform = "ALIPAY_WAP";
