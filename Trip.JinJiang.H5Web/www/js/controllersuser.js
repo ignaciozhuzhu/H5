@@ -594,9 +594,11 @@
     // var orderCode = 1000160531000003;
     var orderCode = getpbyurl(1);
     var nghttp = "../../ajax/userHandler.ashx?fn=queryorderdetail&code=" + orderCode;
-
+    //loading层
+    var mylayeruiwait = layer.load(1, {
+        shade: [0.5, '#ababab'] //0.1透明度的白色背景
+    });
     $http.get(nghttp).success(function (response) {
-
         find404admin(response);
         $scope.status = response.payStatus == "PAYED" ? "已支付" : "待支付";
 
@@ -624,7 +626,18 @@
 
         //需支付金额
         $scope.paymentAmount = response.paymentAmount;
-
+        //判断是否可以在线支付
+        var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + response.groupId + "";
+        $http.get(nghttp).success(function (response) {
+            layer.close(mylayeruiwait);
+            if (response.payOnlineFlag == 0) {
+                layermyui('不允许在线支付,请到门店支付');
+                $scope.isDisabled = true;
+                $(".orderbutton").attr("class", "orderbutton cancel");
+                return;
+            }
+        })
+        
     })
 
     var accountName = 'JJE_APP_CLIENT_ALI_WAP_PAY';

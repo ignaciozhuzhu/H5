@@ -617,8 +617,10 @@
                     if (daysBetween(datenow, date1) > preBookingDays) {
                         var groupid = response.line.groups[i].id;
                         for (var j = 0; j < response.line.groups[i].prices.length; j++) {
-                            if (response.line.groups[i].prices[j].offerType == '基本价')
-                                minprice = response.line.groups[i].prices[j].salePrice;
+                            if (response.line.groups[i].prices[j].offerType == '基本价') {
+                                //不等于取vipPrice 不打折,等于取salePrice 打折
+                                minprice = getCurrentPrice(response.line.groups[i].prices[j].salePrice, response.line.groups[i].prices[j].vipPrice);
+                            }
                         }
                         var price1 = "¥" + minprice;
                         data += '{"Date":"' + date1 + '","Price":"' + price1 + '","groupid":"' + groupid + '"},';
@@ -640,7 +642,9 @@
                 var minmonth = mindate.substr(mindate.indexOf("-") + 1, 2);
                 pickerEvent.setEndMonth(maxmonth);
                 pickerEvent.setBeginMonth(minmonth);
-
+                if (minmonth.indexOf("0") == 0)
+                    minmonth = minmonth.substr(1, 1)
+                pickerEvent.setMinMonth(minmonth);
                 pickerEvent.Init("calendar");
             }
         })
@@ -690,12 +694,14 @@
         var cprice;
         var dprice;
         for (var j = 0; j < response.prices.length; j++) {
-            if (response.prices[j].offerType == '基本价')
-                minprice = response.prices[j].salePrice;
+            if (response.prices[j].offerType == '基本价') {
+                //不等于取vipPrice 不打折,等于取salePrice 打折
+                minprice = getCurrentPrice(response.prices[j].salePrice, response.prices[j].vipPrice);
+            }
             if (response.prices[j].offerType == '儿童价')
-                cprice = response.prices[j].salePrice;
+                cprice = response.prices[j].salePrice;// getCurrentPrice(response.prices[j].salePrice, response.prices[j].vipPrice);
             if (response.prices[j].offerType == '单房差')
-                dprice = response.prices[j].salePrice;
+                dprice = response.prices[j].salePrice;// getCurrentPrice(response.prices[j].salePrice, response.prices[j].vipPrice);
         }
         $scope.minprice = minprice;
         if (cprice > 0) {
@@ -824,17 +830,25 @@
         for (var j = 0; j < response.prices.length; j++) {
             if (response.prices[j].offerType == '基本价') {
                 priceid = response.prices[j].id;
-                salePrice = response.prices[j].salePrice;
+                //不等于取vipPrice 不打折,等于取salePrice 打折
+                salePrice = getCurrentPrice(response.prices[j].salePrice, response.prices[j].vipPrice);
+                //不等于取vipPrice 不打折,等于取salePrice 打折
+                if (response.prices[j].salePrice == response.prices[j].vipPrice) {
+                    Discount = response.onlineDiscount;
+                }
+                else {
+                    Discount = 1;
+                }
             }
             else if (response.prices[j].offerType == '儿童价') {
-                childPrice = response.prices[j].salePrice;
+                childPrice = response.prices[j].salePrice;// getCurrentPrice(response.prices[j].salePrice, response.prices[j].vipPrice);
             }
             else if (response.prices[j].offerType == '单房差') {
-                roomdifPrice = response.prices[j].salePrice;
+                roomdifPrice = response.prices[j].salePrice;// getCurrentPrice(response.prices[j].salePrice, response.prices[j].vipPrice);
                 roomdifPriceid = response.prices[j].id;
             }
         }
-        Discount = response.onlineDiscount;
+
 
         //出现的出行人行数.
         var arrayGuests = new Array(0);
@@ -849,7 +863,7 @@
     var guestsarr = new Array(0);
     $scope.createorder = function () {
         var roomdiff = 0;
-        if (getCookie('roomdiff')>0)
+        if (getCookie('roomdiff') > 0)
             roomdiff = getCookie('roomdiff');
         //blockmyui('正在加载,请稍后...');
         var ConnectName = $scope.Connect.name;
@@ -876,18 +890,18 @@
         //    return;
         //}
 
-   //     $('.inname:first')[0].value = ConnectName;
+        //     $('.inname:first')[0].value = ConnectName;
 
         function CGuest(category, name) {
             this.category = category;
             this.name = name;
         }
         var p = new CGuest();
-      //  p = new CGuest('ADULT', $('.inname:first')[0].value);
-     //   guestsarr.push(p);
+        //  p = new CGuest('ADULT', $('.inname:first')[0].value);
+        //   guestsarr.push(p);
         for (var i = 0 ; i < pnum; i++) {
             try {
-                p = new CGuest('ADULT', $('.inname')[i].value);
+                p = new CGuest('ADULT', $('.inname')[i].value == "" ? "游客" + (parseInt(i) + 1) : $('.inname')[i].value);
                 guestsarr.push(p);
             }
             catch (e) { }
@@ -912,18 +926,13 @@
         var mcMemberCode = getCookie('mcMemberCode');
         //debugger
         var strcopyroom = "";
-        if(roomdiff>0){
+        if (roomdiff > 0) {
             strcopyroom += ",{ \"copies\": " + roomdiff + ", \"discountAmount\": 0, \"priceId\": " + roomdifPriceid + ", \"singlePrice\": " + roomdifPrice + " }"
         }
         if (cnum > 0) {
             strcopyroom += ",{ \"copies\": " + cnum + ", \"discountAmount\": 0, \"priceId\": " + priceid + ", \"singlePrice\": " + childPrice + " }"
         }
         json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":" + cnum + ",\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"" + mcMemberCode + "\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + salePrice + "}" + strcopyroom + "],\"scorePay\":false}";
-        //2人
-        //json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"},{\"category\":\"" + guestsarr[1].category + "\",\"name\":\"" + guestsarr[1].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount / pnum + "}],\"scorePay\":false}";
-        //1人
-        //json = "{\"adultNum\":1,\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":0,\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[{\"category\":\"" + guestsarr[0].category + "\",\"name\":\"" + guestsarr[0].name + "\"}],\"mcMemberCode\":\"1231234\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":1,\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + amount + "}],\"scorePay\":false}";
-
 
         //loading层
         var mylayeruiwait = layer.load(1, {
@@ -958,14 +967,13 @@
                 }
                 //出行人只显示成人,有几人就设置几个cookiename
                 for (var i = 0; i < pnum; i++) {
-                    setCookie('inname' + i, $('.inname')[i].value, 1);
+                    setCookie('inname' + i, $('.inname')[i].value == "" ? "游客" + (parseInt(i) + 1) : $('.inname')[i].value, 1);
                 }
                 //$.unblockUI();
                 var d = eval("(" + text + ")");
                 //debugger
                 setCookie('orderNo', d.orderNo, 1);
                 amount = amount - discountAmount;
-                setCookie('roomdiff', "", 1);
                 window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
             }
         });
@@ -978,12 +986,14 @@
     //blockmyui('正在加载,请稍后...');
     //清除登录用户cookie
     //setCookie('mcMemberCode','',1);
+    var dfnum = getCookie('roomdiff');
     var amount = getpbyurl(1);
     var cnum = getpbyurl(2);
     var pnum = getpbyurl(3);
     var groupid = getpbyurl(4);
     var secureamount = getpbyurl(5);
     $scope.amount = amount;
+
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
     //loading层
     var mylayeruiwait = layer.load(1, {
@@ -995,14 +1005,20 @@
         layer.close(mylayeruiwait);
         var minprice;
         var childprice = 0;
+        var dfprice = 0;
         for (var j = 0; j < response.prices.length; j++) {
-            if (response.prices[j].offerType == '基本价')
-                minprice = response.prices[j].salePrice;
+            if (response.prices[j].offerType == '基本价') {
+                //不等于取vipPrice 不打折,等于取salePrice 打折
+                minprice = getCurrentPrice(response.prices[j].salePrice, response.prices[j].vipPrice);
+            }
             else if (response.prices[j].offerType == '儿童价')
-                childprice = response.prices[j].salePrice;
+                childprice = response.prices[j].salePrice;// getCurrentPrice(response.prices[j].salePrice, response.prices[j].vipPrice);
+            else if (response.prices[j].offerType == '单房差')
+                dfprice = response.prices[j].salePrice;// getCurrentPrice(response.prices[j].salePrice, response.prices[j].vipPrice);
         }
         $scope.minprice = minprice;
         $scope.childprice = childprice;
+        $scope.dfprice = dfprice;
         $scope.secureamount = secureamount;
         $scope.groupCode = response.groupCode;
         $scope.lineTitle = response.lineTitle;
@@ -1015,6 +1031,12 @@
         else {
             $(".childgogo").css("display", "none")
             $(".childgogo2").css("display", "none")
+        }
+        if (dfnum > 0) {
+            $(".dfgo").css("display", "block")
+        }
+        else {
+            $(".dfgo").css("display", "none")
         }
         $scope.departDate = FormatDateYear(response.departDate);
         $scope.timepay = FormatDateTimeDiff(3600000);
@@ -1037,6 +1059,13 @@
         //$.unblockUI();
 
         var accountName = '';
+
+        //判断是否可以在线支付
+        if (response.payOnlineFlag == 0) {
+            layermyui('不允许在线支付,请到门店支付');
+            $("[type=checkbox]").attr("disabled", true);
+            return;
+        }
         $scope.pay = function () {
             if (accountName == "") {
                 layermyui('请选择支付方式');
@@ -1054,6 +1083,7 @@
                 });
                 $http.get(nghttp).success(function (response) {
                     layer.close(mylayeruiwait);
+                    //setCookie('roomdiff', "", 1);
                     window.location.href = response;
                 })
             }

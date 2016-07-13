@@ -385,7 +385,7 @@ function replaceCategory(lineCategory) {
 }
 
 //tdk seo
-function tkdfunc(title,keywords,description) {
+function tkdfunc(title, keywords, description) {
     $("title")[0].innerText = title;
     $('[name=keywords]')[0].content = keywords;
     $('[name=description]')[0].content = description;
@@ -417,4 +417,24 @@ function daysBetween(DateOne, DateTwo) {
 
     var cha = ((Date.parse(OneMonth + '/' + OneDay + '/' + OneYear) - Date.parse(TwoMonth + '/' + TwoDay + '/' + TwoYear)) / 86400000);
     return Math.abs(cha);
+}
+/**
+ * 不等于取vipPrice 不打折,等于取salePrice 打折
+ * @param salePrice vipPrice
+ * @return getprice
+ */
+function getCurrentPrice(salePrice, vipPrice) {
+    //都设置过的情况
+    if (salePrice && vipPrice) {
+        if (salePrice == vipPrice)
+            return salePrice;
+        else
+            return vipPrice;
+    }
+    else if (salePrice) return salePrice;
+    else if (vipPrice) return vipPrice;
+    else {
+        layermyui('未设置价格,请联系管理员');
+        return
+    }
 }

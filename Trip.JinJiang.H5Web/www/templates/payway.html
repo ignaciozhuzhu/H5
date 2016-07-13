@@ -95,7 +95,7 @@
             <div class="head">
                 <div><span>线路名称:</span><span>{{lineTitle}}.</span></div>
                 <div><span>订单编号:</span><span>{{groupCode}}</span></div>
-                <div><span>团期人数:</span><span>{{departDate}} {{pnum}}成人 <span class="childgogo"> {{cnum}}儿童</span></span></div>
+                <div><span>团期人数:</span><span>{{departDate}} {{pnum}}成人 <span class="childgogo" style="color:black"> {{cnum}}儿童</span></span></div>
                 <div><span>为确保您能顺利出行，请在1小时内完成支付.</span><span></span></div>
             </div>
             <div class="border1"></div>
@@ -107,11 +107,14 @@
                             费用说明
                         </div>
                         <div style="float:left;width:75% ">
-                            <div style="border-bottom:solid 1px #dcdee1;padding:5px 0">
+                            <div style="padding:5px 0">
                                 <span>成人团费</span> <span style="float:right;padding:0 10px">¥ {{minprice}}</span>
                             </div>
-                            <div style="padding:5px 0;" class="childgogo2">
+                            <div style="border-top:solid 1px #dcdee1;padding:5px 0;" class="childgogo2">
                                 <span>儿童价</span> <span style="float:right;padding:0 10px">¥ {{childprice}}</span>
+                            </div>
+                            <div style="border-top:solid 1px #dcdee1;padding:5px 0;" class="dfgo">
+                                <span>单房差</span> <span style="float:right;padding:0 10px">¥ {{dfprice}}</span>
                             </div>
                         </div>
                     </div>

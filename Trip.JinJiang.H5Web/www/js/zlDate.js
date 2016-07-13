@@ -81,7 +81,8 @@ var pickerEvent = {
         pickerEvent.Init(elemId);
     },
     getToday: function () {
-        dateUtil.getCurrent();
+        //dateUtil.getCurrent();
+        setMinMonth;
         pickerEvent.Init(elemId);
     },
     setPriceArr: function (arr) {
@@ -95,6 +96,13 @@ var pickerEvent = {
     //最小月份
     setBeginMonth: function (month) {
         obj.BeginMonth = month;
+    },
+    //当前可用团月份
+    setMinMonth: function (month) {
+        var dt = obj.date;
+        obj.year = dt.getFullYear();
+        obj.month = parseInt(month);
+        obj.day = dt.getDate();
     },
     remove: function () {
         //  alert('5')
@@ -285,7 +293,6 @@ var commonUtil = {
             datearry[2] = '0' + datearry[2];
         date = datearry[0] + '-' + datearry[1] + '-' + datearry[2];
         $('#pickweekday').empty().append(weekdayArray[(new Date(date).getDay())]);
-
         var price = sender.getAttribute("price");
         $('#pricepera').empty().append(price + '/人');
         var groupid = sender.getAttribute("groupid");
@@ -312,8 +319,9 @@ var commonUtil = {
                     $("#sp02").css('display', 'block');
                     var cprice;
                     for (var j = 0; j < d.prices.length; j++) {
-                        if (d.prices[j].offerType == '儿童价')
-                            cprice = d.prices[j].salePrice;
+                        if (d.prices[j].offerType == '儿童价') {
+                            cprice = d.prices[j].salePrice;// getCurrentPrice(d.prices[j].salePrice, d.prices[j].vipPrice);
+                        }
                         else cprice = 0;
                     }
                     if (cprice > 0)

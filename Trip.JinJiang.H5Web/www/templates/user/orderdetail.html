@@ -17,7 +17,7 @@
             </div>
             <div class="heightgray"></div>
             <div class="seebutton">
-                <div ng-click="pay()" class="orderbutton"> 去支付</div>
+                <div ng-click="pay()" ng-disabled="isDisabled" ng-model="isDisabled" class="orderbutton"> 去支付</div>
             </div>
             <div class="heightgray"></div>
             <div class="orderinfobox">

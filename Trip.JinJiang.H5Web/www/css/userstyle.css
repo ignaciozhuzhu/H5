@@ -434,6 +434,9 @@
             text-align: center;
             font-weight: bold;
         }
+            .orderdetail .orderbutton.cancel {
+            background-color: gray;
+            }
 
         .orderdetail .orderinfobox {
             margin: 10px;

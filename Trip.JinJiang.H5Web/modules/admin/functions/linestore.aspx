@@ -160,7 +160,6 @@
                 var filtcate = $('#selectedcate').val(); //$scope.selectedcate.categoryName;
                 var nghttp = "../../../ajax/apihandler.ashx?fn=getlinesadsearch&search=" + filtcate + "";
                 $http.get(nghttp).success(function (response) {
-                    //  debugger
                     $scope.pageCount = Math.ceil(response.ds.length / percount);
                     responseCache2 = response;
                     var arrayLine = new Array(0);
