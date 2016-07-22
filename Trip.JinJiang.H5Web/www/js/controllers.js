@@ -44,6 +44,7 @@
 
 //线路列表控制器
 .controller('LinelistsCtrl', function ($scope, $http) {
+    followfunc();
 
     var searchParam = request("search");
     var nghttp = "../../ajax/apihandler.ashx?fn=getlines";
@@ -75,7 +76,7 @@
                 arrayLinemm.push(response.lines[i])
         }
         //往搜索结果中添加合集(2)
-        $scope.linelists = arrayLinemm;
+        $scope.linelists = arrayLinemm.sort(objectorderby("point"));
         $scope.agencies = response.agencies;
 
     });
@@ -87,6 +88,7 @@
 })
  //线路列表控制器2,唯独不一样的是路由
 .controller('LinelistsCtrl2', function ($scope, $http) {
+    followfunc();
     var url = location.href;
     var lineCategory = url.substring(url.lastIndexOf('/') + 1, url.length);
     var my2data = "";
@@ -140,7 +142,7 @@
                 }
                 //往搜索结果中添加合集(2)
                 $scope.agencies = responsemine.agencies;
-                $scope.linelists = arrayLinemm;
+                $scope.linelists = arrayLinemm.sort(objectorderby("point"));
             }
         })
 
@@ -166,12 +168,14 @@
 
 //主页控制器
 .controller('indexCtrl', function ($scope, $http, $ionicScrollDelegate) {
-
+    followfunc();
     tkdfunc(
         "锦江旅游度假_旅行社旅游线路_旅游景点攻略-锦江旅游",
         "锦江旅游,旅游网站,出境游,境内游,周边游,自由行,锦江国际",
         "锦江旅游提供包括旅游线路咨询预订,旅游酒店预订,旅游线路查询，旅游车辆租赁等多样化旅行服务。")
-
+    $scope.tomyinfo = function () {
+        window.location.href = "#/app/user/myinfo";
+    }
     //实现自带搜索按钮跳转并失去焦点关闭键盘.
     $(function () {
         $('.searchtxt').bind('keypress', function (event) {
@@ -377,6 +381,7 @@
 
 //线路详情控制器
 .controller('lineDetailCtrl', function ($scope, $http, $sce, $ionicScrollDelegate) {
+    followfunc();
     var url = location.href;
     var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
     $('.linedetail .ordernow').attr('href', '#/app/indexdate/' + lineid);
@@ -580,6 +585,7 @@
 
 //日期选择控制器
 .controller('indexdateCtrl', function ($scope, $http) {
+    nofollowfunc();
     $scope.$on("$ionicView.loaded", function () {
         var url = location.href;
         var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
@@ -666,6 +672,7 @@
 
 //选择资源控制器2
 .controller('pickresourceCtrl2', function ($scope, $http) {
+    nofollowfunc();
     var cnum = getpbyurl(1);
     var pnum = getpbyurl(2);
     var groupid = getpbyurl(3);
@@ -789,6 +796,7 @@
 
 //填写订单控制器
 .controller('fillorderCtrl', function ($scope, $http) {
+    nofollowfunc();
 
     var amount = getpbyurl(1);
     var cnum = getpbyurl(2);
@@ -983,6 +991,7 @@
 
 //支付方式控制器
 .controller('paywayCtrl', function ($scope, $http) {
+    nofollowfunc();
     //blockmyui('正在加载,请稍后...');
     //清除登录用户cookie
     //setCookie('mcMemberCode','',1);
@@ -1117,6 +1126,7 @@
 
 //取消订单控制器
 .controller('cancelorderCtrl', function ($scope, $http) {
+    nofollowfunc();
     // var ordercode = "1000160512000007";
     var nghttp = "../../ajax/apihandler.ashx?fn=cancelorder&ordercode=111";
     $http.get(nghttp).success(function (response) {

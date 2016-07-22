@@ -1,0 +1,36 @@
+﻿<html ng-app="app">
+<head>
+    <title ng-bind="metaservice.metaTitle()">Test</title>
+    <meta name="description" content="{{ metaservice.metaDescription() }}" />
+    <meta name="keywords" content="{{ metaservice.metaKeywords() }}" />
+    <script src="angular-1.4.6.min.js"></script>
+    <script>
+        var app = angular.module('app', []);
+        app.service('MetaService', function () {
+            var title = 'Web App';
+            var metaDescription = '';
+            var metaKeywords = '';
+            return {
+                set: function (newTitle, newMetaDescription, newKeywords) {
+                    metaKeywords = newKeywords;
+                    metaDescription = newMetaDescription;
+                    title = newTitle;
+                },
+                metaTitle: function () { return title; },
+                metaDescription: function () { return metaDescription; },
+                metaKeywords: function () { return metaKeywords; }
+            }
+        });
+
+        app.controller('myCtrl', function ($scope, $rootScope, MetaService) {
+            $rootScope.metaservice = MetaService;
+            $rootScope.metaservice.set("We1b App", "desc", "123blah blah");
+        });
+    </script>
+</head>
+
+<body ng-controller="myCtrl">
+</body>
+
+
+</html>

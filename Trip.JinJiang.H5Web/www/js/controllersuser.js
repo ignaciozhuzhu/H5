@@ -44,6 +44,7 @@
 
 //注册控制器
 .controller('registerCtrl', function ($scope, $http) {
+    nofollowfunc();
     var ipl;
     var ip4;
     var ip6;
@@ -210,7 +211,7 @@
 })
 //登录控制器
 .controller('loginCtrl', function ($scope, $http) {
-
+    nofollowfunc();
 
     $scope.login = function () {
 
@@ -288,6 +289,7 @@
 
 //快速注册控制器
 .controller('quickregisterCtrl', function ($scope, $http) {
+    nofollowfunc();
 
     $scope.regist = function () {
 
@@ -394,6 +396,7 @@
 })
 //密码找回控制器
 .controller('forgetpwdCtrl', function ($scope, $http) {
+    nofollowfunc();
 
     $scope.forgetpwd = function () {
         if ($('.forgetpwd0 #name')[0].value === "") {
@@ -451,6 +454,7 @@
 })
 //我的订单控制器
 .controller('myorderCtrl', function ($scope, $http, $ionicScrollDelegate) {
+    nofollowfunc();
     //var mcMemberCode = "";
     var mcMemberCode = getCookie('mcMemberCode');
     var orderStatus = "";
@@ -589,6 +593,7 @@
 })
 //订单详情控制器
 .controller('orderdetailCtrl', function ($scope, $http) {
+    nofollowfunc();
 
     //暂时作为测试用
     // var orderCode = 1000160531000003;
@@ -676,6 +681,7 @@
 })
 //个人中心控制器
 .controller('myinfoCtrl', function ($scope, $http) {
+    nofollowfunc();
     //debugger
     //判断是否已经登录帐号,获取membercode 的cookie
     var ckmcMemberCode = getCookie('mcMemberCode');
@@ -720,6 +726,7 @@
 })
 //短注册
 .controller('shortregistCtrl', function ($scope, $http) {
+    nofollowfunc();
     $scope.checkvalidate = function () {
         var phone = $(".checkpwd0 #phone")[0].value;
         var code = $(".checkpwd0 #code")[0].value;
@@ -750,6 +757,7 @@
 
 //快速注册控制器2
 .controller('quickregister2Ctrl', function ($scope, $http) {
+    nofollowfunc();
     $scope.regist = function () {
         //debugger
         //需要传递到后台的XML报文串:

@@ -106,7 +106,7 @@
                 <div class="col-xs-6" ng-controller="secondCtrl">
 
                     <!--弹出框编辑开始-->
-                    <form id="editbox2" class="modal hide fade in" style="display: none; height: 330px; width: 270px;">
+                    <form name="myForm2" id="editbox2" class="modal hide fade in" style="display: none; height: 330px; width: 270px;">
                         <div class="modal-header">
                             <a class="close" data-dismiss="modal">×</a>
                             <h3>标签编辑</h3>
@@ -127,14 +127,16 @@
                             <div>
                                 <div>关键词链接:(格式遵循http://www.xxx)</div>
                                 <div>
-                                    <input id="H5Url2" type="text" style="height: 30px" />
+                                    <input id="H5Url2" type="text" style="height: 30px" name="fpassWord2" ng-model="fpassWord2" pattern="^http://([\w-]+\.)+[\w-]+(/[\w-./?%&=]*)?$"/>
+                                    <span style="font-size: 10px; color: red !important; background-color: #fff !important; border: none;" class="alert alert-danger" ng-show="myForm2.fpassWord2.$error.pattern" ng-cloak>注意填写格式
+                                    </span>
                                 </div>
                             </div>
                             <input type="text" name="txt" id="txt" style="display: none">
                             <input type="button" name="btn" value="btn" id="btn" style="display: none">
                         </div>
                         <div class="modal-footer">
-                            <a href="#" class="btn btn-success" ng-click="reloadRoute()">保存</a>
+                            <a href="#" class="btn btn-success" ng-click="myForm2.fpassWord2.$error.pattern||reloadRoute()" ng-disabled="myForm2.fpassWord2.$error.pattern">保存</a>
                             <a href="#" class="btn" data-dismiss="modal">关闭</a>
                         </div>
                     </form>
@@ -197,7 +199,7 @@
                 <div class="col-xs-6">
 
                     <!--弹出框编辑开始-->
-                    <form id="editbox3" class="modal hide fade in" style="display: none; height: 270px; width: 270px;">
+                    <form name="myForm" id="editbox3" class="modal hide fade in" style="display: none; height: 270px; width: 270px;">
                         <div class="modal-header">
                             <a class="close" data-dismiss="modal">×</a>
                             <h3>关键词编辑</h3>
@@ -212,14 +214,16 @@
                             <div>
                                 <div>关键词链接:(格式遵循http://www.xxx)</div>
                                 <div>
-                                    <input id="H5Url3" type="text" style="height: 30px" />
+                                    <input id="H5Url3" type="text" style="height: 30px" name="fpassWord" ng-model="fpassWord" pattern="^http://([\w-]+\.)+[\w-]+(/[\w-./?%&=]*)?$" />
+                                    <span style="font-size: 10px; color: red !important; background-color: #fff !important; border: none;" class="alert alert-danger" ng-show="myForm.fpassWord.$error.pattern" ng-cloak>注意填写格式
+                            </span>
                                 </div>
                             </div>
                             <input type="text" name="txt" id="txt" style="display: none">
                             <input type="button" name="btn" value="btn" id="btn" style="display: none">
                         </div>
                         <div class="modal-footer">
-                            <a href="#" class="btn btn-success" ng-click="reloadRoute()">保存</a>
+                            <a href="#" class="btn btn-success" ng-click="myForm.fpassWord.$error.pattern||reloadRoute()" ng-disabled="myForm.fpassWord.$error.pattern">保存</a>
                             <a href="#" class="btn" data-dismiss="modal">关闭</a>
                         </div>
                     </form>

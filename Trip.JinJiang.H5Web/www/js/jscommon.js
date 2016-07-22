@@ -390,6 +390,12 @@ function tkdfunc(title, keywords, description) {
     $('[name=keywords]')[0].content = keywords;
     $('[name=description]')[0].content = description;
 }
+function nofollowfunc() {
+    $('[name=robots]')[0].content = "nofollow";
+}
+function followfunc() {
+    $('[name=robots]')[0].content = "";
+}
 
 function getNowFormatDate() {
     var date = new Date();
@@ -436,5 +442,25 @@ function getCurrentPrice(salePrice, vipPrice) {
     else {
         layermyui('未设置价格,请联系管理员');
         return
+    }
+}
+
+//按照对象里的某个字段排序,默认是降序
+var objectorderby = function (name) {
+    return function (o, p) {
+        var a, b;
+        if (typeof o === "object" && typeof p === "object" && o && p) {
+            a = o[name];
+            b = p[name];
+            if (a === b) {
+                return 0
+            }
+            if (typeof a === typeof b) {
+                return a > b ? -1 : 1
+            }
+            return typeof a > typeof b ? -1 : 1
+        } else {
+            throw ("error");
+        }
     }
 }

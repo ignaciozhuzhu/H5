@@ -97,8 +97,8 @@
         <div class="button-bar">
             <select class="button button-clear selectbar" ng-model="orderByPrice" ng-change="change1(orderByDay)">
                 <option value="">价格</option>
-                <option value="originalPrice">从低到高</option>
-                <option value="-originalPrice">从高到低</option>
+                <option value="minPrice">从低到高</option>
+                <option value="-minPrice">从高到低</option>
             </select>
 
             <select class="button button-clear selectbarm" ng-model="fAgencies">  <!--ng-options="a.name as a.name for a in agencies"-->
@@ -139,7 +139,7 @@
                             </div>
                             <div class="pt">
                                 <div class="floatleft">
-                                    <span class="span1">¥{{playlist.originalPrice}}</span><span class="span2">起</span>
+                                    <span class="span1">¥{{playlist.minPrice}}</span><span class="span2">起</span>
                                 </div>
                                 <div class="floatright">
                                     {{playlist.days}}  天
