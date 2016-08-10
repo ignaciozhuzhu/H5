@@ -1,6 +1,34 @@
 <!--<ion-view hide-nav-bar="false">
 </ion-view>-->
+<!--<link rel="stylesheet" type="text/css" href="/www/lib/dropdown-multiselect/css/stylesheet.css" media="screen" />-->
+<!--<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />-->
+<!--<link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>-->
+
 <style>
+    /* 天数选择框bg */
+    .multiselect-parent, .btn-group, .dropdown-multiselect {
+        width: 100%;
+        border: none;
+    }
+
+        .btn-group > .btn:first-child {
+            border: none;
+        }
+
+    .dropdown-menu > li > a {
+        padding: 8px 20px;
+    }
+    .btn-default,.btn-default:active,.btn-default:hover {
+        background-color:    #f8f8f8;
+    }
+
+    .dropdown-menu, .dropdown-menu-form {
+        /*width: 100%;*/
+        /*left: -200px;
+        width: 300px;*/
+    }
+     /* 天数选择框ed */
+
     .linelistboxh {
         height: 40px;
     }
@@ -101,9 +129,10 @@
                 <option value="-minPrice">从高到低</option>
             </select>
 
-            <select class="button button-clear selectbarm" ng-model="fAgencies">  <!--ng-options="a.name as a.name for a in agencies"-->
+            <select class="button button-clear selectbarm" ng-model="fAgencies" ng-options="a.name as a.name for a in agencies">
+                <!---->
                 <option value="">旅行社</option>
-                <option value="上海华亭海外旅游有限公司">上海华亭海外旅游有限公司</option>
+                <!--<option value="上海华亭海外旅游有限公司">上海华亭海外旅游有限公司</option>
                 <option value="旅游事业部">旅游事业部</option>
                 <option value="上海锦江国际旅游股份有限公司网点分公司">上海锦江国际旅游股份有限公司网点分公司</option>
                 <option value="上海旅行社有限公司">上海旅行社有限公司</option>
@@ -113,14 +142,17 @@
                 <option value="信息中心">信息中心</option>
                 <option value="上海国旅国际旅行社有限公司">上海国旅国际旅行社有限公司</option>
                 <option value="北京锦江国际旅行社有限公司">北京锦江国际旅行社有限公司</option>
-                <option value="上海锦江旅游有限公司">上海锦江旅游有限公司</option>
+                <option value="上海锦江旅游有限公司">上海锦江旅游有限公司</option>-->
             </select>
-            <select class="selectbar button button-clear " ng-model="orderByDay" ng-change="change2(orderByDay)">
+            <!--<select class="selectbar button button-clear " ng-model="orderByDay" ng-change="change2(orderByDay)">
                 <option value="">天数</option>
                 <option value="days">从低到高</option>
                 <option value="-days">从高到低</option>
-            </select>
+            </select>-->
+
+            <div ng-dropdown-multiselect="" options="example1data" selected-model="example1model"></div>
         </div>
+        <!--<p>{{example1model}}</p>-->
     </div>
     <ion-content>
         <div class="linelistbox">
@@ -151,5 +183,6 @@
                 </ion-item>
             </ion-list>
         </div>
+
     </ion-content>
 </ion-view>

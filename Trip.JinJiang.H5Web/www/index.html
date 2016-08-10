@@ -10,6 +10,7 @@
     <meta name="keywords" content='锦江旅游,旅游网站,出境游,境内游,周边游,自由行,锦江国际' />
     <meta name="description" content='锦江旅游提供包括旅游线路咨询预订,旅游酒店预订,旅游线路查询，旅游车辆租赁等多样化旅行服务。' />
     <meta name="robots" content="">
+    <link rel="stylesheet" type="text/css" href="/www/lib/dropdown-multiselect/css/bootstrap.min.css" />
     <link href="lib/ionic/css/ionic.min.css?4" rel="stylesheet">
     <link href="css/style.css?2" rel="stylesheet">
     <link href="css/userstyle.css" rel="stylesheet">
@@ -17,8 +18,13 @@
     <script src="js/app.js?2"></script>
     <script src="js/controllers.js?3"></script>
     <script src="js/controllersuser.js?3"></script>
+    <script src="js/service.js"></script>
     <script src="js/jquery-1.8.3.min.js"></script>
-    <script>
+
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+    <script type="text/javascript" src="/www/lib/dropdown-multiselect/angularjs-dropdown-multiselect.js"></script>
+
+    <!--<script>
 
         var _hmt = _hmt || [];
 
@@ -34,16 +40,17 @@
 
         })();
 
-    </script>
+    </script>-->
 </head>
 <body ng-app="starter">
-    <ion-nav-view></ion-nav-view>
-    <script>
+    <ion-nav-view>
+    </ion-nav-view>
+    <!--<script>
         (function (a, b, c, d, e) {
             var s = b.createElement(c); s.async = 1; s.src = '//t.agrantsem.com/tg.js?c=' + d + '&t=' + e;
             var r = b.getElementsByTagName(c)[0]; r.parentNode.insertBefore(s, r);
         })(window, document, 'script', 'AG_888038_BBVI', '1');
-    </script>
+    </script>-->
     <script src="js/jquery.royalslider.min.js"></script>
     <script src="js/zlDate.js?1"></script>
     <script src="js/jquery.spinner.js"></script>
@@ -55,7 +62,16 @@
     <script src="lib/sha1.js"></script>
     <script src="lib/xml2json.min.js"></script>
     <script src="js/layer/layer.js"></script>
-    <script src="js/om_code.js"></script>
+    <!--<script src="js/om_code.js"></script>-->
     <!--<script src="http://m.jinjiang.com/js/om_code.js"></script>-->
+    <div class="bar bar-footer" style="left:80%;width:0  ;padding:0">
+        <a href="tel:10101666">
+            <img src="img/tele3.png" style="width: 50px;
+        height: 45px;
+        right: 10px;
+        bottom: 0;" />
+        </a>
+    </div>
+
 </body>
 </html>

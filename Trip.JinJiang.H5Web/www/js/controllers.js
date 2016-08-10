@@ -1,7 +1,12 @@
 ﻿angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function ($scope, $ionicModal, $timeout, $ionicScrollDelegate) {
 
+    //滚动,下拉出电话
+    $scope.getScrollPosition = function () {
+        var scrolltop = $ionicScrollDelegate.$getByHandle('indexDelegate').getScrollPosition().top;
+        $('.teledown').css('top', scrolltop + document.documentElement.childNodes[2].scrollHeight - 120);
+    }
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
     // To listen for when this page is active (for example, to refresh data),
@@ -42,11 +47,10 @@
 })
 
 
-//线路列表控制器
+//线路列表控制器,从搜索进来
 .controller('LinelistsCtrl', function ($scope, $http) {
     followfunc();
-
-    var searchParam = request("search");
+    var searchParam = decodeURI(getpbyurl2(1));  // request("search"); // 
     var nghttp = "../../ajax/apihandler.ashx?fn=getlines";
 
     $scope.listhistorygoback = function () {
@@ -86,9 +90,20 @@
     }
 
 })
- //线路列表控制器2,唯独不一样的是路由
-.controller('LinelistsCtrl2', function ($scope, $http) {
+ //线路列表控制器2,唯独不一样的是路由,从头部的圆圈分类进来
+.controller('LinelistsCtrl2', function ($scope, $http, getdriverinfo) {
     followfunc();
+
+    var windowwidth = window.innerWidth;
+    var windowwidthscrooldown = windowwidth / 3 * 2;
+    $(".dropdown-menu, .dropdown-menu-form").css({ left: -windowwidthscrooldown, width: windowwidth });
+    $(".dropdown-toggle").css({ width: windowwidthscrooldown / 2 });
+
+    $scope.example1model =  [{ id: 3, label: "3天" }];
+    $scope.example1data = [{ id: 3, label: "3天" }, { id: 4, label: "4天" }, { id: 5, label: "5天" }];
+
+
+
     var url = location.href;
     var lineCategory = url.substring(url.lastIndexOf('/') + 1, url.length);
     var my2data = "";
@@ -101,6 +116,7 @@
     else {
         my2data = { fn: "getlinecategoriecrm", category: lineCategory };
     }
+    $scope.my2data = my2data;
     var mylineCategoryName = replaceCategory(lineCategory);
     $(".title").empty().append(mylineCategoryName);
 
@@ -112,42 +128,8 @@
         "锦江旅游提供包括上海" + mylineCategoryName + "、" + mylineCategoryName + "线路报价，出国旅游景点等多样化旅行服务。锦江旅游是中国最优质的旅游线路和自助游一站式服务提供商。"
         )
 
-    var nghttp = "../../ajax/apihandler.ashx?fn=getlinesbycategory";
-    //loading层
-    var mylayeruiwait = layer.load(1, {
-        shade: [0.5, '#ababab'] //0.1透明度的白色背景
-    });
-    $http.get(nghttp).success(function (response) {
-        // debugger
-        var responsemine = response;
-        $.ajax({
-            url: "../../ajax/apihandler.ashx",
-            data: my2data,
-            type: "post",
-            success: function (text) {
-                // debugger
-                layer.close(mylayeruiwait);
-                var d = eval("(" + text + ")");
-                var arrayLinemm = new Array(0);
-                for (var i = 0 ; i < d.rows.length; i++) {
-                    for (var j = 0 ; j < responsemine.lines.length; j++) {
-                        if (d.rows[i].lineId == responsemine.lines[j].lineId) {
-                            //往搜索结果中添加合集(1)
-                            if (responsemine.lines[j].imageUrls[0] === undefined || responsemine.lines[j].imageUrls[0] === null || responsemine.lines[j].imageUrls[0].indexOf('http') < 0)
-                                responsemine.lines[j].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg';
-                            responsemine.lines[j].lineCategory = d.rows[i].lineCategory;
-                            arrayLinemm.push(responsemine.lines[j]);
-                        }
-                    }
-                }
-                //往搜索结果中添加合集(2)
-                $scope.agencies = responsemine.agencies;
-                $scope.linelists = arrayLinemm.sort(objectorderby("point"));
-            }
-        })
-
-    });
-
+    //
+    getdriverinfo.myFunc($http, $scope, 5, my2data);
 
     $scope.listent = function () {
         setCookie('ent2detail', lineCategory, 1);
@@ -216,7 +198,7 @@
     //滚动,下拉出电话
     $scope.getScrollPosition = function () {
         var scrolltop = $ionicScrollDelegate.$getByHandle('indexDelegate').getScrollPosition().top;
-        $('#teledown').css('top', scrolltop + document.documentElement.childNodes[2].scrollHeight - 120);
+        $('.teledown').css('top', scrolltop + document.documentElement.childNodes[2].scrollHeight - 120);
     }
     //分类图标
     var nghttpcategory = "../../ajax/apihandler.ashx?fn=getlinecategorys&status=true&pattern=S1";
@@ -405,10 +387,6 @@
 
     var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
 
-    //blockmyui('正在加载,请稍后...');
-    //$.blockUI({
-    //    message: '<h6>正在提交,请稍后...</h6>'
-    //});
     //loading层
     var mylayeruiwait = layer.load(1, {
         shade: [0.5, '#ababab'] //0.1透明度的白色背景
@@ -508,10 +486,12 @@
         $scope.recommend = response.line.recommend; // response.line.recommend.url;
 
         //取图片
-        if (response.line.images[0] === undefined || response.line.images[0] === null || response.line.images[0] === "")
-            $scope.image = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
-        else
-            $scope.image = response.line.images[0].url;
+        //if (response.line.images[0] === undefined || response.line.images[0] === null || response.line.images[0] === "")
+        //    $scope.image = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
+        //else {
+        //    //debugger
+        //    $scope.image = response.line.images[0].url.substr(0, response.line.images[0].url.length - 14) + "/1/interlace/1/w/440/h/230";
+        //}
 
         $('.linedetail .idline').show();
         $('.linedetail .idfeature').hide();
@@ -581,6 +561,56 @@
         $('.tunbl6').addClass("lineblue");
         $ionicScrollDelegate.resize();
     }
+
+    //自加载运行
+    $scope.$on("$ionicView.loaded", function () {
+        //自动加载播放滚动图片
+        //轮播图
+        var url = location.href;
+        var lineid = url.substring(url.lastIndexOf('/') + 1, url.length);
+        var nghttp = "../../ajax/apihandler.ashx?fn=getlinedetail&lineid=" + lineid + "";
+        $http.get(nghttp).success(function (response) {
+            //取图片
+            if (!response.line.images.length) {
+                layermyui('轮播图未设置');
+            }
+            else {
+                for (var i = 0; i < response.line.images.length ; i++) {
+                    var abc = response.line.images[i].url.substr(0, response.line.images[i].url.length - 14) + "/1/interlace/1/w/440/h/230";
+                    $('#full-width-slider').append('<div class="rsContent"><img class="rsImg" src=' + abc + ' /></div>');
+                }
+            }
+
+            $('#full-width-slider').royalSlider({
+                arrowsNav: true,
+                loop: false,
+                keyboardNavEnabled: true,
+                controlsInside: false,
+                imageScaleMode: 'fill',
+                arrowsNavAutoHide: false,
+                autoScaleSlider: true,
+                autoScaleSliderWidth: 960,
+                autoScaleSliderHeight: 350,
+                controlNavigation: 'bullets',
+                thumbsFitInViewport: false,
+                navigateByClick: true,
+                startSlideId: 0,
+                autoPlay: false,
+                transitionType: 'move',
+                globalCaption: true,
+                deeplinking: {
+                    enabled: true,
+                    change: false
+                },
+
+                imgWidth: 1400,
+                imgHeight: 680
+            });
+        })
+
+    })
+
+
 })
 
 //日期选择控制器
@@ -1209,7 +1239,7 @@ function searchLines() {
         //if ($("#divdesselect .searchtxt")[0].value == $("#divdesselect .searchtxt")[0].placeholder &&  $("#divdesselect .searchtxturl")[0].value) {
         //    window.location.href = '#/app/linelists?search=' + searchParam;
         //}
-        window.location.href = '#/app/linelists?search=' + searchParam;
+        window.location.href = '#/app/linelists#search=' + searchParam;
     }
         //否则直接空搜
     else
@@ -1217,7 +1247,7 @@ function searchLines() {
             window.location.href = $("#divdesselect .searchtxturl")[0].value;
         else {
             searchParam = $(".searchtxt")[1].placeholder;
-            window.location.href = '#/app/linelists?search=' + searchParam;
+            window.location.href = '#/app/linelists#search=' + searchParam;
         }
 }
 

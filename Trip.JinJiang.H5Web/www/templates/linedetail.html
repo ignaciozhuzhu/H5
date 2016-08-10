@@ -1,8 +1,19 @@
+<link href="css/royalslider.css?1" rel="stylesheet">
+<link href="css/rs-minimal-white.css" rel="stylesheet">
+<link href="lib/ionic/css/ionic.css" rel="stylesheet">
 <style>
     .linedetail {
         padding-top: 44px;
     }
-
+    
+    .sliderContainer {
+    padding-top:0
+    }
+    @media screen and (max-width: 800px) and (min-width: 0px) {
+        .royalSlider.heroSlider, .royalSlider.heroSlider .rsOverflow {
+            height: 200px !important;
+        }
+    }
         .linedetail .padding5px {
             padding: 5px;
         }
@@ -165,7 +176,14 @@
     <!--我来组成头部ed-->
     <ion-content>
         <div class="linedetail">
-            <div style="background-image:url({{image}});height:180px;background-repeat:no-repeat;background-size: 100% ;position:relative">
+
+            <!--这段轮播图-->
+            <div class="sliderContainer fullWidth clearfix">
+                <div ng-click="indexent()" id="full-width-slider" class="royalSlider heroSlider rsMinW">
+                </div>
+            </div>
+
+            <!--<div style="background-image:url({{image}});height:180px;background-repeat:no-repeat;background-size: 100% ;position:relative">
                 <div><img style="height:30px;float:right;display:none" src="img/收藏后.png" /></div>
 
                 <div style="color:white;font-size:15px;position:absolute;bottom:2%;left:2%">
@@ -175,7 +193,8 @@
                 <div style="color:white;font-size:15px;position:absolute;bottom:2%;right:2%">
                     <span>{{groupcode}}</span>
                 </div>
-            </div>
+            </div>-->
+
             <div class="mylinedetailbox" style="overflow:hidden">
                 <div class="padding5px">
                     <div class="smalltitle">

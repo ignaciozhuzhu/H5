@@ -1323,9 +1323,11 @@
     <Content Include="www\lib\md5.js" />
     <Content Include="www\lib\sha1.js" />
     <Content Include="www\js\om_code.js" />
+    <Content Include="www\templates\tdk\angular-1.4.6.min.js" />
     <Content Include="www\templates\siteflow\demo.html" />
     <Content Include="www\templates\siteflow\demo2.html" />
     <Content Include="www\templates\siteflow\om_code.js" />
+    <Content Include="www\templates\tdk\tdkdemo.html" />
     <Content Include="www\templates\user\myinfo.html" />
     <Content Include="www\templates\user\orderdetail.html" />
     <Content Include="www\templates\user\myorder.html" />

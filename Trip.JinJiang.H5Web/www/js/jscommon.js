@@ -345,6 +345,34 @@ function getpbyurl(typei) {
     }
     return geturl.substring(geturl.lastIndexOf('/') + 1, geturl.length);
 }
+//获取链接参数,倒序排列
+function getpbyurl2(typei) {
+    function subs(href) {
+        return href.substring(0, href.lastIndexOf('#'));
+    }
+    var geturl = location.href;
+
+    if (typei == 1)
+    { }
+    else {
+        for (var i = 0; i < typei - 1; i++) {
+            geturl = subs(geturl);
+        }
+    }
+    return geturl.substring(geturl.lastIndexOf('#') + 8, geturl.length);
+}
+
+//最大乘坐人数实时限制.a,b一般为控件id.
+function maxpassenger(a, b, adults, kids, max_seat) {
+    if (parseInt(adults) + parseInt(kids) >= max_seat) {
+        $(a)[0].children[0].children[2].disabled = true;
+        $(b)[0].children[0].children[2].disabled = true;
+    }
+    else {
+        $(a)[0].children[0].children[2].disabled = false;
+        $(b)[0].children[0].children[2].disabled = false;
+    }
+}
 
 //获取URL的参数
 function request(paras) {
