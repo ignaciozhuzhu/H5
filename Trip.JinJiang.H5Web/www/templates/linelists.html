@@ -15,19 +15,17 @@
             border: none;
         }
 
-    .dropdown-menu > li > a {
-        padding: 8px 20px;
+    .dropdown-menu > li > a, .okbeng {
+        padding: 3% 10%;
     }
-    .btn-default,.btn-default:active,.btn-default:hover {
-        background-color:    #f8f8f8;
+
+    .btn-default, .btn-default:active, .btn-default:hover {
+        background-color: #f8f8f8;
     }
 
     .dropdown-menu, .dropdown-menu-form {
-        /*width: 100%;*/
-        /*left: -200px;
-        width: 300px;*/
     }
-     /* 天数选择框ed */
+    /* 天数选择框ed */
 
     .linelistboxh {
         height: 40px;
@@ -129,9 +127,9 @@
                 <option value="-minPrice">从高到低</option>
             </select>
 
-            <select class="button button-clear selectbarm" ng-model="fAgencies" ng-options="a.name as a.name for a in agencies">
-                <!---->
-                <option value="">旅行社</option>
+            <!--<select class="button button-clear selectbarm" ng-model="fAgencies" ng-options="a.name as a.name for a in agencies">
+                
+                <option value="">旅行社</option>-->
                 <!--<option value="上海华亭海外旅游有限公司">上海华亭海外旅游有限公司</option>
                 <option value="旅游事业部">旅游事业部</option>
                 <option value="上海锦江国际旅游股份有限公司网点分公司">上海锦江国际旅游股份有限公司网点分公司</option>
@@ -143,14 +141,15 @@
                 <option value="上海国旅国际旅行社有限公司">上海国旅国际旅行社有限公司</option>
                 <option value="北京锦江国际旅行社有限公司">北京锦江国际旅行社有限公司</option>
                 <option value="上海锦江旅游有限公司">上海锦江旅游有限公司</option>-->
-            </select>
+            <!--</select>-->
             <!--<select class="selectbar button button-clear " ng-model="orderByDay" ng-change="change2(orderByDay)">
                 <option value="">天数</option>
                 <option value="days">从低到高</option>
                 <option value="-days">从高到低</option>
             </select>-->
 
-            <div ng-dropdown-multiselect="" options="example1data" selected-model="example1model"></div>
+            <div ng-dropdown-multiselect options="example1data0" selected-model="example1model0" buttontext="旅行社"></div>
+            <div ng-dropdown-multiselect options="example1data" selected-model="example1model" buttontext="天数"></div>
         </div>
         <!--<p>{{example1model}}</p>-->
     </div>

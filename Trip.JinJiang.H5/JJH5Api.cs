@@ -83,19 +83,17 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 查询路线
         /// </summary>
-        public static string getlinesByCategory(string lineCategory)
+        public static string getlinesByCategory(string lineCategory,string businessCategory)
         {
-            //string str = @"select * from dbo.tbl_lineLists ";
-            //DataSet ds = DbHelperSQL.Query(str);
-            //string json = ConvertJson.DataTable2Array(ds.Tables[0]);
-            //json = "{\"rows\":" + json.Replace("'", "\"") + "}";
-            //return json;
-
-            //   var data = "{\"lineCategory\":\"\",\"lineName\":\"\",\"travelAgency\":\"\",\"travelBrand\":\"\",\"lineId\":\"\"}";
-            //   var response = HttpUtil.Post(data, urlcrmlinesearch, contentType: "application/json");
-
-            var data = "{\"lineCategory\":\"" + lineCategory + "\"}";
-            data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":9999,\"search\":false,\"startRow\":1,\"total\":1}}";
+            string data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":9999,\"search\":false,\"startRow\":1,\"total\":1}}";
+            if (lineCategory != "") {
+                data = data.Substring(0, data.Length-1) + ",\"lineCategory\":\"" + lineCategory.ToUpper() + "\"}";
+            }
+            if (businessCategory != "")
+            {
+                data = data.Substring(0, data.Length - 1) + ",\"businessCategory\":\"" + businessCategory.ToUpper() + "\"}";
+            }
+            
             //先获取所有的线路,再与本地数据库做关联
             var response = HttpUtil.Post(data, urllinesearch, contentType: "application/json");
 

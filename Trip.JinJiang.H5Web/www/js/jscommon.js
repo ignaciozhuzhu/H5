@@ -397,6 +397,9 @@ function sortbydepartDate(a, b) {
 function sortbydayNumber(a, b) {
     return a.dayNumber - b.dayNumber;
 }
+function sortbyday0(a, b) {
+    return a.name - b.name;
+}
 
 function replaceCategory(lineCategory) {
     lineCategory = lineCategory.toUpperCase();

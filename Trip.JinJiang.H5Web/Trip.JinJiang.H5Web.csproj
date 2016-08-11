@@ -1128,6 +1128,7 @@
     <Content Include="www\img\路线行程2.png" />
     <Content Include="www\img\轮船游.png" />
     <Content Include="www\img\返回.png" />
+    <Content Include="www\img\xzzf.png" />
     <Content Include="www\img\锦江旅游图标.jpg" />
     <Content Include="www\img\锯齿划线.png" />
     <Content Include="www\js\angular-1.4.6.min.js" />
@@ -1274,6 +1275,11 @@
     <Content Include="www\js\layer\skin\default\loading-2.gif" />
     <Content Include="www\js\layer\skin\layer.css" />
     <Content Include="www\js\less\less.js" />
+    <Content Include="www\js\service.js" />
+    <Content Include="www\lib\dropdown-multiselect\angularjs-dropdown-multiselect.js" />
+    <Content Include="www\lib\dropdown-multiselect\css\bootstrap.min.css" />
+    <Content Include="www\lib\dropdown-multiselect\css\stylesheet.css" />
+    <Content Include="www\lib\dropdown-multiselect\lodash.min.js" />
     <Content Include="www\lib\xml2json.min.js" />
     <Content Include="www\js\zlDate.js" />
     <Content Include="www\lib\ionic\fonts\ionicons.eot" />

@@ -64,7 +64,15 @@ namespace Trip.JinJiang.H5Web.ajax
             catch (Exception e)
             {
             }
-            HttpContext.Current.Response.Write(JJH5Api.getlinesByCategory(lineCategory));
+            string businessCategory = "";
+            try
+            {
+                businessCategory = (HttpContext.Current.Request["businessCategory"]).ToString();
+            }
+            catch (Exception e)
+            {
+            }
+            HttpContext.Current.Response.Write(JJH5Api.getlinesByCategory(lineCategory, businessCategory));
         }
 
         /// <summary>

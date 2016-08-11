@@ -91,18 +91,8 @@
 
 })
  //线路列表控制器2,唯独不一样的是路由,从头部的圆圈分类进来
-.controller('LinelistsCtrl2', function ($scope, $http, getdriverinfo) {
+.controller('LinelistsCtrl2', function ($scope, $http, filtbydaysev) {
     followfunc();
-
-    var windowwidth = window.innerWidth;
-    var windowwidthscrooldown = windowwidth / 3 * 2;
-    $(".dropdown-menu, .dropdown-menu-form").css({ left: -windowwidthscrooldown, width: windowwidth });
-    $(".dropdown-toggle").css({ width: windowwidthscrooldown / 2 });
-
-    $scope.example1model =  [{ id: 3, label: "3天" }];
-    $scope.example1data = [{ id: 3, label: "3天" }, { id: 4, label: "4天" }, { id: 5, label: "5天" }];
-
-
 
     var url = location.href;
     var lineCategory = url.substring(url.lastIndexOf('/') + 1, url.length);
@@ -128,8 +118,39 @@
         "锦江旅游提供包括上海" + mylineCategoryName + "、" + mylineCategoryName + "线路报价，出国旅游景点等多样化旅行服务。锦江旅游是中国最优质的旅游线路和自助游一站式服务提供商。"
         )
 
-    //
-    getdriverinfo.myFunc($http, $scope, 5, my2data);
+
+    //旅行社筛选框bg----------------------------------------------------------------------------------------------------------------
+    var windowwidth = window.innerWidth;
+    var windowwidthscrooldown = windowwidth / 3 * 2;
+    $(".dropdown-menu, .dropdown-menu-form").eq(0).css({ left: -windowwidthscrooldown / 2, width: windowwidth });
+    $(".dropdown-toggle").css({ width: windowwidthscrooldown / 2 });
+
+    $scope.example1data0 = new Array();
+    $scope.example1model0 = new Array();
+    var funcallback = function (_responseche) {
+        for (var i = 0; i < _responseche.length; i++) {
+            $scope.example1data0[i] = { id: _responseche[i].name, label: _responseche[i].name };
+        }
+    }
+    filtbydaysev.getagencies($http, $scope, funcallback, my2data);
+
+    //filtbydaysev.filtfunc($http, $scope, "|", my2data);
+    //旅行社筛选框ed----------------------------------------------------------------------------------------------------------------
+
+    //天数筛选框bg----------------------------------------------------------------------------------------------------------------
+    $(".dropdown-menu, .dropdown-menu-form").eq(1).css({ left: -windowwidthscrooldown, width: windowwidth });
+
+    $scope.example1data = new Array();
+    $scope.example1model = new Array();
+    var funcallback = function (_responseche) {
+        for (var i = 0; i < _responseche.length; i++) {
+            $scope.example1data[i] = { id: _responseche[i].name, label: _responseche[i].name + "天" };
+        }
+    }
+    filtbydaysev.getdays($http, $scope, funcallback, my2data);
+
+    filtbydaysev.filtfunc($http, $scope, "|", my2data,"");
+    //天数筛选框ed----------------------------------------------------------------------------------------------------------------
 
     $scope.listent = function () {
         setCookie('ent2detail', lineCategory, 1);

@@ -2,8 +2,8 @@
 
 var directiveModule = angular.module('angularjs-dropdown-multiselect', []);
 
-directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$compile', '$parse', 'getdriverinfo', '$http',
-    function ($filter, $document, $compile, $parse, getdriverinfo, $http) {
+directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$compile', '$parse', 'filtbydaysev', '$http','$ionicScrollDelegate',
+    function ($filter, $document, $compile, $parse, filtbydaysev, $http, $ionicScrollDelegate) {
 
         return {
             restrict: 'AE',
@@ -23,8 +23,8 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                 var template = '<div class="multiselect-parent btn-group dropdown-multiselect">';
                 template += '<button type="button" class="dropdown-toggle" ng-class="settings.buttonClasses" ng-click="toggleDropdown()">{{getButtonText()}}</button>';
                 template += '<ul class="dropdown-menu dropdown-menu-form" ng-style="{display: open ? \'block\' : \'none\', height : settings.scrollable ? settings.scrollableHeight : \'auto\' }" style="overflow: scroll" >';
-                template += '<li ng-hide="!settings.showCheckAll || settings.selectionLimit > 0"><a data-ng-click="selectAll()">  {{texts.checkAll}}<span style="float:right" class="glyphicon glyphicon-ok"></span></a>';
-                template += '<li ng-show="settings.showUncheckAll"><a data-ng-click="deselectAll();">   {{texts.uncheckAll}}<span style="float:right" class="glyphicon glyphicon-remove"></span></a></li>';
+                template += '<li ng-hide="!settings.showCheckAll || settings.selectionLimit > 0"><a data-ng-click="selectAll()" >   {{texts.checkAll}}<span style="float:right" data-ng-class="{\'glyphicon glyphicon-ok\':topChecked}"></span></a>';
+                template += '<li ng-show="settings.showUncheckAll"><a data-ng-click="deselectAll();">   {{texts.uncheckAll}}</a></li>';
                 template += '<li ng-hide="(!settings.showCheckAll || settings.selectionLimit > 0) && !settings.showUncheckAll" class="divider"></li>';
                 template += '<li ng-show="settings.enableSearch"><div class="dropdown-header"><input type="text" class="form-control" style="width: 100%;" ng-model="searchFilter" placeholder="{{texts.searchPlaceholder}}" /></li>';
                 template += '<li ng-show="settings.enableSearch" class="divider"></li>';
@@ -49,7 +49,8 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                 template += '<li class="divider" ng-show="settings.selectionLimit > 1"></li>';
                 template += '<li role="presentation" ng-show="settings.selectionLimit > 1"><a role="menuitem">{{selectedModel.length}} {{texts.selectionOf}} {{settings.selectionLimit}} {{texts.selectionCount}}</a></li>';
 
-                template += '<div style="height:40px;padding-left:20px" ng-click="zz()">确定</div></ul>';
+                template += '<li ng-hide="(!settings.showCheckAll || settings.selectionLimit > 0) && !settings.showUncheckAll" class="divider"></li>';
+                template += '<div class="okbeng" ng-click="clickSure()">确定</div></ul>';
                 template += '</div>';
 
                 element.html(template);
@@ -58,7 +59,6 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                 var $dropdownTrigger = $element.children()[0];
 
                 $scope.toggleDropdown = function () {
-                    // debugger
                     $scope.open = !$scope.open;
                 };
 
@@ -67,11 +67,25 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                     $event.stopImmediatePropagation();
                 };
 
-                $scope.zz = function () {
+                $scope.clickSure = function () {
                     var funcallback = function () {
                         $scope.open = !$scope.open;
+                        $ionicScrollDelegate.scrollTop();
                     }
-                    getdriverinfo.myFunc($http, $scope.$parent, $scope.$parent.example1model[0].id, $scope.$parent.my2data, funcallback);
+                    if ($attrs.buttontext == "旅行社") {
+                        var days = "|";
+                        for (var i = 0; i < $scope.$parent.example1model0.length; i++) {
+                            days += $scope.$parent.example1model0[i].id + '|';
+                        }
+                        filtbydaysev.filtfunc($http, $scope.$parent, days, $scope.$parent.my2data, funcallback,"ag");
+                    }
+                    else if ($attrs.buttontext == "天数") {
+                        var days = "|";
+                        for (var i = 0; i < $scope.$parent.example1model.length; i++) {
+                            days += $scope.$parent.example1model[i].id + '|';
+                        }
+                        filtbydaysev.filtfunc($http, $scope.$parent, days, $scope.$parent.my2data, funcallback,"day");
+                    }
                 }
 
                 $scope.externalEvents = {
@@ -107,11 +121,11 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                 $scope.texts = {
                     checkAll: '全选',
                     uncheckAll: '清空',
-                    selectionCount: '天数', //checked
+                    selectionCount: $attrs.buttontext, //checked
                     selectionOf: '/',
                     searchPlaceholder: 'Search...',
-                    buttonDefaultText: '天数', //请选择
-                    dynamicButtonTextSuffix: '天数' //checked
+                    buttonDefaultText: $attrs.buttontext, //请选择
+                    dynamicButtonTextSuffix: $attrs.buttontext//checked
                 };
 
                 $scope.searchFilter = $scope.searchFilter || '';
@@ -156,7 +170,6 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
 
                 if ($scope.settings.closeOnBlur) {
                     $document.on('click', function (e) {
-                        //  debugger
                         var target = e.target.parentElement;
                         var parentFound = false;
 
@@ -186,7 +199,6 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                 };
 
                 $scope.getButtonText = function () {
-                    // debugger
                     return $scope.texts.buttonDefaultText;
                     if ($scope.settings.dynamicTitle && ($scope.selectedModel.length > 0 || (angular.isObject($scope.selectedModel) && _.keys($scope.selectedModel).length > 0))) {
                         if ($scope.settings.smartButtonMaxItems > 0) {
@@ -242,9 +254,13 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                     angular.forEach($scope.options, function (value) {
                         $scope.setSelectedItem(value[$scope.settings.idProp], true);
                     });
+                    $scope.topChecked = true;
                 };
 
                 $scope.deselectAll = function (sendEvent) {
+                    if (sendEvent==undefined) {
+                        $scope.topChecked = false;
+                    }
                     sendEvent = sendEvent || true;
 
                     if (sendEvent) {
@@ -259,6 +275,9 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                 };
 
                 $scope.setSelectedItem = function (id, dontRemove) {
+
+                    $scope.topChecked = false;
+
                     var findObj = getFindObj(id);
                     var finalObj = null;
 
@@ -272,7 +291,6 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                         clearObject($scope.selectedModel);
                         angular.extend($scope.selectedModel, finalObj);
                         $scope.externalEvents.onItemSelect(finalObj);
-                        //   debugger
                         if ($scope.settings.closeOnSelect) $scope.open = false;
 
                         return;
@@ -289,7 +307,6 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                         $scope.selectedModel.push(finalObj);
                         $scope.externalEvents.onItemSelect(finalObj);
                     }
-                    // debugger
                     if ($scope.settings.closeOnSelect) $scope.open = false;
                 };
 
