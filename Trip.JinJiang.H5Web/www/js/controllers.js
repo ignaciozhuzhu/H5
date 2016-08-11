@@ -60,6 +60,7 @@
         $('#divcontent').hide();
         $('#bartitle').hide();
         $('#divdesselect').show();
+        $(".title").empty().append("线路搜索");
     }
 
     //tdk seo
@@ -110,6 +111,7 @@
     filtbydaysev.filtfunc($http, $scope, "|", "|", my2data, funcallback2);
     //天数筛选框ed----------------------------------------------------------------------------------------------------------------
 
+    $(".linelistback").css("display", "none");
     $scope.listent = function () {
         setCookie('ent2detail', 'search=' + searchParam + '', 1);
     }
@@ -185,6 +187,16 @@
     $scope.listhistorygoback = function () {
         window.location.href = "#/app/index";
         location.reload();
+    }
+    //这是右边的回到搜索界面按钮
+    $(".linelistback").css("display", "block");
+    $scope.listhistorygoback2 = function () {
+        window.location.href = "#/app/index";
+
+        $('#divcontent').hide();
+        $('#bartitle').hide();
+        $('#divdesselect').show();
+        $(".title").empty().append("线路搜索");
     }
 
     $scope.change1 = function (x) {
