@@ -2,9 +2,11 @@
 
 //天数筛选框 服务
 .service('filtbydaysev', function () {
-    this.filtfunc = function ($http, $scope, days, my2data, fun, filttype) {
-        if (!arguments[4]) fun = function () { };
+    this.filtfunc = function ($http, $scope, days, agence, my2data, fun, filttype) {
+        // if (!arguments[4]) fun = function () { };
         var daysArray = days.split("|");
+        var agenceArray = agence.split("|");
+       // debugger
         var nghttp = "../../ajax/apihandler.ashx?fn=getlinesbycategory&businessCategory=" + my2data.category + "&keyWord=" + my2data.keyWord + "";
         //loading层
         var mylayeruiwait = layer.load(1, {
@@ -40,24 +42,28 @@
                                 // 检查是否有lineid一致并且 天数一致的,是就push进去这条数据.
                             else {
                                 if (d.lines[i].lineId == responsemine.lines[j].lineId && days.indexOf('|' + responsemine.lines[j].days + '|') > -1) {
-                                    pusharrayline();
+                                    if (agenceArray[1] && agence.indexOf('|' + responsemine.lines[j].agency + '|') > -1)
+                                        pusharrayline();
+                                    else if (!agenceArray[1])
+                                        pusharrayline();
                                 }
-
                             }
                         }
                         else if (filttype == "ag") {
                             // 检查是否有lineid一致,是就push进去这条数据.显示所有天数的
-                            if (!daysArray[1]) {
+                            if (!agenceArray[1]) {
                                 if (d.lines[i].lineId == responsemine.lines[j].lineId) {
                                     pusharrayline();
                                 }
                             }
                                 // 检查是否有lineid一致并且 天数一致的,是就push进去这条数据.
                             else {
-                                if (d.lines[i].lineId == responsemine.lines[j].lineId && days.indexOf('|' + responsemine.lines[j].agency + '|') > -1) {
-                                    pusharrayline();
+                                if (d.lines[i].lineId == responsemine.lines[j].lineId && agence.indexOf('|' + responsemine.lines[j].agency + '|') > -1) {
+                                    if (daysArray[1] && (days.indexOf('|' + responsemine.lines[j].days + '|') > -1))
+                                        pusharrayline();
+                                    else if (!daysArray[1])
+                                        pusharrayline();
                                 }
-
                             }
                         }
                     }
@@ -88,4 +94,5 @@
             funcallback(response.agencies);
         })
     }
+
 })

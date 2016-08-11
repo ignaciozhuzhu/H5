@@ -69,21 +69,8 @@
         "上海到" + searchParam + "旅游线路，锦江旅游提供上海到" + searchParam + "旅游线路价格,汇集上海旅行社品牌旅游线路,为您提供优质的旅游服务。"
         )
 
-    $http.get(nghttp).success(function (response) {
-        //debugger
-        var arrayLinemm = new Array(0);
-        for (var i = 0; i < response.lines.length; i++) {
-            if (response.lines[i].imageUrls[0] === undefined || response.lines[i].imageUrls[0] === null || response.lines[i].imageUrls[0].indexOf('http') < 0)
-                response.lines[i].imageUrls[0] = 'http://img5.imgtn.bdimg.com/it/u=45254662,160915219&fm=21&gp=0.jpg'
-            //往搜索结果中添加合集(1)
-            if (response.lines[i].lineName.indexOf(searchParam) > -1)
-                arrayLinemm.push(response.lines[i])
-        }
-        //往搜索结果中添加合集(2)
-        $scope.linelists = arrayLinemm.sort(objectorderby("point"));
-        $scope.agencies = response.agencies;
-
-    });
+    $scope.pagences = "|";
+    $scope.pdays = "|";
 
     var my2data = { fn: "getlinesbycategory", keyWord: searchParam };
     $scope.my2data = my2data;
@@ -115,7 +102,12 @@
     }
     filtbydaysev.getdays($http, $scope, funcallback, my2data);
 
-    //filtbydaysev.filtfunc($http, $scope, "|", my2data, "");
+    var mylineCategoryName = searchParam;
+    $scope.mylineCategoryName = searchParam;
+    var funcallback2 = function (_responseche) {
+        $(".title").empty().append(mylineCategoryName + "<div>共" + _responseche + "条</div>");
+    }
+    filtbydaysev.filtfunc($http, $scope, "|", "|", my2data, funcallback2);
     //天数筛选框ed----------------------------------------------------------------------------------------------------------------
 
     $scope.listent = function () {
@@ -126,6 +118,9 @@
  //线路列表控制器2,唯独不一样的是路由,从头部的圆圈分类进来
 .controller('LinelistsCtrl2', function ($scope, $http, filtbydaysev) {
     followfunc();
+
+    $scope.pagences = "|";
+    $scope.pdays = "|";
 
     var url = location.href;
     var lineCategory = url.substring(url.lastIndexOf('/') + 1, url.length);
@@ -142,8 +137,6 @@
     $scope.my2data = my2data;
     var mylineCategoryName = replaceCategory(lineCategory);
     $scope.mylineCategoryName = mylineCategoryName;
-    $(".title").empty().append(mylineCategoryName);
-
 
     //tdk seo
     tkdfunc(
@@ -151,7 +144,6 @@
         "" + mylineCategoryName + "旅游线路," + mylineCategoryName + "旅游报价," + mylineCategoryName + "旅游攻略,锦江旅游",
         "锦江旅游提供包括上海" + mylineCategoryName + "、" + mylineCategoryName + "线路报价，出国旅游景点等多样化旅行服务。锦江旅游是中国最优质的旅游线路和自助游一站式服务提供商。"
         )
-
 
     //旅行社筛选框bg----------------------------------------------------------------------------------------------------------------
     var windowwidth = window.innerWidth;
@@ -184,7 +176,7 @@
     var funcallback2 = function (_responseche) {
         $(".title").empty().append(mylineCategoryName + "<div>共" + _responseche + "条</div>");
     }
-    filtbydaysev.filtfunc($http, $scope, "|", my2data, funcallback2);
+    filtbydaysev.filtfunc($http, $scope, "|", "|", my2data, funcallback2);
     //天数筛选框ed----------------------------------------------------------------------------------------------------------------
 
     $scope.listent = function () {

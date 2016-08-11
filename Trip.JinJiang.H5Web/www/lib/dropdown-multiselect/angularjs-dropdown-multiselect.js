@@ -2,7 +2,7 @@
 
 var directiveModule = angular.module('angularjs-dropdown-multiselect', []);
 
-directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$compile', '$parse', 'filtbydaysev', '$http','$ionicScrollDelegate',
+directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$compile', '$parse', 'filtbydaysev', '$http', '$ionicScrollDelegate',
     function ($filter, $document, $compile, $parse, filtbydaysev, $http, $ionicScrollDelegate) {
 
         return {
@@ -73,19 +73,22 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                         $ionicScrollDelegate.scrollTop();
                         $(".title").empty().append($scope.$parent.mylineCategoryName + "<div>共" + _responseche + "条</div>");
                     }
+                    //为了要取他们的并集,需要两个赋值参数到父亲作用域.
                     if ($attrs.buttontext == "旅行社") {
-                        var days = "|";
+                        if ($scope.$parent.pagences) $scope.$parent.pagences = "|";
+                        if (!$scope.$parent.pdays) $scope.$parent.pdays = "|";
                         for (var i = 0; i < $scope.$parent.example1model0.length; i++) {
-                            days += $scope.$parent.example1model0[i].id + '|';
+                            $scope.$parent.pagences += $scope.$parent.example1model0[i].id + '|';
                         }
-                        filtbydaysev.filtfunc($http, $scope.$parent, days, $scope.$parent.my2data, funcallback,"ag");
+                        filtbydaysev.filtfunc($http, $scope.$parent, $scope.$parent.pdays, $scope.$parent.pagences, $scope.$parent.my2data, funcallback, "ag");
                     }
                     else if ($attrs.buttontext == "天数") {
-                        var days = "|";
+                        if ($scope.$parent.pdays) $scope.$parent.pdays = "|";
+                        if (!$scope.$parent.pagences) $scope.$parent.pagences = "|";
                         for (var i = 0; i < $scope.$parent.example1model.length; i++) {
-                            days += $scope.$parent.example1model[i].id + '|';
+                            $scope.$parent.pdays += $scope.$parent.example1model[i].id + '|';
                         }
-                        filtbydaysev.filtfunc($http, $scope.$parent, days, $scope.$parent.my2data, funcallback,"day");
+                        filtbydaysev.filtfunc($http, $scope.$parent, $scope.$parent.pdays, $scope.$parent.pagences, $scope.$parent.my2data, funcallback, "day");
                     }
                 }
 
@@ -259,7 +262,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                 };
 
                 $scope.deselectAll = function (sendEvent) {
-                    if (sendEvent==undefined) {
+                    if (sendEvent == undefined) {
                         $scope.topChecked = false;
                     }
                     sendEvent = sendEvent || true;
