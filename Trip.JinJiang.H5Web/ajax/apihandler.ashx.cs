@@ -72,7 +72,15 @@ namespace Trip.JinJiang.H5Web.ajax
             catch (Exception e)
             {
             }
-            HttpContext.Current.Response.Write(JJH5Api.getlinesByCategory(lineCategory, businessCategory));
+            string keyWord = "";
+            try
+            {
+                keyWord = (HttpContext.Current.Request["keyWord"]).ToString();
+            }
+            catch (Exception e)
+            {
+            }
+            HttpContext.Current.Response.Write(JJH5Api.getlinesByCategory(lineCategory, businessCategory, keyWord));
         }
 
         /// <summary>

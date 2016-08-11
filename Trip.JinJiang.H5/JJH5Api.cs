@@ -63,7 +63,7 @@ namespace Trip.JinJiang.H5
                 select a.lineId,b.lineCategory from tbl_recommend a inner join tbl_lineCategory b on a.lineCategory=b.categoryName  where b.lineCategory='" + category + "'";
             DataSet ds = DbHelperSQL.Query(str);
             string json = ConvertJson.DataTable2Array(ds.Tables[0]);
-            json = "{\"rows\":" + json.Replace("'", "\"") + "}";
+            json = "{\"lines\":" + json.Replace("'", "\"") + "}";
             return json;
         }
         /// <summary>
@@ -76,24 +76,29 @@ namespace Trip.JinJiang.H5
                 select a.lineId,b.lineCategory from tbl_recommend a inner join tbl_lineCategory b on a.lineCategory=b.categoryName  where b.lineCategory='" + category + "'";
             DataSet ds = DbHelperSQL.Query(str);
             string json = ConvertJson.DataTable2Array(ds.Tables[0]);
-            json = "{\"rows\":" + json.Replace("'", "\"") + "}";
+            json = "{\"lines\":" + json.Replace("'", "\"") + "}";
             return json;
         }
 
         /// <summary>
         /// 查询路线
         /// </summary>
-        public static string getlinesByCategory(string lineCategory,string businessCategory)
+        public static string getlinesByCategory(string lineCategory, string businessCategory, string keyWord)
         {
             string data = "{\"page\":{\"endRow\":10,\"page\":1,\"records\":0,\"rows\":9999,\"search\":false,\"startRow\":1,\"total\":1}}";
-            if (lineCategory != "") {
-                data = data.Substring(0, data.Length-1) + ",\"lineCategory\":\"" + lineCategory.ToUpper() + "\"}";
+            if (lineCategory != "" && lineCategory != "undefined")
+            {
+                data = data.Substring(0, data.Length - 1) + ",\"lineCategory\":\"" + lineCategory.ToUpper() + "\"}";
             }
-            if (businessCategory != "")
+            if (businessCategory != "" && businessCategory != "undefined")
             {
                 data = data.Substring(0, data.Length - 1) + ",\"businessCategory\":\"" + businessCategory.ToUpper() + "\"}";
             }
-            
+            if (keyWord != "" && keyWord != "undefined")
+            {
+                data = data.Substring(0, data.Length - 1) + ",\"keyWord\":\"" + keyWord + "\"}";
+            }
+
             //先获取所有的线路,再与本地数据库做关联
             var response = HttpUtil.Post(data, urllinesearch, contentType: "application/json");
 
@@ -436,7 +441,7 @@ namespace Trip.JinJiang.H5
             string str = "select * from tbl_lineLists where lineDistrict in('上海','江苏','浙江','安徽','江西') and days<=3";
             DataSet ds = DbHelperSQL.Query(str);
             string json = ConvertJson.DataTable2Array(ds.Tables[0]);
-            json = "{\"rows\":" + json.Replace("'", "\"") + "}";
+            json = "{\"lines\":" + json.Replace("'", "\"") + "}";
             return json;
         }
         /// <summary>

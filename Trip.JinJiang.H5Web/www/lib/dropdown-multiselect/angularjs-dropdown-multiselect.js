@@ -68,9 +68,10 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                 };
 
                 $scope.clickSure = function () {
-                    var funcallback = function () {
+                    var funcallback = function (_responseche) {
                         $scope.open = !$scope.open;
                         $ionicScrollDelegate.scrollTop();
+                        $(".title").empty().append($scope.$parent.mylineCategoryName + "<div>共" + _responseche + "条</div>");
                     }
                     if ($attrs.buttontext == "旅行社") {
                         var days = "|";

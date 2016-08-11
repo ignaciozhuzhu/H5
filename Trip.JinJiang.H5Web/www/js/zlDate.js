@@ -316,12 +316,11 @@ var commonUtil = {
                     $('.indexdate .bottombutton').css('background-color', '#3399ff');
                     $("#sp01").css('display', 'block');
                     $("#sp02").css('display', 'block');
-                    var cprice;
+                    var cprice=0;
                     for (var j = 0; j < d.prices.length; j++) {
                         if (d.prices[j].offerType == '儿童价') {
                             cprice = d.prices[j].salePrice;// getCurrentPrice(d.prices[j].salePrice, d.prices[j].vipPrice);
                         }
-                        else cprice = 0;
                     }
                     if (cprice > 0)
                         $('#priceperc').empty().append(cprice + '/人');

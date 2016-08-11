@@ -48,7 +48,7 @@
 
 
 //线路列表控制器,从搜索进来
-.controller('LinelistsCtrl', function ($scope, $http) {
+.controller('LinelistsCtrl', function ($scope, $http, filtbydaysev) {
     followfunc();
     var searchParam = decodeURI(getpbyurl2(1));  // request("search"); // 
     var nghttp = "../../ajax/apihandler.ashx?fn=getlines";
@@ -84,8 +84,41 @@
         $scope.agencies = response.agencies;
 
     });
+
+    var my2data = { fn: "getlinesbycategory", keyWord: searchParam };
+    $scope.my2data = my2data;
+    //旅行社筛选框bg----------------------------------------------------------------------------------------------------------------
+    var windowwidth = window.innerWidth;
+    var windowwidthscrooldown = windowwidth / 3 * 2;
+    $(".dropdown-menu, .dropdown-menu-form").eq(0).css({ left: -windowwidthscrooldown / 2, width: windowwidth });
+    $(".dropdown-toggle").css({ width: windowwidthscrooldown / 2 });
+
+    $scope.example1data0 = new Array();
+    $scope.example1model0 = new Array();
+    var funcallback = function (_responseche) {
+        for (var i = 0; i < _responseche.length; i++) {
+            $scope.example1data0[i] = { id: _responseche[i].name, label: _responseche[i].name };
+        }
+    }
+    filtbydaysev.getagencies($http, $scope, funcallback, my2data);
+    //旅行社筛选框ed----------------------------------------------------------------------------------------------------------------
+
+    //天数筛选框bg----------------------------------------------------------------------------------------------------------------
+    $(".dropdown-menu, .dropdown-menu-form").eq(1).css({ left: -windowwidthscrooldown, width: windowwidth });
+
+    $scope.example1data = new Array();
+    $scope.example1model = new Array();
+    var funcallback = function (_responseche) {
+        for (var i = 0; i < _responseche.length; i++) {
+            $scope.example1data[i] = { id: _responseche[i].name, label: _responseche[i].name + "天" };
+        }
+    }
+    filtbydaysev.getdays($http, $scope, funcallback, my2data);
+
+    //filtbydaysev.filtfunc($http, $scope, "|", my2data, "");
+    //天数筛选框ed----------------------------------------------------------------------------------------------------------------
+
     $scope.listent = function () {
-        // debugger
         setCookie('ent2detail', 'search=' + searchParam + '', 1);
     }
 
@@ -108,6 +141,7 @@
     }
     $scope.my2data = my2data;
     var mylineCategoryName = replaceCategory(lineCategory);
+    $scope.mylineCategoryName = mylineCategoryName;
     $(".title").empty().append(mylineCategoryName);
 
 
@@ -133,8 +167,6 @@
         }
     }
     filtbydaysev.getagencies($http, $scope, funcallback, my2data);
-
-    //filtbydaysev.filtfunc($http, $scope, "|", my2data);
     //旅行社筛选框ed----------------------------------------------------------------------------------------------------------------
 
     //天数筛选框bg----------------------------------------------------------------------------------------------------------------
@@ -149,7 +181,10 @@
     }
     filtbydaysev.getdays($http, $scope, funcallback, my2data);
 
-    filtbydaysev.filtfunc($http, $scope, "|", my2data,"");
+    var funcallback2 = function (_responseche) {
+        $(".title").empty().append(mylineCategoryName + "<div>共" + _responseche + "条</div>");
+    }
+    filtbydaysev.filtfunc($http, $scope, "|", my2data, funcallback2);
     //天数筛选框ed----------------------------------------------------------------------------------------------------------------
 
     $scope.listent = function () {
@@ -334,9 +369,9 @@
                 else {
                     urls = "#/app/linedetail/" + response.ds[i].lineId;
                 }
-                $('#full-width-slider').append('<div class="rsContent"><a href="' + urls + '"><img class="rsImg" src=' + response.ds[i].imgUrl + ' /></a></div>');
+                $('.indexion #full-width-slider').append('<div class="rsContent"><a href="' + urls + '"><img class="rsImg" src=' + response.ds[i].imgUrl + ' /></a></div>');
             }
-            $('#full-width-slider').royalSlider({
+            $('.indexion #full-width-slider').royalSlider({
                 arrowsNav: true,
                 loop: false,
                 keyboardNavEnabled: true,
@@ -393,7 +428,7 @@
     $scope.historygoback = function () {
         var ent2detail = getCookie('ent2detail');
         if (ent2detail.indexOf("search=") > -1) {
-            window.location.href = "#/app/linelists?" + ent2detail + "";
+            window.location.href = "#/app/linelists#" + ent2detail + "";
             location.reload();
         }
         else if (ent2detail != "index") {
@@ -598,11 +633,11 @@
             else {
                 for (var i = 0; i < response.line.images.length ; i++) {
                     var abc = response.line.images[i].url.substr(0, response.line.images[i].url.length - 14) + "/1/interlace/1/w/440/h/230";
-                    $('#full-width-slider').append('<div class="rsContent"><img class="rsImg" src=' + abc + ' /></div>');
+                    $('.linedetail #full-width-slider').append('<div class="rsContent"><img class="rsImg" src=' + abc + ' /></div>');
                 }
             }
 
-            $('#full-width-slider').royalSlider({
+            $('.linedetail #full-width-slider').royalSlider({
                 arrowsNav: true,
                 loop: false,
                 keyboardNavEnabled: true,
@@ -653,17 +688,20 @@
             intoCalendarTime();
 
             //var nummaxa = (totnum > 10 ? 10 : totnum), nummaxb = (totnum > 10 ? 10 : totnum);
-            $('.spinner').spinner({ max: 10 });
-            $('.spinner2').spinner2({ max: 10 });
+            $('.spinnerad').myspinner({ max: 10, min: 1 });
+            $('.spinnercd').myspinner({ max: 10 });
+
             adn = 1;
             crn = 0;
-            $("#sp01").click(function () {
+            $(".indexdate #sp01").click(function () {
                 adn = this.children[0].children[1].value;
                 $('#nextpick').attr('href', nextpickhref + '/' + adn + '/' + crn);
+                maxpassenger(".indexdate #sp01", ".indexdate #sp02", adn, crn, 10);
             });
-            $("#sp02").click(function () {
+            $(".indexdate #sp02").click(function () {
                 crn = this.children[0].children[1].value;
                 $('#nextpick').attr('href', nextpickhref + '/' + adn + '/' + crn);
+                maxpassenger(".indexdate #sp01", ".indexdate #sp02", adn, crn, 10);
             });
             function intoCalendarTime() {
                 var mindate = "2018-01-01";
@@ -739,7 +777,7 @@
         $('#groupdatebox').css("width", "50%");
     }
     $('#secureamount').empty().append('0');
-    $('.spinner3').spinner3({ max: parseInt(cnum) + parseInt(pnum) });
+    $('.spinnerdif').myspinner({ max: parseInt(cnum) + parseInt(pnum)});
     var amount = 0;
     var secureamount = 0;
 
@@ -981,9 +1019,7 @@
         var discountAmount = Math.floor(salePrice * (1 - Discount)) * pnum;//+ Math.floor(childPrice * (1 - Discount)) * cnum;
 
         //动态成人数.
-        //debugger
         var mcMemberCode = getCookie('mcMemberCode');
-        //debugger
         var strcopyroom = "";
         if (roomdiff > 0) {
             strcopyroom += ",{ \"copies\": " + roomdiff + ", \"discountAmount\": 0, \"priceId\": " + roomdifPriceid + ", \"singlePrice\": " + roomdifPrice + " }"
@@ -1001,7 +1037,6 @@
             url: "../../ajax/apihandler.ashx?fn=createorder&json=" + json + "",
             type: "post",
             success: function (text) {
-                //debugger
                 layer.close(mylayeruiwait);
                 var errormsg = finderrorMsgadmin(text);
                 if (errormsg) {
@@ -1013,7 +1048,6 @@
                         setCookie('groupid', groupid, 1);
                         setCookie('secureamount', secureamount, 1);
                         //将跳回支付该产品的cookie
-                        //debugger
                         setCookie('linkbackpay', 'true', 1);
                         //跳转至登录页
                         window.location.href = '#/app/user/login';
@@ -1030,7 +1064,6 @@
                 }
                 //$.unblockUI();
                 var d = eval("(" + text + ")");
-                //debugger
                 setCookie('orderNo', d.orderNo, 1);
                 amount = amount - discountAmount;
                 window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
