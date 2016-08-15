@@ -1,0 +1,114 @@
+﻿<ion-view hide-nav-bar="true">
+</ion-view>
+<style>
+    .mypoints .scroll {
+        height: 100%;
+    }
+
+    .mypoints .flexwhitebox {
+        height: 25%;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #cfcecd;
+    }
+
+        .mypoints .flexwhitebox .linearground {
+            color: white;
+            font-size: 32px;
+            height: 70%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 8px;
+        }
+
+            .mypoints .flexwhitebox .linearground.blue {
+                background: -webkit-linear-gradient(#4fa0ff, #afd4ff); /* Safari 5.1 - 6.0 */
+                background: -o-linear-gradient(#4fa0ff, #afd4ff); /* Opera 11.1 - 12.0 */
+                background: -moz-linear-gradient(#4fa0ff, #afd4ff); /* Firefox 3.6 - 15 */
+                background: linear-gradient(#4fa0ff, #afd4ff); /* 标准的语法 */
+            }
+
+            .mypoints .flexwhitebox .linearground.green {
+                background: -webkit-linear-gradient(#25b4a9, #9afaf2); /* Safari 5.1 - 6.0 */
+                background: -o-linear-gradient(#25b4a9, #9afaf2); /* Opera 11.1 - 12.0 */
+                background: -moz-linear-gradient(#25b4a9, #9afaf2); /* Firefox 3.6 - 15 */
+                background: linear-gradient(#25b4a9, #9afaf2); /* 标准的语法 */
+            }
+
+            .mypoints .flexwhitebox .linearground.red {
+                background: -webkit-linear-gradient(#f96925, #fbb99b); /* Safari 5.1 - 6.0 */
+                background: -o-linear-gradient(#f96925, #fbb99b); /* Opera 11.1 - 12.0 */
+                background: -moz-linear-gradient(#f96925, #fbb99b); /* Firefox 3.6 - 15 */
+                background: linear-gradient(#f96925, #fbb99b); /* 标准的语法 */
+            }
+
+            .mypoints .flexwhitebox .linearground .num {
+                border-radius: 50%;
+                border: 1px solid white;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .mypoints .flexwhitebox .linearground .font {
+                font-size: 18px;
+                margin-left: 10%;
+                width: 40%;
+            }
+
+    .mypoints .helps {
+        text-align: center;
+        margin: 3% 0;
+        text-decoration: underline;
+    }
+</style>
+<ion-view>
+    <ion-header-bar class="mypointsh">
+        <!--我来组成头部bg-->
+        <div class="bar bar-header bar-stable">
+            <a class="headleftback" href="#/app/user/myinfo">
+                <div class="button back-button">
+                    <img src="img/返回.png">
+                </div>
+            </a>
+            <div class="myheadtitle">我的积分</div>
+        </div>
+        <!--我来组成头部ed-->
+    </ion-header-bar>
+    <ion-content class="mypoints">
+        <div style="height:100%">
+
+            <div class="flexwhitebox">
+                <div class="linearground blue">
+                    <div class="num">1</div>
+                    <div class="font">积分剩余</div>
+                    <div>1000</div>
+                </div>
+            </div>
+
+            <div class="flexwhitebox">
+                <div class="linearground green">
+                    <div class="num">2</div>
+                    <div class="font">可用积分</div>
+                    <div>1000</div>
+                </div>
+            </div>
+
+            <div class="flexwhitebox">
+                <div class="linearground red">
+                    <div style="" class="num">3</div>
+                    <div class="font">不可用积分</div>
+                    <div style="width:20%;float:right">0</div>
+                </div>
+            </div>
+
+            <div class="helps" ng-click="seehelp()">使用帮助</div>
+        </div>
+    </ion-content>
+</ion-view>

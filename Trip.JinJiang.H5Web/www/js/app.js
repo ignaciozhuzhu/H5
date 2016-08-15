@@ -179,6 +179,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
                 }
             }
         })
+        //我的积分
+        .state('app.mypoints', {
+            //cache: false,
+            url: '/user/mypoints',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/user/mypoints.html',
+                    controller: 'mypointsCtrl'
+                }
+            }
+        })
         //订单详情
         .state('app.orderdetail', {
             url: '/user/orderdetail/:ordercode',

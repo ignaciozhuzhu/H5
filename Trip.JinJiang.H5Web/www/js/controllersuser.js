@@ -642,7 +642,7 @@
                 return;
             }
         })
-        
+
     })
 
     var accountName = 'JJE_APP_CLIENT_ALI_WAP_PAY';
@@ -700,6 +700,17 @@
         }
     }
 
+    $scope.seemypoints = function () {
+        var ckmcMemberCode = getCookie('mcMemberCode');
+        if (ckmcMemberCode == "" || ckmcMemberCode == undefined || ckmcMemberCode == null) {
+            layermyui('请先登录');
+            return;
+        }
+        else {
+            window.location.href = '#/app/user/mypoints';
+        }
+    }
+
     //注销
     $scope.zx = function () {
         var ckmcMemberCode = getCookie('mcMemberCode');
@@ -720,6 +731,17 @@
         }
         else {
             window.location.href = '#/app/user/login';
+        }
+    }
+
+    $scope.seemypoints = function () {
+        var ckmcMemberCode = getCookie('mcMemberCode');
+        if (ckmcMemberCode == "" || ckmcMemberCode == undefined || ckmcMemberCode == null) {
+            layermyui('请先登录');
+            return;
+        }
+        else {
+            window.location.href = '#/app/user/mypoints';
         }
     }
 
@@ -848,6 +870,30 @@
                 return;
             }
         })
+    }
+
+})
+
+
+//我的积分
+.controller('mypointsCtrl', function ($scope, $http) {
+    nofollowfunc();
+    var Membercode = getCookie('mcMemberCode');
+    var nghttp = "../../ajax/userHandler.ashx?fn=getmemberscoreinfo&Membercode=" + Membercode + "";
+    var mylayeruiwait = layer.load(1, {
+        shade: [0.5, '#ababab'] //0.1透明度的白色背景
+    });
+    $http.get(nghttp).success(function (response) {
+        find404admin(response);
+        layer.close(mylayeruiwait);
+        var x2js = new X2JS();
+        var xmlText = response;
+        var jsonObj = x2js.xml_str2json(xmlText);
+        $scope.memberinfo = jsonObj.memberScoreLevelInfoDto;
+    })
+
+    $scope.seehelp = function () {
+        layer.alert('We R family!', { icon: 6 });
     }
 
 })

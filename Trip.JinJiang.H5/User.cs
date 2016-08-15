@@ -33,6 +33,9 @@ namespace Trip.JinJiang.H5
         private static string urlcancelorder = jjh5Bserver + "/travel/order/cancel";    //取消订单接口
 
         private static string urlcheckValidateCode = userserver + "/vbp/validateCode/verifyValidateCode"; //核对验证短信码
+        
+        //以下 积分,优惠券
+        private static string urlMemberScoreInfo = userserver + "/vbp/score/getMemberScoreInfo/"; //查看积分接口
 
         //注册2(完整注册)
         public static string regist(string xml)
@@ -162,10 +165,22 @@ namespace Trip.JinJiang.H5
             return response;
         }
 
+        //以下 积分,优惠券-----------------------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// 查看个人积分
+        /// </summary>
+        public static string getMemberScoreInfo(string Membercode)
+        {
+            var response = HttpUtil.Get(urlMemberScoreInfo + Membercode);
+            return response;
+        }
+
     }
 
 
 }
+
 
 
 //public static string forgetmodifypwd(string validateCode, string loginName, string fullName, string md5, string sha1)

@@ -485,7 +485,10 @@
             // setTimeout(function () {  }, 500);
             return;
         }
+
         $scope.linedetails = response.line;
+        //debugger
+        $scope.travelAgency = response.line.travelAgency;
         var titlename = response.line.name;
         //tdk seo
         tkdfunc(

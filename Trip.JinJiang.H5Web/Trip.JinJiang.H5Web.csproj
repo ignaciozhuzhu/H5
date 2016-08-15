@@ -1069,6 +1069,7 @@
     <Content Include="www\demos\down.html" />
     <Content Include="www\demos\extend.html" />
     <Content Include="www\demos\localdb.html" />
+    <Content Include="www\images\error.jpg" />
     <Content Include="www\images\1.jpg" />
     <Content Include="www\images\2.jpg" />
     <Content Include="www\images\3.jpg" />
@@ -1130,10 +1131,12 @@
     <Content Include="www\img\轮船游.png" />
     <Content Include="www\img\返回.png" />
     <Content Include="www\img\xzzf.png" />
+    <Content Include="www\img\选中.png" />
     <Content Include="www\img\锦江旅游图标.jpg" />
     <Content Include="www\img\锯齿划线.png" />
     <Content Include="www\js\angular-1.4.6.min.js" />
     <Content Include="www\js\controllersuser.js" />
+    <Content Include="www\js\directive.js" />
     <Content Include="www\js\jquery-1.8.3.min.js" />
     <Content Include="www\js\jquery.royalslider.min.js" />
     <Content Include="modules\.jshintrc" />
@@ -1334,6 +1337,7 @@
     <Content Include="www\templates\siteflow\om_code.js" />
     <Content Include="www\templates\tdk\tdkdemo.html" />
     <Content Include="www\templates\user\myinfo.html" />
+    <Content Include="www\templates\user\mypoints.html" />
     <Content Include="www\templates\user\orderdetail.html" />
     <Content Include="www\templates\user\myorder.html" />
     <Content Include="www\templates\user\forgetpwd.html" />

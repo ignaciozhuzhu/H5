@@ -132,6 +132,25 @@ namespace Trip.JinJiang.H5Web.ajax
             HttpContext.Current.Response.Write(User.checkvalidatecode4reg(phone, validate));
         }
 
+
+
+        //以下 积分,优惠券-----------------------------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// 查看个人积分
+        /// </summary>
+        public void getmemberscoreinfo()
+        {
+            try
+            {
+                string Membercode = HttpContext.Current.Request["Membercode"];
+                HttpContext.Current.Response.Write(User.getMemberScoreInfo(Membercode));
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
         public bool IsReusable
         {
             get
