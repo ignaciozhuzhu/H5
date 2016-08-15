@@ -57,10 +57,15 @@
         window.location.href = "#/app/index";
         //  location.reload();
 
-        $('#divcontent').hide();
-        $('#bartitle').hide();
-        $('#divdesselect').show();
-        $(".title").empty().append("线路搜索");
+        setTimeout(function () {
+            $('#indexheadback').show();
+            $('#divcontent').hide();
+            $('#bartitle').hide();
+            $('#divdesselect').show();
+            if ($("h1.title div").length > 0) { }
+            else
+                $("h1.title").empty().append("线路搜索");
+        }, 500)
     }
 
     //tdk seo
@@ -79,6 +84,7 @@
     var windowwidth = window.innerWidth;
     var windowwidthscrooldown = windowwidth / 3 * 2;
     $(".dropdown-menu, .dropdown-menu-form").eq(0).css({ left: -windowwidthscrooldown / 2, width: windowwidth });
+    $(".dropdown-menu, .dropdown-menu-form").eq(2).css({ left: -windowwidthscrooldown / 2, width: windowwidth });
     $(".dropdown-toggle").css({ width: windowwidthscrooldown / 2 });
 
     $scope.example1data0 = new Array();
@@ -93,6 +99,7 @@
 
     //天数筛选框bg----------------------------------------------------------------------------------------------------------------
     $(".dropdown-menu, .dropdown-menu-form").eq(1).css({ left: -windowwidthscrooldown, width: windowwidth });
+    $(".dropdown-menu, .dropdown-menu-form").eq(3).css({ left: -windowwidthscrooldown / 2, width: windowwidth });
 
     $scope.example1data = new Array();
     $scope.example1model = new Array();
@@ -151,6 +158,7 @@
     var windowwidth = window.innerWidth;
     var windowwidthscrooldown = windowwidth / 3 * 2;
     $(".dropdown-menu, .dropdown-menu-form").eq(0).css({ left: -windowwidthscrooldown / 2, width: windowwidth });
+    $(".dropdown-menu, .dropdown-menu-form").eq(2).css({ left: -windowwidthscrooldown / 2, width: windowwidth });
     $(".dropdown-toggle").css({ width: windowwidthscrooldown / 2 });
 
     $scope.example1data0 = new Array();
@@ -165,6 +173,7 @@
 
     //天数筛选框bg----------------------------------------------------------------------------------------------------------------
     $(".dropdown-menu, .dropdown-menu-form").eq(1).css({ left: -windowwidthscrooldown, width: windowwidth });
+    $(".dropdown-menu, .dropdown-menu-form").eq(3).css({ left: -windowwidthscrooldown, width: windowwidth });
 
     $scope.example1data = new Array();
     $scope.example1model = new Array();
@@ -191,12 +200,18 @@
     //这是右边的回到搜索界面按钮
     $(".linelistback").css("display", "block");
     $scope.listhistorygoback2 = function () {
+        // debugger
         window.location.href = "#/app/index";
 
-        $('#divcontent').hide();
-        $('#bartitle').hide();
-        $('#divdesselect').show();
-        $(".title").empty().append("线路搜索");
+        setTimeout(function () {
+            $('#indexheadback').show();
+            $('#divcontent').hide();
+            $('#bartitle').hide();
+            $('#divdesselect').show();
+            if ($("h1.title div").length > 0) { }
+            else
+                $("h1.title").empty().append("线路搜索");
+        }, 500)
     }
 
     $scope.change1 = function (x) {
@@ -210,6 +225,7 @@
 
 //主页控制器
 .controller('indexCtrl', function ($scope, $http, $ionicScrollDelegate) {
+    // $("h1.title").empty().append("锦江2旅游");
     followfunc();
     tkdfunc(
         "锦江旅游度假_旅行社旅游线路_旅游景点攻略-锦江旅游",
@@ -781,7 +797,7 @@
         $('#groupdatebox').css("width", "50%");
     }
     $('#secureamount').empty().append('0');
-    $('.spinnerdif').myspinner({ max: parseInt(cnum) + parseInt(pnum)});
+    $('.spinnerdif').myspinner({ max: parseInt(cnum) + parseInt(pnum) });
     var amount = 0;
     var secureamount = 0;
 

@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersuser', 'starter.service', 'angularjs-dropdown-multiselect'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersuser', 'starter.service', 'starter.directive', 'angularjs-dropdown-multiselect'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -58,7 +58,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
       })
         //主页------------------------------------------------
       .state('app.index', {
-          //cache: false,
+          cache: false,
           url: '/index',
           views: {
               'menuContent': {

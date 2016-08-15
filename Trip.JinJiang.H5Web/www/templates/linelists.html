@@ -9,10 +9,10 @@
     .bar .title {
     height:auto
     }
-    h1.title {
+   .linelistboxall h1.title {
         margin-top: -10px !important;
     }
-    h1.title div {
+   .linelistboxall h1.title div {
        margin-top:-25px;font-size:12px
     }
 
@@ -118,7 +118,7 @@
 </style>
 <ion-view hide-nav-bar="true">
 </ion-view>
-<ion-view view-title="线路选择">
+<ion-view view-title="线路选择" class="linelistboxall">
     <!--我来组成头部bg-->
     <div class="bar bar-header bar-stable">
         <a class="headleftback" ng-click="listhistorygoback()">
@@ -128,7 +128,7 @@
         </a>
         <a class="headleftback linelistback" ng-click="listhistorygoback2()" style= "width:100%;float:right !important">
             <div class="button back-button" style="width:40px;float:right">
-                <img src="img/放大镜r.png">
+                <img src="img/放大镜.png">
             </div>
         </a>
         <h1 class="title">线路选择</h1>

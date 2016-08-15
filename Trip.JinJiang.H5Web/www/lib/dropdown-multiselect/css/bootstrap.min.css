@@ -2508,7 +2508,7 @@ input[type=submit].btn-block, input[type=reset].btn-block, input[type=button].bt
 .glyphicon-ok:before {
     /*content: "\e013"*/
     /*content:"√"*/
-    content: url(/www/img/xzzf.png);
+    content: url(/www/img/选中.png);
     margin-top:-40%;
 }
 

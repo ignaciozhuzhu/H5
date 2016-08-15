@@ -9,11 +9,22 @@
     .bar-stable .title {
     left:0 !important
     }
+   .indexboxall h1.title {
+        /*margin-top: -40px !important;*/
+        font-size:17px
+    }
+    .indexboxall h1.title div {
+    display:none;
+    }
+
+    /*.indexboxall h1.title:after {
+    content:"bb"
+    }*/
 </style>
 <ion-view hide-nav-bar="true">
 </ion-view>
 
-<ion-view view-title="锦江旅游">
+<ion-view view-title="锦江旅游" class="indexboxall">
     <div class="indexion" >
 
         <ion-header-bar>
@@ -256,7 +267,7 @@
             </div>
             <div>
                 <div class="linecatebox">
-                    <div class="linecategorys" ng-repeat="x in linecategorys"><div><a href="#/app/linelists/{{x.lineCategory.toLowerCase()}}"><img ng-src={{x.imgUrl}}></a></div><div>{{x.categoryName}}</div></div>
+                    <div class="linecategorys" ng-repeat="x in linecategorys"><div><a href="#/app/linelists/{{x.lineCategory.toLowerCase()}}"><img ng-src={{x.imgUrl}} err-src="images/error.jpg"></a></div><div>{{x.categoryName}}</div></div>
                 </div>
 
                 <div class="categorys2" ng-repeat="x2 in linecategorys2">
@@ -270,7 +281,7 @@
                     <div class="contentpwp">
                         <div ng-repeat="boxlist in linecategorys2detail| filter:x2.lineCategory| limitTo:4 ">
                             <div class="contentpw">
-                                <a ng-click="indexent()" href="#/app/linedetail/{{boxlist.lineId}}"><img class="contentimg" ng-src="{{boxlist.imgUrl}}" /></a>
+                                <a ng-click="indexent()" href="#/app/linedetail/{{boxlist.lineId}}"><img class="contentimg" ng-src="{{boxlist.imgUrl}}" err-src="images/error.jpg" /></a>
                                 <div class="contentboxdiv">
                                     {{ boxlist.lineTitle.length > 20 ? boxlist.lineTitle.substring(0,19)+'...':boxlist.lineTitle}}
                                 </div>
