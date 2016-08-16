@@ -23,6 +23,7 @@
     .linedetail .padding5px {
         padding: 5px;
     }
+
     .linedetail .padding10px {
         padding: 10px;
     }
@@ -51,6 +52,12 @@
     .linedetail .thirdCenter {
         float: left;
         width: 33%;
+        text-align: center;
+    }
+
+    .linedetail .forthCenter {
+        float: left;
+        width: 25%;
         text-align: center;
     }
 
@@ -172,13 +179,56 @@
     }
 
     .linedetail .paycoupdiv {
-        margin-left: 5%;
+        margin-left: 3%;
         margin-top: 2.5px;
         float: left;
     }
 
         .linedetail .paycoupdiv span {
             color: #cc926d;
+        }
+
+    .linedetail .floatleft {
+        float: left;
+    }
+
+    .linedetail .lineheight25 {
+        line-height: 25px;
+    }
+
+    .linedetail .overhidden {
+        overflow: hidden;
+    }
+
+    .linedetail .visalileft {
+        width: 30%;
+        float: left;
+        color: #a3a3a3;
+    }
+
+    .linedetail .font13 {
+        font-size: 13px;
+    }
+
+    .linedetail .visaselect {
+        width: 20%;
+        float: left;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-pack: center;
+        -moz-justify-content: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        align-items: center;
+        -webkit-box-align: center;
+        height: 30px;
+        background-color: #d3f2ff;
+        margin: 0 2%;
+    }
+
+        .linedetail .visaselect.selected {
+            background-color: #028ec8;
+            color: white;
         }
 </style>
 <ion-view hide-nav-bar="true">
@@ -215,14 +265,17 @@
                 </div>
             </div>-->
 
-            <div class="mylinedetailbox" style="overflow:hidden">
-                <div class="padding5px" style="background-image:url(img/黄五角.png);background-repeat: no-repeat; background-color:#faf3ed;height:35px">
-                    <div style="width:10%;height:100%;float:left"></div>
-                    <div class="paycoupdiv">
-                        <img src="img/粉勾.png"><span>在线支付9.8折</span>
+            <div class="mylinedetailbox overhidden">
+                <div class="padding5px" style="background-color:#faf3ed;height:35px">
+                    <!--<div style="width:10%;height:100%;float:left"></div>-->
+                    <div style="float:left;margin-left: 2%;">
+                        <img src="img/星星.png" style="height:24px">
                     </div>
-                    <div class="paycoupdiv">
-                        <img src="img/粉勾.png"><span>可用积分兑换</span>
+                    <div class="paycoupdiv ifpay">
+                        <img src="img/勾.png" style="height:16px"><span>在线支付9.8折</span>
+                    </div>
+                    <div class="paycoupdiv ifcoup">
+                        <img src="img/勾.png" style="height:16px"><span>可用积分兑换</span>
                     </div>
                 </div>
                 <div class="height_1px"></div>
@@ -240,9 +293,9 @@
                         </div>
                     </div>
                 </div>
-                <div style="background-color:#f9fafc">
+                <div class="ifcoup" style="background-color:#f9fafc">
                     <div class="padding5px">
-                        <img src="img/钻石.png"><span style="margin-left:2%;vertical-align:top">积分兑换 : <span style="color:#d19c79;vertical-align:inherit">49000</span> 分起</span>
+                        <img src="img/积分.png" style="height: 16px;"><span style="margin-left:2%;vertical-align:top">积分兑换 : <span style="color:#d19c79;vertical-align:inherit">{{spprice}}</span> 分起</span>
                     </div>
                 </div>
                 <div class="height_1px"></div>
@@ -272,51 +325,88 @@
                 <div class="height_1px"></div>
                 <div class="height_5px"></div>
                 <div class="padding5px" style="height:38px;line-height:28px">
-                    <div class="thirdCenter smallcontent2 tunbl1" ng-click="lineCl()">
+                    <div class="forthCenter smallcontent2 tunbl1" ng-click="lineCl()">
                         行程介绍
                     </div>
-                    <div class="thirdCenter smallcontent2 tunbl2" ng-click="featureCl()">
+                    <div class="forthCenter smallcontent2 tunbl2" ng-click="featureCl()">
                         行程特色
                     </div>
-                    <div class="thirdCenter smallcontent2 tunbl3" ng-click="expenseCl()">
+                    <div class="forthCenter smallcontent2 tunbl3" ng-click="expenseCl()">
                         费用详情
                     </div>
-
-                </div>
-                <div class="height_1px thirdCenter tunbl4"></div>
-                <div class="height_1px thirdCenter tunbl5"></div>
-                <div class="height_1px thirdCenter tunbl6"></div>
-
-                <div class="padding5px idline" id="idline" style="overflow:hidden">
-                    <div class="smalltitle">行程介绍:</div>
-                    <div class="distancetravelbox" ng-repeat="x in journeys">
-                        <div class="distancetravelboxleft"></div>
-                        <div class="distancetravelboxright">
-                            <div class="smalltitle">第{{x.dayNumber}}天:{{x.departurePlace}}-{{x.destination}}</div>
-                            <div ng-repeat="xx in x.journeyDetail">
-                                <div><div class="cltypeimg"></div><span class="cltypetxt">{{xx.programType}}</span>:{{xx.programName}}</div>
-                                <div class="cltypeimg2 trip_other">
-                                </div>
-                                {{xx.programInfo}}
-                            </div>
-                        </div>
+                    <div class="forthCenter smallcontent2 tunbl4" ng-click="visaCl()">
+                        签证
                     </div>
 
                 </div>
+                <div class="height_1px forthCenter tunbl5"></div>
+                <div class="height_1px forthCenter tunbl6"></div>
+                <div class="height_1px forthCenter tunbl7"></div>
+                <div class="height_1px forthCenter tunbl8"></div>
 
-                <div class="padding5px idfeature" style="overflow:hidden">
-                    <div class="smalltitle">行程特色:</div>
-                    <div class="smallcontent3" ng-bind-html="featureContent" compile-template=compile-template></div>
-                </div>
+                <div class="detailcontentbox">
 
-                <div class="padding5px idexpense" style="overflow:hidden">
-                    <div class="smalltitle ">费用详情:</div>
+                    <div class="padding5px idline" id="idline" style="overflow:hidden">
+                        <div class="smalltitle">行程介绍:</div>
+                        <div class="distancetravelbox" ng-repeat="x in journeys">
+                            <div class="distancetravelboxleft"></div>
+                            <div class="distancetravelboxright">
+                                <div class="smalltitle">第{{x.dayNumber}}天:{{x.departurePlace}}-{{x.destination}}</div>
+                                <div ng-repeat="xx in x.journeyDetail">
+                                    <div><div class="cltypeimg"></div><span class="cltypetxt">{{xx.programType}}</span>:{{xx.programName}}</div>
+                                    <div class="cltypeimg2 trip_other">
+                                    </div>
+                                    {{xx.programInfo}}
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="smallsmtitle"><img style="height:13px" src="img/行程特色.png" /> 价格包含:</div>
-                    <div class="smallcontent3" ng-bind-html="priceIncludeContent" compile-template=compile-template></div>
+                    </div>
 
-                    <div class="smallsmtitle"><img style="height:13px" src="img/行程特色.png" />价格不包含:</div>
-                    <div class="smallcontent3" ng-bind-html="priceExclusiveContent" compile-template=compile-template></div>
+                    <div class="padding10px idfeature" style="overflow:hidden">
+                        <div class="smalltitle">行程特色:</div>
+                        <div class="smallcontent3" ng-bind-html="featureContent" compile-template=compile-template></div>
+                    </div>
+
+                    <div class="padding10px idexpense" style="overflow:hidden">
+                        <div class="smalltitle ">费用详情:</div>
+
+                        <div class="smallsmtitle"><img style="height:13px" src="img/行程特色.png" /> 价格包含:</div>
+                        <div class="smallcontent3" ng-bind-html="priceIncludeContent"></div>
+
+                        <div class="smallsmtitle"><img style="height:13px" src="img/行程特色.png" />价格不包含:</div>
+                        <div class="smallcontent3" ng-bind-html="priceExclusiveContent"></div>
+
+                        <div class="smallsmtitle"><img style="height:13px" src="img/行程特色.png" />预订须知:</div>
+                        <div class="smallcontent3" ng-bind-html="tips"></div>
+
+                    </div>
+
+                    <div class="padding10px idvisa overhidden font13">
+                        <div class="visaselect" ng-repeat="x in visas" ng-click="setVisa($event)">{{x.visaType}}</div>
+
+                        <div class="lineheight25 overhidden" style="clear:both">
+                            <div class="visalileft">签证国家：</div>
+                            <div class="floatleft">{{visaini.nation}}</div>
+                        </div>
+                        <div class="lineheight25 overhidden">
+                            <div class="visalileft">签证类型：</div>
+                            <div class="floatleft">{{visaini.visaType}}</div>
+                        </div>
+                        <div class="lineheight25 overhidden">
+                            <div class="visalileft">领区：</div>
+                            <div class="floatleft">{{visaini.issueCity}}</div>
+                        </div>
+                        <div class="lineheight25 overhidden">
+                            <div class="visalileft">办理时长：</div>
+                            <div class="floatleft">{{visaini.workTime}}</div>
+                        </div>
+                        <div style="border:dashed 1px #a3a3a3;margin:10px 0"></div>
+                        <div style="color:#a3a3a3" ng-repeat="x in visadetail">{{x.materialName}}:<span style="color:black" ng-bind-html="TrustDangerousSnippet(x.materialMemo)"></span></div>
+
+                    </div>
+
+
                 </div>
 
                 <a class="ordernow" href=""><div class="bottombutton">立即预订</div></a>

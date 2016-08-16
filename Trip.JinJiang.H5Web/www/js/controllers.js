@@ -225,7 +225,6 @@
 
 //主页控制器
 .controller('indexCtrl', function ($scope, $http, $ionicScrollDelegate) {
-    // $("h1.title").empty().append("锦江2旅游");
     followfunc();
     tkdfunc(
         "锦江旅游度假_旅行社旅游线路_旅游景点攻略-锦江旅游",
@@ -405,7 +404,10 @@
                 thumbsFitInViewport: false,
                 navigateByClick: true,
                 startSlideId: 0,
-                autoPlay: false,
+                autoPlay: {
+                    enabled: true,
+                    stopAtAction: false
+                },
                 transitionType: 'move',
                 globalCaption: true,
                 deeplinking: {
@@ -482,13 +484,51 @@
             window.location.href = "#/app/index";
             location.reload();
             layermyui('此线路暂无详细数据!', 1500);
-            // setTimeout(function () {  }, 500);
             return;
         }
-
+       // debugger
         $scope.linedetails = response.line;
-        //debugger
+        $scope.spprice = response.scoreRatio.ratio * response.minPrice;
         $scope.travelAgency = response.line.travelAgency;
+
+        if (response.ifOnlineDiscount) {
+            $(".linedetail .ifpay").css("display", "block");
+        }
+        else {
+            $(".linedetail .ifpay").css("display", "none");
+        }
+        if (response.line.payOnlineFlag) {
+            $(".linedetail .ifcoup").css("display", "block");
+        }
+        else {
+            $(".linedetail .ifcoup").css("display", "none");
+        }
+
+        //签证区域bg---------------------------------------------------------------------------------
+        if (response.visas.length > 0) {
+            $scope.visas = response.visas;
+            $scope.visaini = response.visas[0];
+            $scope.visadetail = response.visas[0].visaMateriales;
+        }
+
+        $scope.setVisa = function ($event) {
+            for (var i = 0; i < response.visas.length; i++) {
+                if (response.visas[i].visaType == $event.currentTarget.innerText) {
+                    $scope.visaini = response.visas[i];
+                    $scope.visadetail = response.visas[i].visaMateriales;
+                }
+            }
+            for (var j = 0; j < $('.visaselect').length; j++) {
+                $('.visaselect')[j].className = "visaselect";
+            }
+            $event.currentTarget.className = "visaselect selected";
+        }
+
+        $scope.TrustDangerousSnippet = function (snippet) {
+            return $sce.trustAsHtml(snippet);
+        };
+        //签证区域ed---------------------------------------------------------------------------------
+
         var titlename = response.line.name;
         //tdk seo
         tkdfunc(
@@ -510,6 +550,8 @@
             $scope.priceIncludeContent = $sce.trustAsHtml(response.line.priceInclude.replace(/\n/g, "<br>"));
         if (response.line.priceExclusive !== null)
             $scope.priceExclusiveContent = $sce.trustAsHtml(response.line.priceExclusive.replace(/\n/g, "<br>"));
+        if (response.line.tips !== null)
+            $scope.tips = $sce.trustAsHtml(response.line.tips.replace(/\n/g, "<br>"));
 
         //取团日期
         response.line.groups = response.line.groups.sort(sortbydepartDate);
@@ -575,8 +617,9 @@
         $('.linedetail .idline').show();
         $('.linedetail .idfeature').hide();
         $('.linedetail .idexpense').hide();
+        $('.linedetail .idvisa').hide();
         $(".linedetail .tunbl1").addClass("contentblue");
-        $(".linedetail .tunbl4").addClass("lineblue");
+        $(".linedetail .tunbl5").addClass("lineblue");
 
 
     });
@@ -611,34 +654,28 @@
         }
     }
 
-    $scope.lineCl = function () {
-        $('.linedetail .idfeature').hide();
-        $('.linedetail .idline').show();
-        $('.linedetail .idexpense').hide();
-        removeclassblue();
-        $('.tunbl1').addClass("contentblue");
-        $('.tunbl4').addClass("lineblue");
+    function hideShowDetailContentBox(showclass, tunblhead, tunblunder) {
+        $('.detailcontentbox').children().hide();
+        $(showclass).show();
+        $('.forthCenter').removeClass("contentblue lineblue");
+        $(tunblhead).addClass("contentblue");
+        $(tunblunder).addClass("lineblue");
         $ionicScrollDelegate.resize();
+    }
+    $scope.lineCl = function () {
+        hideShowDetailContentBox('.linedetail .idline', '.tunbl1', '.tunbl5');
     }
 
     $scope.featureCl = function () {
-        $('.linedetail .idfeature').show();
-        $('.linedetail .idline').hide();
-        $('.linedetail .idexpense').hide();
-        removeclassblue();
-        $('.tunbl2').addClass("contentblue");
-        $('.tunbl5').addClass("lineblue");
-        $ionicScrollDelegate.resize();
+        hideShowDetailContentBox('.linedetail .idfeature', '.tunbl2', '.tunbl6');
     }
 
     $scope.expenseCl = function () {
-        $('.linedetail .idfeature').hide();
-        $('.linedetail .idline').hide();
-        $('.linedetail .idexpense').show();
-        removeclassblue();
-        $('.tunbl3').addClass("contentblue");
-        $('.tunbl6').addClass("lineblue");
-        $ionicScrollDelegate.resize();
+        hideShowDetailContentBox('.linedetail .idexpense', '.tunbl3', '.tunbl7');
+    }
+
+    $scope.visaCl = function () {
+        hideShowDetailContentBox('.linedetail .idvisa', '.tunbl4', '.tunbl8');
     }
 
     //自加载运行
@@ -674,7 +711,10 @@
                 thumbsFitInViewport: false,
                 navigateByClick: true,
                 startSlideId: 0,
-                autoPlay: false,
+                autoPlay: {
+                    enabled: true,
+                    stopAtAction: false
+                },
                 transitionType: 'move',
                 globalCaption: true,
                 deeplinking: {
@@ -1329,10 +1369,8 @@ function searchLines() {
 }
 
 function removeclassblue() {
-    $('.thirdCenter').removeClass("contentblue");
-    $('.thirdCenter').removeClass("lineblue");
 }
 function addclassblue(q, i) {
-    $('.thirdCenter:eq(' + q + ')').addClass("contentblue");
-    $('.thirdCenter:eq(' + i + ')').addClass("lineblue");
+    $('.forthCenter:eq(' + q + ')').addClass("contentblue");
+    $('.forthCenter:eq(' + i + ')').addClass("lineblue");
 }
