@@ -700,6 +700,17 @@
         }
     }
 
+    $scope.seemycoup = function () {
+        var ckmcMemberCode = getCookie('mcMemberCode');
+        if (ckmcMemberCode == "" || ckmcMemberCode == undefined || ckmcMemberCode == null) {
+            layermyui('请先登录');
+            return;
+        }
+        else {
+            window.location.href = '#/app/user/mycoup';
+        }
+    }
+
     $scope.seemypoints = function () {
         var ckmcMemberCode = getCookie('mcMemberCode');
         if (ckmcMemberCode == "" || ckmcMemberCode == undefined || ckmcMemberCode == null) {
@@ -873,6 +884,26 @@
     }
 
 })
+
+//我的优惠券
+.controller('mycoupCtrl', function ($scope, $http) {
+    nofollowfunc();
+    //var Membercode = getCookie('mcMemberCode');
+    //var nghttp = "../../ajax/userHandler.ashx?fn=getmemberscoreinfo&Membercode=" + Membercode + "";
+    //var mylayeruiwait = layer.load(1, {
+    //    shade: [0.5, '#ababab'] //0.1透明度的白色背景
+    //});
+    //$http.get(nghttp).success(function (response) {
+    //    find404admin(response);
+    //    layer.close(mylayeruiwait);
+    //    var x2js = new X2JS();
+    //    var xmlText = response;
+    //    var jsonObj = x2js.xml_str2json(xmlText);
+    //    $scope.memberinfo = jsonObj.memberScoreLevelInfoDto;
+    //})
+
+})
+
 
 
 //我的积分

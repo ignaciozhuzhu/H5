@@ -65,7 +65,7 @@
             if ($("h1.title div").length > 0) { }
             else
                 $("h1.title").empty().append("线路搜索");
-        }, 500)
+        }, 300)
     }
 
     //tdk seo
@@ -211,7 +211,7 @@
             if ($("h1.title div").length > 0) { }
             else
                 $("h1.title").empty().append("线路搜索");
-        }, 500)
+        }, 300)
     }
 
     $scope.change1 = function (x) {
@@ -486,7 +486,7 @@
             layermyui('此线路暂无详细数据!', 1500);
             return;
         }
-       // debugger
+        // debugger
         $scope.linedetails = response.line;
         $scope.spprice = response.scoreRatio.ratio * response.minPrice;
         $scope.travelAgency = response.line.travelAgency;
@@ -504,30 +504,69 @@
             $(".linedetail .ifcoup").css("display", "none");
         }
 
-        //签证区域bg---------------------------------------------------------------------------------
-        if (response.visas.length > 0) {
+        //签证区域bg---------------------------------------------------------------------------------------------------------------------------------
+        if (response.visas.length > 0 && response.visas[0]) {
             $scope.visas = response.visas;
             $scope.visaini = response.visas[0];
             $scope.visadetail = response.visas[0].visaMateriales;
+
+            //默认进去是团签,在职人员,被选中
+            $scope.visaFatherSelect = 0;
+            setTimeout(function () {
+                $('.visa-fatherselect')[0].className = "visa-fatherselect selected";
+            }, 300)
+            $scope.typeNum = 1;
+            $('.visaselect')[0].className = "visaselect selected";
+        }
+        else {
+            $(".tunbl4").css({ "display": "none" })
         }
 
+        //选择团签还是个签
         $scope.setVisa = function ($event) {
+            //$scope.typeNum = 1;
             for (var i = 0; i < response.visas.length; i++) {
                 if (response.visas[i].visaType == $event.currentTarget.innerText) {
                     $scope.visaini = response.visas[i];
-                    $scope.visadetail = response.visas[i].visaMateriales;
+                    $scope.visaFatherSelect = i;
                 }
             }
+            setVisaDetail();
+            for (var j = 0; j < $('.visa-fatherselect').length; j++) {
+                $('.visa-fatherselect')[j].className = "visa-fatherselect";
+            }
+            $event.currentTarget.className = "visa-fatherselect selected";
+        }
+
+        //选择人员类型
+        $scope.setVisaMemberType = function ($event) {
+            $scope.typeNum = $event.currentTarget.title;
+            setVisaDetail();
             for (var j = 0; j < $('.visaselect').length; j++) {
                 $('.visaselect')[j].className = "visaselect";
             }
             $event.currentTarget.className = "visaselect selected";
         }
 
+        function setVisaDetail() {
+            var visaMateriales = new Array();
+            for (var k = 0; k < response.visas[$scope.visaFatherSelect].visaMateriales.length; k++) {
+                if (response.visas[$scope.visaFatherSelect].visaMateriales[k].type.indexOf($scope.typeNum) > -1) {
+                    visaMateriales.push(response.visas[$scope.visaFatherSelect].visaMateriales[k]);
+                }
+            }
+            $scope.visadetail = visaMateriales;
+            $ionicScrollDelegate.resize();
+        }
+
         $scope.TrustDangerousSnippet = function (snippet) {
             return $sce.trustAsHtml(snippet);
         };
-        //签证区域ed---------------------------------------------------------------------------------
+        //签证区域ed------------------------------------------------------------------------------------------------------------------------------------
+
+        $scope.seerules = function () {
+            layer.alert('本起价是指为包含附加服务（如单人房差、保险费等）的基本价格。最终确认的产品价格将会随所选出行日期、人数及服务项目而相应变化。');
+        }
 
         var titlename = response.line.name;
         //tdk seo
@@ -620,7 +659,6 @@
         $('.linedetail .idvisa').hide();
         $(".linedetail .tunbl1").addClass("contentblue");
         $(".linedetail .tunbl5").addClass("lineblue");
-
 
     });
     //设置行程类型图标样式
@@ -728,7 +766,6 @@
         })
 
     })
-
 
 })
 

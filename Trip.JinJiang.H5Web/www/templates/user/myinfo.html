@@ -1,5 +1,10 @@
 ﻿<ion-view hide-nav-bar="true">
 </ion-view>
+<style>
+    .myinfoion .leftimg {
+    margin-left: -10%;width:25px;vertical-align: middle;
+    }
+</style>
 <ion-view view-title="个人中心" class="myinfoion">
     <!--我来组成头部bg-->
     <div class="bar bar-header bar-stable">
@@ -15,7 +20,7 @@
         <div class="myinfo">
             <div class="head">
                 <div>
-                    <img style="border-radius:50%;width:80px;height:80px; border:solid 2px #ccc;position:absolute;top: 30px; left: 0; right: 0;margin: auto;" src="img/个人中心图标2.png">
+                    <img style="border-radius:50%;width:80px;height:80px; border:solid 2px #ccc;position:absolute;top: 30px; left: 0; right: 0;margin: auto;" src="img/头像.png">
                 </div>
 
                 <div style="background-color:#9cd6ea;height:70px;text-align: center;">
@@ -31,15 +36,19 @@
             </a>
             <div class="heightgray"></div>-->
             <a ng-click="seemyorder()">
-                <div class="footer2"><img src="img/myorder.png" style="margin-left: -10%;"><span style="margin-left:5%">我的订单</span></div>
+                <div class="footer2"><img src="img/订单.png" class="leftimg"><span style="margin-left:5%">我的订单</span></div>
+            </a>
+            <div class="heightgray"></div>
+            <a ng-click="seemycoup()">
+                <div class="footer2"><img src="img/优惠券.png" class="leftimg"><span style="margin-left:5%">我的优惠券</span></div>
             </a>
             <div class="heightgray"></div>
             <a ng-click="seemypoints()">
-                <div class="footer2"><img src="img/points.png" style="margin-left: -10%;"><span style="margin-left:5%">我的积分</span></div>
+                <div class="footer2"><img src="img/积分钻石.png" class="leftimg"><span style="margin-left:5%">我的积分</span></div>
             </a>
             <div class="heightgray"></div>
             <a>
-                <div ng-click="zx()" id="account" class="footer2"><img src="img/signin.png" style="margin-left: -10%;"><span style="margin-left:5%">登录</span></div>
+                <div ng-click="zx()" id="account" class="footer2"><img src="img/signin.png" class="leftimg"><span style="margin-left:5%">登录</span></div>
             </a>
             <div class="heightgray"></div>
         </div>

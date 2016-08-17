@@ -424,6 +424,43 @@
 /*****************************myorder ed*********************************/
 
 
+/*****************************mycouph bg*********************************/
+
+.mycouph {
+    padding-top: 40px;
+    font-size: 13px;
+    margin: 0 2px;
+}
+
+    .mycouph .header0 {
+        color: #beb9c0;
+        height: 25px;
+        margin: 0px -10px;
+        width: 110%;
+    }
+
+        .mycouph .header0 div {
+            float: left;
+            color: #beb9c0;
+            width: 20%;
+            text-align: center;
+            padding: 10px 0;
+            border-bottom: solid 1px;
+            background-color: white;
+        }
+
+.mycouph .title {
+    left: -200px;
+    right: 0;
+}
+
+.mycouph .myheadtitle {
+    margin: auto 15%;
+    font-size: 16px;
+}
+/*****************************mycouph ed*********************************/
+
+
 /*****************************mypoints bg*********************************/
 
 .mypointsh {
