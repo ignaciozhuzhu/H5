@@ -865,6 +865,7 @@
     var cnum = getpbyurl(1);
     var pnum = getpbyurl(2);
     var groupid = getpbyurl(3);
+    setCookie('coupamount', "", 1);
 
     $scope.pnum = pnum;
     $scope.cnum = cnum;
@@ -979,8 +980,12 @@
             $('#nextfill').attr('href', '#/app/fillorder/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amountall);
         }
         subamount();
+
     })
 
+    $scope.getcoup = function () {
+        window.location.href = '#/app/user/mycoup/' + groupid + '/' + pnum + '/' + cnum + '';
+    }
 })
 
 //填写订单控制器
@@ -1127,7 +1132,20 @@
         if (cnum > 0) {
             strcopyroom += ",{ \"copies\": " + cnum + ", \"discountAmount\": 0, \"priceId\": " + priceid + ", \"singlePrice\": " + childPrice + " }"
         }
-        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":" + cnum + ",\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":0,\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"" + mcMemberCode + "\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + salePrice + "}" + strcopyroom + "],\"scorePay\":false}";
+        var coupamount = 0;
+        var coupstr = "";
+
+        //debugger
+        //这里是测试环节
+        //setCookie('coupamount', "100", 1);
+        if (getCookie('coupamount')) {
+            coupamount = getCookie('coupamount');
+            coupstr = ",\"couponRuleName\": \"旅游测试0817\",\"coupunCodes\": [\"7EDXQPVVJSNK\"],\"couponNum\": " + 1 + ",\"couponPrice\": " + getCookie('coupamount') + "";
+            discountAmount = 0;
+        }
+        //end
+
+        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":" + cnum + ",\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":" + coupamount + ",\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"" + mcMemberCode + "\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + salePrice + "}" + strcopyroom + "],\"scorePay\":false " + coupstr + "}";
 
         //loading层
         var mylayeruiwait = layer.load(1, {

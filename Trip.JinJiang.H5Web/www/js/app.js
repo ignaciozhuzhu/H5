@@ -190,9 +190,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
                 }
             }
         })
-        //我的优惠券
+        //我的优惠券-->选择
         .state('app.mycoup', {
-            //cache: false,
+            url: '/user/mycoup/:groupid/:pnum/:cnum',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/user/mycoup.html',
+                    controller: 'mycoupCtrl2'
+                }
+            }
+        })
+        //我的优惠券-->查看
+        .state('app.mycoup2', {
             url: '/user/mycoup',
             views: {
                 'menuContent': {

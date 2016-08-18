@@ -150,6 +150,35 @@ namespace Trip.JinJiang.H5Web.ajax
             {
             }
         }
+        /// <summary>
+        /// 查看个人优惠券
+        /// </summary>
+        public void getmembercoupinfo()
+        {
+            try
+            {
+                string Membercode = HttpContext.Current.Request["Membercode"];
+                HttpContext.Current.Response.Write(User.getMemberCoupInfo(Membercode));
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        /// <summary>
+        /// 查看当前可下单的优惠券
+        /// </summary>
+        public void getmembercouporderinfo()
+        {
+            try
+            {
+                string Membercode = HttpContext.Current.Request["Membercode"];
+                HttpContext.Current.Response.Write(User.getMemberCoupOrderInfo(Membercode));
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        
 
         public bool IsReusable
         {

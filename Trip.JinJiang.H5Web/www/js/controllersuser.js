@@ -886,21 +886,129 @@
 })
 
 //我的优惠券
-.controller('mycoupCtrl', function ($scope, $http) {
+.controller('mycoupCtrl', function ($scope, $http, $ionicHistory) {
     nofollowfunc();
-    //var Membercode = getCookie('mcMemberCode');
-    //var nghttp = "../../ajax/userHandler.ashx?fn=getmemberscoreinfo&Membercode=" + Membercode + "";
-    //var mylayeruiwait = layer.load(1, {
-    //    shade: [0.5, '#ababab'] //0.1透明度的白色背景
-    //});
-    //$http.get(nghttp).success(function (response) {
-    //    find404admin(response);
-    //    layer.close(mylayeruiwait);
-    //    var x2js = new X2JS();
-    //    var xmlText = response;
-    //    var jsonObj = x2js.xml_str2json(xmlText);
-    //    $scope.memberinfo = jsonObj.memberScoreLevelInfoDto;
-    //})
+
+    var Membercode = getCookie('mcMemberCode');
+    var nghttp = "../../ajax/userHandler.ashx?fn=getmembercoupinfo&Membercode=" + Membercode + "";
+    var mylayeruiwait = layer.load(1, {
+        shade: [0.5, '#ababab'] //0.1透明度的白色背景
+    });
+    $http.get(nghttp).success(function (response) {
+        find404admin(response);
+        layer.close(mylayeruiwait);
+        var x2js = new X2JS();
+        var xmlText = response;
+        var jsonObj = x2js.xml_str2json(xmlText);
+        for (var i = 0; i < jsonObj.queryAllCouponResultDto.results.length; i++) {
+            jsonObj.queryAllCouponResultDto.results[i].startDate = FormatDateYear2(jsonObj.queryAllCouponResultDto.results[i].startDate, ".");
+            jsonObj.queryAllCouponResultDto.results[i].endDate = FormatDateYear2(jsonObj.queryAllCouponResultDto.results[i].endDate, ".");
+        }
+        $scope.couplist = jsonObj.queryAllCouponResultDto.results;
+
+        setTimeout(function () {
+            if (cnum == "mycoup") {
+                $(".usebox").css({ "display": "none" });
+                $(".timebox").css({ "display": "block" });
+                $(".numbox").css({ "display": "block" });
+            }
+            else {
+                $(".usebox").css({ "display": "block" });
+                $(".timebox").css({ "display": "none" });
+                $(".numbox").css({ "display": "none" });
+            }
+        }, 30)
+
+        setTimeout(function () {
+            for (var i = 0; i < $(".coupbox").length; i++) {
+                if ($(".coupbox")[i].innerText.indexOf("￥100") > -1)
+                    $(".coupbox")[i].className = ('coupbox blue');
+                else if ($(".coupbox")[i].innerText.indexOf("￥50") > -1)
+                    $(".coupbox")[i].className = ('coupbox pink');
+                else
+                    $(".coupbox")[i].className = ('coupbox');
+            }
+        }, 50);
+    })
+
+    $scope.goBackHandler = function () {
+        // $ionicHistory.goBack();   
+        window.history.back();
+    }
+
+})
+
+
+//我的优惠券  下单可用
+.controller('mycoupCtrl2', function ($scope, $http, $ionicHistory) {
+    nofollowfunc();
+    var Membercode = getCookie('mcMemberCode');
+
+    var cnum = getpbyurl(1);
+    var pnum = getpbyurl(2);
+    var groupid = getpbyurl(3);
+
+    var nghttp = "../../ajax/userHandler.ashx?fn=getmembercouporderinfo&Membercode=" + Membercode + "";
+    var mylayeruiwait = layer.load(1, {
+        shade: [0.5, '#ababab'] //0.1透明度的白色背景
+    });
+    $http.get(nghttp).success(function (response) {
+        find404admin(response);
+        //debugger
+        layer.close(mylayeruiwait);
+        var x2js = new X2JS();
+        var xmlText = response;
+        var jsonObj = x2js.xml_str2json(xmlText);
+        for (var i = 0; i < jsonObj.resultDto.results.length; i++) {
+            jsonObj.resultDto.results[i].startDate = FormatDateYear2(jsonObj.resultDto.results[i].startDate, ".");
+            jsonObj.resultDto.results[i].endDate = FormatDateYear2(jsonObj.resultDto.results[i].endDate, ".");
+
+            jsonObj.resultDto.results[i].deduceAmount = jsonObj.resultDto.results[i].couponAmount;
+            
+        }
+        $scope.couplist = jsonObj.resultDto.results;
+
+        setTimeout(function () {
+            if (cnum == "mycoup") {
+                $(".usebox").css({ "display": "none" });
+                $(".timebox").css({ "display": "block" });
+                $(".numbox").css({ "display": "block" });
+            }
+            else {
+                $(".usebox").css({ "display": "block" });
+                $(".timebox").css({ "display": "none" });
+                $(".numbox").css({ "display": "none" });
+            }
+        }, 30)
+
+        setTimeout(function () {
+            for (var i = 0; i < $(".coupbox").length; i++) {
+                if ($(".coupbox")[i].innerText.indexOf("￥100") > -1)
+                    $(".coupbox")[i].className = ('coupbox blue');
+                else if ($(".coupbox")[i].innerText.indexOf("￥50") > -1)
+                    $(".coupbox")[i].className = ('coupbox pink');
+                else
+                    $(".coupbox")[i].className = ('coupbox');
+            }
+        }, 50);
+    })
+
+    $scope.useit = function () {
+        var coupamount = event.currentTarget.previousElementSibling.children[1].innerText;
+        setCookie('coupamount', coupamount, 1);
+
+        //如果选择了优惠券,则显示该优惠值
+        if (getCookie('coupamount')) {
+            $(".getcouptext")[0].innerText = "-" + getCookie('coupamount');
+        }
+        //end
+        window.location.href = "#/app/pickresource/" + groupid + "/" + pnum + "/" + cnum + "";
+    }
+
+    $scope.goBackHandler = function () {
+       // $ionicHistory.goBack();
+        window.history.back();
+    }
 
 })
 

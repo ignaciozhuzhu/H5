@@ -50,6 +50,23 @@ function FormatDateYear(strTime) {
         day = date.getDate();
     return year + '-' + month + "-" + day;
 }
+//带中间间隔符
+function FormatDateYear2(strTime,char) {
+    var date = new Date(strTime);
+    var month;
+    var day;
+    var year;
+    year = date.getFullYear();
+    if (date.getMonth() + 1 < 10)
+        month = '0' + (date.getMonth() + 1);
+    else
+        month = date.getMonth() + 1;
+    if (date.getDate() < 10)
+        day = '0' + date.getDate();
+    else
+        day = date.getDate();
+    return year + char + month + char + day;
+}
 
 function getNowFormatDateM() {
     var date = new Date();

@@ -17,6 +17,7 @@ namespace Trip.JinJiang.H5
     {
         private static string userserver = System.Configuration.ConfigurationManager.AppSettings["userserver"];
         private static string jjh5Bserver = System.Configuration.ConfigurationManager.AppSettings["jjh5Bserver"];
+        private static string usercoupserver = System.Configuration.ConfigurationManager.AppSettings["usercoupserver"];
 
         private static string urlregist = userserver + "/vbp/merge/completeRegist";    //注册2(完整注册)
         private static string urllogin = userserver + "/vbp/merge/login";    //登录
@@ -33,9 +34,11 @@ namespace Trip.JinJiang.H5
         private static string urlcancelorder = jjh5Bserver + "/travel/order/cancel";    //取消订单接口
 
         private static string urlcheckValidateCode = userserver + "/vbp/validateCode/verifyValidateCode"; //核对验证短信码
-        
+
         //以下 积分,优惠券
         private static string urlMemberScoreInfo = userserver + "/vbp/score/getMemberScoreInfo/"; //查看积分接口
+        private static string urlMemberCoupInfo = usercoupserver + "/couponservice/couponTwoInOne/querycoupons/"; //查看优惠券接口
+        private static string urlMemberCoupOrderInfo = userserver + "/cbp/coupon/queryNewCouponRule"; //查看当前可下单优惠券接口
 
         //注册2(完整注册)
         public static string regist(string xml)
@@ -158,9 +161,9 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 核对验证码
         /// </summary>
-        public static string checkvalidatecode4reg(string phone,string validate)
+        public static string checkvalidatecode4reg(string phone, string validate)
         {
-            string xml = "<validateCodeVerifyDto>       <receiver>"+ phone + "</receiver>       <code>"+ validate + "</code></validateCodeVerifyDto>";
+            string xml = "<validateCodeVerifyDto>       <receiver>" + phone + "</receiver>       <code>" + validate + "</code></validateCodeVerifyDto>";
             var response = HttpUtil.Post(xml, urlcheckValidateCode, contentType: "application/xml");
             return response;
         }
@@ -173,6 +176,30 @@ namespace Trip.JinJiang.H5
         public static string getMemberScoreInfo(string Membercode)
         {
             var response = HttpUtil.Get(urlMemberScoreInfo + Membercode);
+            return response;
+        }
+
+        /// <summary>
+        /// 查看个人优惠券
+        /// </summary>
+        public static string getMemberCoupInfo(string Membercode)
+        {
+            var response = HttpUtil.Post("", urlMemberCoupInfo + Membercode, contentType: "application/xml");
+            return response;
+        }
+        /// <summary>
+        /// 查看当前可下单的优惠券
+        /// </summary>
+        public static string getMemberCoupOrderInfo(string Membercode)
+        {
+            string xml = @" <newCouponRuleInfoQueryDto>
+	                        <bookingChannel>Mobile</bookingChannel>
+	                        <bookingModule>JJTRAVEL</bookingModule>
+	                        <mcMemberCode>" + Membercode + @"</mcMemberCode>
+	                        <onlinePay>true</onlinePay>
+	                        <useEvent>BOOKING</useEvent>
+                            </newCouponRuleInfoQueryDto>";
+            var response = HttpUtil.Post(xml, urlMemberCoupOrderInfo, contentType: "application/xml");
             return response;
         }
 

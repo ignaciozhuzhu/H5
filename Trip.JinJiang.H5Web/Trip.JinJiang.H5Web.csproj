@@ -1091,9 +1091,14 @@
     <Content Include="www\img\myorder.png" />
     <Content Include="www\img\signin.png" />
     <Content Include="www\img\spinner2.png" />
+    <Content Include="www\img\优惠券.png" />
+    <Content Include="www\img\优惠券2.png" />
+    <Content Include="www\img\头像.png" />
     <Content Include="www\img\左边li图标2.png" />
     <Content Include="www\img\左边li图标3.png" />
     <Content Include="www\img\左边li图标4.png" />
+    <Content Include="www\img\收藏.png" />
+    <Content Include="www\img\订单.png" />
     <Content Include="www\img\返回3.png" />
     <Content Include="www\img\checkbox.png" />
     <Content Include="www\img\checkboxg.png" />
@@ -1282,6 +1287,9 @@
     <Content Include="www\lib\dropdown-multiselect\css\bootstrap.min.css" />
     <Content Include="www\lib\dropdown-multiselect\css\stylesheet.css" />
     <Content Include="www\lib\dropdown-multiselect\lodash.min.js" />
+    <Content Include="www\lib\mockjs\mock.angular.js" />
+    <Content Include="www\lib\mockjs\mock.js" />
+    <Content Include="www\lib\mockjs\mockData.js" />
     <Content Include="www\lib\xml2json.min.js" />
     <Content Include="www\js\zlDate.js" />
     <Content Include="www\lib\ionic\fonts\ionicons.eot" />
@@ -1337,6 +1345,7 @@
     <Content Include="www\templates\siteflow\om_code.js" />
     <Content Include="www\templates\tdk\tdkdemo.html" />
     <Content Include="www\templates\user\myinfo.html" />
+    <Content Include="www\templates\user\mycoup.html" />
     <Content Include="www\templates\user\mypoints.html" />
     <Content Include="www\templates\user\orderdetail.html" />
     <Content Include="www\templates\user\myorder.html" />

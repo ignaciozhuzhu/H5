@@ -1,10 +1,76 @@
 ﻿<ion-view hide-nav-bar="true">
 </ion-view>
+<style>
+    .mycoup .flexwhitebox {
+        height: 22vh;
+        display: -webkit-box;
+        display: flex;
+        align-items: center;
+        -webkit-box-align: center;
+        border-bottom: 1px solid #cfcecd;
+    }
+
+    .mycoup {
+        background-color: #f2f3f7;
+    }
+
+    .coupbox {
+        background-image: url(img/优惠券橙.png);
+        width: 94vw;
+        height: 17.6vh;
+        border-radius: 5px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+
+        .coupbox.blue {
+            background-image: url(img/优惠券蓝.png);
+        }
+
+        .coupbox.pink {
+            background-image: url(img/优惠券粉.png);
+        }
+
+        .coupbox .usebox {
+            border-radius: 5px;
+            border: 1px solid;
+            height: 4vh;
+            width: 18vw;
+            line-height: 4vh;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+    @media screen and (min-width: 320px) {
+        .coupbox {
+            font-size: 0.7em;
+            width: 83vw;
+        }
+    }
+
+    @media screen and (min-width: 375px) {
+        .coupbox {
+            font-size: 1.0em;
+            width: 86vw;
+        }
+    }
+
+    @media screen and (min-width: 414px) {
+        .coupbox {
+            font-size: 1.1em;
+            width: 89vw;
+        }
+    }
+</style>
 <ion-view>
     <ion-header-bar class="mycouph">
         <!--我来组成头部bg-->
         <div class="bar bar-header bar-stable">
-            <a class="headleftback" href="#/app/user/myinfo">
+            <a class="headleftback" ng-click="goBackHandler()">
+                <!--href="#/app/user/myinfo"-->
                 <div class="button back-button">
                     <img src="img/返回.png">
                 </div>
@@ -14,33 +80,20 @@
         <!--我来组成头部ed-->
     </ion-header-bar>
     <ion-content class="mycoup">
-        <div style="height:100%">
+        <div style="height:100vh">
 
-            <div class="flexwhitebox">
-                <div class="linearground blue">
-                    <div class="num">1</div>
-                    <div class="font">积分剩余</div>
-                    <div>1000</div>
+            <div class="flexwhitebox" ng-repeat="x in couplist">
+                <div class="coupbox">
+                    <div style="top:2vh;left:5vw;position:absolute;">网站</div>
+                    <div class="numbox" style="top:8vh;left:5vw;position:absolute;">{{x.count}}张</div>
+                    <div style="top:3.6vh;right:22vw;position:absolute;color:white;font-size:3em;"><span style="font-size:0.6em">￥</span><span class="deduceAmount">{{x.deduceAmount}}</span></div>
+                    <div class="usebox" style="top:3.6vh;right:3vw;position:absolute;color:white;font-size:1em;display:none" ng-click="useit()">点击使用</div>
+                    <div style="top:8vh;right:5vw;position:absolute;color:white;font-size:1em">适用范围：锦江旅游</div>
+                    <div class="timebox" style="bottom:1.2vh;left:5vw;position:absolute">使用期限：{{x.startDate}}-{{x.endDate}} </div>
+                    <div style="bottom:1.2vh;right:5vw;position:absolute;"> 未使用 </div>
                 </div>
             </div>
 
-            <div class="flexwhitebox">
-                <div class="linearground green">
-                    <div class="num">2</div>
-                    <div class="font">可用积分</div>
-                    <div>1000</div>
-                </div>
-            </div>
-
-            <div class="flexwhitebox">
-                <div class="linearground red">
-                    <div class="num">3</div>
-                    <div class="font">不可用积分</div>
-                    <div style="width:20%">0</div>
-                </div>
-            </div>
-
-            <div class="helps" ng-click="seehelp()">使用帮助</div>
         </div>
     </ion-content>
 </ion-view>
