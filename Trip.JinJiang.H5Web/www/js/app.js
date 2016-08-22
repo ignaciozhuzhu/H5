@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersuser', 'starter.service', 'starter.directive', 'angularjs-dropdown-multiselect'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersuser', , 'starter.controllerspay', 'starter.service', 'starter.directive', 'angularjs-dropdown-multiselect'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -111,7 +111,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
      })
        //支付方式---------------------------------------------
      .state('app.payway', {
-         url: '/payway/:secureamount/:groupid/:pnum/:cnum/:amount',
+         url: '/payway/:groupid/:pnum/:cnum/:amount',
          views: {
              'menuContent': {
                  templateUrl: 'templates/payway.html',
@@ -160,13 +160,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
      })
         //忘记密码
         .state('app.forgetpwd', {
-         url: '/user/forgetpwd',
-         views: {
-             'menuContent': {
-                 templateUrl: 'templates/user/forgetpwd.html',
-                 controller: 'forgetpwdCtrl'
-             }
-         }
+            url: '/user/forgetpwd',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/user/forgetpwd.html',
+                    controller: 'forgetpwdCtrl'
+                }
+            }
         })
         //我的订单
         .state('app.myorder', {
@@ -249,6 +249,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
              }
          }
      })
+        //银行卡绑定页1
+        .state('app.bind', {
+            url: '/card/bind',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/card/bind.html',
+                    controller: 'bindcardCtrl'
+                }
+            }
+        })
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/index');///app/playlists

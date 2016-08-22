@@ -64,6 +64,10 @@
             width: 89vw;
         }
     }
+
+    .coupbox .displaynone {
+        display: none;
+    }
 </style>
 <ion-view>
     <ion-header-bar class="mycouph">
@@ -86,8 +90,12 @@
                 <div class="coupbox">
                     <div style="top:2vh;left:5vw;position:absolute;">网站</div>
                     <div class="numbox" style="top:8vh;left:5vw;position:absolute;">{{x.count}}张</div>
-                    <div style="top:3.6vh;right:22vw;position:absolute;color:white;font-size:3em;"><span style="font-size:0.6em">￥</span><span class="deduceAmount">{{x.deduceAmount}}</span></div>
-                    <div class="usebox" style="top:3.6vh;right:3vw;position:absolute;color:white;font-size:1em;display:none" ng-click="useit()">点击使用</div>
+                    <div style="top:3.6vh;right:22vw;position:absolute;color:white;font-size:3em;">
+                        <span style="font-size:0.6em">￥</span><span class="deduceAmount">{{x.deduceAmount}}</span>
+                        <span class="coupcode displaynone">{{x.couponCode}}</span>
+                        <span class="coupname displaynone">{{x.couponRuleName}}</span>
+                    </div>
+                    <div class="usebox" style="top:3.6vh;right:3vw;position:absolute;color:white;font-size:1em;display:none" ng-click="useit($index)">点击使用</div>
                     <div style="top:8vh;right:5vw;position:absolute;color:white;font-size:1em">适用范围：锦江旅游</div>
                     <div class="timebox" style="bottom:1.2vh;left:5vw;position:absolute">使用期限：{{x.startDate}}-{{x.endDate}} </div>
                     <div style="bottom:1.2vh;right:5vw;position:absolute;"> 未使用 </div>

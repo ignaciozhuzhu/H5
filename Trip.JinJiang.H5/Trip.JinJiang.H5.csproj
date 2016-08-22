@@ -92,6 +92,7 @@
     <Compile Include="Model\OrderdetailMod.cs" />
     <Compile Include="Model\recommendMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Pay.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -866,6 +866,8 @@
     var pnum = getpbyurl(2);
     var groupid = getpbyurl(3);
     setCookie('coupamount', "", 1);
+    setCookie('coupcode', "", 1);
+    setCookie('coupname', "", 1);
 
     $scope.pnum = pnum;
     $scope.cnum = cnum;
@@ -1122,7 +1124,6 @@
         disAmount = disAmount * or.getCopies();*/
         //只有成人享受折扣价
         var discountAmount = Math.floor(salePrice * (1 - Discount)) * pnum;//+ Math.floor(childPrice * (1 - Discount)) * cnum;
-
         //动态成人数.
         var mcMemberCode = getCookie('mcMemberCode');
         var strcopyroom = "";
@@ -1140,7 +1141,9 @@
         //setCookie('coupamount', "100", 1);
         if (getCookie('coupamount')) {
             coupamount = getCookie('coupamount');
-            coupstr = ",\"couponRuleName\": \"旅游测试0817\",\"coupunCodes\": [\"7EDXQPVVJSNK\"],\"couponNum\": " + 1 + ",\"couponPrice\": " + getCookie('coupamount') + "";
+            var coupcode = getCookie('coupcode');
+            var coupname = getCookie('coupname');
+            coupstr = ",\"couponRuleName\": \"" + coupname + "\",\"coupunCodes\": [\"" + coupcode + "\"],\"couponNum\": " + 1 + ",\"couponPrice\": " + coupamount + "";
             discountAmount = 0;
         }
         //end
@@ -1184,7 +1187,7 @@
                 var d = eval("(" + text + ")");
                 setCookie('orderNo', d.orderNo, 1);
                 amount = amount - discountAmount;
-                window.location.href = '#/app/payway/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
+                window.location.href = '#/app/payway/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
             }
         });
     }
@@ -1319,7 +1322,7 @@
             else if ($event.target.parentNode.previousElementSibling.innerText == '微信支付')
                 accountName = 'JJE_APP_WECHAT_PAY';
             else
-                accountName = 'JJE_APP_CLIENT_ALI_WAP_PAY';
+                accountName = '';
         }
 
     })

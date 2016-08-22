@@ -1140,6 +1140,7 @@
     <Content Include="www\img\锦江旅游图标.jpg" />
     <Content Include="www\img\锯齿划线.png" />
     <Content Include="www\js\angular-1.4.6.min.js" />
+    <Content Include="www\js\controllerspay.js" />
     <Content Include="www\js\controllersuser.js" />
     <Content Include="www\js\directive.js" />
     <Content Include="www\js\jquery-1.8.3.min.js" />
@@ -1339,6 +1340,8 @@
     <Content Include="www\lib\md5.js" />
     <Content Include="www\lib\sha1.js" />
     <Content Include="www\js\om_code.js" />
+    <Content Include="www\templates\card\bind.html" />
+    <Content Include="www\templates\card\yinlian.html" />
     <Content Include="www\templates\tdk\angular-1.4.6.min.js" />
     <Content Include="www\templates\siteflow\demo.html" />
     <Content Include="www\templates\siteflow\demo2.html" />
@@ -1356,6 +1359,8 @@
     <Content Include="www\templates\user\quickregister.html" />
     <Content Include="www\templates\user\register.html" />
     <Content Include="www\css\userstyle.css" />
+    <Content Include="www\templates\user\yinlian.html" />
+    <Content Include="www\templates\user\yinlian_back.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="scripts\ai.0.15.0-build58334.js" />
@@ -1412,6 +1417,9 @@
     </Compile>
     <Compile Include="ajax\recommendHandler.ashx.cs">
       <DependentUpon>recommendHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="ajax\payHandler.ashx.cs">
+      <DependentUpon>payHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="ajax\userHandler.ashx.cs">
       <DependentUpon>userHandler.ashx</DependentUpon>
@@ -1499,6 +1507,7 @@
     <Content Include="modules\admin\master\Header.Master" />
     <Content Include="ajax\userHandler.ashx" />
     <Content Include="ajax\recommendHandler.ashx" />
+    <Content Include="ajax\payHandler.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

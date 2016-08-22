@@ -597,6 +597,10 @@
 
     //暂时作为测试用
     // var orderCode = 1000160531000003;
+    var groupid;
+    var cnum;
+    var anum;
+    var paymentAmount;
     var orderCode = getpbyurl(1);
     var nghttp = "../../ajax/userHandler.ashx?fn=queryorderdetail&code=" + orderCode;
     //loading层
@@ -605,6 +609,10 @@
     });
     $http.get(nghttp).success(function (response) {
         find404admin(response);
+        groupid = response.groupId;
+        cnum = response.childNum;
+        anum = response.adultNum;
+        paymentAmount = response.paymentAmount;
         $scope.status = response.payStatus == "PAYED" ? "已支付" : "待支付";
 
         //如果是已支付或者是已取消的订单,则不显示去支付按钮
@@ -631,6 +639,7 @@
 
         //需支付金额
         $scope.paymentAmount = response.paymentAmount;
+
         //判断是否可以在线支付
         var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + response.groupId + "";
         $http.get(nghttp).success(function (response) {
@@ -645,26 +654,29 @@
 
     })
 
-    var accountName = 'JJE_APP_CLIENT_ALI_WAP_PAY';
+    //var accountName = 'JJE_APP_CLIENT_ALI_WAP_PAY';
     $scope.pay = function () {
         //首先做身份认证,判断是否已经登录,没有帐号的客户先注册.
         var mcMemberCode = getCookie('mcMemberCode');
         if (mcMemberCode != "" && mcMemberCode != undefined && mcMemberCode != null) {
             //其次再是发起付款
-            var orderNo = $scope.orderCode;
-            var amount = $scope.paymentAmount;
-            var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
-            //alert('正在加载,请稍后...');
-            //loading层
-            var mylayeruiwait = layer.load(1, {
-                shade: [0.5, '#ababab'] //0.1透明度的白色背景
-            });
-            $http.get(nghttp).success(function (response) {
-                //$.unblockUI();
-                find404admin(response);
-                layer.close(mylayeruiwait);
-                window.location.href = response;
-            })
+            //var orderNo = $scope.orderCode;
+            //var amount = $scope.paymentAmount;
+            //var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
+            ////alert('正在加载,请稍后...');
+            ////loading层
+            //var mylayeruiwait = layer.load(1, {
+            //    shade: [0.5, '#ababab'] //0.1透明度的白色背景
+            //});
+            //$http.get(nghttp).success(function (response) {
+            //    //$.unblockUI();
+            //    find404admin(response);
+            //    layer.close(mylayeruiwait);
+            //    window.location.href = response;
+            //})
+
+            //现在跳转到付款页即可,不需要直接跳支付宝(上面的逻辑是直接跳支付宝). 8.22 
+            window.location.href = "#/app/payway/" + groupid + "/" + anum + "/" + cnum + "/" + paymentAmount + "";
         }
         else {//把参数存入cookie
             setCookie('amount', amount, 1);
@@ -993,10 +1005,13 @@
         }, 50);
     })
 
-    $scope.useit = function () {
-        var coupamount = event.currentTarget.previousElementSibling.children[1].innerText;
+    $scope.useit = function (index) {
+        var coupamount = $(".coupbox .deduceAmount")[index].innerHTML;
+        var coupcode = $(".coupbox .coupcode")[index].innerHTML;
+        var coupname = $(".coupbox .coupname")[index].innerHTML;
         setCookie('coupamount', coupamount, 1);
-
+        setCookie('coupcode', coupcode, 1);
+        setCookie('coupname', coupname, 1);
         //如果选择了优惠券,则显示该优惠值
         if (getCookie('coupamount')) {
             $(".getcouptext")[0].innerText = "-" + getCookie('coupamount');

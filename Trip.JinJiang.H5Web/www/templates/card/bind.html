@@ -1,0 +1,34 @@
+﻿<ion-view hide-nav-bar="true">
+</ion-view>
+<ion-view view-title="银行卡绑定页1">
+    <ion-content>
+        <div>
+            人号:<input type="text" id="memberid" value="10057908" /><br>
+            卡号：<input type="text" id="card" value="6212261202033455370" /><br>
+            <input type="button" ng-click="setFormData()" id="button" value="提交"><br>
+            <form action="https://gateway.95516.com/gateway/api/frontTransReq.do" method="POST">
+                txnType:<input type="text" name="txnType" value="29" /><br>
+                channelType：<input type="text" name="channelType" value="07" /><br>
+                signMethod:<input type="text" name="signMethod" value="01" /><br>
+                certId:<input type="text" name="certId" value="69583867927" /><br>
+                encoding:<input type="text" name="encoding" value="UTF-8" /><br>
+                bizType:<input type="text" name="bizType" value="000902" /><br>
+                txnSubType:<input type="text" name="txnSubType" value="00" /><br>
+                signature:<input type="text" name="signature" value="nJYo9jLwfKvwXleJhL4Kn+PKZFWMmvK6n6PrOEok3uGlDbOiR28jD5DC4KD/xQEvaxrMWMyw5cSmrkkTDAfDIV+wGhbNwc6QSNiGIzt7UfVJ4n4cfYk9WHvsqnjhacUix/yv21VQNcwSaiCdHebxNOTgBOIB6Di4wzU8QF234SlN5dN+kHPQP12RdXNpO1ja3yf0SZbQyIRVtJy4Fg95cSRtndfrpdbD6BjEoZUgZBkdi4HrZMAYtVHR/n+WbUc8UaCqNhcep9UTFBmJ90q94sa6AZUoGAuyh+xDgYqjiER3LGEtbXx+DodrwojqLjSKu3Mxcqzg6FtoQMonRvxVBw==" /><br>
+                orderId:<input type="text" name="orderId" value="20160307152333" /><br>
+                version:<input type="text" name="version" value="5.0.0" /><br>
+                accessType:<input type="text" name="accessType" value="0" /><br>
+                txnTime:<input type="text" name="txnTime" value="20160307152333" /><br>
+                merId:<input type="text" name="merId" value="802310047220505" /><br>
+                accType：<input type="text" name="accType" value="01" /><br>
+                accNo<input type="text" name="accNo" value="6214830212394794" /><br>
+                tokenPayData<input type="text" name="tokenPayData" value="{trId=62000000018&tokenType=01}" /><br>
+                frontUrl<input type="text" name="frontUrl" value="http://192.168.1.32:8077/www/#/app/card/bind" /><br>
+                backUrl：<input type="text" name="backUrl" value="http://116.236.229.44:5557/pgw/api/v1/gateway/union/bindnotify" /><br>
+                reqReserved: <input type="text" name="reqReserved" value="890712:INNS_UNION_PAY:62" /><br>
+                reserved: <input type="text" name="reserved" value="{customPage=true}" /><br>
+                <input type="submit" id="fuxxme" value="提交"><br>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>
