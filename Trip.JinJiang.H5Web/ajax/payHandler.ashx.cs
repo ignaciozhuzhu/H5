@@ -38,6 +38,17 @@ namespace Trip.JinJiang.H5Web.ajax
             string card = HttpContext.Current.Request["card"].ToString();
             HttpContext.Current.Response.Write(Pay.bindcard(memberid, card));
         }
+        /// <summary>
+        /// 银联发短信
+        /// </summary>
+        public void sms()
+        {
+            string memberid = HttpContext.Current.Request["memberid"].ToString();
+            string orderNo = HttpContext.Current.Request["orderNo"].ToString();
+            decimal price = Convert.ToDecimal(HttpContext.Current.Request["price"]);
+            string txnTime = HttpContext.Current.Request["txnTime"].ToString();
+            HttpContext.Current.Response.Write(Pay.sms(memberid, orderNo, price, txnTime));
+        }
 
         public bool IsReusable
         {

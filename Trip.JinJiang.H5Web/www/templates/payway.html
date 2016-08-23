@@ -29,63 +29,93 @@
         color: #ff7200;
     }
 
-    .payway .listtyle ul li {
+    /*.payway .listtyle ul li {
         background-repeat: no-repeat;
         height: 30px;
-    }
+    }*/
 
-    .payway .listtyle ul:nth-child(1) li {
-        background-image: url('img/储蓄卡支付.png');
+    /*.payway .listtyle ul:nth-child(1) li {
+        background-image: url('img/pay/支付宝.png');
     }
 
     .payway .listtyle ul:nth-child(2) li {
-        background-image: url('img/信用卡支付.png');
+        background-image: url('img/pay/银联.png');
     }
     .payway .listtyle ul:nth-child(3) li {
-        background-image: url('img/微信支付.png');
+        background-image: url('img/pay/E卡通.png');
     }
     .payway .listtyle ul:nth-child(4) li {
-        background-image: url('img/支付宝.png');
+        background-image: url('img/pay/积分.png');
     }
     .payway .listtyle ul:nth-child(5) li {
-        background-image: url('img/applepay.png');
-    }
+        background-image: url('img/pay/门店.png');
+    }*/
 
-    .payway .listtyle ul {
+    /*.payway .listtyle ul {
         padding: 5px 10px;
         border-bottom: solid 1px #e4e4e4;
-    }
+    }*/
 
-    .payway .listtyle span:nth-child(1) {
+    /*.payway .listtyle span:nth-child(1) {
         padding-left: 40px;
         line-height: 30px;
     }
 
     .payway .listtyle span:nth-child(2) {
         float: right;
+    }*/
+
+    .payway .bottombutton {
+        font-weight: bold;
+        height: 50px;
+        background-color: #ff7200;
+        line-height: 50px;
+        text-align: center;
+        color: white;
+        width: 100%;
     }
 
-      .payway   .bottombutton {
-            font-weight: bold;
-            height: 50px;
-            background-color: #ff7200;
-            line-height: 50px;
-            text-align: center;
-            color: white;
-            width: 100%;
-        }
-      
-        .payway .textgray {
-            color: gray;
-        }
+    .payway .textgray {
+        color: gray;
+    }
 
-        .payway .textp7 {
-            padding: 7px 10px;
-        }
+    .payway .textp7 {
+        padding: 7px 10px;
+    }
 
-        .payway .fonts12 {
-            font-size: 12px;
-        }
+    .payway .fonts12 {
+        font-size: 12px;
+    }
+
+    /*.myinfo .footer2 {
+        margin: 3%;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 10%;
+        color: black;
+    }
+
+    .myinfoion .leftimg {
+        margin-left: -10%;
+        width: 25px;
+        vertical-align: middle;
+    }*/
+    .payway .payswitchli {
+        border-bottom: 1px solid #e1e1e1;
+    }
+
+    .payway .payswitchimg {
+        width: 25px;
+        vertical-align: middle;
+    }
+
+    .payway .payswitchsp {
+        height: 40px;
+        display: inline-block;
+        line-height: 40px;
+        width: 75%;
+        margin-left: 5%;
+    }
 </style>
 <ion-view hide-nav-bar="true">
 </ion-view>
@@ -137,40 +167,45 @@
                 </div>
                 <div style="padding:5px 10px">应付总额 <img src="img/向上箭头.png" style="float:right;display:none" /><a style="float:right;padding:0 5px;font-size:12px"></a><span style="float:right;padding:0 10px;color: #ff7200"> ¥ {{amount}}</span></div>
                 <div style="background-image:url(img/锯齿划线.png);height:20px"></div>
-                <div class="listtyle" ng-model="paybox" ng-click="paywaySelect($event)">
-                    <ul style="display:none">
-                        <li>
-                            <span>储蓄卡支付</span>
-                            <span><input type="checkbox" /></span>
-                        </li>
-                    </ul>
-                    <ul style="display:none">
-                        <li>
-                            <span>信用卡支付</span>
-                            <span><input type="checkbox" /></span>
-                        </li>
-                    </ul>
-                    <ul style="display:none">
-                        <li>
-                            <span>微信支付</span>
+                <div class="listtyle" style="padding:0 10px" ng-model="paybox" ng-click="paywaySelect($event)">
+                    <ul>
+                        <li class="payswitchli">
+                            <img class="payswitchimg" src="img/pay/支付宝.png">
+                            <span class="payswitchsp">支付宝</span>
                             <span><input type="checkbox" /></span>
                         </li>
                     </ul>
                     <ul>
-                        <li>
-                            <span>支付宝</span>
+                        <li class="payswitchli">
+                            <img class="payswitchimg" src="img/pay/银联.png">
+                            <span class="payswitchsp">银联</span>
                             <span><input type="checkbox" /></span>
                         </li>
                     </ul>
-                    <ul style="display:none">
-                        <li>
-                            <span style="padding-left:50px">apple pay</span>
+                    <ul>
+                        <li class="payswitchli">
+                            <img class="payswitchimg" src="img/pay/e卡通.png">
+                            <span class="payswitchsp">锦江e卡通</span>
+                            <span><input type="checkbox" /></span>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li class="payswitchli">
+                            <img class="payswitchimg" src="img/pay/积分.png">
+                            <span class="payswitchsp">积分支付</span>
+                            <span><input type="checkbox" /></span>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li class="payswitchli">
+                            <img class="payswitchimg" src="img/pay/门店.png">
+                            <span class="payswitchsp">门店支付</span>
                             <span><input type="checkbox" /></span>
                         </li>
                     </ul>
                 </div>
 
-                <span class="textp7 textgray fonts12">在线支付享受98折优惠（单房差及儿童价不享受）</span>
+                <span class="textp7 textgray fonts12" style="display :block;">在线支付享受98折优惠（单房差及儿童价不享受）</span>
                 <div ng-click="pay()" class="bottombutton">确认支付</div>
             </div>
         </div>

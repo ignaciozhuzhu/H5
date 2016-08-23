@@ -1089,6 +1089,11 @@
     <Content Include="www\images\spinner2.png" />
     <Content Include="www\img\applepay.png" />
     <Content Include="www\img\myorder.png" />
+    <Content Include="www\img\pay\E卡通.png" />
+    <Content Include="www\img\pay\支付宝.png" />
+    <Content Include="www\img\pay\积分.png" />
+    <Content Include="www\img\pay\银联.png" />
+    <Content Include="www\img\pay\门店.png" />
     <Content Include="www\img\signin.png" />
     <Content Include="www\img\spinner2.png" />
     <Content Include="www\img\优惠券.png" />
@@ -1341,7 +1346,9 @@
     <Content Include="www\lib\sha1.js" />
     <Content Include="www\js\om_code.js" />
     <Content Include="www\templates\card\bind.html" />
-    <Content Include="www\templates\card\yinlian.html" />
+    <Content Include="www\templates\card\cdxbind.html" />
+    <Content Include="www\templates\card\epay.html" />
+    <Content Include="www\templates\card\sms.html" />
     <Content Include="www\templates\tdk\angular-1.4.6.min.js" />
     <Content Include="www\templates\siteflow\demo.html" />
     <Content Include="www\templates\siteflow\demo2.html" />
@@ -1359,8 +1366,6 @@
     <Content Include="www\templates\user\quickregister.html" />
     <Content Include="www\templates\user\register.html" />
     <Content Include="www\css\userstyle.css" />
-    <Content Include="www\templates\user\yinlian.html" />
-    <Content Include="www\templates\user\yinlian_back.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="scripts\ai.0.15.0-build58334.js" />

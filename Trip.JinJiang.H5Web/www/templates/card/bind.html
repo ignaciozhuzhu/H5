@@ -1,11 +1,51 @@
-﻿<ion-view hide-nav-bar="true">
+﻿<style>
+    .unionpay1 .nextbutton {
+        height: 30px;
+        width: 100px;
+        background-color: #ff714c;
+        color: #fff;
+        border-radius: 5px;
+        text-align: center;
+        line-height: 30px;
+        margin: 0 auto;
+    }
+
+    .unionpay1 .remark {
+        height: 100px;
+        width: 90%;
+        background-color: #dedcde;
+        color: #a1a3a3;
+        border-radius: 5px;
+        text-align: left;
+        margin: 0 auto;
+    }
+
+        .unionpay1 .remark .greentext {
+            color: #009688;
+            font-size: 1.1em;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .unionpay1 .remark .unionimg {
+            height: 25px;
+            vertical-align: middle;
+            margin: 0 10px;
+        }
+</style>
+<ion-view hide-nav-bar="false">
 </ion-view>
-<ion-view view-title="银行卡绑定页1">
-    <ion-content>
+<ion-view view-title="银联支付">
+    <ion-content class="unionpay1">
         <div>
-            人号:<input type="text" id="memberid" value="10057908" /><br>
-            卡号：<input type="text" id="card" value="6212261202033455370" /><br>
-            <input type="button" ng-click="setFormData()" id="button" value="提交"><br>
+            <input type="text" id="memberid" value="10057908" style="display:none" /><br>
+            <div style="margin-left:5%">银行卡：</div>
+            <input style="width: 90%;    margin: 10px auto;" type="text" id="card" value="6230910199025656915" /><br> <!--6212261202033455370-->
+            <div class="nextbutton" ng-click="setFormData()">下一步</div><br>
+            <div class="remark">
+                <div class="greentext"><img class="unionimg" src="img/银联说明标识.png">本服务由银联在线提供技术支持。</div>
+                <div style="margin:5px 10px">锦江旅游不会记录您任何银行卡密码信息，所有信息均由价目通道传输给中国银联。</div>
+            </div><br>
             <form action="https://gateway.95516.com/gateway/api/frontTransReq.do" method="POST">
                 txnType:<input type="text" name="txnType" value="29" /><br>
                 channelType：<input type="text" name="channelType" value="07" /><br>

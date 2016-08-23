@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Context-Type" content="text/html; charset=utf-8" />
+    <title>通联支付</title>
+</head>
+<body>
+    正在跳转,请稍后...
+    <script type="text/javascript">
+        //讲道理:
+        //如果开通成功,该帐号已经绑了卡,那么跳转到短信支付.
+        //否则,跳到绑卡页面.
+        setTimeout(
+            function () {
+                window.location.href = "http://192.168.1.32:8077/www/#/app/card/sms";
+            }
+        , 3000)
+    </script>
+</body>
+</html>

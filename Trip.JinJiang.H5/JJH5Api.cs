@@ -20,7 +20,7 @@ namespace Trip.JinJiang.H5
         private static string urllinedetail = jjh5Bserver + "/travel/line/";    //某线路详情
         private static string urlcmslinedetail = jjh5Bserver + "/travel/line/queryCMSLineInfo";     //CMS线路详情接口
         private static string urlcrmlinesearch = jjh5Bserver + "/travel/line/queryLinesForCMS";     //CMS线路列表接口
-        private static string urlprepay = jjh5Bserver + "/travel/payment/prepay";   //预支付接口
+    //    private static string urlprepay = jjh5Bserver + "/travel/payment/prepay";   //预支付接口
         private static string urlsearchorder = jjh5Bserver + "/travel/order/queryOrderList";    //订单查询接口
         private static string urlcreateorder = jjh5Bserver + "/travel/order/create";    //创建订单接口 DSOrder
         private static string urlinventory = jjh5Bserver + "/travel/group/queryRealTimeRefresh/";   //查询库存 ,实时价格接口

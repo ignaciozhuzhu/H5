@@ -24,6 +24,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
 
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     // $ionicConfigProvider.views.maxCache(0);
+    //$locationProvider.html5Mode(true);
+    //$locationProvider.hashPrefix('!');
 
     $ionicConfigProvider.backButton.text("");
     $ionicConfigProvider.backButton.previousTitleText(false);
@@ -256,6 +258,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
                 'menuContent': {
                     templateUrl: 'templates/card/bind.html',
                     controller: 'bindcardCtrl'
+                }
+            }
+        })
+        //银联卡 支付,短信校验页
+        .state('app.sms', {
+            url: '/card/sms',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/card/sms.html',
+                    controller: 'smsCtrl'
                 }
             }
         })

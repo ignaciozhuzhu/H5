@@ -1,0 +1,105 @@
+﻿<style>
+    .unionpay1 .nextbutton {
+        height: 30px;
+        width: 100px;
+        background-color: #ff714c;
+        color: #fff;
+        border-radius: 5px;
+        text-align: center;
+        line-height: 30px;
+        margin: 0 auto;
+    }
+
+    .unionpay1 .remark {
+        height: 100px;
+        width: 90%;
+        background-color: #dedcde;
+        color: #a1a3a3;
+        border-radius: 5px;
+        text-align: left;
+        margin: 0 auto;
+    }
+
+        .unionpay1 .remark .greentext {
+            color: #009688;
+            font-size: 1.1em;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .unionpay1 .remark .unionimg {
+            height: 25px;
+            vertical-align: middle;
+            margin: 0 10px;
+        }
+
+
+    .unionpay1 .div-phone a.send1 {
+        height: 34px;
+        text-decoration: none;
+        line-height: 34px;
+        width: 30%;
+        background: #5D93EE;
+        font-family: '宋体';
+        color: #fff;
+        font-size: 12px;
+        text-align: center;
+        display: block;
+        float: left;
+        border-radius: 2px;
+        margin-left: 2px;
+        -webkit-transition: all 0.2s linear;
+        -moz-transition: all 0.2s linear;
+        -ms-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear;
+        transition: all 0.2s linear;
+        margin: 10px 10px;
+    }
+
+        .unionpay1 .div-phone a.send1:hover {
+            text-decoration: none;
+            background: #866c1b;
+            -webkit-transition: all 0.2s linear;
+            -moz-transition: all 0.2s linear;
+            -ms-transition: all 0.2s linear;
+            -o-transition: all 0.2s linear;
+            transition: all 0.2s linear;
+        }
+
+    .unionpay1 .div-phone a.send0 {
+        background: #A1A1A1;
+    }
+
+        .unionpay1 .div-phone a.send0:hover {
+            background: #A1A1A1;
+            font-family: '宋体';
+            color: #fff;
+            font-size: 12px;
+            text-decoration: none;
+        }
+</style>
+<ion-view hide-nav-bar="false">
+</ion-view>
+<ion-view view-title="银联支付">
+    <ion-content class="unionpay1">
+        <div>
+            <input type="text" id="memberid" value="10057908" style="display:none" /><br>
+            <div style="margin-left:5%">银行卡：</div>
+            <input style="width: 65%;  display:inline-block;  margin: 10px;margin-left:5%"  type="text" id="card" value="6212261202033455370" />
+            <a href="#/app/card/bind">变更卡号</a>
+            <br>
+            <div style="margin-left:5%">短信校验：</div>
+
+            <div class="div-phone">
+                <input style="width: 50%; float:left;   margin: 10px 5% 0;" type="text" id="card" value="" />
+                <a href="javascript:;" class="send1" onclick="sends.send();">获取验证码</a>
+            </div>
+
+            <div class="nextbutton" ng-click="setFormData()" style="clear:both">支付</div><br>
+            <div class="remark">
+                <div class="greentext"><img class="unionimg" src="img/银联说明标识.png">本服务由银联在线提供技术支持。</div>
+                <div style="margin:5px 10px">锦江旅游不会记录您任何银行卡密码信息，所有信息均由价目通道传输给中国银联。</div>
+            </div><br>
+        </div>
+    </ion-content>
+</ion-view>
