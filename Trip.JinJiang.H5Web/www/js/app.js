@@ -113,7 +113,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
      })
        //支付方式---------------------------------------------
      .state('app.payway', {
-         url: '/payway/:groupid/:pnum/:cnum/:amount',
+         url: '/payway/:ordercode/:groupid/:pnum/:cnum/:amount',
          views: {
              'menuContent': {
                  templateUrl: 'templates/payway.html',
@@ -253,7 +253,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
      })
         //银行卡绑定页1
         .state('app.bind', {
-            url: '/card/bind',
+            url: '/card/bind/:ordercode',
             views: {
                 'menuContent': {
                     templateUrl: 'templates/card/bind.html',
@@ -263,7 +263,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
         })
         //银联卡 支付,短信校验页
         .state('app.sms', {
-            url: '/card/sms',
+            url: '/card/sms/:payamount/:ordercode',
             views: {
                 'menuContent': {
                     templateUrl: 'templates/card/sms.html',

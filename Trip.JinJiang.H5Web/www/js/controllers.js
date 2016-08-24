@@ -1021,6 +1021,7 @@
     else
         $('#childnumspan').css('display', 'none');
 
+    var onlinepay;
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
     //loading层
     var mylayeruiwait = layer.load(1, {
@@ -1031,6 +1032,7 @@
         layer.close(mylayeruiwait);
         $scope.lineTitle = response.lineTitle;
         $scope.date = FormatDateYear(response.departDate);
+        onlinepay = response.payOnlineFlag ? true : false;
         for (var j = 0; j < response.prices.length; j++) {
             if (response.prices[j].offerType == '基本价') {
                 priceid = response.prices[j].id;
@@ -1139,7 +1141,7 @@
         //debugger
         //这里是测试环节
         //setCookie('coupamount', "100", 1);
-        if (getCookie('coupamount')) {
+        if (getCookie('coupamount') && onlinepay) {
             coupamount = getCookie('coupamount');
             var coupcode = getCookie('coupcode');
             var coupname = getCookie('coupname');
@@ -1148,7 +1150,7 @@
         }
         //end
 
-        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":" + cnum + ",\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":" + coupamount + ",\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"" + mcMemberCode + "\",\"cardNo\":\"1231234\",\"onLinePay\":true,\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + salePrice + "}" + strcopyroom + "],\"scorePay\":false " + coupstr + "}";
+        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":" + cnum + ",\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":" + coupamount + ",\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"" + mcMemberCode + "\",\"cardNo\":\"1231234\",\"onLinePay\":" + onlinepay + ",\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + salePrice + "}" + strcopyroom + "],\"scorePay\":false " + coupstr + "}";
 
         //loading层
         var mylayeruiwait = layer.load(1, {
@@ -1167,7 +1169,7 @@
                         setCookie('cnum', cnum, 1);
                         setCookie('pnum', pnum, 1);
                         setCookie('groupid', groupid, 1);
-                        setCookie('secureamount', secureamount, 1);
+                        setCookie('orderNo', d.orderNo, 1);
                         //将跳回支付该产品的cookie
                         setCookie('linkbackpay', 'true', 1);
                         //跳转至登录页
@@ -1187,7 +1189,7 @@
                 var d = eval("(" + text + ")");
                 setCookie('orderNo', d.orderNo, 1);
                 amount = amount - discountAmount;
-                window.location.href = '#/app/payway/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
+                window.location.href = '#/app/payway/' + d.orderNo + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;
             }
         });
     }
@@ -1195,7 +1197,7 @@
 })
 
 //支付方式控制器
-.controller('paywayCtrl', function ($scope, $http) {
+.controller('paywayCtrl', function ($scope, $http, getbindquerysev) {
     nofollowfunc();
     //blockmyui('正在加载,请稍后...');
     //清除登录用户cookie
@@ -1214,7 +1216,6 @@
         shade: [0.5, '#ababab'] //0.1透明度的白色背景
     });
     $http.get(nghttp).success(function (response) {
-        //debugger
         find404admin(response);
         layer.close(mylayeruiwait);
         var minprice;
@@ -1278,6 +1279,7 @@
         if (response.payOnlineFlag == 0) {
             layermyui('不允许在线支付,请到门店支付');
             $("[type=checkbox]").attr("disabled", true);
+            // $("#doorpay[type=checkbox]").attr("disabled", false);
             return;
         }
         $scope.pay = function () {
@@ -1290,16 +1292,35 @@
             if (mcMemberCode != "" && mcMemberCode != undefined && mcMemberCode != null) {
                 //其次再是发起付款
                 var orderNo = getCookie('orderNo');
-                var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
-                //loading层
-                var mylayeruiwait = layer.load(1, {
-                    shade: [0.5, '#ababab'] //0.1透明度的白色背景
-                });
-                $http.get(nghttp).success(function (response) {
-                    layer.close(mylayeruiwait);
-                    //setCookie('roomdiff', "", 1);
-                    window.location.href = response;
-                })
+
+                //如果是银联付款方式,要先去检查卡,绑卡,短信支付.
+                if (accountName == "JJE_APP_UNION_PAY") {
+                    var funcallback = function (object) {
+                        //绑过了去支付
+                        if (object.userToken) {
+                            window.location.href = "#/app/card/sms/" + amount + "/" + orderNo + "";
+                            return;
+                        }
+                            //没绑过了去绑
+                        else {
+                            window.location.href = "#/app/card/bind/" + orderNo + "";
+                            return;
+                        }
+                    }
+                    getbindquerysev.bindquetyfunc($http,funcallback);
+                }
+                else if (accountName == "JJE_APP_CLIENT_ALI_WAP_PAY") {
+                    var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
+                    //loading层
+                    var mylayeruiwait = layer.load(1, {
+                        shade: [0.5, '#ababab'] //0.1透明度的白色背景
+                    });
+                    $http.get(nghttp).success(function (response) {
+                        layer.close(mylayeruiwait);
+                        //setCookie('roomdiff', "", 1);
+                        window.location.href = response;
+                    })
+                }
             }
             else {
                 //把参数存入cookie
@@ -1319,8 +1340,8 @@
         $scope.paywaySelect = function ($event) {
             if ($event.target.parentNode.previousElementSibling.innerText == '支付宝')
                 accountName = 'JJE_APP_CLIENT_ALI_WAP_PAY';
-            else if ($event.target.parentNode.previousElementSibling.innerText == '微信支付')
-                accountName = 'JJE_APP_WECHAT_PAY';
+            else if ($event.target.parentNode.previousElementSibling.innerText == '银联')
+                accountName = 'JJE_APP_UNION_PAY';
             else
                 accountName = '';
         }

@@ -30,6 +30,14 @@ namespace Trip.JinJiang.H5Web.ajax
         }
 
         /// <summary>
+        /// 查看是否已经绑定银行卡
+        /// </summary>
+        public void bindcardquery()
+        {
+            string memberid = HttpContext.Current.Request["memberid"].ToString();
+            HttpContext.Current.Response.Write(Pay.bindcardquery(memberid));
+        }
+        /// <summary>
         /// 绑定银行卡
         /// </summary>
         public void bindcard()

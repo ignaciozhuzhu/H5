@@ -6,7 +6,6 @@
         // if (!arguments[4]) fun = function () { };
         var daysArray = days.split("|");
         var agenceArray = agence.split("|");
-       // debugger
         var nghttp = "../../ajax/apihandler.ashx?fn=getlinesbycategory&businessCategory=" + my2data.category + "&keyWord=" + my2data.keyWord + "";
         //loading层
         var mylayeruiwait = layer.load(1, {
@@ -95,4 +94,26 @@
         })
     }
 
+})
+
+
+
+//获取帐号的绑定银行卡信息
+.service('getbindquerysev', function () {
+    this.bindquetyfunc = function ($http,funcallback) {
+        var mcMemberCode = getCookie('mcMemberCode');
+        //判断是否已经绑定卡
+        var nghttp = "../../ajax/payhandler.ashx?fn=bindcardquery&memberid=" + mcMemberCode + "";
+        //loading层
+        var mylayeruiwait = layer.load(1, {
+            shade: [0.5, '#ababab'] //0.1透明度的白色背景
+        });
+        $http.get(nghttp).success(function (response) {
+            layer.close(mylayeruiwait);
+            if (response) {
+                var jsonObj = new X2JS().xml_str2json(response);
+                funcallback(jsonObj);
+            }
+        })
+    }
 })

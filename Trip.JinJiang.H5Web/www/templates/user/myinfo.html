@@ -23,7 +23,7 @@
             <div class="head">
                 <div style="background-color:#9cd6ea;height:30vh;text-align: center;position:relative;">
                     <img style="border-radius:50%;width:16vh;height:16vh;position:absolute;top: 3vh; left: 0; right: 0;margin: auto;" src="img/头像.png">
-                    <div style="position:absolute;top:22vh; left: 0; right: 0;font-size:2em" id="myinfofullName">{{fullName}}</div>
+                    <div ng-click="zx()" style="position:absolute;top:22vh; left: 0; right: 0;font-size:1.6em;font-weight:300" id="myinfofullName">点击登录</div>
                 </div>
                 <!--<div style="height:110px"></div>-->
             </div>
@@ -46,7 +46,12 @@
             </a>
             <div class="heightgray"></div>
             <a>
-                <div ng-click="zx()" id="account" class="footer2"><img src="img/signin.png" class="leftimg"><span style="margin-left:5%">登录</span></div>
+                <div class="footer2"><img src="img/收藏.png" class="leftimg"><span style="margin-left:5%">我的收藏</span></div>
+            </a>
+            <div class="heightgray"></div>
+            <div class="heightgray2"></div>
+            <a>
+                <div ng-click="zx()" id="account" class="footer2" style="padding-left:0;text-align:center"><span>登录</span></div>
             </a>
             <div class="heightgray"></div>
         </div>

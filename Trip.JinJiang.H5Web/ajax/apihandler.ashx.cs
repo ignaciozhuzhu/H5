@@ -324,9 +324,15 @@ namespace Trip.JinJiang.H5Web.ajax
         public void pbppayorder()
         {
             string orderNo = HttpContext.Current.Request["orderNo"].ToString();
-            int payAmount = Convert.ToInt32(HttpContext.Current.Request["payAmount"]);
+            decimal payAmount = Convert.ToDecimal(HttpContext.Current.Request["payAmount"]);
             string accountName = HttpContext.Current.Request["accountName"].ToString();
-            HttpContext.Current.Response.Write(JJH5Api.pbppayorder(orderNo, payAmount, accountName));
+            string txnTime = "";
+            string smscode = "";
+            try { txnTime = HttpContext.Current.Request["txnTime"].ToString(); }
+            catch { }
+            try { smscode = HttpContext.Current.Request["smscode"].ToString(); }
+            catch { }
+            HttpContext.Current.Response.Write(JJH5Api.pbppayorder(orderNo, payAmount, accountName, txnTime, smscode));
         }
         /// <summary>
         /// 周边游查询

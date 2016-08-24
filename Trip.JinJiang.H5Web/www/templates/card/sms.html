@@ -85,17 +85,17 @@
         <div>
             <input type="text" id="memberid" value="10057908" style="display:none" /><br>
             <div style="margin-left:5%">银行卡：</div>
-            <input style="width: 65%;  display:inline-block;  margin: 10px;margin-left:5%"  type="text" id="card" value="6212261202033455370" />
-            <a href="#/app/card/bind">变更卡号</a>
+            <input style="width: 65%;  display:inline-block;  margin: 10px;margin-left:5%;padding-left:10px"  type="text" id="card" value="" /> <!--6212261202033455370-->
+            <a id="changecard">变更卡号</a>
             <br>
             <div style="margin-left:5%">短信校验：</div>
 
             <div class="div-phone">
-                <input style="width: 50%; float:left;   margin: 10px 5% 0;" type="text" id="card" value="" />
-                <a href="javascript:;" class="send1" onclick="sends.send();">获取验证码</a>
+                <input style="width: 50%; float:left;   margin: 10px 5% 0;padding-left:10px" type="text" id="smscode" value="" />
+                <a href="javascript:;" class="send1"  ng-click="sends.send();">获取验证码</a>
             </div>
 
-            <div class="nextbutton" ng-click="setFormData()" style="clear:both">支付</div><br>
+            <div class="nextbutton" ng-click="paybyunion()" style="clear:both">支付</div><br>
             <div class="remark">
                 <div class="greentext"><img class="unionimg" src="img/银联说明标识.png">本服务由银联在线提供技术支持。</div>
                 <div style="margin:5px 10px">锦江旅游不会记录您任何银行卡密码信息，所有信息均由价目通道传输给中国银联。</div>

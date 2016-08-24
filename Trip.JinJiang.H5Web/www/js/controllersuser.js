@@ -266,9 +266,10 @@
                 var ckmcMemberCode = getCookie('mcMemberCode');
                 var linkbackpay = getCookie('linkbackpay');
                 if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
-                    $('#account').empty().append('退出当前账户');
+                    $('#account').empty().append('退出登录');
                     var fullName = getCookie('fullName');
                     $('#myinfofullName').empty().append(fullName);
+                    $('#account').css({ "display": "block" })
                 }
                 //debugger
                 if (groupid > 0 && linkbackpay === 'true') {
@@ -676,14 +677,14 @@
             //})
 
             //现在跳转到付款页即可,不需要直接跳支付宝(上面的逻辑是直接跳支付宝). 8.22 
-            window.location.href = "#/app/payway/" + groupid + "/" + anum + "/" + cnum + "/" + paymentAmount + "";
+            window.location.href = "#/app/payway/" + orderCode + "/" + groupid + "/" + anum + "/" + cnum + "/" + paymentAmount + "";
         }
         else {//把参数存入cookie
             setCookie('amount', amount, 1);
             setCookie('cnum', cnum, 1);
             setCookie('pnum', pnum, 1);
             setCookie('groupid', groupid, 1);
-            setCookie('secureamount', secureamount, 1);
+            setCookie('orderNo', orderCode, 1);
             //跳转至登录页
             window.location.href = '#/app/user/login';
         }
@@ -692,14 +693,21 @@
 
 })
 //个人中心控制器
-.controller('myinfoCtrl', function ($scope, $http) {
+.controller('myinfoCtrl', function ($scope, $http, $timeout) {
     nofollowfunc();
     //debugger
     //判断是否已经登录帐号,获取membercode 的cookie
     var ckmcMemberCode = getCookie('mcMemberCode');
-    $scope.fullName = getCookie('fullName');
+    if (getCookie('fullName')) {
+        $("#myinfofullName").empty().append(getCookie('fullName'));
+        $('#account').css({ "display": "block" })
+    }
+    else {
+        $('#account').css({ "display": "none" })
+    }
+
     if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
-        $('#account').empty().append('注销');
+        $('#account').empty().append('退出登录');
     }
     $scope.seemyorder = function () {
         var ckmcMemberCode = getCookie('mcMemberCode');
@@ -734,8 +742,10 @@
         }
     }
 
+
     //注销
     $scope.zx = function () {
+
         var ckmcMemberCode = getCookie('mcMemberCode');
         if (ckmcMemberCode !== "" && ckmcMemberCode !== undefined && ckmcMemberCode !== null) {
             layer.open({
@@ -745,10 +755,12 @@
                 yes: function (index) {
                     setCookie('mcMemberCode', '', 1);
                     setCookie('fullName', '', 1);
-                    $('#account').empty().append('登录');
-                    $scope.fullName = '';
+                    $('#account').css({ "display": "none" })
+
                     layer.close(index);
                     layermyui('已注销!');
+
+                    $("#myinfofullName").empty().append("点击登录");
                 }
             });
         }
@@ -976,7 +988,7 @@
             jsonObj.resultDto.results[i].endDate = FormatDateYear2(jsonObj.resultDto.results[i].endDate, ".");
 
             jsonObj.resultDto.results[i].deduceAmount = jsonObj.resultDto.results[i].couponAmount;
-            
+
         }
         $scope.couplist = jsonObj.resultDto.results;
 
@@ -1021,7 +1033,7 @@
     }
 
     $scope.goBackHandler = function () {
-       // $ionicHistory.goBack();
+        // $ionicHistory.goBack();
         window.history.back();
     }
 
