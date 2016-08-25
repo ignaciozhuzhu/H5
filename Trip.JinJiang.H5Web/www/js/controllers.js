@@ -1309,6 +1309,23 @@
                     }
                     getbindquerysev.bindquetyfunc($http,funcallback);
                 }
+                    //积分支付
+                else if (accountName == "JJE_APP_SCORE_PAY") {
+                    var scorepayamount = amount * 100;
+                    var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=0&accountName=" + accountName + "&score=" + scorepayamount + "";
+                    //loading层
+                    var mylayeruiwait = layer.load(1, {
+                        shade: [0.5, '#ababab'] //0.1透明度的白色背景
+                    });
+                    $http.get(nghttp).success(function (response) {
+                        layer.close(mylayeruiwait);
+                        var jsonObj = new X2JS().xml_str2json(response);
+                        if (jsonObj.payCallBackResult.result) {
+                            layermyui("支付完成,已使用" + jsonObj.payCallBackResult.scoreAmount + "积分,可在个人中心查看");
+                        }
+                    })
+                }
+                    //支付宝支付
                 else if (accountName == "JJE_APP_CLIENT_ALI_WAP_PAY") {
                     var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
                     //loading层
@@ -1342,6 +1359,8 @@
                 accountName = 'JJE_APP_CLIENT_ALI_WAP_PAY';
             else if ($event.target.parentNode.previousElementSibling.innerText == '银联')
                 accountName = 'JJE_APP_UNION_PAY';
+            else if ($event.target.parentNode.previousElementSibling.innerText == '积分支付')
+                accountName = 'JJE_APP_SCORE_PAY';
             else
                 accountName = '';
         }
