@@ -1,0 +1,53 @@
+﻿<style>
+    .paysuccessbox .scroll {
+        height: 100%;
+    }
+    .paysuccessbox .plabel {
+        height: 20vh;
+        text-align: center;
+        line-height: 20vh;
+        color: #85c355;
+        font-size: 1.9em;
+        margin-top:10vh;
+    }
+        .paysuccessbox .plabel > img {
+            width: 12vw;
+            vertical-align: middle;
+        }
+
+    .paysuccessbox .tlabel {
+        color: #c5c8c9;
+        text-align: center;
+        font-size: 1.2em;
+        margin: 5vh 0 10vh;
+    }
+
+    .paysuccessbox .buttons {
+        background-color: #ffa73d;
+        color: white;
+        width: 30vw;
+        float: left;
+        margin: 0 5vw;
+        text-align: center;
+        height: 5vh;
+        line-height: 5vh;
+        border-radius: 5px;
+        font-size: 1.1em;
+    }
+</style>
+<ion-view hide-nav-bar="false">
+</ion-view>
+<ion-view view-title="支付成功">
+    <ion-content class="paysuccessbox">
+        <div class="plabel">
+            <img src="img/打勾1.png">支付成功!
+        </div>
+        <div class="tlabel">
+            您好!恭喜您的订单已经成功支付!
+        </div>
+        <div style="width :80%; margin :0 auto;">
+            <div class="buttons" ng-click="goindex()">返回首页</div>
+            <div class="buttons" ng-click="goorder()">查看订单</div>
+        </div>
+    </ion-content>
+</ion-view>

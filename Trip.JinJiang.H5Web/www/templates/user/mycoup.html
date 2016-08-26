@@ -68,6 +68,14 @@
     .coupbox .displaynone {
         display: none;
     }
+
+    .mycoup .nocoup {
+        text-align: center;
+        margin-top: 5%;
+    }
+    .mycoup .displaynone {
+        display: none;
+    }
 </style>
 <ion-view>
     <ion-header-bar class="mycouph">
@@ -100,6 +108,9 @@
                     <div class="timebox" style="bottom:1.2vh;left:5vw;position:absolute">使用期限：{{x.startDate}}-{{x.endDate}} </div>
                     <div style="bottom:1.2vh;right:5vw;position:absolute;"> 未使用 </div>
                 </div>
+            </div>
+            <div class="nocoup displaynone">
+                <img src="img/无优惠券.png">
             </div>
 
         </div>

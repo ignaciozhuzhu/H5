@@ -329,13 +329,16 @@ namespace Trip.JinJiang.H5Web.ajax
             string txnTime = "";
             string smscode = "";
             int score = 0;
+            string Membercode = "";
             try { txnTime = HttpContext.Current.Request["txnTime"].ToString(); }
             catch { }
             try { smscode = HttpContext.Current.Request["smscode"].ToString(); }
             catch { }
             try { score = Convert.ToInt32(HttpContext.Current.Request["score"]); }
             catch { }
-            HttpContext.Current.Response.Write(JJH5Api.pbppayorder(orderNo, payAmount, accountName, txnTime, smscode, score));
+            try { Membercode = HttpContext.Current.Request["Membercode"].ToString(); }
+            catch { }
+            HttpContext.Current.Response.Write(JJH5Api.pbppayorder(orderNo, payAmount, accountName, txnTime, smscode, score, Membercode));
         }
         /// <summary>
         /// 周边游查询

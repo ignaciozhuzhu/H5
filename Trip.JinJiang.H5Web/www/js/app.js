@@ -93,7 +93,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
      })
        //选择资源---------------------------------------------
       .state('app.pickresource2', {
-          url: '/pickresource/:groupid/:pnum/:cnum',
+          cache: true,
+          url: '/pickresource/:coupamount/:groupid/:pnum/:cnum',
           views: {
               'menuContent': {
                   templateUrl: 'templates/pickresource.html',
@@ -172,7 +173,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
         })
         //我的订单
         .state('app.myorder', {
-            //cache: false,
+            cache: false,
             url: '/user/myorder',
             views: {
                 'menuContent': {
@@ -194,7 +195,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
         })
         //我的优惠券-->选择
         .state('app.mycoup', {
-            url: '/user/mycoup/:groupid/:pnum/:cnum',
+            url: '/user/mycoup/:amount/:groupid/:pnum/:cnum',
             views: {
                 'menuContent': {
                     templateUrl: 'templates/user/mycoup.html',
@@ -268,6 +269,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
                 'menuContent': {
                     templateUrl: 'templates/card/sms.html',
                     controller: 'smsCtrl'
+                }
+            }
+        })
+        //支付成功回调页
+        .state('app.paysuccess', {
+            url: '/card/paysuccess',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/card/paysuccess.html',
+                    controller: 'paysuccessCtrl'
                 }
             }
         })

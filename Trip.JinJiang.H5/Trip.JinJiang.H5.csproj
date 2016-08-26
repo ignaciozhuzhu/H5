@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin.cs" />
+    <Compile Include="Common\Deserialize.cs" />
     <Compile Include="Common\ConvertJson.cs" />
     <Compile Include="Common\getIP.cs" />
     <Compile Include="DAL\areaFac.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Model\LineLists\Promotion.cs" />
     <Compile Include="Model\LineLists\Spot.cs" />
     <Compile Include="Model\LineLists\Tag.cs" />
+    <Compile Include="Model\memberScoreLevelInfoDto.cs" />
     <Compile Include="Model\OrderdetailMod.cs" />
     <Compile Include="Model\recommendMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

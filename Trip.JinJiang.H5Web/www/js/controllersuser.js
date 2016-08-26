@@ -478,7 +478,7 @@
         var mylayeruiwait = layer.load(1, {
             shade: [0.5, '#ababab'] //0.1透明度的白色背景
         });
-        $http.get(mynghttp).success(function (response) {
+        $http.get(mynghttp, { cache: false }).success(function (response) {
             //debugger
             layer.close(mylayeruiwait);
             find404admin(response);
@@ -924,35 +924,42 @@
         var x2js = new X2JS();
         var xmlText = response;
         var jsonObj = x2js.xml_str2json(xmlText);
-        for (var i = 0; i < jsonObj.queryAllCouponResultDto.results.length; i++) {
-            jsonObj.queryAllCouponResultDto.results[i].startDate = FormatDateYear2(jsonObj.queryAllCouponResultDto.results[i].startDate, ".");
-            jsonObj.queryAllCouponResultDto.results[i].endDate = FormatDateYear2(jsonObj.queryAllCouponResultDto.results[i].endDate, ".");
+        //有优惠券
+        try {
+            for (var i = 0; i < jsonObj.queryAllCouponResultDto.results.length; i++) {
+                jsonObj.queryAllCouponResultDto.results[i].startDate = FormatDateYear2(jsonObj.queryAllCouponResultDto.results[i].startDate, ".");
+                jsonObj.queryAllCouponResultDto.results[i].endDate = FormatDateYear2(jsonObj.queryAllCouponResultDto.results[i].endDate, ".");
+            }
+            $scope.couplist = jsonObj.queryAllCouponResultDto.results;
+
+            setTimeout(function () {
+                if (cnum == "mycoup") {
+                    $(".usebox").css({ "display": "none" });
+                    $(".timebox").css({ "display": "block" });
+                    $(".numbox").css({ "display": "block" });
+                }
+                else {
+                    $(".usebox").css({ "display": "block" });
+                    $(".timebox").css({ "display": "none" });
+                    $(".numbox").css({ "display": "none" });
+                }
+            }, 30)
+
+            setTimeout(function () {
+                for (var i = 0; i < $(".coupbox").length; i++) {
+                    if ($(".coupbox")[i].innerText.indexOf("￥100") > -1)
+                        $(".coupbox")[i].className = ('coupbox blue');
+                    else if ($(".coupbox")[i].innerText.indexOf("￥50") > -1)
+                        $(".coupbox")[i].className = ('coupbox pink');
+                    else
+                        $(".coupbox")[i].className = ('coupbox');
+                }
+            }, 50);
         }
-        $scope.couplist = jsonObj.queryAllCouponResultDto.results;
-
-        setTimeout(function () {
-            if (cnum == "mycoup") {
-                $(".usebox").css({ "display": "none" });
-                $(".timebox").css({ "display": "block" });
-                $(".numbox").css({ "display": "block" });
-            }
-            else {
-                $(".usebox").css({ "display": "block" });
-                $(".timebox").css({ "display": "none" });
-                $(".numbox").css({ "display": "none" });
-            }
-        }, 30)
-
-        setTimeout(function () {
-            for (var i = 0; i < $(".coupbox").length; i++) {
-                if ($(".coupbox")[i].innerText.indexOf("￥100") > -1)
-                    $(".coupbox")[i].className = ('coupbox blue');
-                else if ($(".coupbox")[i].innerText.indexOf("￥50") > -1)
-                    $(".coupbox")[i].className = ('coupbox pink');
-                else
-                    $(".coupbox")[i].className = ('coupbox');
-            }
-        }, 50);
+        //无优惠券
+        catch (err) {
+            $(".nocoup").removeClass("displaynone");
+        }
     })
 
     $scope.goBackHandler = function () {
@@ -971,6 +978,7 @@
     var cnum = getpbyurl(1);
     var pnum = getpbyurl(2);
     var groupid = getpbyurl(3);
+    var amount = getpbyurl(4);
 
     var nghttp = "../../ajax/userHandler.ashx?fn=getmembercouporderinfo&Membercode=" + Membercode + "";
     var mylayeruiwait = layer.load(1, {
@@ -978,43 +986,47 @@
     });
     $http.get(nghttp).success(function (response) {
         find404admin(response);
-        //debugger
         layer.close(mylayeruiwait);
         var x2js = new X2JS();
         var xmlText = response;
         var jsonObj = x2js.xml_str2json(xmlText);
-        for (var i = 0; i < jsonObj.resultDto.results.length; i++) {
-            jsonObj.resultDto.results[i].startDate = FormatDateYear2(jsonObj.resultDto.results[i].startDate, ".");
-            jsonObj.resultDto.results[i].endDate = FormatDateYear2(jsonObj.resultDto.results[i].endDate, ".");
 
-            jsonObj.resultDto.results[i].deduceAmount = jsonObj.resultDto.results[i].couponAmount;
+        if (jsonObj.resultDto.results.length) {
+            for (var i = 0; i < jsonObj.resultDto.results.length; i++) {
+                //jsonObj.resultDto.results[i].startDate = FormatDateYear2(jsonObj.resultDto.results[i].startDate, ".");
+                //jsonObj.resultDto.results[i].endDate = FormatDateYear2(jsonObj.resultDto.results[i].endDate, ".");
 
+                jsonObj.resultDto.results[i].deduceAmount = jsonObj.resultDto.results[i].couponAmount;
+            }
+            $scope.couplist = jsonObj.resultDto.results;
+
+            setTimeout(function () {
+                if (cnum == "mycoup") {
+                    $(".usebox").css({ "display": "none" });
+                    $(".timebox").css({ "display": "block" });
+                    $(".numbox").css({ "display": "block" });
+                }
+                else {
+                    $(".usebox").css({ "display": "block" });
+                    $(".timebox").css({ "display": "none" });
+                    $(".numbox").css({ "display": "none" });
+                }
+            }, 30)
+
+            setTimeout(function () {
+                for (var i = 0; i < $(".coupbox").length; i++) {
+                    if ($(".coupbox")[i].innerText.indexOf("￥100") > -1)
+                        $(".coupbox")[i].className = ('coupbox blue');
+                    else if ($(".coupbox")[i].innerText.indexOf("￥50") > -1)
+                        $(".coupbox")[i].className = ('coupbox pink');
+                    else
+                        $(".coupbox")[i].className = ('coupbox');
+                }
+            }, 50);
         }
-        $scope.couplist = jsonObj.resultDto.results;
-
-        setTimeout(function () {
-            if (cnum == "mycoup") {
-                $(".usebox").css({ "display": "none" });
-                $(".timebox").css({ "display": "block" });
-                $(".numbox").css({ "display": "block" });
-            }
-            else {
-                $(".usebox").css({ "display": "block" });
-                $(".timebox").css({ "display": "none" });
-                $(".numbox").css({ "display": "none" });
-            }
-        }, 30)
-
-        setTimeout(function () {
-            for (var i = 0; i < $(".coupbox").length; i++) {
-                if ($(".coupbox")[i].innerText.indexOf("￥100") > -1)
-                    $(".coupbox")[i].className = ('coupbox blue');
-                else if ($(".coupbox")[i].innerText.indexOf("￥50") > -1)
-                    $(".coupbox")[i].className = ('coupbox pink');
-                else
-                    $(".coupbox")[i].className = ('coupbox');
-            }
-        }, 50);
+        else {
+            $(".nocoup").removeClass("displaynone");
+        }
     })
 
     $scope.useit = function (index) {
@@ -1025,11 +1037,11 @@
         setCookie('coupcode', coupcode, 1);
         setCookie('coupname', coupname, 1);
         //如果选择了优惠券,则显示该优惠值
-        if (getCookie('coupamount')) {
-            $(".getcouptext")[0].innerText = "-" + getCookie('coupamount');
-        }
-        //end
-        window.location.href = "#/app/pickresource/" + groupid + "/" + pnum + "/" + cnum + "";
+        var amountnext = amount - coupamount;
+        $(".pickresource .getcouptext")[0].innerText = "-" + coupamount;
+        $('.pickresource .amount').empty().append(amountnext);
+        $('.pickresource #nextfill').attr('href', '#/app/fillorder/' + 0 + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amountnext);
+        window.location.href = "#/app/pickresource/" + 0 + "/" + groupid + "/" + pnum + "/" + cnum + "";
     }
 
     $scope.goBackHandler = function () {

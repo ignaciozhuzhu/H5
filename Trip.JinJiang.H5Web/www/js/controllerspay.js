@@ -45,11 +45,15 @@
     var price = getpbyurl(2);
     //测试可以将price mock 为0.01
     //price = 0.01;
-    $("#changecard").attr("href", "#/app/card/bind/" + orderNo + "");
+
+    $scope.changecard = function () {
+        window.location.href = "#/app/card/bind/" + orderNo + "";
+        location.reload();
+    }
 
     var funcallback = function (object) {
         if (object.userToken) {
-            $(".unionpay1 #card").val(object.userToken.preCardNo + "*************" + object.userToken.card);
+            $(".bindbox #card").val(object.userToken.preCardNo + "*************" + object.userToken.card);
             return;
         }
     }
@@ -85,6 +89,9 @@
             }
             if (response == "") {
                 layermyui("支付完成");
+                setTimeout(function () {
+                    window.location.href = "#/app/card/paysuccess";
+                }, 2000)
                 return;
             }
             if (jsonObj.errorMessage) {
@@ -137,6 +144,17 @@
         }
     }
 
+})
 
+
+//支付成功回调页
+.controller('paysuccessCtrl', function ($scope, $http) {
+    $scope.goindex = function () {
+        window.location.href = "#/app/index";
+    }
+    $scope.goorder = function () {
+        window.location.href = "#/app/user/myorder";
+    }
+    
 })
 

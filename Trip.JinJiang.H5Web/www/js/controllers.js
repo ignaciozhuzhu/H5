@@ -502,6 +502,7 @@
         }
         else {
             $(".linedetail .ifcoup").css("display", "none");
+            $(".linedetail .ifonline").css("display", "none");
         }
 
         //签证区域bg---------------------------------------------------------------------------------------------------------------------------------
@@ -872,12 +873,12 @@
     $scope.pnum = pnum;
     $scope.cnum = cnum;
     if (cnum > 0) {
-        $('#childpricebox').css('display', 'block');
+        $('.pickresource .childpricebox').css('display', 'block');
     }
     else {
-        $('#childpricebox').css('display', 'none');
-        $('#adultpricebox').css("width", "50%");
-        $('#groupdatebox').css("width", "50%");
+        $('.pickresource .childpricebox').css('display', 'none');
+        $('.pickresource .adultpricebox').css("width", "50%");
+        $('.pickresource .groupdatebox').css("width", "50%");
     }
     $('#secureamount').empty().append('0');
     $('.spinnerdif').myspinner({ max: parseInt(cnum) + parseInt(pnum) });
@@ -892,6 +893,13 @@
         layer.close(mylayeruiwait);
         var cprice;
         var dprice;
+        var onlinepay = response.payOnlineFlag;
+        if (onlinepay) {
+            $(".usecoupbox").css({ "display": "block" })
+        }
+        else {
+            $(".usecoupbox").css({ "display": "none" })
+        }
         for (var j = 0; j < response.prices.length; j++) {
             if (response.prices[j].offerType == '基本价') {
                 //不等于取vipPrice 不打折,等于取salePrice 打折
@@ -977,16 +985,21 @@
             roomdiff = dprice * roomdiffp1 + (minprice - cprice) * roomdiffp2 + samount1 * pnum + samount2 * pnum;
             setCookie('roomdiff', roomdiffp1, 1);
             amountall = minprice * pnum + roomdiff + cprice * cnum;
-            $('#amount').empty().append(amountall);
+            $('.pickresource .amount').empty().append(amountall);
             $('#amountct').empty().append(minprice * pnum);
             $('#nextfill').attr('href', '#/app/fillorder/' + secureamount + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amountall);
         }
         subamount();
 
     })
-
     $scope.getcoup = function () {
-        window.location.href = '#/app/user/mycoup/' + groupid + '/' + pnum + '/' + cnum + '';
+        window.location.href = '#/app/user/mycoup/' + amountall + '/' + groupid + '/' + pnum + '/' + cnum + '';
+    }
+
+    $scope.nonecoup = function () {
+        $(".pickresource .getcouptext")[0].innerText = "请选择";
+        $('.pickresource .amount').empty().append(amountall);
+        setCookie('coupamount', "", 1);
     }
 })
 
@@ -1087,24 +1100,12 @@
             layermyui('手机号格式不正确');
             return;
         }
-        //if (ConnectEmail == "" || ConnectEmail == undefined || ConnectEmail == null) {
-        //    layermyui('请输入邮箱');
-        //    return;
-        //}
-        //if (!isEmail(ConnectEmail)) {
-        //    layermyui('邮箱格式不正确');
-        //    return;
-        //}
-
-        //     $('.inname:first')[0].value = ConnectName;
 
         function CGuest(category, name) {
             this.category = category;
             this.name = name;
         }
         var p = new CGuest();
-        //  p = new CGuest('ADULT', $('.inname:first')[0].value);
-        //   guestsarr.push(p);
         for (var i = 0 ; i < pnum; i++) {
             try {
                 p = new CGuest('ADULT', $('.inname')[i].value == "" ? "游客" + (parseInt(i) + 1) : $('.inname')[i].value);
@@ -1150,7 +1151,7 @@
         }
         //end
 
-        json = "{\"adultNum\":" + pnum + ",\"amount\":" + amount + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":" + cnum + ",\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":" + coupamount + ",\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"" + mcMemberCode + "\",\"cardNo\":\"1231234\",\"onLinePay\":" + onlinepay + ",\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + salePrice + "}" + strcopyroom + "],\"scorePay\":false " + coupstr + "}";
+        json = "{\"adultNum\":" + pnum + ",\"amount\":" + (parseInt(amount) + parseInt(coupamount)) + ",\"channel\":\"E_BUSINESS_PLATFORM\",\"childNum\":" + cnum + ",\"contact\":{\"mobile\":\"" + ConnectMobile + "\",\"name\":\"" + ConnectName + "\",\"email\":\"" + ConnectEmail + "\"},\"couponAmount\":" + coupamount + ",\"groupId\":" + groupid + ",\"guests\":[" + gueststring + "],\"mcMemberCode\":\"" + mcMemberCode + "\",\"cardNo\":\"1231234\",\"onLinePay\":" + onlinepay + ",\"receivables\":[{\"copies\":" + pnum + ",\"discountAmount\":" + discountAmount + ",\"priceId\":" + priceid + ",\"singlePrice\":" + salePrice + "}" + strcopyroom + "],\"scorePay\":false " + coupstr + "}";
 
         //loading层
         var mylayeruiwait = layer.load(1, {
@@ -1207,7 +1208,7 @@
     var cnum = getpbyurl(2);
     var pnum = getpbyurl(3);
     var groupid = getpbyurl(4);
-    var secureamount = getpbyurl(5);
+    var orderNo = getpbyurl(5);
     $scope.amount = amount;
 
     var nghttp = "../../ajax/apihandler.ashx?fn=queryrealtimerefresh&groupid=" + groupid + "";
@@ -1234,7 +1235,7 @@
         $scope.minprice = minprice;
         $scope.childprice = childprice;
         $scope.dfprice = dfprice;
-        $scope.secureamount = secureamount;
+        // $scope.secureamount = secureamount;
         $scope.groupCode = response.groupCode;
         $scope.lineTitle = response.lineTitle;
         $scope.pnum = pnum;
@@ -1291,10 +1292,12 @@
             var mcMemberCode = getCookie('mcMemberCode');
             if (mcMemberCode != "" && mcMemberCode != undefined && mcMemberCode != null) {
                 //其次再是发起付款
-                var orderNo = getCookie('orderNo');
+                //var orderNo = getCookie('orderNo');
 
                 //如果是银联付款方式,要先去检查卡,绑卡,短信支付.
                 if (accountName == "JJE_APP_UNION_PAY") {
+                    //测试mock数据
+                    amount = 0.01;
                     var funcallback = function (object) {
                         //绑过了去支付
                         if (object.userToken) {
@@ -1307,12 +1310,12 @@
                             return;
                         }
                     }
-                    getbindquerysev.bindquetyfunc($http,funcallback);
+                    getbindquerysev.bindquetyfunc($http, funcallback);
                 }
                     //积分支付
                 else if (accountName == "JJE_APP_SCORE_PAY") {
                     var scorepayamount = amount * 100;
-                    var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=0&accountName=" + accountName + "&score=" + scorepayamount + "";
+                    var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=0&accountName=" + accountName + "&score=" + scorepayamount + "&Membercode=" + mcMemberCode + "";
                     //loading层
                     var mylayeruiwait = layer.load(1, {
                         shade: [0.5, '#ababab'] //0.1透明度的白色背景
@@ -1320,13 +1323,41 @@
                     $http.get(nghttp).success(function (response) {
                         layer.close(mylayeruiwait);
                         var jsonObj = new X2JS().xml_str2json(response);
-                        if (jsonObj.payCallBackResult.result) {
-                            layermyui("支付完成,已使用" + jsonObj.payCallBackResult.scoreAmount + "积分,可在个人中心查看");
+                        try {
+                            if (jsonObj.payCallBackResult.result) {
+                                layermyui("支付完成,已使用" + jsonObj.payCallBackResult.scoreAmount + "积分,可在个人中心查看");
+
+                                setTimeout(function () {
+                                    window.location.href = "#/app/card/paysuccess";
+                                }, 2000)
+                                return;
+                            }
                         }
+                        catch (err) {
+                            layermyui(response);
+                        }
+                    })
+                }
+                    //ECARD支付
+                else if (accountName == "JJE_APP_ECARD_PAY") {
+                    //测试mock数据
+                    amount = 0.01;
+                    var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
+                    //loading层
+                    var mylayeruiwait = layer.load(1, {
+                        shade: [0.5, '#ababab'] //0.1透明度的白色背景
+                    });
+                    $http.get(nghttp).success(function (response) {
+                        layer.close(mylayeruiwait);
+                        var jsonObj = new X2JS().xml_str2json(response);
+                        $(".payway").empty().append(response);
+                        // e支付的 回调地址现在还没加
                     })
                 }
                     //支付宝支付
                 else if (accountName == "JJE_APP_CLIENT_ALI_WAP_PAY") {
+                    //测试mock数据
+                    amount = 1;
                     var nghttp = "../../ajax/apihandler.ashx?fn=pbppayorder&orderNo=" + orderNo + "&payAmount=" + amount + "&accountName=" + accountName + "";
                     //loading层
                     var mylayeruiwait = layer.load(1, {
@@ -1345,7 +1376,7 @@
                 setCookie('cnum', cnum, 1);
                 setCookie('pnum', pnum, 1);
                 setCookie('groupid', groupid, 1);
-                setCookie('secureamount', secureamount, 1);
+                //   setCookie('secureamount', secureamount, 1);
                 //将跳回支付该产品的cookie
                 //debugger
                 setCookie('linkbackpay', 'true', 1);
@@ -1355,14 +1386,20 @@
 
         }
         $scope.paywaySelect = function ($event) {
-            if ($event.target.parentNode.previousElementSibling.innerText == '支付宝')
-                accountName = 'JJE_APP_CLIENT_ALI_WAP_PAY';
-            else if ($event.target.parentNode.previousElementSibling.innerText == '银联')
-                accountName = 'JJE_APP_UNION_PAY';
-            else if ($event.target.parentNode.previousElementSibling.innerText == '积分支付')
-                accountName = 'JJE_APP_SCORE_PAY';
-            else
-                accountName = '';
+            $("[type=checkbox]").attr("checked", false);
+            $("[type=checkbox][value=" + $event.target.value + "]").attr('checked', 'true');
+            if ($event.target.parentNode.nodeName == "SPAN") {
+                if ($event.target.parentNode.previousElementSibling.innerHTML == '支付宝')
+                    accountName = 'JJE_APP_CLIENT_ALI_WAP_PAY';
+                else if ($event.target.parentNode.previousElementSibling.innerHTML == '银联')
+                    accountName = 'JJE_APP_UNION_PAY';
+                else if ($event.target.parentNode.previousElementSibling.innerHTML == '积分支付')
+                    accountName = 'JJE_APP_SCORE_PAY';
+                else if ($event.target.parentNode.previousElementSibling.innerHTML == '锦江e卡通')
+                    accountName = 'JJE_APP_ECARD_PAY';
+                else
+                    accountName = '';
+            }
         }
 
     })

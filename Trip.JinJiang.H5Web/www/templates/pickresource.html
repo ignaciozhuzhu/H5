@@ -90,7 +90,7 @@
                     </div>
                     <div class="backdarkblue">
 
-                        <div id="groupdatebox" style="float:left;width:33%;">
+                        <div class="groupdatebox" style="float:left;width:33%;">
                             <div style="padding:4px 4px 2px 4px">
                                 团期
                             </div>
@@ -98,7 +98,7 @@
                                 {{date}}
                             </div>
                         </div>
-                        <div id="adultpricebox" style="float:left;width:33%;">
+                        <div class="adultpricebox" style="float:left;width:33%;">
                             <div style="padding:4px 4px 2px 4px">
                                 成人
                             </div>
@@ -106,7 +106,7 @@
                                 ¥ {{minprice}} × {{pnum}}
                             </div>
                         </div>
-                        <div id="childpricebox" style="float:left;width:33%;">
+                        <div class="childpricebox" style="float:left;width:33%;">
                             <div style="padding:4px 4px 2px 4px">
                                 儿童
                             </div>
@@ -150,11 +150,11 @@
                     <!--<div class="border1"></div>-->
                     <!--<div class="border5"></div>-->
 
-                    <div class="textbold textp7" style="height:35px">
+                    <div class="textbold textp7 usecoupbox" style="height:35px">
                         <div style="float:left">使用优惠</div>
                         <div style="float:left;padding:3px 0 0 10px"><img src="img/立减.png" style="width:26px;" /></div>
-
                         <div style="float:right;padding-left:5px;color:gray" ng-click="getcoup()"><span class="getcouptext">请选择</span><img src="img/更多2.png" style="width: 7px;margin-left: 5px;" /></div>
+                        <div style="float:right;padding-right:30px" ng-click="nonecoup()">不使用</div>
                     </div>
 
                     <div class="border1"></div>
@@ -180,7 +180,7 @@
                             费用总额 
                         </div>
                         <div style="float:right;display:none"><a href="javascript:void(0)" onclick="costdetail(this)">费用明细</a></div>
-                        <div style="float:right;padding-right:10px;color:#ff7200">¥<span id="amount"></span></div>
+                        <div style="float:right;padding-right:10px;color:#ff7200">¥<span class="amount"></span></div>
                     </div>
                     <span class="textp7 textgray fonts12">在线支付享受98折优惠（单房差及儿童价不享受）</span>
                     <a id="nextfill" href=""><div class="bottombutton">下一步，填写订单</div></a>

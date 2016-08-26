@@ -308,7 +308,7 @@ var commonUtil = {
                 var d = eval("(" + text + ")");
                 var leftNum = d.leftNum == null ? 0 : d.leftNum;
                 $('.numpera').empty().append(' ' + leftNum + ' ');
-                nextpickhref = '#/app/pickresource/' + groupid;
+                nextpickhref = '#/app/pickresource/0/' + groupid;
                 //设置人数可选最大值
                 //  var nummaxa = (leftNum > 10 ? 10 : leftNum), nummaxb = (leftNum > 10 ? 10 : leftNum);
                 if (leftNum > 0) {

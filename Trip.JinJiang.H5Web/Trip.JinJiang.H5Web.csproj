@@ -1347,7 +1347,8 @@
     <Content Include="www\js\om_code.js" />
     <Content Include="www\templates\card\bind.html" />
     <Content Include="www\templates\card\cdxbind.html" />
-    <Content Include="www\templates\card\epay.html" />
+    <Content Include="www\templates\card\epay3.html" />
+    <Content Include="www\templates\card\paysuccess.html" />
     <Content Include="www\templates\card\sms.html" />
     <Content Include="www\templates\tdk\angular-1.4.6.min.js" />
     <Content Include="www\templates\siteflow\demo.html" />

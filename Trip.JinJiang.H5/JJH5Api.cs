@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 using System.Text;
 using Maticsoft.DBUtility;
 using Trip.JinJiang.H5.DAL;
+using System.Xml.Serialization;
+using System;
+using System.IO;
 
 namespace Trip.JinJiang.H5
 {
@@ -29,6 +32,7 @@ namespace Trip.JinJiang.H5
         private static string urlcurlwap = xhserver + "/pbp/ali/wap/pay/";    //支付宝WAP端支付
         private static string urlunionpaywap = xhserver + "/pbp/union/token/JJE_APP_UNION_PAY/pay";    //银联WAP端支付
         private static string urlscorewap = xhserver + "/pbp/payment/scorePay";    //积分支付
+        private static string urlecardwap = xhserver + "/pbp/ecard/pay/JJE_APP_ECARD_PAY_TEST";    //E CARD 支付
 
         private static string urlcurlh5 = xhserver + "/pbp/wechat/jsapi/pay/JJE_APP_WECHAT_PAY";    //WAP H5 微信
 
@@ -305,7 +309,7 @@ namespace Trip.JinJiang.H5
         /// </summary>
         public static bool pbppaypre(string orderNo, decimal payAmount, string paymethod, int scoreamount)
         {
-            var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payPreInfoDto>    <bgUrl>http://172.24.61.1:30001/travelbaseservice/travel/order/payCallBack</bgUrl>    <callPart>TRAVEL</callPart>    <cardNo></cardNo>    <csId></csId>    <csName></csName><orderNo>" + orderNo + "</orderNo><orderPageUrlFroAdmin></orderPageUrlFroAdmin><pageUrl>http://192.168.1.32:8077/www</pageUrl>    <payAmount>" + payAmount + "</payAmount>    <payMethod>" + paymethod + "</payMethod>    <payType>ONLINE</payType>    <productTitle>锦江手机官网</productTitle>    <scoreAmount>" + scoreamount + "</scoreAmount>    <sign></sign>    <userId></userId>    <userName></userName>  </payPreInfoDto>";
+            var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payPreInfoDto>    <bgUrl>http://172.24.61.1:30001/travelbaseservice/travel/order/payCallBack</bgUrl>    <callPart>TRAVEL</callPart>    <cardNo></cardNo>    <csId></csId>    <csName></csName><orderNo>" + orderNo + "</orderNo><orderPageUrlFroAdmin></orderPageUrlFroAdmin><pageUrl>http://192.168.1.32:8077/www/#/app/card/paysuccess</pageUrl>    <payAmount>" + payAmount + "</payAmount>    <payMethod>" + paymethod + "</payMethod>    <payType>ONLINE</payType>    <productTitle>锦江手机官网</productTitle>    <scoreAmount>" + scoreamount + "</scoreAmount>    <sign></sign>    <userId></userId>    <userName></userName>  </payPreInfoDto>";
             var response = HttpUtil.Post(data, urlcurlcreateorder, contentType: "application/xml");
 
             if (response == "")
@@ -317,7 +321,7 @@ namespace Trip.JinJiang.H5
         /// <summary>
         /// 支付:支付宝,银联
         /// </summary>
-        public static string pbppayorder(string orderNo, decimal payAmount, string accountName, string txnTime, string smscode, int score)
+        public static string pbppayorder(string orderNo, decimal payAmount, string accountName, string txnTime, string smscode, int score, string Membercode)
         {
             //测试,将订单金额改为0.
             //  payAmount = 1;
@@ -344,11 +348,24 @@ namespace Trip.JinJiang.H5
                 url = urlscorewap;
                 payMethod = "SCORE";
                 paymentPlatform = "SCORE";
+
+                //需要先判断个人剩余积分是否足够
+                var response = User.getMemberScoreInfo(Membercode);
+                Model.memberScoreLevelInfoDto msdt = Common.Deserialize.xml2Object(typeof(Model.memberScoreLevelInfoDto), response) as Model.memberScoreLevelInfoDto;
+
+                if (msdt.availableScore - score < 0)
+                    return "积分不足";
+            }
+            else if (accountName == "JJE_APP_ECARD_PAY")
+            {
+                url = urlecardwap;
+                payMethod = "MONEY";
+                paymentPlatform = "ALLINPAY";
             }
 
             if (pbppaypre(orderNo, payAmount, payMethod, score))
             {
-                var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>     <bgUrl>Http://192.168.2.234:80/hotelservice/hotels/order/afterPayProcess</bgUrl>    <buyerId>10057908</buyerId>    <buyerIp>192.168.2.51</buyerIp>    <buyerName>nell001</buyerName><callPart>TRAVEL</callPart>  <description>锦江手机官网</description>  <orderNo>" + orderNo + "</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl></pageUrl>  <payMethod>" + payMethod + "</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>" + paymentPlatform + "</paymentPlatform>  <price>" + payAmount + "</price>  <score>" + score + "</score>  " + unionpaystr + "<subject>锦江手机官网</subject></payRequest> ";
+                var data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><payRequest>  <bankCode></bankCode>     <bgUrl>Http://192.168.2.234:80/hotelservice/hotels/order/afterPayProcess</bgUrl>    <buyerId>10057908</buyerId>    <buyerIp>192.168.2.51</buyerIp>    <buyerName>nell001</buyerName><callPart>TRAVEL</callPart>  <description>锦江手机官网</description>  <orderNo>" + orderNo + "</orderNo>  <orderPageUrlFroAdmin> </orderPageUrlFroAdmin>  <pageUrl>http://192.168.1.32:8077/www/#/app/card/paysuccess</pageUrl>  <payMethod>" + payMethod + "</payMethod>  <payType>ONLINE</payType>  <paymentPlatform>" + paymentPlatform + "</paymentPlatform>  <price>" + payAmount + "</price>  <score>" + score + "</score>  " + unionpaystr + "<subject>锦江手机官网</subject></payRequest> ";
                 var response = HttpUtil.Post(data, url, contentType: "application/xml");
                 return response;
             }

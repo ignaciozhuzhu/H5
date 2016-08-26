@@ -1,5 +1,5 @@
 ﻿<style>
-    .unionpay1 .nextbutton {
+    .bindbox .nextbutton {
         height: 30px;
         width: 100px;
         background-color: #ff714c;
@@ -10,7 +10,7 @@
         margin: 0 auto;
     }
 
-    .unionpay1 .remark {
+    .bindbox .remark {
         height: 100px;
         width: 90%;
         background-color: #dedcde;
@@ -20,21 +20,21 @@
         margin: 0 auto;
     }
 
-        .unionpay1 .remark .greentext {
+        .bindbox .remark .greentext {
             color: #009688;
             font-size: 1.1em;
             text-align: center;
             line-height: 40px;
         }
 
-        .unionpay1 .remark .unionimg {
+        .bindbox .remark .unionimg {
             height: 25px;
             vertical-align: middle;
             margin: 0 10px;
         }
 
 
-    .unionpay1 .div-phone a.send1 {
+    .bindbox .div-phone a.send1 {
         height: 34px;
         text-decoration: none;
         line-height: 34px;
@@ -56,7 +56,7 @@
         margin: 10px 10px;
     }
 
-        .unionpay1 .div-phone a.send1:hover {
+        .bindbox .div-phone a.send1:hover {
             text-decoration: none;
             background: #866c1b;
             -webkit-transition: all 0.2s linear;
@@ -66,11 +66,11 @@
             transition: all 0.2s linear;
         }
 
-    .unionpay1 .div-phone a.send0 {
+    .bindbox .div-phone a.send0 {
         background: #A1A1A1;
     }
 
-        .unionpay1 .div-phone a.send0:hover {
+        .bindbox .div-phone a.send0:hover {
             background: #A1A1A1;
             font-family: '宋体';
             color: #fff;
@@ -81,12 +81,12 @@
 <ion-view hide-nav-bar="false">
 </ion-view>
 <ion-view view-title="银联支付">
-    <ion-content class="unionpay1">
+    <ion-content class="bindbox">
         <div>
             <input type="text" id="memberid" value="10057908" style="display:none" /><br>
             <div style="margin-left:5%">银行卡：</div>
             <input style="width: 65%;  display:inline-block;  margin: 10px;margin-left:5%;padding-left:10px"  type="text" id="card" value="" /> <!--6212261202033455370-->
-            <a id="changecard">变更卡号</a>
+            <a ng-click="changecard()">变更卡号</a>
             <br>
             <div style="margin-left:5%">短信校验：</div>
 
