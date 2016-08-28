@@ -259,6 +259,25 @@
         right: 0;
         z-index: 10;
     }
+
+    .linedetail .rsGCaption {
+        display: none;
+    }
+
+    .linedetail .textinimg {
+        color: white;
+        font-size: 15px;
+        position: absolute;
+        bottom: 5px;
+    }
+
+        .linedetail .textinimg.left2 {
+            left: 2%;
+        }
+
+        .linedetail .textinimg.right2 {
+            right: 2%;
+        }
 </style>
 <ion-view hide-nav-bar="true">
 </ion-view>
@@ -277,27 +296,25 @@
         <div class="linedetail">
 
             <img src="img/收藏前.png" class="collectimg" ng-click="collect()">
+
             <!--这段轮播图-->
             <div class="sliderContainer fullWidth clearfix">
                 <div ng-click="indexent()" id="full-width-slider" class="royalSlider heroSlider rsMinW">
                 </div>
+
+                <div style="position:relative">
+                    <div class="textinimg left2">
+                        <span>{{lineCategory}}</span>
+                    </div>
+
+                    <div class="textinimg right2">
+                        <span>{{groupcode}}</span>
+                    </div>
+                </div>
             </div>
-
-            <!--<div style="background-image:url({{image}});height:180px;background-repeat:no-repeat;background-size: 100% ;position:relative">
-                <div><img style="height:30px;float:right;display:none" src="img/收藏后.png" /></div>
-
-                <div style="color:white;font-size:15px;position:absolute;bottom:2%;left:2%">
-                    <span>{{lineCategory}}</span>
-                </div>
-
-                <div style="color:white;font-size:15px;position:absolute;bottom:2%;right:2%">
-                    <span>{{groupcode}}</span>
-                </div>
-            </div>-->
 
             <div class="mylinedetailbox overhidden">
                 <div class="padding5px ifonline" style="background-color:#faf3ed;height:35px">
-                    <!--<div style="width:10%;height:100%;float:left"></div>-->
                     <div style="float:left;margin-left: 2%;">
                         <img src="img/星星.png" style="height:24px">
                     </div>
