@@ -252,6 +252,13 @@
             background-color: #f3f3f3;
             font-weight: 600;
         }
+
+    .linedetail .collectimg {
+        width: 40px;
+        position: absolute;
+        right: 0;
+        z-index: 10;
+    }
 </style>
 <ion-view hide-nav-bar="true">
 </ion-view>
@@ -269,6 +276,7 @@
     <ion-content>
         <div class="linedetail">
 
+            <img src="img/收藏前.png" class="collectimg" ng-click="collect()">
             <!--这段轮播图-->
             <div class="sliderContainer fullWidth clearfix">
                 <div ng-click="indexent()" id="full-width-slider" class="royalSlider heroSlider rsMinW">

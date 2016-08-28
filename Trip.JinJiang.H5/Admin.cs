@@ -38,8 +38,8 @@ namespace Trip.JinJiang.H5
             return json;
         }
         /// <summary>
-         /// 后台线路库(带筛选(推荐产品查询区))
-         /// </summary>
+        /// 后台线路库(带筛选(推荐产品查询区))
+        /// </summary>
         public static string getlinesadsearch2(string linenamesc, string agencysc, string lineidsc, string categorysc, string agencysc2)
         {
             string str = "";
@@ -600,5 +600,71 @@ namespace Trip.JinJiang.H5
             var response = HttpUtil.Post(json, urlcmslinesearch, contentType: "application/json");
             return response;
         }
+
+
+
+        /// <summary>
+        /// 我的收藏
+        /// </summary>
+        public static string getCollectList(string Membercode)
+        {
+            myCollectFac Fac = new myCollectFac();
+            DataSet ds = Fac.GetList(Membercode);
+            ConvertJson ConvertJson = new ConvertJson();
+            string json = ConvertJson.ToJson(ds);
+            return json;
+        }
+        /// <summary>
+        /// 添加收藏
+        /// </summary>
+        public static string addcollect(string title, string description, int price, int? date, string imgurl, int userMID, int lineID)
+        {
+            myCollectMod model = new myCollectMod();
+            model.title = title;
+            model.description = description;
+            model.price = price;
+            model.date = date;
+            model.imgurl = imgurl;
+            model.userMID = userMID;
+            model.lineID = lineID;
+            myCollectFac Fac = new myCollectFac();
+            if (Fac.Add(model) > 0)
+            {
+                return "操作成功!";
+            }
+            else {
+                return "操作失败!";
+            }
+        }
+        /// <summary>
+        /// 添加收藏
+        /// </summary>
+        public static string cancelcollect(int lineID, int userMID)
+        {
+            myCollectFac Fac = new myCollectFac();
+            if (Fac.Delete(lineID, userMID))
+            {
+                return "操作成功!";
+            }
+            else {
+                return "操作失败!";
+            }
+        }
+        /// <summary>
+        /// 该线路是否已收藏
+        /// </summary>
+        public static string getifcollect(int lineID, int userMID)
+        {
+            myCollectFac Fac = new myCollectFac();
+            if (Fac.GetIfCollect(lineID, userMID))
+            {
+                return "是";
+            }
+            else {
+                return "否";
+            }
+        }
+
+
     }
 }

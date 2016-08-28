@@ -373,7 +373,6 @@
         window.location.href = "#/app/linelists/" + thislineCategory;
     }
 
-
     //自加载运行
     $scope.$on("$ionicView.loaded", function () {
         //自动加载播放滚动图片
@@ -454,12 +453,14 @@
             location.reload();
         }
         else if (ent2detail != "index") {
-            window.location.href = "#/app/linelists/" + ent2detail;
-            location.reload();
+            window.history.back();
+            //  window.location.href = "#/app/linelists/" + ent2detail;
+            //  location.reload();
         }
         else {
-            window.location.href = "#/app/index";
-            location.reload();
+            window.history.back();
+            //     window.location.href = "#/app/index";
+            //     location.reload();
         }
     }
 
@@ -470,7 +471,6 @@
         shade: [0.5, '#ababab'] //0.1透明度的白色背景
     });
     $http.get(nghttp).success(function (response) {
-        //$.unblockUI();
         find404admin(response);
         layer.close(mylayeruiwait);
         //团框初始高度
@@ -486,7 +486,6 @@
             layermyui('此线路暂无详细数据!', 1500);
             return;
         }
-        // debugger
         $scope.linedetails = response.line;
         $scope.spprice = response.scoreRatio.ratio * response.minPrice;
         $scope.travelAgency = response.line.travelAgency;
@@ -661,7 +660,92 @@
         $(".linedetail .tunbl1").addClass("contentblue");
         $(".linedetail .tunbl5").addClass("lineblue");
 
+        var userMID = getCookie('mcMemberCode');
+
+        (function () {
+            if (!userMID) {
+                //未登陆者直接不显示收藏是否图标
+                $(".collectimg").css("display", "none");
+            }
+            else {
+                var lineID = $scope.linedetails.id;
+                var nghttp = "../../ajax/apihandler.ashx?fn=getifcollect&userMID=" + userMID + "&lineID=" + lineID + "";
+                var mylayeruiwait = layer.load(1, {
+                    shade: [0.5, '#ababab'] //0.1透明度的白色背景
+                });
+                $http.get(nghttp).success(function (response) {
+                    layer.close(mylayeruiwait);
+                    collectstatus(response == "是" ? true : false, false);
+                })
+            }
+        }())
+
     });
+
+    $scope.collect = function () {
+        if (!$scope.ifcollect) {
+            var title = $scope.linedetails.name;
+            var description = $scope.linedetails.title;
+            var price = $scope.price;
+            var date = $scope.linedetails.days;
+            var imgurl;
+            try {
+                imgurl = $scope.linedetails.images[0].url ? $scope.linedetails.images[0].url : "";
+            }
+            catch (err) { imgurl = "" }
+            var userMID = getCookie('mcMemberCode');
+            if (!userMID) {
+                layermyui('收藏需先登录');
+                return;
+            }
+            var lineID = $scope.linedetails.id;
+            var nghttp = "../../ajax/apihandler.ashx?fn=addcollect&title=" + title + "&description=" + description + "&price=" + price + "&date=" + date + "&imgurl=" + imgurl + "&userMID=" + userMID + "&lineID=" + lineID + "";
+            var mylayeruiwait = layer.load(1, {
+                shade: [0.5, '#ababab'] //0.1透明度的白色背景
+            });
+            $http.get(nghttp).success(function (response) {
+                layer.close(mylayeruiwait);
+                if (response == "操作成功!") {
+                    collectstatus(true);
+                }
+            })
+        }
+        else {
+            var userMID = getCookie('mcMemberCode');
+            if (!userMID) {
+                layermyui('请先登录');
+                return;
+            }
+            var lineID = $scope.linedetails.id;
+            var nghttp = "../../ajax/apihandler.ashx?fn=cancelcollect&lineID=" + lineID + "&userMID=" + userMID + "";
+            var mylayeruiwait = layer.load(1, {
+                shade: [0.5, '#ababab'] //0.1透明度的白色背景
+            });
+            $http.get(nghttp).success(function (response) {
+                layer.close(mylayeruiwait);
+                if (response == "操作成功!") {
+                    collectstatus(false);
+                }
+            })
+        }
+    }
+
+    function collectstatus(status, lay) {
+        lay = lay == undefined ? true : false;
+        if (status) {
+            $(".collectimg").attr("src", "img/收藏后.png")
+            $scope.ifcollect = true;
+            if (lay)
+                layermyui('已收藏!');
+        }
+        else {
+            $(".collectimg").attr("src", "img/收藏前.png")
+            $scope.ifcollect = false;
+            if (lay)
+                layermyui('已取消收藏!');
+        }
+    }
+
     //设置行程类型图标样式
     function settypepng() {
         for (var i = 0; i < $(".linedetail .cltypetxt").length ; i++) {
@@ -734,36 +818,36 @@
                     var abc = response.line.images[i].url.substr(0, response.line.images[i].url.length - 14) + "/1/interlace/1/w/440/h/230";
                     $('.linedetail #full-width-slider').append('<div class="rsContent"><img class="rsImg" src=' + abc + ' /></div>');
                 }
+                $('.linedetail #full-width-slider').royalSlider({
+                    arrowsNav: true,
+                    loop: false,
+                    keyboardNavEnabled: true,
+                    controlsInside: false,
+                    imageScaleMode: 'fill',
+                    arrowsNavAutoHide: false,
+                    autoScaleSlider: true,
+                    autoScaleSliderWidth: 960,
+                    autoScaleSliderHeight: 350,
+                    controlNavigation: 'bullets',
+                    thumbsFitInViewport: false,
+                    navigateByClick: true,
+                    startSlideId: 0,
+                    autoPlay: {
+                        enabled: true,
+                        stopAtAction: false
+                    },
+                    transitionType: 'move',
+                    globalCaption: true,
+                    deeplinking: {
+                        enabled: true,
+                        change: false
+                    },
+
+                    imgWidth: 1400,
+                    imgHeight: 680
+                });
             }
-
-            $('.linedetail #full-width-slider').royalSlider({
-                arrowsNav: true,
-                loop: false,
-                keyboardNavEnabled: true,
-                controlsInside: false,
-                imageScaleMode: 'fill',
-                arrowsNavAutoHide: false,
-                autoScaleSlider: true,
-                autoScaleSliderWidth: 960,
-                autoScaleSliderHeight: 350,
-                controlNavigation: 'bullets',
-                thumbsFitInViewport: false,
-                navigateByClick: true,
-                startSlideId: 0,
-                autoPlay: {
-                    enabled: true,
-                    stopAtAction: false
-                },
-                transitionType: 'move',
-                globalCaption: true,
-                deeplinking: {
-                    enabled: true,
-                    change: false
-                },
-
-                imgWidth: 1400,
-                imgHeight: 680
-            });
+            
         })
 
     })
@@ -1163,6 +1247,7 @@
             success: function (text) {
                 layer.close(mylayeruiwait);
                 var errormsg = finderrorMsgadmin(text);
+                var d = eval("(" + text + ")");
                 if (errormsg) {
                     if (errormsg == "mcMemberCode不能为空!") {
                         //把参数存入cookie
@@ -1187,7 +1272,6 @@
                     setCookie('inname' + i, $('.inname')[i].value == "" ? "游客" + (parseInt(i) + 1) : $('.inname')[i].value, 1);
                 }
                 //$.unblockUI();
-                var d = eval("(" + text + ")");
                 setCookie('orderNo', d.orderNo, 1);
                 amount = amount - discountAmount;
                 window.location.href = '#/app/payway/' + d.orderNo + '/' + groupid + '/' + pnum + '/' + cnum + '/' + amount;

@@ -484,9 +484,22 @@
             find404admin(response);
             $scope.orders = response.orders;
             for (var i = 0; i < response.orders.length; i++) {
-                $scope.orders[i].discountafterAmount = response.orders[i].paymentAmount //Math.ceil(response.orders[i].amount / response.orders[i].adultNum * 0.98) * response.orders[i].adultNum;
+
+                if (response.orders[i].paymentAmount) {
+                    $scope.orders[i].discountafterAmount = response.orders[i].paymentAmount;
+                }
+                else if (!response.orders[i].paymentAmount && response.orders[i].payStatusName != "已支付") {
+                    $scope.orders[i].discountafterAmount = response.orders[i].amount;
+                    $scope.orders[i].orderStatusName = "待确认-门店支付";
+                    // debugger
+                    //$(".doorremark").css({ "display": "none" });
+                }
+                //Math.ceil(response.orders[i].amount / response.orders[i].adultNum * 0.98) * response.orders[i].adultNum;
                 if ($scope.orders[i].payStatusName == "已支付") {
                     $scope.orders[i].orderStatusName = "已支付";
+                }
+                if ($scope.orders[i].payStatusName == "待支付") {
+                    $scope.orders[i].orderStatusName = "待支付";
                 }
             }
 
@@ -739,6 +752,17 @@
         }
         else {
             window.location.href = '#/app/user/mypoints';
+        }
+    }
+
+    $scope.seemycollect = function () {
+        var ckmcMemberCode = getCookie('mcMemberCode');
+        if (ckmcMemberCode == "" || ckmcMemberCode == undefined || ckmcMemberCode == null) {
+            layermyui('请先登录');
+            return;
+        }
+        else {
+            window.location.href = '#/app/user/mycollect';
         }
     }
 
@@ -1077,6 +1101,31 @@
 })
 
 
+
+//我的收藏
+.controller('mycollectCtrl', function ($scope, $http) {
+    nofollowfunc();
+    var Membercode = getCookie('mcMemberCode');
+    var nghttp = "../../ajax/apihandler.ashx?fn=getcollectlist&Membercode=" + Membercode + "";
+    var mylayeruiwait = layer.load(1, {
+        shade: [0.5, '#ababab'] //0.1透明度的白色背景
+    });
+    $http.get(nghttp).success(function (response) {
+        layer.close(mylayeruiwait);
+        $scope.collectlist = response.ds;
+    }).error(function (data, status, headers, config) {
+        layermyui('暂无收藏');
+        layer.close(mylayeruiwait);
+    });
+
+
+    $scope.listhistorygoback = function () {
+        window.history.back();
+    }
+
+})
+
+
 //发送短信验证码2
 var sends2 = {
     checked: 1,
@@ -1181,33 +1230,6 @@ function myfocus(ob) {
         $(ob)[0].className = ('form-input form-input-focus');
     }
 }
-//function login_reg_input(b) {
-//    SetInputCss(b);
-//    $(b).mouseup(function () { SetInputCss(b); });
-//    $(b).blur(function () {
-//        if ($.trim($(this).val()) == "") {
-//            $(this).removeClass("form-input-focus");
-//            $(this).prev().removeClass("item-tip-focus");
-//        }
-//    });
-//    $(b).focus(function () {
-//        if (!$(this).hasClass("form-input-focus")) { $(this).addClass("form-input-focus"); $(this).prev().addClass("item-tip-focus"); }
-//    });
-//    $(".item-tip").click(function () {
-//        $(this).next().focus();
-//    });
-//}
-//function SetInputCss(b) {
-//    debugger
-//    $(b).each(function () {
-//        if ($.trim($(this).val()) != "") {
-//            $(this).addClass("form-input-focus");
-//            $(this).prev().addClass("item-tip-focus");
-//        }
-//    });
-//}
-//login_reg_input(".form-input");
-
 function myblur(ob) {
     if ($(ob)[0].value == "") {
         $(ob)[0].previousElementSibling.className = 'item-tip';

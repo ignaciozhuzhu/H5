@@ -282,6 +282,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.controllersu
                 }
             }
         })
+        //支付成功回调页
+        .state('app.mycollect', {
+            url: '/user/mycollect',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/user/mycollect.html',
+                    controller: 'mycollectCtrl'
+                }
+            }
+        })
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/index');///app/playlists

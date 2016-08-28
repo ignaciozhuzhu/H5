@@ -23,7 +23,13 @@ namespace Trip.JinJiang.H5Web.ajax
             }
             catch (Exception e)
             {
-                HttpContext.Current.Response.Write("接口出错!");
+                if (e.InnerException.Message.IndexOf("重复键") > -1)
+                {
+                    HttpContext.Current.Response.Write("你不能这么做,可能原因为:重复操作");
+                }
+                else {
+                    HttpContext.Current.Response.Write("接口出错!");
+                }
             }
         }
 
@@ -376,6 +382,47 @@ namespace Trip.JinJiang.H5Web.ajax
             HttpContext.Current.Response.Write(JJH5Api.funpaycallback(ordercode, payamount));
         }
 
+
+        /// <summary>
+        /// 我的收藏
+        /// </summary>
+        public void getcollectlist()
+        {
+            string Membercode = (HttpContext.Current.Request["Membercode"]).ToString();
+            HttpContext.Current.Response.Write(Admin.getCollectList(Membercode));
+        }
+        /// <summary>
+        /// 添加收藏
+        /// </summary>
+        public void addcollect()
+        {
+            string title = (HttpContext.Current.Request["title"]).ToString();
+            string description = (HttpContext.Current.Request["description"]).ToString();
+            int price = Convert.ToInt32(HttpContext.Current.Request["price"]);
+            int? date = Convert.ToInt32(HttpContext.Current.Request["date"]);
+            string imgurl = (HttpContext.Current.Request["imgurl"]).ToString();
+            int userMID = Convert.ToInt32(HttpContext.Current.Request["userMID"]);
+            int lineID = Convert.ToInt32(HttpContext.Current.Request["lineID"]);
+            HttpContext.Current.Response.Write(Admin.addcollect(title, description, price, date, imgurl, userMID, lineID));
+        }
+        /// <summary>
+        /// 取消收藏
+        /// </summary>
+        public void cancelcollect()
+        {
+            int userMID = Convert.ToInt32(HttpContext.Current.Request["userMID"]);
+            int lineID = Convert.ToInt32(HttpContext.Current.Request["lineID"]);
+            HttpContext.Current.Response.Write(Admin.cancelcollect(lineID, userMID));
+        }
+        /// <summary>
+        /// 该线路是否已收藏
+        /// </summary>
+        public void getifcollect()
+        {
+            int userMID = Convert.ToInt32(HttpContext.Current.Request["userMID"]);
+            int lineID = Convert.ToInt32(HttpContext.Current.Request["lineID"]);
+            HttpContext.Current.Response.Write(Admin.getifcollect(lineID, userMID));
+        }
 
 
         public bool IsReusable

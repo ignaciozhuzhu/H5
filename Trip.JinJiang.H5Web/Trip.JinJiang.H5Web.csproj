@@ -1345,9 +1345,11 @@
     <Content Include="www\lib\md5.js" />
     <Content Include="www\lib\sha1.js" />
     <Content Include="www\js\om_code.js" />
+    <Content Include="www\templates\card\mine.html" />
     <Content Include="www\templates\card\bind.html" />
     <Content Include="www\templates\card\cdxbind.html" />
     <Content Include="www\templates\card\epay3.html" />
+    <Content Include="www\templates\card\others.html" />
     <Content Include="www\templates\card\paysuccess.html" />
     <Content Include="www\templates\card\sms.html" />
     <Content Include="www\templates\tdk\angular-1.4.6.min.js" />
@@ -1355,6 +1357,7 @@
     <Content Include="www\templates\siteflow\demo2.html" />
     <Content Include="www\templates\siteflow\om_code.js" />
     <Content Include="www\templates\tdk\tdkdemo.html" />
+    <Content Include="www\templates\user\mycollect.html" />
     <Content Include="www\templates\user\myinfo.html" />
     <Content Include="www\templates\user\mycoup.html" />
     <Content Include="www\templates\user\mypoints.html" />

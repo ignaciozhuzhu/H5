@@ -1,8 +1,14 @@
 ﻿<ion-view hide-nav-bar="true">
 </ion-view>
 <style>
-    .displaynone {
+    .myorder .displaynone {
     display:none
+    }
+    .myorder .displayblock {
+    display:block
+    }
+    .myorder .doorremark {
+    color:#000;font-size:0.9em;overflow:hidden;margin-left:5px;
     }
 
 </style>
@@ -23,7 +29,7 @@
             <div ng-click="li1()">待支付</div>
             <div ng-click="li2()">已支付</div>
             <div ng-click="li3()">已取消</div>
-            <div ng-click="li4()">预定失败</div>
+            <!--<div ng-click="li4()">预定失败</div>-->
         </div>
     </ion-header-bar>
     <ion-content delegate-handle="mainScroll">
@@ -60,6 +66,7 @@
                         <div ng-bind="x.orderStatusName"></div>
                         <div ng-show="false" ng-bind="x.payStatusName"></div>
                     </div>
+                    <div class="doorremark" ng-hide="x.canOnlinePay" >预定确认的订单,在完成支付前扔有可能被取消,请尽快前往门店支付.</div>
                 </div>
                 <div class="heightgray"></div>
                 <div class="seebutton">
