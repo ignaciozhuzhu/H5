@@ -77,6 +77,10 @@
                 </div>
                 <div class="heightgray"></div>
                 <div class="seebutton">
+                    <div class="orderbutton payy" ng-click="paynow($event)">
+                        立即支付
+                        <div ng-show="false">{{x.code}}</div>
+                    </div>
                     <div class="orderbutton cancel" ng-click="cancelorder($event)">
                         取消订单
                         <div ng-show="false">{{x.code}}</div>

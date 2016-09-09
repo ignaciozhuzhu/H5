@@ -418,7 +418,7 @@
 
 }])
 //我的订单控制器
-.controller('myorderCtrl', ['$scope', '$http', '$ionicScrollDelegate','$ionicHistory', function ($scope, $http, $ionicScrollDelegate, $ionicHistory) {
+.controller('myorderCtrl', ['$scope', '$http', '$ionicScrollDelegate', '$ionicHistory', function ($scope, $http, $ionicScrollDelegate, $ionicHistory) {
     nofollowfunc();
     //var mcMemberCode = "";
     var mcMemberCode = getCookie('mcMemberCode');
@@ -434,7 +434,7 @@
         $(".header0").css({ "margin-top": "0px" });
     }
     //如果是从首页按自带返回过来的
-   // debugger
+    // debugger
     if ($ionicHistory.viewHistory().backView == null) {
         $(".header0").css({ "margin-top": "0px" });
     }
@@ -460,8 +460,9 @@
                 else if (!response.orders[i].paymentAmount && response.orders[i].payStatusName != "已支付") {
                     $scope.orders[i].discountafterAmount = response.orders[i].amount;
                     $scope.orders[i].orderStatusName = "待确认-门店支付";
-                    // debugger
-                    //$(".doorremark").css({ "display": "none" });
+                    if ($scope.orders[i].orderStatus == "CANCELED") {
+                        $scope.orders[i].orderStatusName = "已取消";
+                    }
                 }
                 //Math.ceil(response.orders[i].amount / response.orders[i].adultNum * 0.98) * response.orders[i].adultNum;
                 if ($scope.orders[i].payStatusName == "已支付") {
@@ -469,6 +470,9 @@
                 }
                 if ($scope.orders[i].payStatusName == "待支付") {
                     $scope.orders[i].orderStatusName = "待支付";
+                }
+                if ($scope.orders[i].payStatusName == "待支付" && $scope.orders[i].orderStatus == "CANCELED") {
+                    $scope.orders[i].orderStatusName = "已取消";
                 }
             }
 
@@ -491,7 +495,9 @@
     $scope.cancelorder = function ($event) {
         var ordercode = event.currentTarget.lastElementChild.innerText;
         var mcMemberCode = getCookie('mcMemberCode');
-        if (event.currentTarget.parentNode.previousElementSibling.previousElementSibling.childNodes[1].children[3].innerText == "待支付") {
+        var paytext = event.currentTarget.parentNode.previousElementSibling.previousElementSibling.childNodes[1].children[3].innerText;
+        var paytext2 = event.currentTarget.parentNode.previousElementSibling.previousElementSibling.childNodes[1].children[2].innerText;
+        if (paytext == "待支付" || paytext2 == "待确认-门店支付") {
             var mylayeruiwait = layer.load(1, {
                 shade: [0.5, '#ababab'] //0.1透明度的白色背景
             });
@@ -517,6 +523,46 @@
         else if (event.currentTarget.parentNode.previousElementSibling.previousElementSibling.childNodes[1].children[3].innerText == "已支付") {
             layermyui('您的订单为已支付订单，需确认退款金额，请及时与客服联系，客服电话10101666*3，客服工作时间：8点至21点。');
         }
+    }
+
+    //var accountName = 'JJE_APP_CLIENT_ALI_WAP_PAY';
+    $scope.paynow = function () {
+        var ordercode = event.currentTarget.lastElementChild.innerText;
+
+        var groupid;
+        var cnum;
+        var anum;
+        var paymentAmount;
+        var nghttp = "../../ajax/userHandler.ashx?fn=queryorderdetail&code=" + ordercode;
+        //loading层
+        var mylayeruiwait = layer.load(1, {
+            shade: [0.5, '#ababab'] //0.1透明度的白色背景
+        });
+        $http.get(nghttp).success(function (response) {
+            find404admin(response);
+            groupid = response.groupId;
+            cnum = response.childNum;
+            anum = response.adultNum;
+            paymentAmount = response.paymentAmount;
+
+            //首先做身份认证,判断是否已经登录,没有帐号的客户先注册.
+            var mcMemberCode = getCookie('mcMemberCode');
+            if (mcMemberCode != "" && mcMemberCode != undefined && mcMemberCode != null) {
+                //现在跳转到付款页即可,不需要直接跳支付宝(上面的逻辑是直接跳支付宝). 8.22 
+                window.location.href = "#/app/payway/" + ordercode + "/" + groupid + "/" + anum + "/" + cnum + "/" + paymentAmount + "";
+            }
+            else {//把参数存入cookie
+                setCookie('tolamount', amount, 1);
+                setCookie('cnum', cnum, 1);
+                setCookie('pnum', pnum, 1);
+                setCookie('groupid', groupid, 1);
+                setCookie('orderNo', ordercode, 1);
+                //跳转至登录页
+                window.location.href = '#/app/user/login';
+            }
+
+        })
+
     }
 
     $scope.li0 = function () {
@@ -1237,6 +1283,10 @@ function settypepng() {
     for (var i = 0; i < $(".seebutton .cancel").length ; i++) {
         if ($(".seebutton .cancel")[i].parentNode.previousElementSibling.previousElementSibling.innerText.indexOf("已取消") > -1) {
             $(".seebutton .cancel")[i].className = "seebutton cancel displaynone";
+            $(".seebutton .payy")[i].className = "seebutton payy displaynone";
+        }
+        if ($(".seebutton .cancel")[i].parentNode.previousElementSibling.previousElementSibling.innerText.indexOf("已支付") > -1) {
+            $(".seebutton .payy")[i].className = "seebutton payy displaynone";
         }
     }
 }

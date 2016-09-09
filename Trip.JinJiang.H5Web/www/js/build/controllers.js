@@ -295,14 +295,17 @@
             linearr += response.ds[i].lineId + ",";
             if (myimgurl.indexOf('|') > 0) {
                 myimgurl = myimgurl.substring(0, myimgurl.indexOf('|'));
-                response.ds[i].imageUrls = myimgurl;
             }
             else
                 response.ds[i].imageUrls = "";
+
+            if (response.ds[i].imgUrl == "../../../modules/img/0") {
+                response.ds[i].imgUrl = "images/error.jpg";
+            }
         }
         linearr = linearr.substr(0, linearr.length - 1);
         $scope.linecategorys2detail = response.ds;
-
+         
         //取价格
         var nghttppattern10 = "../../ajax/apihandler.ashx?fn=getlinesprice&linearr=" + linearr + "";
         $http.get(nghttppattern10).success(function (response) {
