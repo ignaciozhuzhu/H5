@@ -1,0 +1,1 @@
+angular.module("starter.directive",[]).directive("errSrc",function(){return{link:function(a,b,c){b.bind("error",function(){c.src!=c.errSrc&&c.$set("src",c.errSrc)})}}});

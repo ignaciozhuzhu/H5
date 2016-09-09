@@ -279,7 +279,7 @@
     font-size: 13px;
     margin: 0 0px;
     color: #beb9c0;
-    margin-top: 44px;
+    margin-top: 44px ;
 }
 
 .myorderh {
@@ -293,6 +293,7 @@
         height: 25px;
         margin: 0px -10px;
         width: 110%;
+        /*margin-top:0 !important;*/
     }
 
         .myorderh .header0 div {

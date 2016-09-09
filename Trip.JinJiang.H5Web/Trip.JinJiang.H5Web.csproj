@@ -1059,7 +1059,6 @@
     </Content>
     <Content Include="www\css\datepicker.css" />
     <Content Include="www\css\jquery.spinner2.css" />
-    <Content Include="www\css\mfb2.css" />
     <Content Include="www\css\jquery.spinner.css" />
     <Content Include="www\css\mfb.css" />
     <Content Include="www\css\royalslider.css" />
@@ -1103,6 +1102,7 @@
     <Content Include="www\img\左边li图标3.png" />
     <Content Include="www\img\左边li图标4.png" />
     <Content Include="www\img\收藏.png" />
+    <Content Include="www\img\线路详情默认图片.png" />
     <Content Include="www\img\订单.png" />
     <Content Include="www\img\返回3.png" />
     <Content Include="www\img\checkbox.png" />
@@ -1145,9 +1145,14 @@
     <Content Include="www\img\锦江旅游图标.jpg" />
     <Content Include="www\img\锯齿划线.png" />
     <Content Include="www\js\angular-1.4.6.min.js" />
-    <Content Include="www\js\controllerspay.js" />
-    <Content Include="www\js\controllersuser.js" />
-    <Content Include="www\js\directive.js" />
+    <Content Include="www\js\build\controllers.js" />
+    <Content Include="www\js\build\controllerspay.js" />
+    <Content Include="www\js\build\controllersuser.js" />
+    <Content Include="www\js\build\directive.js" />
+    <Content Include="www\js\build\jquery.spinner.js" />
+    <Content Include="www\js\build\jscommon.js" />
+    <Content Include="www\js\build\service.js" />
+    <Content Include="www\js\build\zlDate.js" />
     <Content Include="www\js\jquery-1.8.3.min.js" />
     <Content Include="www\js\jquery.royalslider.min.js" />
     <Content Include="modules\.jshintrc" />
@@ -1277,9 +1282,7 @@
     <Content Include="modules\plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="modules\plugins\input-mask\phone-codes\phone-codes.json" />
     <Content Include="modules\README.md" />
-    <Content Include="www\js\jquery.spinner.js" />
     <Content Include="www\js\Jquerybui.js" />
-    <Content Include="www\js\jscommon.js" />
     <Content Include="www\js\layer\layer.js" />
     <Content Include="www\js\layer\skin\default\icon-ext.png" />
     <Content Include="www\js\layer\skin\default\icon.png" />
@@ -1288,7 +1291,6 @@
     <Content Include="www\js\layer\skin\default\loading-2.gif" />
     <Content Include="www\js\layer\skin\layer.css" />
     <Content Include="www\js\less\less.js" />
-    <Content Include="www\js\service.js" />
     <Content Include="www\lib\dropdown-multiselect\angularjs-dropdown-multiselect.js" />
     <Content Include="www\lib\dropdown-multiselect\css\bootstrap.min.css" />
     <Content Include="www\lib\dropdown-multiselect\css\stylesheet.css" />
@@ -1296,8 +1298,12 @@
     <Content Include="www\lib\mockjs\mock.angular.js" />
     <Content Include="www\lib\mockjs\mock.js" />
     <Content Include="www\lib\mockjs\mockData.js" />
+    <Content Include="www\lib\oclazyload\ocLazyLoad.min.js" />
+    <Content Include="www\lib\react\build\browser.min.js" />
+    <Content Include="www\lib\react\build\JSXTransformer.js" />
+    <Content Include="www\lib\react\build\react-dom.js" />
+    <Content Include="www\lib\react\build\react.js" />
     <Content Include="www\lib\xml2json.min.js" />
-    <Content Include="www\js\zlDate.js" />
     <Content Include="www\lib\ionic\fonts\ionicons.eot" />
     <Content Include="www\lib\ionic\fonts\ionicons.ttf" />
     <Content Include="www\lib\ionic\fonts\ionicons.woff" />
@@ -1345,12 +1351,10 @@
     <Content Include="www\lib\md5.js" />
     <Content Include="www\lib\sha1.js" />
     <Content Include="www\js\om_code.js" />
-    <Content Include="www\templates\card\mine.html" />
     <Content Include="www\templates\card\bind.html" />
     <Content Include="www\templates\card\cdxbind.html" />
-    <Content Include="www\templates\card\epay3.html" />
-    <Content Include="www\templates\card\others.html" />
     <Content Include="www\templates\card\paysuccess.html" />
+    <Content Include="www\templates\card\reactdemo1.html" />
     <Content Include="www\templates\card\sms.html" />
     <Content Include="www\templates\tdk\angular-1.4.6.min.js" />
     <Content Include="www\templates\siteflow\demo.html" />
@@ -1377,7 +1381,6 @@
     <Content Include="www\img\1.jpg" />
     <Content Include="www\index.html" />
     <Content Include="www\js\app.js" />
-    <Content Include="www\js\controllers.js" />
     <Content Include="www\lib\ionic\css\ionic.css" />
     <Content Include="www\lib\ionic\css\ionic.min.css" />
     <Content Include="www\lib\ionic\fonts\ionicons.svg" />
@@ -1399,7 +1402,6 @@
     <Content Include="www\lib\ionic\js\ionic.min.js" />
     <Content Include="www\templates\cancelorder.html" />
     <Content Include="www\templates\fillorder.html" />
-    <Content Include="www\demos\teledown.html" />
     <Content Include="www\templates\payway.html" />
     <Content Include="www\templates\pickresource.html" />
     <Content Include="www\templates\indexdate.html" />

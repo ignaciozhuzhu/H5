@@ -178,7 +178,35 @@ namespace Trip.JinJiang.H5Web.ajax
             {
             }
         }
-        
+        /// <summary>
+        /// 14.判断手机、邮箱是否已存在
+        /// </summary>
+        public void getvalidateemailortel()
+        {
+            try
+            {
+                string phone = HttpContext.Current.Request["phone"];
+                HttpContext.Current.Response.Write(User.getvalidateEmailOrTel(phone));
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        /// <summary>
+        /// 下单环节的快速注册
+        /// </summary>
+        public void quickregistorder()
+        {
+            try
+            {
+                string xml = HttpContext.Current.Request["xml"];
+                HttpContext.Current.Response.Write(User.quickregistorder(xml));
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
 
         public bool IsReusable
         {

@@ -63,7 +63,7 @@
             position: absolute;
             left: 0%;
             width: 100%;
-            height: 50%;
+            /*height: 100%;*/
             background-color: black;
             z-index: 0;
             -moz-opacity: 0.7;
@@ -81,85 +81,88 @@
     </ion-view>
     <ion-view view-title="选择资源">
         <ion-content>
-            <div class="pickresource">
+            <div class="pickresource" ng-click="costdetailnone($event)">
                 <div class="black_overlay"></div>
                 <div class="fonts13">
-                    <div class="textp10">
-                        <div class="textbold">{{lineTitle}}.</div>
-                        <div class="textgray">出发城市:{{departurePlace}}</div>
-                    </div>
-                    <div class="backdarkblue">
+                    <div class="mytopdiv" >
+                        <div class="textp10">
+                            <div class="textbold">{{lineTitle}}.</div>
+                            <div class="textgray">出发城市:{{departurePlace}}</div>
+                        </div>
+                        <div class="backdarkblue">
 
-                        <div class="groupdatebox" style="float:left;width:33%;">
-                            <div style="padding:4px 4px 2px 4px">
-                                团期
+                            <div class="groupdatebox" style="float:left;width:33%;">
+                                <div style="padding:4px 4px 2px 4px">
+                                    团期
+                                </div>
+                                <div style="padding:2px 4px 4px 4px">
+                                    {{date}}
+                                </div>
                             </div>
-                            <div style="padding:2px 4px 4px 4px">
-                                {{date}}
+                            <div class="adultpricebox" style="float:left;width:33%;">
+                                <div style="padding:4px 4px 2px 4px">
+                                    成人
+                                </div>
+                                <div style="padding:2px 4px 4px 4px">
+                                    ¥ {{minprice}} × {{pnum}}
+                                </div>
                             </div>
-                        </div>
-                        <div class="adultpricebox" style="float:left;width:33%;">
-                            <div style="padding:4px 4px 2px 4px">
-                                成人
+                            <div class="childpricebox" style="float:left;width:33%;">
+                                <div style="padding:4px 4px 2px 4px">
+                                    儿童
+                                </div>
+                                <div style="padding:2px 4px 4px 4px">
+                                    ¥ {{cprice}} × {{cnum}}
+                                </div>
                             </div>
-                            <div style="padding:2px 4px 4px 4px">
-                                ¥ {{minprice}} × {{pnum}}
-                            </div>
-                        </div>
-                        <div class="childpricebox" style="float:left;width:33%;">
-                            <div style="padding:4px 4px 2px 4px">
-                                儿童
-                            </div>
-                            <div style="padding:2px 4px 4px 4px">
-                                ¥ {{cprice}} × {{cnum}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border5"></div>
-                    <div id="divdiff">
-                        <div class="textbold textp10" style="height:40px">
-                            <div style="float:left;width:45%;height:20px">单人房差</div>
-                            <div style="float:left;">¥{{dprice}} × </div>
-                            <div style="float:right;padding-left:5px">人</div>
-                            <div id="sp1" style="float:right"><input type="text" class="spinnerdif" /></div>
                         </div>
                         <div class="border5"></div>
-                    </div>
-                    <div id="divchild">
-                        <div class="textbold textp10" style="height:40px;display:none">
-                            <div style="float:left;width:45%;height:20px">儿童占床/加床</div>
-                            <div style="float:left;">¥{{caddprice}} × </div>
-                            <div style="float:right;padding-left:5px">人</div>
-                            <div id="sp2" style="float:right"><input type="text" class="spinncer" /></div>
+                        <div id="divdiff">
+                            <div class="textbold textp10" style="height:40px">
+                                <div style="float:left;width:45%;height:20px">单人房差</div>
+                                <div style="float:left;">¥{{dprice}} × </div>
+                                <div style="float:right;padding-left:5px">人</div>
+                                <div id="sp1" style="float:right"><input type="text" class="spinnerdif" /></div>
+                            </div>
+                            <div class="border5"></div>
                         </div>
-                        <div class="border5"></div>
-                    </div>
-                    <div class="textbold textp7" style="height:35px;display:none">
-                        <div style="float:left">取消险</div>
-                        <div style="float:left;padding-left:10px"><img src="img/info.png" style="width:12px;" /></div>
-                        <div style="float:right;padding-left:5px"><input id="checkcancel" type="checkbox" /></div>
-                        <div style="float:right;padding-left:5px">¥50/人</div>
-                    </div>
-                    <!--<div class="border1a"></div>-->
-                    <div class="textbold textp7" style="height:35px;display:none">
-                        <div style="float:left">意外险</div>
-                        <div style="float:left;padding-left:10px"><img src="img/info.png" style="width:12px;" /></div>
-                        <div style="float:right;padding-left:5px"><input id="checkaccident" type="checkbox" /></div>
-                        <div style="float:right;padding-left:5px">¥80/人</div>
-                    </div>
-                    <!--<div class="border1"></div>-->
-                    <!--<div class="border5"></div>-->
+                        <div id="divchild">
+                            <div class="textbold textp10" style="height:40px;display:none">
+                                <div style="float:left;width:45%;height:20px">儿童占床/加床</div>
+                                <div style="float:left;">¥{{caddprice}} × </div>
+                                <div style="float:right;padding-left:5px">人</div>
+                                <div id="sp2" style="float:right"><input type="text" class="spinncer" /></div>
+                            </div>
+                            <div class="border5"></div>
+                        </div>
+                        <div class="textbold textp7" style="height:35px;display:none">
+                            <div style="float:left">取消险</div>
+                            <div style="float:left;padding-left:10px"><img src="img/info.png" style="width:12px;" /></div>
+                            <div style="float:right;padding-left:5px"><input id="checkcancel" type="checkbox" /></div>
+                            <div style="float:right;padding-left:5px">¥50/人</div>
+                        </div>
+                        <!--<div class="border1a"></div>-->
+                        <div class="textbold textp7" style="height:35px;display:none">
+                            <div style="float:left">意外险</div>
+                            <div style="float:left;padding-left:10px"><img src="img/info.png" style="width:12px;" /></div>
+                            <div style="float:right;padding-left:5px"><input id="checkaccident" type="checkbox" /></div>
+                            <div style="float:right;padding-left:5px">¥80/人</div>
+                        </div>
+                        <!--<div class="border1"></div>-->
+                        <!--<div class="border5"></div>-->
 
-                    <div class="textbold textp7 usecoupbox" style="height:35px">
-                        <div style="float:left">使用优惠</div>
-                        <div style="float:left;padding:3px 0 0 10px"><img src="img/立减.png" style="width:26px;" /></div>
-                        <div style="float:right;padding-left:5px;color:gray" ng-click="getcoup()"><span class="getcouptext">请选择</span><img src="img/更多2.png" style="width: 7px;margin-left: 5px;" /></div>
-                        <div style="float:right;padding-right:30px" ng-click="nonecoup()">不使用</div>
-                    </div>
+                        <div class="textbold textp7 usecoupbox" style="height:35px">
+                            <div style="float:left">使用优惠</div>
+                            <div style="float:left;padding:3px 0 0 10px"><img src="img/立减.png" style="width:26px;" /></div>
+                            <div style="float:right;padding-left:5px;color:gray" ng-click="getcoup()"><span class="getcouptext">请选择</span><img src="img/更多2.png" style="width: 7px;margin-left: 5px;" /></div>
+                            <div style="float:right;padding-right:30px" ng-click="nonecoup()">不使用</div>
+                        </div>
 
+                    </div>
                     <div class="border1"></div>
                     <div style="height:10px"></div>
-                    <div id="costdetail" style="display:none" onclick="costdetailnone(this)">
+
+                    <div id="costdetail" style="display:none">
                         <div class="textbold textp7" style="height:35px">
                             <div style="float:left">出团费用</div>
                             <div style="float:right;padding-left:5px;color:#ff7200">¥<span id="amountct"></span></div>
@@ -168,22 +171,34 @@
                             <div style="float:left">成人×{{pnum}}</div>
                             <div style="float:right;padding-left:5px">¥{{minprice}}×{{pnum}}</div>
                         </div>
-                        <div class="border1"></div>
+                        <div class="textp7 textgray fonts12 rtbox" style="height:35px">
+                            <div style="float:left">儿童×{{cnum}}</div>
+                            <div style="float:right;padding-left:5px">¥{{cprice}}×{{cnum}}</div>
+                        </div>
+                        <div class="textp7 textgray fonts12 dfcbox" style="height:35px">
+                            <div style="float:left">单房差×{{difnum}}</div>
+                            <div style="float:right;padding-left:5px">¥{{dprice}}×{{difnum}}</div>
+                        </div>
+                        <div class="textp7 textgray fonts12 yhqbox" style="height:35px">
+                            <div style="float:left">优惠券</div>
+                            <div style="float:right;padding-left:5px" class="coupamount"></div>
+                        </div>
                         <div class="textp7 textgray fonts12" style="height:35px;display:none">
                             <div style="float:left">保险费用</div>
                             <div style="float:right;padding-left:5px;color:#ff7200">+ ¥<span id="secureamount"></span></div>
                         </div>
+                        <div class="border1"></div>
                     </div>
 
                     <div class="textbold textp7" style="height:35px">
                         <div style="float:left">
-                            费用总额 
+                            费用总额
                         </div>
-                        <div style="float:right;display:none"><a href="javascript:void(0)" onclick="costdetail(this)">费用明细</a></div>
+                        <div style="float:right;display:block"><a href="javascript:void(0)">费用明细</a></div>  <!--ng-click="costdetail($event)"-->
                         <div style="float:right;padding-right:10px;color:#ff7200">¥<span class="amount"></span></div>
                     </div>
                     <span class="textp7 textgray fonts12">在线支付享受98折优惠（单房差及儿童价不享受）</span>
-                    <a id="nextfill" href=""><div class="bottombutton">下一步，填写订单</div></a>
+                    <a id="nextfill" href="" ng-click="ifcoupandsing()"><div class="bottombutton">下一步，填写订单</div></a>
                 </div>
             </div>
         </ion-content>

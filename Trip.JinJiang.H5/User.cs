@@ -18,6 +18,7 @@ namespace Trip.JinJiang.H5
         private static string userserver = System.Configuration.ConfigurationManager.AppSettings["userserver"];
         private static string jjh5Bserver = System.Configuration.ConfigurationManager.AppSettings["jjh5Bserver"];
         private static string usercoupserver = System.Configuration.ConfigurationManager.AppSettings["usercoupserver"];
+        private static string usercbpserver = System.Configuration.ConfigurationManager.AppSettings["usercbpserver"];
 
         private static string urlregist = userserver + "/vbp/merge/completeRegist";    //注册2(完整注册)
         private static string urllogin = userserver + "/vbp/merge/login";    //登录
@@ -38,7 +39,10 @@ namespace Trip.JinJiang.H5
         //以下 积分,优惠券
         private static string urlMemberScoreInfo = userserver + "/vbp/score/getMemberScoreInfo/"; //查看积分接口
         private static string urlMemberCoupInfo = usercoupserver + "/couponservice/couponTwoInOne/querycoupons/"; //查看优惠券接口
-        private static string urlMemberCoupOrderInfo = userserver + "/cbp/coupon/queryNewCouponRule"; //查看当前可下单优惠券接口
+        private static string urlMemberCoupOrderInfo = usercbpserver + "/cbp/coupon/queryNewCouponRule"; //查看当前可下单优惠券接口
+
+        private static string urlvalidateEmailOrTel = userserver + "/vbp/merge/validateEmailOrTel"; //14.  判断手机、邮箱是否已存在
+
 
         //注册2(完整注册)
         public static string regist(string xml)
@@ -203,8 +207,26 @@ namespace Trip.JinJiang.H5
             return response;
         }
 
-    }
 
+        /// <summary>
+        /// 14.判断手机、邮箱是否已存在
+        /// </summary>
+        public static string getvalidateEmailOrTel(string phone)
+        {
+            var response = HttpUtil.Post(phone, urlvalidateEmailOrTel, contentType: "application/xml");
+            return response;
+        }
+
+        /// <summary>
+        /// 下单环节的快速注册
+        /// </summary>
+        public static string quickregistorder(string xml)
+        {
+            var response = HttpUtil.Post(xml, urlquickregist, contentType: "application/xml");
+            return response;
+        }
+
+    }
 
 }
 
