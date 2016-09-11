@@ -340,6 +340,7 @@
                 //设置客户cookie信息.
                 setCookie('mcMemberCode', jsonObj.webMemberRegisterReturnDto.mcMemberCode, 1);
                 setCookie('phonenum', mobile, 1);
+                setCookie('fullName', jsonObj.webMemberRegisterReturnDto.mcMemberCode, 1);
                 //setCookie('fullName', jsonObj.memberMergeDto.fullName, 1);
                 //setCookie('cdsId', jsonObj.memberMergeDto.cdsId, 1);
 
@@ -1138,6 +1139,9 @@
     $http.get(nghttp).success(function (response) {
         layer.close(mylayeruiwait);
         $scope.collectlist = response.ds;
+        if (response.ds.length == 0) {
+            layermyui('暂无收藏');
+        }
     }).error(function (data, status, headers, config) {
         layermyui('暂无收藏');
         layer.close(mylayeruiwait);
@@ -1147,6 +1151,7 @@
     $scope.listhistorygoback = function () {
         window.history.back();
     }
+
 
 }])
 

@@ -257,7 +257,10 @@ namespace Trip.JinJiang.H5
                 }
                 jsonString.Append("},");
             }
-            jsonString.Remove(jsonString.Length - 1, 1);
+            if (drc.Count > 0)
+            {
+                jsonString.Remove(jsonString.Length - 1, 1);
+            }
             jsonString.Append("]");
             return jsonString.ToString();
         }
